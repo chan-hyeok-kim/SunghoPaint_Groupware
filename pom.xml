@@ -62,6 +62,27 @@
             <version>3.5.1</version>
         </dependency>
 		
+		<!-- tiles-jsp -->
+	<dependency>
+	    <groupId>org.apache.tiles</groupId>
+	    <artifactId>tiles-jsp</artifactId>
+	    <version>3.0.8</version>
+	</dependency>
+	
+	<!-- tiles/tiles-el -->
+	<dependency>
+	    <groupId>org.apache.tiles</groupId>
+	    <artifactId>tiles-el</artifactId>
+	    <version>3.0.8</version>
+	</dependency>
+
+	<!-- tiles-api -->
+	<dependency>
+	    <groupId>org.apache.tiles</groupId>
+	    <artifactId>tiles-api</artifactId>
+	    <version>3.0.8</version>
+	</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>

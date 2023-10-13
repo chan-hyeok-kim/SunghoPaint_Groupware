@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+  <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+          </div>
+          </div>
 </body>
 </html>
