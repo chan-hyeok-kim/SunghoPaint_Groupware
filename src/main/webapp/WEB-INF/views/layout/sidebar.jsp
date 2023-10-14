@@ -6,7 +6,7 @@
     <li class="nav-item nav-profile">
       <a href="#" class="nav-link">
         <div class="nav-profile-image">
-          <img src="assets/images/faces/face1.jpg" alt="profile">
+          <img src="/images/faces/face1.jpg" alt="profile">
           <span class="login-status online"></span>
           <!--change to offline or busy as needed-->
         </div>
@@ -18,7 +18,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="/">
         <span class="menu-title">Dashboard</span>
         <i class="mdi mdi-home menu-icon"></i>
       </a>
@@ -79,9 +79,9 @@
     <li class="nav-item sidebar-actions">
       <span class="nav-link">
         <div class="border-bottom">
-          <h6 class="font-weight-normal mb-3">Projects</h6>
+          <h6 class="font-weight-normal mb-3">전자결재</h6>
         </div>
-        <button class="btn btn-block btn-lg btn-gradient-primary mt-4">+ Add a project</button>
+        <button onclick="location.href='/approval/home'" class="btn btn-block btn-lg btn-gradient-primary mt-4">새 결재진행</button>
         <div class="mt-4">
           <div class="border-bottom">
             <p class="text-secondary">Categories</p>

@@ -18,7 +18,11 @@
 	</definition>
 
     <definition name="notice/list" extends="layout">
-	  <put-attribute name="body" value="/WEB-INF/views/noticejsp"/>
+	  <put-attribute name="body" value="/WEB-INF/views/notice/list.jsp"/>
+	</definition>
+	
+	<definition name="approval/home" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/approval/home.jsp"/>
 	</definition>
 	
 </tiles-definitions>

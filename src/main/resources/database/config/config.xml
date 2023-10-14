@@ -8,7 +8,7 @@
    <typeAliases>
    
    
-   
+   <typeAlias type="com.ham.len.approval.EmployeeVO" alias="EmployeeVO"/>
    
    
    
