@@ -26,7 +26,7 @@
   #tree-table-div{
       margin: 10px;
   }
-
+  
 </style>
 </head>
 <body id="page-top">
@@ -41,20 +41,54 @@
 				<div class="container-fluid">
 				  
 				  <h1>전자 결재 홈</h1>
+				  
+				    <div class="card">
+				  <div class="card-body">
+				    <table class="table-bordered">
+				        <thead>
+				           <tr>
+				             <th>선택</th>
+				             <th>기안일자</th>
+				             <th>제목</th>
+				             <th>구분</th>
+				             <th>기안자</th>
+				             <th>결재자</th>
+				             <th>진행상태</th>
+				             <th>결재 확인</th>
+				           </tr>
+				        </thead>
+				        <tbody>
+				        <c:forEach items="${list}" var="VO" varStatus="i">
+				           <tr>
+				             <td><input type="checkbox"></td>
+				             <td>{VO.approvalDate}</td>
+				             <td>{VO.approvalTitle}</td>
+				             <td>{VO.approvalContents}</td>
+				             <td>{VO.drafter}</td>
+				             <td>{VO.lastApprover}</td>
+				             <c:if test="${list[i.index].approvalStatusCd eq R001}">
+				             <td>기안중</td>
+				             </c:if>
+				             <td><a>기안서 확인</a></td>
+				           </tr>
+				         </c:forEach>
+				        </tbody>
+				      
+				    </table>
+				  </div>
+				  </div>
+				  
+				  
+				  <!-- Button List  -->
 				  <div>
 				  <button> 새 결재 진행</button>
 				  
-				  
-			
-			
-			
-			
 				  <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#approvalModal">
   결재선 설정
 </button>
 
-
+  </div>
 
 
 <!-- Sign -->
@@ -63,7 +97,7 @@
   </div> 
   
   
-  </div>
+
   
   
 
