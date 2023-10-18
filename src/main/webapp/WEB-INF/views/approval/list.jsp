@@ -26,6 +26,10 @@
   #tree-table-div{
       margin: 10px;
   }
+  #approval-table{
+      text-align: center; 
+      width: 100%
+  }
   
 </style>
 </head>
@@ -44,7 +48,7 @@
 				  
 				    <div class="card">
 				  <div class="card-body">
-				    <table class="table-bordered">
+				    <table class="table-bordered" id="approval-table">
 				        <thead>
 				           <tr>
 				             <th>선택</th>
@@ -65,9 +69,9 @@
 				             <td>${vo.approvalTitle}</td>
 				             <td>${vo.approvalContents}</td>
 				             <td>${vo.drafter}</td>
-				             <td>${vo.lastApprover}</td>
+				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
 				             <c:choose>
-				             <c:when test="${vo.approvalStatusCd eq R001}">
+				             <c:when test="${vo.approvalStatusCd eq 'R001'}">
 				             <td>기안중</td>
 				             </c:when>
 				             </c:choose>
@@ -81,12 +85,34 @@
 				  </div>
 				  
 				  
+				  <!-- pagination -->
+				  <div style="text-align: center">
+				  <nav aria-label="Page navigation example" style="display: inline-block;">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <i class="mdi mdi-arrow-left-drop-circle"></i>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <i class="mdi mdi-arrow-right-drop-circle"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
+				</div>
+				  
+				  
 				  <!-- Button List  -->
 				  <div>
 				  <button> 새 결재 진행</button>
 				  
 				  <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#approvalModal">
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#approvalModal">
   결재선 설정
 </button>
 
@@ -266,7 +292,7 @@ function loadFile(input) {
     console.log();
     $('#small-image-show').append('<img src='+fileUrl+' width="60px" height="40px">')
     
-    
+};
     //작은 이미지
    
     
@@ -283,7 +309,10 @@ function loadFile(input) {
 
            //기존 파일 이름 지우기
     } */
-};
+
+let cdcheck=$('#check').attr('data-check');
+console.log(cdcheck);
+
 </script>
 </body>
 </html>

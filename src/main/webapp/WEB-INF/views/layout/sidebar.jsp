@@ -81,7 +81,7 @@
         <div class="border-bottom">
           <h6 class="font-weight-normal mb-3">전자결재</h6>
         </div>
-        <button onclick="location.href='/approval/list'" class="btn btn-block btn-lg btn-gradient-primary mt-4">새 결재진행</button>
+        <button onclick="location.href='/approval/list'" class="btn btn-block btn-lg btn-info mt-4">내 결재 관리</button>
         <div class="mt-4">
           <div class="border-bottom">
             <p class="text-secondary">Categories</p>
