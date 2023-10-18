@@ -61,9 +61,9 @@
 				        <c:forEach items="${list}" var="VO" varStatus="i">
 				           <tr>
 				             <td><input type="checkbox"></td>
-				             <td>{VO.approvalDate}</td>
-				             <td>{VO.approvalTitle}</td>
-				             <td>{VO.approvalContents}</td>
+				             <td>{VO.approval_Date}</td>
+				             <td>{VO.approval_Title}</td>
+				             <td>{VO.approval_Contents}</td>
 				             <td>{VO.drafter}</td>
 				             <td>{VO.lastApprover}</td>
 				             <c:if test="${list[i.index].approvalStatusCd eq R001}">

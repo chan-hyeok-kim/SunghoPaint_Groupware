@@ -26,7 +26,7 @@ public class ApprovalController {
 	@GetMapping("list")
 	public void getList(Pager pager,Model model) throws Exception{
 		 List<ApprovalVO> ar = approvalService.getList(pager);
-		 log.info("========",);
+		 log.warn("========{}========",ar);
 		 model.addAttribute("list", ar);
 		 
 	}
