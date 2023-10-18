@@ -11,10 +11,10 @@ import lombok.ToString;
 @ToString
 public class ApprovalVO {
 	
-	private Long approval-no;
-	private String employee_id;
-	private String approval_title;
-	private String approval_contents;
+	private Long approvalNo;
+	private String employeeId;
+	private String approvalTitle;
+	private String approvalContents;
 	private String approvalStatusCd;
 	private Date approvalStartDate;
 	private Date approvalEndDate;

@@ -58,17 +58,19 @@
 				           </tr>
 				        </thead>
 				        <tbody>
-				        <c:forEach items="${list}" var="VO" varStatus="i">
+				        <c:forEach items="${list}" var="vo" varStatus="i">
 				           <tr>
 				             <td><input type="checkbox"></td>
-				             <td>{VO.approval_Date}</td>
-				             <td>{VO.approval_Title}</td>
-				             <td>{VO.approval_Contents}</td>
-				             <td>{VO.drafter}</td>
-				             <td>{VO.lastApprover}</td>
-				             <c:if test="${list[i.index].approvalStatusCd eq R001}">
+				             <td>${vo.approvalStartDate}</td>
+				             <td>${vo.approvalTitle}</td>
+				             <td>${vo.approvalContents}</td>
+				             <td>${vo.drafter}</td>
+				             <td>${vo.lastApprover}</td>
+				             <c:choose>
+				             <c:when test="${vo.approvalStatusCd eq R001}">
 				             <td>기안중</td>
-				             </c:if>
+				             </c:when>
+				             </c:choose>
 				             <td><a>기안서 확인</a></td>
 				           </tr>
 				         </c:forEach>

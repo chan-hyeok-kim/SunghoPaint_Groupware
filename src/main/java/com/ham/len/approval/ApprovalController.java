@@ -24,10 +24,10 @@ public class ApprovalController {
 	private ApprovalService approvalService;
 	
 	@GetMapping("list")
-	public void getList(Pager pager,Model model) throws Exception{
+	public String getList(Pager pager,Model model) throws Exception{
 		 List<ApprovalVO> ar = approvalService.getList(pager);
 		 log.warn("========{}========",ar);
 		 model.addAttribute("list", ar);
-		 
+		 return "approval/list";
 	}
 }
