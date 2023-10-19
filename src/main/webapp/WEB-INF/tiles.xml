@@ -25,4 +25,11 @@
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
 	</definition>
 	
+	
+	<!-- 성호 -->
+	<definition name="sales/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/list.jsp"/>
+	</definition>
+	<!-- 성호 -->
+	
 </tiles-definitions>
