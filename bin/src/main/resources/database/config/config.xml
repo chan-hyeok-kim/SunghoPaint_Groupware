@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+   <typeAliases>
+   
+   
+   <typeAlias type="com.ham.len.humanresource.HumanResourceVO" alias="HumanResourceVO"/>
+   <typeAlias type="com.ham.len.commons.Pager" alias="Pager"/>
+   
+   <typeAlias type="com.ham.len.approval.ApprovalVO" alias="ApprovalVO"/>
+   
+   
+   
+   
+   
+   
+   </typeAliases>
+</configuration>
