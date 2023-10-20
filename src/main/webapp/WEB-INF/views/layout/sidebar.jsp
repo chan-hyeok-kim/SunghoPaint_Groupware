@@ -80,11 +80,8 @@
       <span class="nav-link">
       
         <div class="border-bottom">
-        
-          <h6 class="font-weight-normal mb-3">전자결재</h6>
         </div>
-        <button onclick="location.href='/approval/list'" class="btn btn-block btn-lg btn-info mt-4">내 결재 관리</button>
-        
+     
         <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#approval-general-pages" aria-expanded="false" aria-controls="general-pages">
         <span class="menu-title">전자결재</span>
@@ -93,8 +90,8 @@
       </a>
       <div class="collapse" id="approval-general-pages">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html">내 결재 관리</a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> 기안서 작성 </a></li>
+          <li class="nav-item"> <a class="nav-link" href="/approval/list">내 결재 관리</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/approval/add"> 기안서 작성 </a></li>
           <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> 기안서 통합관리  </a></li>
         </ul>
       </div>

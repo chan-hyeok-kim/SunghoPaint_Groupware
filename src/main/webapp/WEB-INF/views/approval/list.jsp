@@ -8,115 +8,182 @@
 <title>Insert title here</title>
 
 
- <link rel="stylesheet" href="/css/demo.css" type="text/css">
-  <link rel="stylesheet" href="/css/zTreeStyle/zTreeStyle.css" type="text/css">
+ 
   
   
 <style type="text/css">
-  #tree_list_add{
-      margin-left: 20px;
-
-  }
-  #tree-table{
-      border: 1px solid black;
-      height: 360px;
-      width: 220px;
-      padding: 10px;
-  }
-  #tree-table-div{
-      margin: 10px;
-  }
-  #approval-table{
-      text-align: center; 
-      width: 100%
-  }
-  
-  .nav-tabs>li:before, .nav-tabs>li:after {
-    content: " ";
-    display: block;
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 12px;
-    background-color: #f7f7f7;
-    transition: all 250ms ease;
+  #tree_list_add {
+	margin-left: 20px;
 }
 
-  .nav-tabs>li {
-    float: left;
-    position: relative;
-    cursor: pointer;
-    z-index: 2;
-    transition: all 250ms ease;
-    padding: 0;
-    margin: 5px 12px -1px 0;
-    background-color: #f7f7f7;
-    border-top: 1px solid #d4d4d4;
-    border-bottom: 1px solid #d4d4d4;
-    list-style: none;
-}
-   .nav-tabs>li>a {
-    color: #999;
-    display: block;
-    padding: 4px 10px 1px 11px;
-    text-decoration: none;
+#tree-table {
+	border: 1px solid black;
+	height: 360px;
+	width: 220px;
+	padding: 10px;
 }
 
-.nav-tabs>li:after {
-    left: -3px;
-    -ms-transform: skew(-30deg,0deg);
-    transform: skew(-30deg,0deg);
-    box-shadow: #d4d4d4 -1px 1px 0;
+#tree-table-div {
+	margin: 10px;
+}
+
+#approval-table {
+	text-align: center;
+	width: 100%
+}
+
+.nav-tabs>li:before, .nav-tabs>li:after {
+	content: " ";
+	display: block;
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 12px;
+	background-color: #f7f7f7;
+	transition: all 250ms ease;
 }
 
 .nav-tabs>li {
-    border-radius: 11px 11px 0 0; 
-}
-.nav-tabs>li:before {
-    right: -3px;
-    -ms-transform: skew(30deg,0deg);
-    transform: skew(30deg,0deg);
-    box-shadow: #d4d4d4 1px 1px 0;
+	float: left;
+	position: relative;
+	cursor: pointer;
+	z-index: 2;
+	transition: all 250ms ease;
+	padding: 0;
+	margin: 5px 12px -1px 0;
+	background-color: #f7f7f7;
+	border-top: 1px solid #d4d4d4;
+	border-bottom: 1px solid #d4d4d4;
+	list-style: none;
 }
 
-.nav-tabs>li:before {
-    border-radius: 0 2px 0 0;
+.nav-tabs>li>a {
+	color: #999;
+	display: block;
+	padding: 4px 10px 1px 11px;
+	text-decoration: none;
 }
+
 .nav-tabs>li:after {
-    border-radius: 2px 0 0 0;
-}
-.link-tab:hover{
-    background: #f7f7f7;
+	left: -4px;
+	transform: skew(-25deg, 0deg);
+	box-shadow: #d4d4d4 -1px 1px 0;
 }
 
+.nav-tabs>li {
+	border-radius: 7px 7px 0 0;
+}
+
+.nav-tabs>li:before {
+	right: -4px;;
+	transform: skew(25deg, 0deg);
+	box-shadow: #d4d4d4 1px 1px 0;
+}
+
+.nav-tabs>li:before {
+	border-radius: 0 2px 0 0;
+}
+
+.nav-tabs>li:after {
+	border-radius: 2px 0 0 0;
+}
+
+.link-tab:hover {
+	background: #f7f7f7;
+}
+
+.wrapper-toolbar {
+	padding: 10px 10px;
+}
+
+ul.nav-tabs {
+	border-bottom: 1px solid #d4d4d4;
+}
+
+#grid-top-date {
+	margin: 4px 0;
+	line-height: 1.7;
+	position: relative;
+	display: inline-block;
+}
+
+#top-search-bar {
+	width: 200px;
+	align-content: flex-end;
+	height: 18.53px;
+}
+
+#top-search-btn {
+	width: 77px;
+	height: 20px;
+	padding: 0px;
+	height: 32.06px;
+}
+
+#top-search-select {
+	width: 77px;
+	height: 20px;
+	padding: 0px;
+	height: 32.06px;
+}
 </style>
 </head>
 <body id="page-top">
 	<div id="wrapper">
-		
-		
+
+
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
-			<div class="wrapper-toolbar">
-			내 결재 관리
-			</div>
-			<ul class="nav-tabs">
-			   <li><a class="link-tab">전체</a></li>
-			   <li><a class="link-tab">기안중</a></li>
-			   <li><a class="link-tab">진행중</a></li>
-			   <li><a class="link-tab">반려</a></li>
-			   <li><a class="link-tab">결재</a></li>			   
-			</ul>
-			<div id="content">
+			<div class="card">
+				<div class="card-body">
+
+					<div class="wrapper-toolbar">
+
+						내 결재 관리 <span
+							style="margin-left: 700px; text-align: right; width: 700px;">
+							<form class="form-inline"
+								style="width: 700px; display: inline-block;">
+
+								<!-- 검색 설정 -->
+								<select class="btn btn-gradient-light" id="top-search-select">
+									<option selected="selected">제목</option>
+									<option>구분</option>
+									<option>결재자</option>
+								</select> 
+								
+								
+								<input style="display: inline-block;" id="top-search-bar"
+									class="form-control" type="search" placeholder="입력 후 [Enter]"
+									aria-label="Search">
+								<button id="top-search-btn" class="btn btn-info" type="submit">검색</button>
+
+							</form>
+						</span>
+					</div>
+
+					<ul class="nav-tabs">
+						<li><a class="link-tab">전체</a></li>
+						<li><a class="link-tab">기안중</a></li>
+						<li><a class="link-tab">진행중</a></li>
+						<li><a class="link-tab">반려</a></li>
+						<li><a class="link-tab">결재</a></li>
+					</ul>
 
 
-				<div class="container-fluid">
+					<div
+						style="text-align: right; padding-top: 20px; padding-right: 10px">
+						<div id="grid-top-date"></div>
+					</div>
+					<div id="content">
+
+
+						<div class="container-fluid">
+
+
 				  
 				  
-				  
-				    <div class="card">
-				  <div class="card-body">
-				    <table class="table-bordered" id="approval-table">
+				
+				    <table class="table-bordered mt-2" id="approval-table">
 				        <thead>
 				           <tr>
 				             <th>선택</th>
@@ -154,7 +221,7 @@
 				  
 				  
 				  <!-- pagination -->
-				  <div style="text-align: center">
+				  <div style="text-align: center; margin: 20px 20px">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
   <ul class="pagination">
     <li class="page-item">
@@ -172,17 +239,17 @@
     </li>
   </ul>
 </nav>
+
+  <!-- Button List  -->
+				  <div style="float: left;">
+				  <button class="btn btn-info" onclick="location.href='/approval/add'">새 결재 진행</button>
+				 
 				</div>
+			
 				  
 				  
-				  <!-- Button List  -->
-				  <div>
-				  <button> 새 결재 진행</button>
-				  
-				  <!-- Button trigger modal -->
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#approvalModal">
-  결재선 설정
-</button>
+				 
+
 
   </div>
 
@@ -199,67 +266,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="approvalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
-    <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">결재양식 선택</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       
-       <div>
-         <input type="search">
-         <input type="radio"> 이름
-         <input type="radio"> 부서 
-       </div>
-       
-  <div style="display: flex; float:left; width:40%;">
-       <div style="">
-       
-       <ul id="tree" class="ztree"></ul>
-       </div>
-       
-       <div style="margin-left: 20px; " id="tree_list_empty">
-         <ul id="tree_list" class="ztree"></ul>
-       
-       </div>
-       </div>
-       <div style="float:right; width: 40%">
-       <div style="float:left;">
-           <button type="button" class="btn btn-primary" id="tree_list_add">결재  > </button>
-       </div>
-       
-       <div style="overflow:auto; float:left;" id="tree-table-div">
-          <table id="tree-table">
-             <tbody id="tree-table-body">
-                 <tr style="height: 10%">
-                    <td>결재</td>
-                    <td>이대리<br>디자인팀 이대리</td>
-                 </tr>
-                 
-             </tbody>
-          </table>
-       </div>
-       </div>
-       
-  
-  
-       
-  </div>     
-  
-  
-       
-      </div>
-      <div class="modal-footer" style="background: white;">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">확인</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 				  
 
 <!-- Sign-Modal -->
@@ -313,7 +320,7 @@
     </div>
   </div>
 
-					
+<!-- modal end -->			
 	
 
 
@@ -327,7 +334,8 @@
 			
 
 
-	<script src="/js/ztree/paint-tree.js"></script>
+	
+	<script src="/js/commons/list-date.js"></script>
 	
 <script type="text/javascript">
 function loadFile(input) {

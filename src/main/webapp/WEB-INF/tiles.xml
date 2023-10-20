@@ -27,4 +27,12 @@
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
 	</definition>
 	
+	<definition name="approval/listEx" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/approval/listEx.jsp"/>
+	</definition>
+	
+	<definition name="approval/add" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/approval/add.jsp"/>
+	</definition>
+	
 </tiles-definitions>
