@@ -140,7 +140,7 @@ ul.nav-tabs {
 					<div class="wrapper-toolbar">
 
 						내 결재 관리 <span
-							style="margin-left: 700px; text-align: right; width: 700px;">
+							style="margin-left: 650px; text-align: right; width: 700px;">
 							<form class="form-inline"
 								style="width: 700px; display: inline-block;">
 
