@@ -1,4 +1,4 @@
-package com.ham.len.humanresource;
+package com.ham.len.humanResource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,13 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@RequestMapping("/humanResource/*")
 public class HumanResourceController {
 	@Autowired
 	private HumanResourceService humanResourceService;
 	
-	@GetMapping("login")
+	@GetMapping("/login")
 	public String getLogin(@ModelAttribute HumanResourceVO humanResourceVO) {
-		return "humanResource/login";
-	}	
+		return "login";
+	}
 }

@@ -1,5 +1,7 @@
 package com.ham.len.config;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.ham.len.humanresource.HumanResourceService;
+import com.ham.len.humanResource.HumanResourceService;
 
 @Configuration
 @EnableWebSecurity
@@ -38,17 +40,22 @@ public class SecurityConfig {
 			.authorizeHttpRequests()
 				.and()
 			.formLogin()
-				.loginPage("/humanResource/login")
+				.loginPage("/login")
 				.defaultSuccessUrl("/")
-				.failureUrl("/humanResource/login")
+				.failureUrl("/login")
 				.usernameParameter("employeeID")
 				.permitAll()
 				.and()
 			.logout()
-				.logoutUrl("/humanResource/logout")
+				.logoutUrl("/logout")
 				.logoutSuccessUrl("/")
 				.invalidateHttpSession(true)
 				.deleteCookies("JSESSIONID")
+				.and()
+			.rememberMe()
+				.tokenValiditySeconds(604800) // 일주일
+				.key(UUID.randomUUID().toString())
+				.userDetailsService(humanResourceService)
 				.and();
 		
 		return httpSecurity.build();

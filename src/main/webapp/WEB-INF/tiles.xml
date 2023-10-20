@@ -26,8 +26,7 @@
 	</definition>
 	
 	<!-- Kmj -->
-	<definition name="humanResource/login" template="/WEB-INF/views/humanResource/login.jsp">
-		
+	<definition name="login" template="/WEB-INF/views/login.jsp">
    </definition>
 	
 </tiles-definitions>

@@ -37,8 +37,8 @@
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="pages/icons/mdi.html">
-        <span class="menu-title">Icons</span>
+      <a class="nav-link" href="/attendance">
+        <span class="menu-title">근태 관리</span>
         <i class="mdi mdi-contacts menu-icon"></i>
       </a>
     </li>

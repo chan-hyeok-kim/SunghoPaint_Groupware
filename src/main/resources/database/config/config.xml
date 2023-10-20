@@ -8,13 +8,13 @@
    <typeAliases>
    
    
-   <typeAlias type="com.ham.len.humanresource.HumanResourceVO" alias="HumanResourceVO"/>
-   <typeAlias type="com.ham.len.commons.Pager" alias="Pager"/>
+	   <typeAlias type="com.ham.len.humanResource.HumanResourceVO" alias="HumanResourceVO"/>
+	   <typeAlias type="com.ham.len.commons.Pager" alias="Pager"/>
+	   
+	   <typeAlias type="com.ham.len.approval.ApprovalVO" alias="ApprovalVO"/>
    
-   <typeAlias type="com.ham.len.approval.ApprovalVO" alias="ApprovalVO"/>
    
-   
-   
+		<typeAlias type="java.util.List" alias="List" />
    
    
    

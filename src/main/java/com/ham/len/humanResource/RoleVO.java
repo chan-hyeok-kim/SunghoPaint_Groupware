@@ -1,4 +1,4 @@
-package com.ham.len.humanresource;
+package com.ham.len.humanResource;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class RoleVO {
-	private Long roleNum;
+	private int roleNum;
 	private String roleName;
 }

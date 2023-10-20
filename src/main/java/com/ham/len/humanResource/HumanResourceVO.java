@@ -1,4 +1,4 @@
-package com.ham.len.humanresource;
+package com.ham.len.humanResource;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -44,7 +44,6 @@ public class HumanResourceVO implements UserDetails {
 	private String modId;
 	private java.util.Date modDate;
 	private String modMenu;
-	
 	private List<RoleVO> roles;
 	
 	@Override
@@ -62,8 +61,6 @@ public class HumanResourceVO implements UserDetails {
 		
 		return authorities;
 	}
-	
-	// ↓ 아래 메서드들의 반환값은 전부 true여야 한다.
 	
 	@Override
 	public boolean isAccountNonExpired() {
