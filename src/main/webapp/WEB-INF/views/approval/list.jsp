@@ -31,6 +31,64 @@
       width: 100%
   }
   
+  .nav-tabs>li:before, .nav-tabs>li:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 12px;
+    background-color: #f7f7f7;
+    transition: all 250ms ease;
+}
+
+  .nav-tabs>li {
+    float: left;
+    position: relative;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 250ms ease;
+    padding: 0;
+    margin: 5px 12px -1px 0;
+    background-color: #f7f7f7;
+    border-top: 1px solid #d4d4d4;
+    border-bottom: 1px solid #d4d4d4;
+    list-style: none;
+}
+   .nav-tabs>li>a {
+    color: #999;
+    display: block;
+    padding: 4px 10px 1px 11px;
+    text-decoration: none;
+}
+
+.nav-tabs>li:after {
+    left: -3px;
+    -ms-transform: skew(-30deg,0deg);
+    transform: skew(-30deg,0deg);
+    box-shadow: #d4d4d4 -1px 1px 0;
+}
+
+.nav-tabs>li {
+    border-radius: 11px 11px 0 0; 
+}
+.nav-tabs>li:before {
+    right: -3px;
+    -ms-transform: skew(30deg,0deg);
+    transform: skew(30deg,0deg);
+    box-shadow: #d4d4d4 1px 1px 0;
+}
+
+.nav-tabs>li:before {
+    border-radius: 0 2px 0 0;
+}
+.nav-tabs>li:after {
+    border-radius: 2px 0 0 0;
+}
+.link-tab:hover{
+    background: #f7f7f7;
+}
+
 </style>
 </head>
 <body id="page-top">
@@ -39,12 +97,22 @@
 		
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
+			<div class="wrapper-toolbar">
+			내 결재 관리
+			</div>
+			<ul class="nav-tabs">
+			   <li><a class="link-tab">전체</a></li>
+			   <li><a class="link-tab">기안중</a></li>
+			   <li><a class="link-tab">진행중</a></li>
+			   <li><a class="link-tab">반려</a></li>
+			   <li><a class="link-tab">결재</a></li>			   
+			</ul>
 			<div id="content">
 
 
 				<div class="container-fluid">
 				  
-				  <h1>전자 결재 홈</h1>
+				  
 				  
 				    <div class="card">
 				  <div class="card-body">

@@ -39,7 +39,7 @@
       <div class="content-wrapper">
       <tiles:insertAttribute name="body"/>
           
-       <!-- content-wrapper ends -->
+       
       
       <tiles:insertAttribute name="footer"/>
       

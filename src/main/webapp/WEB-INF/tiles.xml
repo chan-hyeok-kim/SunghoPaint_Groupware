@@ -11,6 +11,8 @@
 		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/>
 	    <put-attribute name="body" value="" />
 	</definition>
+	
+
 
 	<!-- controller view 받은 후 -->
 	<definition name="index" extends="layout">

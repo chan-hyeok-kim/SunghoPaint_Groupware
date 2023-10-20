@@ -30,4 +30,6 @@ public class ApprovalController {
 		 model.addAttribute("list", ar);
 		 return "approval/list";
 	}
+	
+	
 }
