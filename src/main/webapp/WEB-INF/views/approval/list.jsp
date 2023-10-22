@@ -229,12 +229,12 @@ ul.nav-tabs {
       </a>
     </li>
     
-    <c:forEach begin="${pager.startNum}" end="${pager.endNum}" var="i">
+    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
     <li class="page-item"><a class="page-link" href="/approval/getList?page=${i}">${i}</a></li>
     </c:forEach>
     
     <li class="page-item ${pager.next?'':'disabled'}">
-      <a class="page-link" href="/approval/getList?page=${endNum+1}" aria-label="Next">
+      <a class="page-link" href="/approval/getList?page=${lastNum+1}" aria-label="Next">
         <i class="mdi mdi-arrow-right-drop-circle"></i>
       </a>
     </li>
