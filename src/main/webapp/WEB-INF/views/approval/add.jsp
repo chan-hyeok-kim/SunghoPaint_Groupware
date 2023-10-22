@@ -47,8 +47,11 @@
 	padding: 10px 0 0 10px;
 }
 
-.input-date {
-	
+
+.material-icons{
+      padding: 0px;
+      height: 30px;
+      width: 30px;
 }
 </style>
 
@@ -159,10 +162,14 @@
 				<div class="modal-body">
 
 					<div>
-						<input type="search"> <input type="radio"> 이름 <input
-							type="radio"> 부서
+					<form action="GET">
+						 <input type="radio"> 이름 
+						 <input type="radio"> 부서
+						 <input type="search">
+						 <button type="submit" class="btn btn-info material-icons">search</span>
+					</form>
 					</div>
-
+                    
 					<div style="display: flex; float: left; width: 40%;">
 						<div style="">
 

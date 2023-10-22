@@ -6,15 +6,16 @@
   
 <mapper namespace="com.ham.len.approval.ApprovalDAO">
 
-   <select id="getList" resultType="ApprovalVO" parameterType="Pager">
+   <select id="getTypeList" parameterType="ApprovalTypeVo">
         SELECT * 
-          FROM APPROVAL
-         ORDER BY APPROVAL_NO DESC
+          FROM APPROVALTYPE
+         ORDER BY APPROVAL_TYPE_NO DESC
          LIMIT #{startRow},#{lastRow}
    </select>
    
-   
-   
-   
+  
+   <insert id="setAdd" parameterType="ApprovalTypeVO">
+      
+   </insert>
 
 </mapper>

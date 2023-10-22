@@ -19,7 +19,9 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="/images/favicon.ico" />
    
-   
+   <!-- Google Icon -->
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
    
 
 <script type="text/javascript" src="/js/ztree/jquery-1.4.4.min.js"></script>

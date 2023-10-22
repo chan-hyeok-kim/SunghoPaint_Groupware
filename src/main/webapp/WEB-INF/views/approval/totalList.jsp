@@ -223,18 +223,16 @@ ul.nav-tabs {
 				  <div style="text-align: center; margin: 20px 20px">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
   <ul class="pagination">
-    <li class="page-item ${pager.pre?'':'disabled'}">
-      <a class="page-link" href="/approval/getList?page=${startNum-1}" aria-label="Previous">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
         <i class="mdi mdi-arrow-left-drop-circle"></i>
       </a>
     </li>
-    
-    <c:forEach begin="${pager.startNum}" end="${pager.endNum}" var="i">
-    <li class="page-item"><a class="page-link" href="/approval/getList?page=${i}">${i}</a></li>
-    </c:forEach>
-    
-    <li class="page-item ${pager.next?'':'disabled'}">
-      <a class="page-link" href="/approval/getList?page=${endNum+1}" aria-label="Next">
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
         <i class="mdi mdi-arrow-right-drop-circle"></i>
       </a>
     </li>

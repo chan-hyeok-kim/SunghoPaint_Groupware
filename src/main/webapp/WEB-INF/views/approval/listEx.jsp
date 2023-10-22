@@ -141,10 +141,9 @@ ul.nav-tabs {
 
 					<div class="wrapper-toolbar">
 
-						내 결재 관리 <span
-							style="margin-left: 700px; text-align: right; width: 700px;">
-							<form class="form-inline"
-								style="width: 700px; display: inline-block;">
+						<div style="float:left">내 결재 관리</div> 
+						<div style="text-align: right;">
+							<form class="form-inline">
 
 								<!-- 검색 설정 -->
 								<select class="btn btn-gradient-light" id="top-search-select">
@@ -160,7 +159,7 @@ ul.nav-tabs {
 								<button id="top-search-btn" class="btn btn-info" type="submit">검색</button>
 
 							</form>
-						</span>
+						</div>
 					</div>
 
 					<ul class="nav-tabs">

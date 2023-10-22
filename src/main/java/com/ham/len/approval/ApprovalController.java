@@ -31,12 +31,20 @@ public class ApprovalController {
 		 return "approval/list";
 	}
 	
-	@GetMapping("list2")
+	@GetMapping("listEx")
 	public String getListEx(Pager pager,Model model) throws Exception{
 		 List<ApprovalVO> ar = approvalService.getList(pager);
 		 log.warn("========{}========",ar);
 		 model.addAttribute("list", ar);
 		 return "approval/listEx";
+	}
+	
+	@GetMapping("totalList")
+	public String getTotalList(Pager pager,Model model) throws Exception{
+		 List<ApprovalVO> ar = approvalService.getList(pager);
+		 log.warn("========{}========",ar);
+		 model.addAttribute("list", ar);
+		 return "approval/list";
 	}
 	
 	@GetMapping("add")

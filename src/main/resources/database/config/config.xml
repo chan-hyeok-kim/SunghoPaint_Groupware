@@ -12,7 +12,7 @@
    <typeAlias type="com.ham.len.commons.Pager" alias="Pager"/>
    
    <typeAlias type="com.ham.len.approval.ApprovalVO" alias="ApprovalVO"/>
-   
+   <typeAlias type="com.ham.len.approval.ApprovalTypeVO" alias="ApprovalTypeVO"/>
    
    
    

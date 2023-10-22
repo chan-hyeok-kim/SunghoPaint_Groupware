@@ -31,6 +31,10 @@
 	  <put-attribute name="body" value="/WEB-INF/views/approval/listEx.jsp"/>
 	</definition>
 	
+	<definition name="approval/totalList" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/approval/totalList.jsp"/>
+	</definition>
+	
 	<definition name="approval/add" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/add.jsp"/>
 	</definition>

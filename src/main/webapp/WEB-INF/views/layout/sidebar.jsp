@@ -92,7 +92,7 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="/approval/list">내 결재 관리</a></li>
           <li class="nav-item"> <a class="nav-link" href="/approval/add"> 기안서 작성 </a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> 기안서 통합관리  </a></li>
+          <li class="nav-item"> <a class="nav-link" href="/approval/totalList"> 기안서 통합관리  </a></li>
         </ul>
       </div>
     </li>
