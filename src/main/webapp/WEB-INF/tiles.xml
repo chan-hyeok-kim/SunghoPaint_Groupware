@@ -25,4 +25,8 @@
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
 	</definition>
 	
+	<definition name="formjsp" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/"/>
+	</definition>
+	
 </tiles-definitions>
