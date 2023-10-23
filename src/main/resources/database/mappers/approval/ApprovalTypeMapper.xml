@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ham.len.approval.ApprovalDAO">
+
+   <select id="getTypeList" parameterType="ApprovalTypeVo">
+        SELECT * 
+          FROM APPROVALTYPE
+         ORDER BY APPROVAL_TYPE_NO DESC
+         LIMIT #{startRow},#{lastRow}
+   </select>
+   
+  
+   <insert id="setAdd" parameterType="ApprovalTypeVO">
+        INSERT INTO APPROVALTYPE(APPROVAL_TYPE_NO, EMPLOYEE_ID,APPROVAL_FORM,APPROVAL_TYPE_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+        VALUES(NULL,#{EMPLOYEE_ID},#{APPROVAL_FORM},#{APPROVAL_TYPE_CD},#{REG_ID},#{REG_DATE},#{REG_MENU},#{MOD_ID},#{MOD_DATE},#{MOD_MENU})
+   </insert>
+
+</mapper>

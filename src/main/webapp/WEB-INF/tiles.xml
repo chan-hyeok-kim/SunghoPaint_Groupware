@@ -11,6 +11,8 @@
 		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/>
 	    <put-attribute name="body" value="" />
 	</definition>
+	
+
 
 	<!-- controller view 받은 후 -->
 	<definition name="index" extends="layout">
@@ -25,8 +27,16 @@
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
 	</definition>
 	
-	<definition name="formjsp" extends="layout">
-	  <put-attribute name="body" value="/WEB-INF/views/"/>
+	<definition name="approval/listEx" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/approval/listEx.jsp"/>
+	</definition>
+	
+	<definition name="approval/totalList" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/approval/totalList.jsp"/>
+	</definition>
+	
+	<definition name="approval/add" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/approval/add.jsp"/>
 	</definition>
 	
 </tiles-definitions>

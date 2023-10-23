@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ham.len.admin.document.ApprovalTypeVO;
 import com.ham.len.commons.Pager;
 
 @Service
@@ -17,5 +18,8 @@ public class ApprovalService {
 		pager.makePageNum(1L);
 		return approvalDAO.getList(pager);
 	}
+	
+	
+	
 	
 }
