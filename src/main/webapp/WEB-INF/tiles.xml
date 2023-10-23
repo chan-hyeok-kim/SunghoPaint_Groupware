@@ -39,4 +39,7 @@
 	  <put-attribute name="body" value="/WEB-INF/views/approval/add.jsp"/>
 	</definition>
 	
+	<definition name="approvalType/add">
+	
+	</definition>
 </tiles-definitions>
