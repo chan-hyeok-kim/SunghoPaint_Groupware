@@ -43,12 +43,10 @@ const editor = new Editor({
 	
 });
 
-
-
-$('#document-add-btn-list').mouseover(function(){
+$('.ProseMirror').eq(0).click(function(){
 	console.log(editor.getHTML());
-	$('#editor').after('<textarea style="display:none" id="text" name="approvalForm"></textarea>');
-	$('#text').text(editor.getHTML());
+
 	
 })
+
 
