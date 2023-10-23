@@ -14447,4 +14447,16 @@ dl {
   -ms-flex-positive: 1;
   flex-grow: 1; }
 
+/* toolbar */
+
+.wrapper-toolbar {
+	padding: 10px 10px;
+}
+
+/* btn */
+#document-add-btn-list btn{
+	padding: 0;
+	text-align: right;
+}
+
 /*# sourceMappingURL=style.css.map */

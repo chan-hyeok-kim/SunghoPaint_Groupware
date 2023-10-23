@@ -96,10 +96,28 @@
         </ul>
       </div>
     </li>
+    
+    <div class="border-bottom">
+        </div>
+     
+        <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#approval-admin-pages" aria-expanded="false" aria-controls="admin-pages">
+        <span class="menu-title">관리자</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-file-check menu-icon"></i>
+      </a>
+      <div class="collapse" id="approval-admin-pages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/code/list">코드 관리</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/document/list">문서 양식함</a></li>
+          
+        </ul>
+      </div>
+    </li>
+    
         
         
           <div class="border-bottom">
-          
             <p class="text-secondary">Categories</p>
           </div>
           <ul class="gradient-bullet-list mt-4">

@@ -16,7 +16,15 @@
   
    <insert id="setAdd" parameterType="ApprovalTypeVO">
         INSERT INTO APPROVALTYPE(APPROVAL_TYPE_NO, EMPLOYEE_ID,APPROVAL_FORM,APPROVAL_TYPE_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
-        VALUES(NULL,#{EMPLOYEE_ID},#{APPROVAL_FORM},#{APPROVAL_TYPE_CD},#{REG_ID},#{REG_DATE},#{REG_MENU},#{MOD_ID},#{MOD_DATE},#{MOD_MENU})
+        VALUES(NULL,#{EMPLOYEE_ID},#{APPROVAL_FORM},#{APPROVAL_TYPE_CD},#{REG_ID},NOW(),#{REG_MENU},#{MOD_ID},NOW(),#{MOD_MENU})
    </insert>
+   
+
+	<update id="setUpdate" parameterType="ApprovalTypeVO">
+		UPDATE APPROVALTYPE
+		SET
+		APPROVAL_FORM=#{approvalForm},APPROVAL_TYPE_CD=#{approvalTypeCd},MOD_ID=#{modId},MOD_DATE=#{modDate},MOD_MENU=#{modMenu}
+		WHERE APPROVAL_TYPE_NO=#{approvalTypeNO}
+	</update>
 
 </mapper>

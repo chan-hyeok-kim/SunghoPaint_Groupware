@@ -19,6 +19,8 @@
 	  <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
 	</definition>
 
+
+    <!-- 김찬혁 -->
     <definition name="notice/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/notice/list.jsp"/>
 	</definition>
@@ -39,7 +41,15 @@
 	  <put-attribute name="body" value="/WEB-INF/views/approval/add.jsp"/>
 	</definition>
 	
-	<definition name="approvalType/add">
-	
+	<definition name="document/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/document/list.jsp"/>
 	</definition>
+	
+	<definition name="document/add" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/document/add.jsp"/>
+	</definition>
+	
+	
+	
+	
 </tiles-definitions>

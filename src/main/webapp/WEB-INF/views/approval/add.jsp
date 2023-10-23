@@ -9,9 +9,7 @@
 <link rel="stylesheet" href="/css/demo.css" type="text/css">
 <link rel="stylesheet" href="/css/zTreeStyle/zTreeStyle.css"
 	type="text/css">
-<!-- Toast API -->
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
+
 <style type="text/css">
 .wrapper-toolbar {
 	padding: 0;
@@ -57,8 +55,39 @@
 
 
 <!-- Toast API -->
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
+
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="https://uicdn.toast.com/editor/latest/i18n/ko-kr.js"></script>
+
+
+<!-- Toast Plugin -->
+<!-- 토스트 UI 컬러피커 -->
+<link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.css" />
+<script src="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.js"></script>
+
+<!-- 토스트 UI 컬러피커와 에디터 연동 플러그인 -->
+<link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.css" />
+<script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js"></script>
+
+<!-- 토스트 UI 차트 -->
+<link rel="stylesheet" href="https://uicdn.toast.com/chart/latest/toastui-chart.css">
+<script src="https://uicdn.toast.com/chart/latest/toastui-chart.js"></script>
+<!-- 토스트 UI 차트와 토스트 UI 에디터를 연결  -->
+<script src="https://uicdn.toast.com/editor-plugin-chart/latest/toastui-editor-plugin-chart.min.js"></script>
+
+
+<!-- 토스트 UI 에디터 플러그인, 코드 신텍스 하이라이터 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-okaidia.min.css">
+<link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css">
+<script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
+
+
+<link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-table-merged-cell/latest/toastui-editor-plugin-table-merged-cell.min.css" />
+<script src="https://uicdn.toast.com/editor-plugin-table-merged-cell/latest/toastui-editor-plugin-table-merged-cell.min.js"></script>
+<script src="https://uicdn.toast.com/editor-plugin-uml/latest/toastui-editor-plugin-uml.min.js"></script>
 </head>
 <body>
 	<div class="card">
@@ -220,14 +249,7 @@
 
 
 
-	<script type="text/javascript">
-		const Editor = toastui.Editor;
-		const editor = new Editor({
-			el : document.querySelector('#editor'),
-
-		});
-	</script>
-
+	<script src="/js/commons/toast-ui.js"></script>
 
 	<!-- tree -->
 	<script src="/js/ztree/paint-tree.js"></script>

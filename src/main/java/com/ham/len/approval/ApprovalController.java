@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ham.len.admin.document.ApprovalTypeVO;
+
 import com.ham.len.commons.Pager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ public class ApprovalController {
 
 	@Autowired
 	private ApprovalService approvalService;
+
 	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
@@ -50,7 +52,7 @@ public class ApprovalController {
 	
 	@GetMapping("add")
 	public void setAdd() throws Exception{
-		
+		 
 	}
 	
 	

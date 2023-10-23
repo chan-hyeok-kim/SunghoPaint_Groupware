@@ -27,6 +27,28 @@ ul.log.small {height:45px;}
 ul.log li {color: #666666;list-style: none;padding-left: 10px;}
 ul.log li.dark {background-color: #E3E3E3;}
 
+/* btn */
+#document-tree-btn{
+	/*padding:0;*/
+    margin: 30px 20px 0 20px;
+}
+
+
+/* card */
+#document-card{
+	border: 1px solid gainsboro;
+	width: 400px;
+}
+
+.document-card-input{
+	width: 200px;
+}
+
+/* div */
+#document-tree-wrapper-div{
+	margin-left: 200px;
+}
+
 /* ruler */
 div.ruler {height:20px; width:220px; background-color:#f0f6e4;border: 1px solid #333; margin-bottom: 5px; cursor: pointer}
 div.ruler div.cursor {height:20px; width:30px; background-color:#3C6E31; color:white; text-align: right; padding-right: 5px; cursor: pointer}

@@ -4,4 +4,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="sample"></mapper>
+<mapper namespace="sample">
+<!-- insert
+
+INSERT INTO 
+(REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+VALUES
+(  ,#{REG_ID},NOW(),#{REG_MENU},#{MOD_ID},NOW(),#{MOD_MENU})
+
+ -->
+ 
+ 
+ <!-- update
+ 
+ UPDATE 
+    SET
+		,MOD_ID=#{modId},MOD_DATE=#{modDate},MOD_MENU=#{modMenu}
+		WHERE 
+ 
+  -->
+</mapper>
