@@ -9,7 +9,7 @@ public class ApprovalTypeService {
 	@Autowired
 	private ApprovalTypeDAO approvalTypeDAO;
 	
-	public ApprovalTypeVO setAdd(ApprovalTypeVO approvalTypeVO) throws Exception{
+	public int setAdd(ApprovalTypeVO approvalTypeVO) throws Exception{
 		return approvalTypeDAO.setAdd(approvalTypeVO);
 	}
 }

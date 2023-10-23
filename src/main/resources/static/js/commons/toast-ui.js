@@ -2,7 +2,7 @@
  * 
  */
 
-const Editor = toastui.Editor;
+const { Editor } = toastui;
 
 const { tableMergedCell, colorSyntax } = Editor.plugin;
 
@@ -13,9 +13,16 @@ const { tableMergedCell, colorSyntax } = Editor.plugin;
         maxHeight: 300
     };
 
+/*customToolbar=[{
+	name:'다크',
+	tooltip: '다크 모드',
+	text:'다크',
+	command: 'darktab',
+	style: { backgroundImage: 'none', color: 'black' },
+	state: 'strong'
+}]*/
 
-
-
+let dark='default'
 const editor = new Editor({
 	el: document.querySelector('#editor'),
 	language: 'ko',
@@ -40,14 +47,26 @@ const editor = new Editor({
 
 	],
 	extendedAutolinks: true,
-	
+	initialEditType: 'wysiwyg',
+	height: '600px',
+	previewStyle: 'vertical',
+	//tab
+	theme: 'dark'
 });
 
+
+/*editor.addCommand('wysiwyg','darktab',function(){
+	if(dark=='default'){
+	 dark='dark'
+	 }else{
+	 dark='default'
+	 }
+})*/
 
 
 $('#document-add-btn-list').mouseover(function(){
 	console.log(editor.getHTML());
-	$('#editor').after('<textarea style="display:none" id="text" name="approvalForm"></textarea>');
+	$('#test').html('<textarea style="display:none" id="text" name="approvalForm"></textarea>');
 	$('#text').text(editor.getHTML());
 	
 })

@@ -57,6 +57,6 @@ public class ApprovalTypeController {
 	    log.warn("====={}==={}===",codeVO,approvalTypeVO);
 	    
 	    codeService.setAdd(codeVO);
-		approvalTypeService.setAdd(approvalTypeVO);
+		int result=approvalTypeService.setAdd(approvalTypeVO);
 	}
 }
