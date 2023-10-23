@@ -9,7 +9,8 @@
 		SELECT *
 			FROM HUMAN_RESOURCE HR INNER JOIN ACCOUNT_ROLE AR
 				ON HR.EMPLOYEE_ID = AR.EMPLOYEE_ID INNER JOIN ROLE R
-				ON AR.ROLE_NUM = R.ROLE_NUM
+				ON AR.ROLE_NUM = R.ROLE_NUM INNER JOIN CODE C
+				ON R.ROLE_NAME = C.CODE
 		WHERE HR.EMPLOYEE_ID = #{value}
 	</select>
 	
@@ -44,7 +45,7 @@
 		
 		<collection property="roles" javaType="List" ofType="RoleVO">
 			<id column="ROLE_NUM" property="roleNum" />
-			<result column="ROLE_NAME" property="roleName" />
+			<result column="CODE_NAME" property="roleName" />
 		</collection>
 	</resultMap>
 </mapper>

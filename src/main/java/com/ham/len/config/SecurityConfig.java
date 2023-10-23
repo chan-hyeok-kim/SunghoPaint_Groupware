@@ -38,6 +38,7 @@ public class SecurityConfig {
 			.csrf()
 			.disable()
 			.authorizeHttpRequests()
+				.antMatchers("/attendance/*").hasAnyRole("ADMIN", "APPROVER", "USER")
 				.and()
 			.formLogin()
 				.loginPage("/login")

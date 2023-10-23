@@ -15,8 +15,8 @@ public class AttendanceController {
 	@Autowired
 	private AttendanceService attendanceService;
 	
-	@GetMapping("login")
+	@GetMapping("status")
 	public String getLogin(@ModelAttribute AttendanceVO humanResourceVO) {
-		return "attendance/attendance";
+		return "attendance/status";
 	}	
 }

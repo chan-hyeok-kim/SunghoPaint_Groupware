@@ -22,8 +22,8 @@
    
    
 
-<script type="text/javascript" src="/js/ztree/jquery-1.4.4.min.js"></script>
-  <script type="text/javascript" src="/js/ztree/jquery.ztree.core.js"></script>
+	<script type="text/javascript" src="/js/ztree/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="/js/ztree/jquery.ztree.core.js"></script>
  </head>
 <body>
 

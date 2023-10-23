@@ -28,5 +28,9 @@
 	<!-- Kmj -->
 	<definition name="login" template="/WEB-INF/views/login.jsp">
    </definition>
+   
+   <definition name="attendance/status" extends="layout">
+   	<put-attribute name="body" value="/WEB-INF/views/attendance/status.jsp"/>
+   </definition>
 	
 </tiles-definitions>

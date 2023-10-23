@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+*{
+	box-sizing:border-box;
+}
+
+p{
+	margin:0px;
+}
+
+i{
+	font-style:unset;
+}
+
+#cur_date{
+	font-size:13px;
+	color:#888;
+}
+
+#cur_time{
+	margin-bottom:10px;
+	text-align:center; 
+	font-size:42px;
+	color:#5E5E5E;
+}
+
+.attendance_time > i{
+	font-size:13px; font-weight:600;
+	color:#333;
+}
+
+.attendance_time > span{
+	float:right;
+	font-size:13px;
+	color:#666;
+}
+
+#end_time{
+	margin-bottom:10px;
+}
+
+#attendance_btn{
+	padding:15px 0px;
+	border-top:1px dashed;
+	border-color:#B7B7B7;
+}
+
+#attendance_btn > button{
+	width:calc(50% - 5px); height:42px;
+	border-radius:25px;
+	background-color:white;
+}
+
+#attendance_btn.on > button{
+	border:1px solid #A65FFF;
+	color:#A65FFF;
+}
+
+#attendance_btn.on > button:hover{
+	background-color:#F2E8FF;
+}
+
+#attendance_btn.off > button{
+	border:1px solid #CDCDCD;
+	color:#CDCDCD;
+	cursor:unset;
+}
+
+
+
+
+
+#title{
+	margin-bottom:20px;
+	font-size:22px; font-weight:bold;
+}
+
+#move_month{
+	margin-bottom:50px;
+	text-align:center;
+}
+
+#move_month > i{
+	vertical-align:middle;
+	font-size:30px;
+	cursor:pointer;
+}
+
+#move_month > h2{
+	display:inline-block;
+	margin:0px 15px;
+	vertical-align:middle;
+	font-size:30px;
+}
+
+#total{
+	overflow:hidden;
+	border:1px solid #B7B7B7;
+}
+
+#total .wrap{
+	float:left;
+	padding:25px 50px;
+}
+
+#total div > h3{
+	font-size:14px; font-weight:600;
+	text-align:center;
+}
+
+#total div > .time{
+	font-size:25px;
+	color:#A65FFF;
+}

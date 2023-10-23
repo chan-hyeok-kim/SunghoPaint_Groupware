@@ -177,7 +177,7 @@ COLLATE=utf8mb4_general_ci;
 
 /* ------------------------------------------------------------------------------------------ */
 
-INSERT INTO CODE VALUES('R001', 'R00', 'ADMIN', '', NOW(), '', '', NOW(), '');
-INSERT INTO CODE VALUES('R002', 'R00', 'APPROVER', '', NOW(), '', '', NOW(), '');
-INSERT INTO CODE VALUES('R003', 'R00', 'USER', '', NOW(), '', '', NOW(), '');
+INSERT INTO CODE VALUES('R001', 'R00', 'ROLE_ADMIN', '', NOW(), '', '', NOW(), '');
+INSERT INTO CODE VALUES('R002', 'R00', 'ROLE_APPROVER', '', NOW(), '', '', NOW(), '');
+INSERT INTO CODE VALUES('R003', 'R00', 'ROLE_USER', '', NOW(), '', '', NOW(), '');
 COMMIT;

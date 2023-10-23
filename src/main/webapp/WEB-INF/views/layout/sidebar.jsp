@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
-    <li class="nav-item nav-profile">
+    <li id="attendance" class="nav-item nav-profile">
       <a href="#" class="nav-link">
         <div class="nav-profile-image">
           <img src="/images/faces/face1.jpg" alt="profile">
@@ -17,6 +16,7 @@
         <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
       </a>
     </li>
+	
     <li class="nav-item">
       <a class="nav-link" href="/">
         <span class="menu-title">Dashboard</span>
@@ -37,7 +37,7 @@
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/attendance">
+      <a class="nav-link" href="/attendance/status">
         <span class="menu-title">근태 관리</span>
         <i class="mdi mdi-contacts menu-icon"></i>
       </a>

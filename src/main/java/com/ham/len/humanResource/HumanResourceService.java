@@ -20,7 +20,7 @@ public class HumanResourceService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String employeeID) throws UsernameNotFoundException {
-		HumanResourceVO humanResourceVO = humanResourceDAO.getHumanResource(employeeID);
+		HumanResourceVO humanResourceVO = humanResourceDAO.getHumanResource(employeeID);		
 		return humanResourceVO;
 	}
 }
