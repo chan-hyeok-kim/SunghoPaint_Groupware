@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ham.len.admin.document.ApprovalTypeVO;
+
 import com.ham.len.commons.Pager;
 
 import lombok.extern.slf4j.Slf4j;

@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @RequestMapping("/approvalType/*")
-public class ApprovalController {
+public class ApprovalTypeController {
 
 	@Autowired
 	private ApprovalTypeService approvalTypeService;

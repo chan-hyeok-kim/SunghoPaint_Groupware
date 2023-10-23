@@ -4,7 +4,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.ham.len.approval.ApprovalDAO">
+<mapper namespace="com.ham.len.approval.ApprovalTypeDAO">
 
    <select id="getTypeList" parameterType="ApprovalTypeVo">
         SELECT * 
