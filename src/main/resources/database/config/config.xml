@@ -14,8 +14,10 @@
    <typeAlias type="com.ham.len.approval.ApprovalVO" alias="ApprovalVO"/>
    <typeAlias type="com.ham.len.approval.ApprovalTypeVO" alias="ApprovalTypeVO"/>
    
-   
-   
+   <typeAlias type="com.ham.len.order.OrderVO" alias="OrderVO"/>   
+   <typeAlias type="com.ham.len.purchase.PurchaseVO" alias="PurchaseVO"/>
+   <typeAlias type="com.ham.len.workorder.WorkOrderVO" alias="WorkOrderVO"/>
+   <typeAlias type="com.ham.len.productionReceipt.ProductionReceiptVO" alias="ProductionReceiptVO"/>
    
    
    </typeAliases>

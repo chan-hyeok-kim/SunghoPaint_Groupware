@@ -141,18 +141,19 @@ ul.nav-tabs {
 
 					<div class="wrapper-toolbar">
 
-						<div style="float:left">발주서 리스트</div> 
+						<div style="float:left">구매 리스트</div> 
 						<div style="text-align: right;">
 							<form class="form-inline">
 
 								<!-- 검색 설정 -->
 								<select class="btn btn-gradient-light" id="top-search-select">
 									<option selected="selected">전체</option>
+									<option></option>
 									<option>거래처</option>
-									<option>발주번호</option>
-									<option>발주번호</option>
-									<option>발주번호</option>
-									<option>발주번호</option>
+									<option>품목명</option>
+									<option>공장명</option>
+									<option>거래유형</option>
+									<option>발주현황</option>
 								</select> 
 								
 								
@@ -198,17 +199,18 @@ ul.nav-tabs {
 				        <c:forEach items="${list}" var="vo" varStatus="i">
 				           <tr>
 				             <td><input type="checkbox"></td>
-				             <td>${vo.approvalStartDate}</td>
-				             <td>${vo.approvalTitle}</td>
-				             <td>${vo.approvalContents}</td>
-				             <td>${vo.drafter}</td>
-				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
+				             <td>${vo.purchaseNo}</td>
+				             <td>${vo.purchaseDate}</td>
+				             <td>${vo.clientNo.clientName}</td>
+				             <td>${vo.materialProductNo.materialProductName}</td>
+				             <td>${vo.totalPrice}</td>
+				             <td id="check" data-check="${vo.purchaseCd}">${vo.lastApprover}</td>
 				             <c:choose>
-				             <c:when test="${vo.approvalStatusCd eq 'R001'}">
-				             <td>기안중</td>
+				             <c:when test="${vo.purchaseCd eq 'P011'}">
+				             <td>결재중</td>
 				             </c:when>
 				             </c:choose>
-				             <td><a>기안서 확인</a></td>
+				             <td><a>발주서 확인</a></td>
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -239,7 +241,7 @@ ul.nav-tabs {
 						<!-- Button List  -->
 						
 						<div style="float: right;">
-							<button class="btn btn-info">버튼</button>
+							<button class="btn btn-info" >신규 구매 추가</button>
 						</div>
 					</div>
 				</div>

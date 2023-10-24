@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ham.len.purchase.PurchaseDAO">
+
+   <select id="getList" resultType="PurchaseVO" parameterType="Pager">
+        SELECT * 
+          FROM PURCHASE_MANAGEMENT
+         ORDER BY PURCHASE_NO DESC
+         LIMIT #{startRow},#{lastRow}
+   </select>
+   
+   <insert id="setAdd" parameterType="PurchaseVO">
+   		INSERT INTO PURCHASETYPE(PURCHASE_NO, CLIENT_NO, MATERIAL_PRODUCT_NO, EMPLOYEE_ID, PURCHASE_DATE, TOTAL_PRICE, MOD_MENU, MOD_ID, MOD_DATE, REG_MENU, REG_ID, REG_DATE)
+   		VALUES (NULL, #{CLIENT_NO}, ${MATERIAL_PRODUCT_NO}, ${EMPLOYEE_ID}, ${PURCHASE_DATE}, ${TOTAL_PRICE}, ${MOD_MENU}, ${MOD_ID}, ${MOD_DATE}, ${REG_MENU}, ${REG.ID}, ${REG.DATE});   
+   </insert>
+   
+   
+   
+   
+
+</mapper>

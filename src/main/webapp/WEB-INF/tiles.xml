@@ -39,4 +39,30 @@
 	  <put-attribute name="body" value="/WEB-INF/views/approval/add.jsp"/>
 	</definition>
 	
+	<!-- 발주서 관련 -->
+	<definition name="order/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/order/list.jsp"/>
+	</definition>
+	
+	<!-- 구매 관련 -->
+	<definition name="purchase/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/purchase/list.jsp"/>
+	</definition>
+	
+	<definition name="purchase/add" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/purchase/add.jsp"/>
+	</definition>
+	
+	
+	
+	<!-- 작업 지시서 관련 -->
+	<definition name="workOrder/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/workOrder/list.jsp"/>
+	</definition>
+	
+	<!-- 생산 관련 -->
+	<definition name="productionReceipt/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/productionReceipt/list.jsp"/>
+	</definition>
+	
 </tiles-definitions>

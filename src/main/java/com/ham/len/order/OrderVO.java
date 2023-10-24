@@ -1,6 +1,8 @@
-package com.ham.order;
+package com.ham.len.order;
 
 import java.sql.Date;
+
+import com.ham.len.commons.CommonsVO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +10,7 @@ import lombok.ToString;
 
 @Getter @Setter
 @ToString
-public class OrderVO {
+public class OrderVO extends CommonsVO {
 	private Long orderNo;
 	private Long materialProductNo;
 	private Long clientNo;
@@ -16,11 +18,5 @@ public class OrderVO {
 	private Date orderDeliveryDate;
 	private Long totalPrice;
 	private String OrderCd;
-	private String modMenu;
-	private String regId;
-	private Date regdate;
-	private String regMenu;
-	private String modId;																																																																																																										;
-	private Date modDate;
 
 }

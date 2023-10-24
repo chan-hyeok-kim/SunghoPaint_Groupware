@@ -76,6 +76,7 @@
         </ul>
       </div>
     </li>
+    
     <li class="nav-item sidebar-actions">
       <span class="nav-link">
       
@@ -96,15 +97,48 @@
         </ul>
       </div>
     </li>
+    
+    <li class="nav-item sidebar-actions">
+      <span class="nav-link">
+      
+        <div class="border-bottom">
+        </div>
+     
+        <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#purchase-general-pages" aria-expanded="false" aria-controls="general-pages">
+        <span class="menu-title">구매 리스트</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-cash-multiple"></i>
+      </a>
+      <div class="collapse" id="purchase-general-pages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/purchase/list">구매 조회</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/purchase/add">구매서 작성</a></li>
+        </ul>
+      </div>
+    </li>
+    
+        <li class="nav-item sidebar-actions">
+      <span class="nav-link">
+      
+        <div class="border-bottom">
+        </div>
+     
+        <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#order-general-pages" aria-expanded="false" aria-controls="general-pages">
+        <span class="menu-title">발주서 리스트</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-book-open"></i>
+      </a>
+      <div class="collapse" id="order-general-pages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/order/list">발주서 조회</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/order/add">발주서 작성</a></li>
+        </ul>
+      </div>
+    </li>  
         
-        
-          <div class="border-bottom">
           
-            <p class="text-secondary">Categories</p>
-          </div>
-          <ul class="gradient-bullet-list mt-4">
-            <li>Free</li>
-            <li>Pro</li>
           </ul>
        
       </span>

@@ -1,4 +1,4 @@
-package com.ham.order;
+package com.ham.len.workorder;
 
 import java.util.List;
 
@@ -8,24 +8,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ham.len.approval.ApprovalVO;
 import com.ham.len.commons.Pager;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@RequestMapping("/order/*")
-public class OrderController {
+@RequestMapping("/workorder/*")
+public class WorkOrderController {
 	
 	@Autowired
-	private OrderService orderService;
+	private WorkOrderService workOrderService;
 	
 	@GetMapping("list")
-	public String getList(Pager pager,Model model) throws Exception{
-		 List<OrderVO> ar = orderService.getList(pager);
-		 log.warn("========{}========",ar);
-		 model.addAttribute("list", ar);
-		 return "order/list";
+	public String getList(Pager pager, Model model)throws Exception{
+		List<WorkOrderVO> ar = workOrderService.getList(pager);
+		log.warn("========{}========",ar);
+		model.addAttribute("list", ar);
+		return "workorder/list";
 	}
+
 }
