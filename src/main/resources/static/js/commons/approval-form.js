@@ -34,9 +34,9 @@ $('#text-delete-btn').click(function(){
 })
 
 $('#modal-confirm-btn').click(function(){
-	   let formHtml=$('#form_list').val();
-	   console.log(formHtml);
-	   oEditors.getById["approvalForm"].exec("PASTE_HTML",["formHtml"]);
-
-
+	   let formHtml=$('#form_list').html();
+	   oEditors.getById["approvalForm"].exec("PASTE_HTML",[formHtml]);
+   
+       $('#modal-confirm-close').click();
+       
    });

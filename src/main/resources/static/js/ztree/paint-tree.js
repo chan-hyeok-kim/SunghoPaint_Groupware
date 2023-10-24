@@ -125,9 +125,9 @@ var formSetting={
 }
 
 function formCheck(event, treeId, treeNode){
-	let check=treeNode.content;
-	console.log(check);
-	$('#form_list').html(check);
+	let checkHtml=treeNode.content;
+	
+	$('#form_list').html(checkHtml);
 	
 }
 
@@ -163,5 +163,7 @@ $.ajax({
    $('#form-modal-btn').click(function(){
       zTreeObj = $.fn.zTree.init($("#form"), formSetting, formNodes);
    });
+   
+ 
    
    

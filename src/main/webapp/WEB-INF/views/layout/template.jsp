@@ -42,11 +42,13 @@
       <tiles:insertAttribute name="body"/>
           
        
-      
-      <tiles:insertAttribute name="footer"/>
-      
+             </div>
+             <tiles:insertAttribute name="footer"/>
+       </div>
+     
         </div>
       <!-- page-body-wrapper ends -->
+      
     </div>
     <!-- container-scroller-ends-->
     
