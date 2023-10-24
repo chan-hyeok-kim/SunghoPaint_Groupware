@@ -25,6 +25,10 @@
 	  <put-attribute name="body" value="/WEB-INF/views/notice/list.jsp"/>
 	</definition>
 	
+	<definition name="notice/detail" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/notice/detail.jsp"/>
+	</definition>
+	
 	<definition name="approval/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
 	</definition>
