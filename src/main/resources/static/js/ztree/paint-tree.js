@@ -164,14 +164,6 @@ $.ajax({
       zTreeObj = $.fn.zTree.init($("#form"), formSetting, formNodes);
    });
    
-  /* $('#modal-confirm-btn').mouseup(function(){
-	   let formHtml=$('#form_list').val();
-	   console.log('모달창확인');
-	   //oEditors.getById["approvalForm"].exec("PASTE_HTML",[formHtml]);
-	   $('#approvalForm').text(formHtml);
-
-
-   });
-   */
+ 
    
    

@@ -270,8 +270,8 @@
 
 			
 			<div class="modal-footer" style="background: white;">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-info" id="modal-confirm-btn">확인</button>
+				<button id="modal-confirm-close" type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				<button id="modal-confirm-btn" type="button" class="btn btn-info">확인</button>
 			</div>
 			</div>
 		</div>
