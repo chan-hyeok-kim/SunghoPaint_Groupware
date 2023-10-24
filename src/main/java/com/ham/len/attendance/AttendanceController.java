@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +17,9 @@ public class AttendanceController {
 	private AttendanceService attendanceService;
 	
 	@GetMapping("status")
-	public String getLogin(@ModelAttribute AttendanceVO humanResourceVO) {
+	public String getStatus(@ModelAttribute AttendanceVO humanResourceVO) {
+		attendanceService.getStatus();
+		
 		return "attendance/status";
 	}	
 }

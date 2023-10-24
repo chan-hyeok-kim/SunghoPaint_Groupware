@@ -94,21 +94,40 @@ i{
 }
 
 #total{
+	height:120px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
 	overflow:hidden;
 	border:1px solid #B7B7B7;
 }
 
-#total .wrap{
-	float:left;
-	padding:25px 50px;
+#total > .dividing{
+	height:50%;
+	display:inline-block;
+	margin:0px 100px;
+	border-left:1px solid #B7B7B7;
 }
 
-#total div > h3{
+#total > .wrap{
+	display:inline-block;
+	overflow:hidden;
+}
+
+#total > .wrap > .component{
+	float:left;
+}
+
+#total > .wrap > .component:nth-child(2){
+	margin-left:100px;
+}
+
+.component > h3{
 	font-size:14px; font-weight:600;
 	text-align:center;
 }
 
-#total div > .time{
+.component > .time{
 	font-size:25px;
 	color:#A65FFF;
 }

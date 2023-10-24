@@ -17,38 +17,45 @@
 	<i>》</i>
 </div>
 <div id="total">
-	<div id="week_accrue" class="wrap">
-		<h3>이번주 누적</h3>
-		<div class="time">
-			<span>3h</span><span>26m</span><span>24s</span>
+	<div class="wrap">
+		<div id="week_accrue" class="component">
+			<h3>이번주 누적</h3>
+			<div class="time">
+				<span>3h</span><span>26m</span><span>24s</span>
+			</div>
 		</div>
 	</div>
-	<div>
-		<div id="week_excess" class="wrap">
+	<p class="dividing"></p>
+	<div class="wrap">
+		<div id="week_excess" class="component">
 			<h3>이번주 초과</h3>
 			<div class="time">
 				<span>0h</span><span>0m</span><span>0s</span>
 			</div>
 		</div>
-		<div id="week_remain" class="wrap">
+		<div id="week_remain" class="component">
 			<h3>이번주 잔여</h3>
 			<div class="time">
 				<span>3h</span><span>26m</span><span>24s</span>
 			</div>
 		</div>
 	</div>
-	<div>
-		<div id="month_accrue" class="wrap">
+	<p class="dividing"></p>
+	<div class="wrap">
+		<div id="month_accrue" class="component">
 			<h3>이번달 누적</h3>
 			<div class="time">
 				<span>0h</span><span>0m</span><span>0s</span>
 			</div>
 		</div>
-		<div id ="month_extend" class="wrap">
+		<div id ="month_extend" class="component">
 			<h3>이번주 연장</h3>
 			<div class="time">
 				<span>3h</span><span>26m</span><span>24s</span>
 			</div>
 		</div>
 	</div>
+</div>
+<div id="">
+
 </div>
