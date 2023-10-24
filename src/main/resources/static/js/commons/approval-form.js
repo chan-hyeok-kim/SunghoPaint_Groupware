@@ -27,4 +27,8 @@ $("#document-add-btn").click(function(){
 	
 })*/
 
+$('#text-delete-btn').click(function(){
+	$('#approvalForm').text('');
+})
+
 

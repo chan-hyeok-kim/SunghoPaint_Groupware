@@ -137,7 +137,7 @@
 			<!-- add button -->
 			<div style="margin-left:200px;">
 			<button class="btn btn-info">임시저장</button>
-			<button class="btn btn-info">지우기</button>
+			<button class="btn btn-info" id="text-delete-btn">지우기</button>
 			<button class="btn btn-info" style="margin-left:100px;">결재</button>
 			</div>
 		</div>

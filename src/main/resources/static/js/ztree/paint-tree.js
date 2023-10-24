@@ -122,16 +122,27 @@ var formSetting={
 }
 
 
-var formNodes=[]
+var formNodes=[{name:'', open:true}]
 
 $.ajax({
 	type:'GET',
-	url:'/document/list',
+	url:'/document/ajaxList',
 	success:function(result){
 		console.log(result)
+		let arr=new Array();
+		
+		for(let a in result){
+			var name=result[a].codeVO.codeName;
+		    formNodes.name=name;
+		    arr[a].name.push(name);
+		    console.log(name);
+		}
+		console.log(arr);
+		formNodes=arr;
 	}
 	
 })
+
 
 
 

@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ham.len.admin.CodeService;
 import com.ham.len.admin.CodeVO;
 import com.ham.len.approval.ApprovalService;
+import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,10 +32,12 @@ public class ApprovalTypeController {
 	@Autowired
 	private CodeService codeService;
 	
+	@Autowired
+	private MakeColumn makeColumn;
+	
 	@GetMapping("list")
 	public void getList(Pager pager,Model model) throws Exception{
-		List<ApprovalTypeVO> ar=approvalTypeService.getList(pager);
-		model.addAttribute("list", ar);
+		
 	}
 	
 	@GetMapping("add")
@@ -44,21 +47,20 @@ public class ApprovalTypeController {
 	
 	@PostMapping("add")
 	public void setAdd(ApprovalTypeVO approvalTypeVO,CodeVO codeVO, HttpServletRequest request) throws Exception{
-		approvalTypeVO.setEmployeeId("2023001");
+		String id="2023001";
+		
+		approvalTypeVO.setEmployeeId(id);
 		String path=request.getRequestURI();
 		log.warn("====={}======",path);
-		approvalTypeVO.setRegMenu(path+".jsp");
-		approvalTypeVO.setModMenu(path+".jsp");
-	    approvalTypeVO.setRegId("2023001");
-	    approvalTypeVO.setModId("2023001");
+		approvalTypeVO=(ApprovalTypeVO)makeColumn.getColumn(approvalTypeVO, path, id);
+		
 		
 	    String code=approvalTypeVO.getApprovalTypeCd();
 	    codeVO.setCode(code);
 	    codeVO.setUpCode(code.substring(0,3));
-	    codeVO.setRegMenu(path+".jsp");
-	    codeVO.setModMenu(path+".jsp");
-	    codeVO.setRegId("2023001");
-	    codeVO.setModId("2023001");
+	    
+	    codeVO=(CodeVO)makeColumn.getColumn(codeVO, path, id);
+	    
 	    log.warn("====={}==={}===",codeVO,approvalTypeVO);
 	    
 	    codeService.setAdd(codeVO);
@@ -70,7 +72,8 @@ public class ApprovalTypeController {
 		
 	}
 	
-	@GetMapping("list")
+	@GetMapping("ajaxList")
+	@ResponseBody
 	public List<ApprovalTypeVO> getAjaxList(Pager pager) throws Exception{
 		List<ApprovalTypeVO> ar=approvalTypeService.getList(pager);
 		return ar;

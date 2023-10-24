@@ -14459,6 +14459,12 @@ dl {
 	text-align: right;
 }
 
+#document-add-btn-list{
+	padding: 10px 0 0 10px;
+	margin-left:80%;
+	
+}
+
 /* textarea */
 #approvalForm{
 	width: 800px;
