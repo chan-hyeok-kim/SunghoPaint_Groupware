@@ -2,6 +2,8 @@ package com.ham.len.admin.document;
 
 import java.util.Date;
 
+import com.ham.len.admin.CodeVO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,5 +23,5 @@ public class ApprovalTypeVO {
     private String modId;
     private Date modDate;
     private String modMenu;
-	
+	private CodeVO codeVO;
 }

@@ -14459,4 +14459,21 @@ dl {
 	text-align: right;
 }
 
+/* textarea */
+#approvalForm{
+	width: 800px;
+	height: 500px;
+	
+}
+
+#approvalForm~iframe{
+	margin-left: 150px;
+}
+
+/* div */
+#approval-content{
+	padding: 20px 0 0 150px;
+}
+
+
 /*# sourceMappingURL=style.css.map */

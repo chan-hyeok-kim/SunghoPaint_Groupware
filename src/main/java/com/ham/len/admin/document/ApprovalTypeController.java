@@ -1,5 +1,7 @@
 package com.ham.len.admin.document;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ham.len.admin.CodeService;
 import com.ham.len.admin.CodeVO;
@@ -28,8 +32,9 @@ public class ApprovalTypeController {
 	private CodeService codeService;
 	
 	@GetMapping("list")
-	public void getList(Pager pager) throws Exception{
-		
+	public List<ApprovalTypeVO> getList(Pager pager) throws Exception{
+		List<ApprovalTypeVO> ar=approvalTypeService.getList(pager);
+		return ar;
 	}
 	
 	@GetMapping("add")
@@ -59,4 +64,11 @@ public class ApprovalTypeController {
 	    codeService.setAdd(codeVO);
 		int result=approvalTypeService.setAdd(approvalTypeVO);
 	}
+	
+	@PostMapping("setImg")
+	public void setImg(MultipartFile[] files) throws Exception{
+		
+	}
+	
+	
 }

@@ -54,40 +54,10 @@
 </style>
 
 
-<!-- Toast API -->
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
-
-<script
-	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-<script src="https://uicdn.toast.com/editor/latest/i18n/ko-kr.js"></script>
+<!-- Smart Editor2  -->
+<script type="text/javascript" src="/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
 
-<!-- Toast Plugin -->
-<!-- 토스트 UI 컬러피커 -->
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.css" />
-<script src="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.js"></script>
-
-<!-- 토스트 UI 컬러피커와 에디터 연동 플러그인 -->
-<link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.css" />
-<script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js"></script>
-
-<!-- 토스트 UI 차트 -->
-<link rel="stylesheet" href="https://uicdn.toast.com/chart/latest/toastui-chart.css">
-<script src="https://uicdn.toast.com/chart/latest/toastui-chart.js"></script>
-<!-- 토스트 UI 차트와 토스트 UI 에디터를 연결  -->
-<script src="https://uicdn.toast.com/editor-plugin-chart/latest/toastui-editor-plugin-chart.min.js"></script>
-
-
-<!-- 토스트 UI 에디터 플러그인, 코드 신텍스 하이라이터 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-okaidia.min.css">
-<link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css">
-<script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
-
-
-<link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-table-merged-cell/latest/toastui-editor-plugin-table-merged-cell.min.css" />
-<script src="https://uicdn.toast.com/editor-plugin-table-merged-cell/latest/toastui-editor-plugin-table-merged-cell.min.js"></script>
-<script src="https://uicdn.toast.com/editor-plugin-uml/latest/toastui-editor-plugin-uml.min.js"></script>
 </head>
 <body>
 	<div class="card">
@@ -101,7 +71,9 @@
 
 				<div>
 					<span class="title">제목</span> <span class="input-date"><input
-						name="approvalTitle"> </span>
+						style="display: inline-block; margin-left:4px"
+						class="form-control approval-line-search" type="search"
+						placeholder="" aria-label="Search" name="approvalType"> </span>
 				</div>
 
 				<div>
@@ -126,7 +98,7 @@
 				</div>
 				<div>
 					<span class="title"></span><span class="title">추가검토자</span> <input
-						style="display: inline-block;"
+						style="display: inline-block; margin-left:4px"
 						class="form-control approval-line-search" type="search"
 						placeholder="" aria-label="Search">
 					<button id="top-search-btn" class="btn btn-info approval-line-btn"
@@ -136,7 +108,7 @@
 				</div>
 				<div>
 					<span class="title"></span><span class="title">결재자</span> <input
-						style="display: inline-block;"
+						style="display: inline-block; margin-left:4px"
 						class="form-control approval-line-search" type="search"
 						placeholder="" aria-label="Search">
 					<button id="top-search-btn" class="btn btn-info approval-line-btn"
@@ -147,27 +119,27 @@
 
 
 				<div>
-					구분(결재양식) <input style="display: inline-block;"
+					<span class="title">구분(결재양식)</span> <input style="display: inline-block;"
 						class="form-control approval-line-search" type="search"
 						placeholder="" aria-label="Search">
-					<button id="top-search-btn" class="btn btn-info approval-line-btn"
-						type="submit">
-						<i class="mdi mdi-account-search"></i>
-					</button>
+					<button type="submit" class="btn btn-info material-icons" data-toggle="modal" data-target="#formModal">search</button>
 				</div>
 
 
-				</ul>
+				
 			</div>
 
-			<!-- Toast UI -->
-			<div id="editor"></div>
-
+			
+		<!-- Smart Editor UI -->
+							<textarea name="approvalForm" id="approvalForm" rows="10" cols="100"></textarea>
+										
 
 			<!-- add button -->
+			<div style="margin-left:200px;">
 			<button class="btn btn-info">임시저장</button>
 			<button class="btn btn-info">지우기</button>
-			<button class="btn btn-info">결재</button>
+			<button class="btn btn-info" style="margin-left:100px;">결재</button>
+			</div>
 		</div>
 
 
@@ -182,7 +154,7 @@
 			<div class="modal-content"
 				style="border-bottom: white; border-radius: 0rem;">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">결재양식 선택</h5>
+					<h5 class="modal-title" id="exampleModalLabel">결재선 선택</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -245,11 +217,68 @@
 		</div>
 	</div>
 	</div>
+	
+	
+	<!-- form modal -->
+	<div class="modal fade" id="formModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content"
+				style="border-bottom: white; border-radius: 0rem;">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">결재양식 선택</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<div>
+					<form action="GET">
+						 <input type="radio"> 이름 
+						 <input type="radio"> 부서
+						 <input type="search">
+						 <button type="submit" class="btn btn-info material-icons">search</span>
+					</form>
+					</div>
+                    
+					<div style="display: flex; float: left; width: 40%;">
+						<div style="">
+
+							<ul id="form" class="ztree"></ul>
+						</div>
+
+						<div style="margin-left: 20px;" id="tree_list_empty">
+							<ul id="form_list" class="ztree"></ul>
+
+						</div>
+					</div>
+					
+
+
+
+
+				</div>
+
+
+
+			</div>
+			<div class="modal-footer" style="background: white;">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-info">확인</button>
+			</div>
+		</div>
+	</div>
+	</div>
+	
+	
 	<!-- modal end -->
 
 
 
-	<script src="/js/commons/toast-ui.js"></script>
+	<!-- approval-form에 html style적용 -->
+	<script src="/js/commons/approval-form.js"></script>
 
 	<!-- tree -->
 	<script src="/js/ztree/paint-tree.js"></script>

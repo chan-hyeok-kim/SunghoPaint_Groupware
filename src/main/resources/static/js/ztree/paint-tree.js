@@ -102,5 +102,43 @@
 	   
    })
    
+
+
+
+
+/**
+ * form-tree-list
+ *  */ 
+var formSetting={
+             check: {
+             autoCheckTrigger:false,
+             chkStyle: "checkbox",
+             enable:true,
+             chkboxType:{"Y":"ps","N":"ps"},
+             nocheckInherit:false,
+             chkDisabledInherit:false,
+             radioType:"level"
+             }
+}
+
+
+var formNodes=[]
+
+$.ajax({
+	type:'GET',
+	url:'/document/list',
+	success:function(result){
+		console.log(result)
+	}
+	
+})
+
+
+
+
+   $(document).ready(function(){
+      zTreeObj = $.fn.zTree.init($("#form"), setting, formNodes);
+   });
+   
    
    

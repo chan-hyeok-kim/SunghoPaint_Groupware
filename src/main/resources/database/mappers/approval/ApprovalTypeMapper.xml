@@ -6,13 +6,39 @@
   
 <mapper namespace="com.ham.len.admin.document.ApprovalTypeDAO">
 
-   <select id="getTypeList" parameterType="ApprovalTypeVo">
+   <select id="getList" resultMap="getListResult" parameterType="ApprovalTypeVo">
         SELECT * 
-          FROM APPROVAL_TYPE
-         ORDER BY APPROVAL_TYPE_NO DESC
+          FROM APPROVAL_TYPE A INNER JOIN CODE C
+            ON A.APPROVAL_TYPE_CD=C.CODE
+         ORDER BY A.APPROVAL_TYPE_NO DESC
          LIMIT #{startRow},#{lastRow}
    </select>
    
+   <resultMap type="ApprovalTypeVO" id="getListResult">
+        <id column="APPROVAL_TYPE_NO" property="approvalTypeNo"/>
+        <result column="EMPLOYEE_ID" property="employeeId"/>
+        <result column="APPROVAL_FORM" property="approvalForm"/>
+        <result column="APPROVAL_TYPE_CD" property="approvalTypeCd"/>
+        <result column="REG_ID" property="regId"/>
+        <result column="REG_DATE" property="regDate"/>
+        <result column="REG_MENU" property="regMent"/>
+        <result column="MOD_ID" property="modId"/>
+        <result column="MOD_DATE" property="modDate"/>
+        <result column="MOD_MENU" property="modMenu"/>
+        
+        <association javaType="CodeVO" property="codeVO">
+         <id column="CODE" property="code"/>
+        <result column="UP_CODE" property="upCode"/>
+        <result column="CODE_NAME" property="codeName"/>
+        <result column="REG_ID" property="regId"/>
+        <result column="REG_DATE" property="regDate"/>
+        <result column="REG_MENU" property="regMent"/>
+        <result column="MOD_ID" property="modId"/>
+        <result column="MOD_DATE" property="modDate"/>
+        <result column="MOD_MENU" property="modMenu"/>
+        
+        </association>
+   </resultMap>
   
    <insert id="setAdd" parameterType="ApprovalTypeVO">
         INSERT INTO APPROVAL_TYPE(APPROVAL_TYPE_NO, EMPLOYEE_ID,APPROVAL_FORM,APPROVAL_TYPE_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
