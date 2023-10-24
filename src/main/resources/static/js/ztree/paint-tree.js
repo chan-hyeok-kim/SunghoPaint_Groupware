@@ -125,9 +125,9 @@ var formSetting={
 }
 
 function formCheck(event, treeId, treeNode){
-	let check=treeNode.content;
-	console.log(check);
-	$('#form_list').html(check);
+	let checkHtml=treeNode.content;
+	
+	$('#form_list').html(checkHtml);
 	
 }
 
@@ -164,10 +164,14 @@ $.ajax({
       zTreeObj = $.fn.zTree.init($("#form"), formSetting, formNodes);
    });
    
-   $('#modal-confirm-btn').click(function(){
+  /* $('#modal-confirm-btn').mouseup(function(){
 	   let formHtml=$('#form_list').val();
-	   console.log(formHtml);
-	   oEditors.getById["approvalForm"].exec("PASTE_HTML",["formHtml"]);
+	   console.log('모달창확인');
+	   //oEditors.getById["approvalForm"].exec("PASTE_HTML",[formHtml]);
+	   $('#approvalForm').text(formHtml);
 
 
    });
+   */
+   
+   
