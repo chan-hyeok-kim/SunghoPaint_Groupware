@@ -21,7 +21,7 @@
         <result column="APPROVAL_TYPE_CD" property="approvalTypeCd"/>
         <result column="REG_ID" property="regId"/>
         <result column="REG_DATE" property="regDate"/>
-        <result column="REG_MENU" property="regMent"/>
+        <result column="REG_MENU" property="regMenu"/>
         <result column="MOD_ID" property="modId"/>
         <result column="MOD_DATE" property="modDate"/>
         <result column="MOD_MENU" property="modMenu"/>
@@ -32,7 +32,7 @@
         <result column="CODE_NAME" property="codeName"/>
         <result column="REG_ID" property="regId"/>
         <result column="REG_DATE" property="regDate"/>
-        <result column="REG_MENU" property="regMent"/>
+        <result column="REG_MENU" property="regMenu"/>
         <result column="MOD_ID" property="modId"/>
         <result column="MOD_DATE" property="modDate"/>
         <result column="MOD_MENU" property="modMenu"/>

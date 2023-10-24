@@ -32,9 +32,9 @@ public class ApprovalTypeController {
 	private CodeService codeService;
 	
 	@GetMapping("list")
-	public List<ApprovalTypeVO> getList(Pager pager) throws Exception{
+	public void getList(Pager pager,Model model) throws Exception{
 		List<ApprovalTypeVO> ar=approvalTypeService.getList(pager);
-		return ar;
+		model.addAttribute("list", ar);
 	}
 	
 	@GetMapping("add")
@@ -68,6 +68,12 @@ public class ApprovalTypeController {
 	@PostMapping("setImg")
 	public void setImg(MultipartFile[] files) throws Exception{
 		
+	}
+	
+	@GetMapping("list")
+	public List<ApprovalTypeVO> getAjaxList(Pager pager) throws Exception{
+		List<ApprovalTypeVO> ar=approvalTypeService.getList(pager);
+		return ar;
 	}
 	
 	
