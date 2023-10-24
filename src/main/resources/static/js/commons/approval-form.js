@@ -28,7 +28,15 @@ $("#document-add-btn").click(function(){
 })*/
 
 $('#text-delete-btn').click(function(){
-	$('#approvalForm').text('');
+	oEditors.getById["approvalForm"].exec("SET_IR", [""]);
+
+
 })
 
+$('#modal-confirm-btn').click(function(){
+	   let formHtml=$('#form_list').val();
+	   console.log(formHtml);
+	   oEditors.getById["approvalForm"].exec("PASTE_HTML",["formHtml"]);
 
+
+   });

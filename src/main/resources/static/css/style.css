@@ -14481,5 +14481,12 @@ dl {
 	padding: 20px 0 0 150px;
 }
 
-
+/* tree ul */
+#form_list{
+	width: 700px;
+	height: 770px;
+}
+#form-modal-size{
+	max-width: 1000px;
+}
 /*# sourceMappingURL=style.css.map */

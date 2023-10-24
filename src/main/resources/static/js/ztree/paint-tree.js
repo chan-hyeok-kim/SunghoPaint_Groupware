@@ -118,27 +118,40 @@ var formSetting={
              nocheckInherit:false,
              chkDisabledInherit:false,
              radioType:"level"
-             }
+             },
+             callback:{
+				 onCheck:formCheck
+			 }
+}
+
+function formCheck(event, treeId, treeNode){
+	let check=treeNode.content;
+	console.log(check);
+	$('#form_list').html(check);
+	
 }
 
 
-var formNodes=[{name:'', open:true}]
+var formNodes=new Array();
 
 $.ajax({
 	type:'GET',
 	url:'/document/ajaxList',
 	success:function(result){
 		console.log(result)
-		let arr=new Array();
 		
-		for(let a in result){
-			var name=result[a].codeVO.codeName;
-		    formNodes.name=name;
-		    arr[a].name.push(name);
-		    console.log(name);
+		
+		for(let i=0; i<result.length; i++){
+			let name=result[i].codeVO.codeName;
+			let formContents=result[i].approvalForm;
+			
+			let arr=new Array();
+		    arr.name=name;
+		    arr.open=true;
+		    arr.content=formContents
+		    formNodes.push(arr);
 		}
-		console.log(arr);
-		formNodes=arr;
+	
 	}
 	
 })
@@ -147,9 +160,14 @@ $.ajax({
 
 
 
-   $(document).ready(function(){
-      zTreeObj = $.fn.zTree.init($("#form"), setting, formNodes);
+   $('#form-modal-btn').click(function(){
+      zTreeObj = $.fn.zTree.init($("#form"), formSetting, formNodes);
    });
    
-   
-   
+   $('#modal-confirm-btn').click(function(){
+	   let formHtml=$('#form_list').val();
+	   console.log(formHtml);
+	   oEditors.getById["approvalForm"].exec("PASTE_HTML",["formHtml"]);
+
+
+   });

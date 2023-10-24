@@ -45,17 +45,17 @@
 	padding: 10px 0 0 10px;
 }
 
-
-.material-icons{
-      padding: 0px;
-      height: 30px;
-      width: 30px;
+.material-icons {
+	padding: 0px;
+	height: 30px;
+	width: 30px;
 }
 </style>
 
 
 <!-- Smart Editor2  -->
-<script type="text/javascript" src="/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="/se2/js/HuskyEZCreator.js"
+	charset="utf-8"></script>
 
 
 </head>
@@ -71,7 +71,7 @@
 
 				<div>
 					<span class="title">제목</span> <span class="input-date"><input
-						style="display: inline-block; margin-left:4px"
+						style="display: inline-block; margin-left: 4px"
 						class="form-control approval-line-search" type="search"
 						placeholder="" aria-label="Search" name="approvalType"> </span>
 				</div>
@@ -98,7 +98,7 @@
 				</div>
 				<div>
 					<span class="title"></span><span class="title">추가검토자</span> <input
-						style="display: inline-block; margin-left:4px"
+						style="display: inline-block; margin-left: 4px"
 						class="form-control approval-line-search" type="search"
 						placeholder="" aria-label="Search">
 					<button id="top-search-btn" class="btn btn-info approval-line-btn"
@@ -108,7 +108,7 @@
 				</div>
 				<div>
 					<span class="title"></span><span class="title">결재자</span> <input
-						style="display: inline-block; margin-left:4px"
+						style="display: inline-block; margin-left: 4px"
 						class="form-control approval-line-search" type="search"
 						placeholder="" aria-label="Search">
 					<button id="top-search-btn" class="btn btn-info approval-line-btn"
@@ -119,26 +119,29 @@
 
 
 				<div>
-					<span class="title">구분(결재양식)</span> <input style="display: inline-block;"
+					<span class="title">구분(결재양식)</span> <input
+						style="display: inline-block;"
 						class="form-control approval-line-search" type="search"
 						placeholder="" aria-label="Search">
-					<button type="submit" class="btn btn-info material-icons" data-toggle="modal" data-target="#formModal">search</button>
+					<button id="form-modal-btn" type="submit"
+						class="btn btn-info material-icons" data-toggle="modal"
+						data-target="#formModal">search</button>
 				</div>
 
 
-				
+
 			</div>
 
-			
-		<!-- Smart Editor UI -->
-							<textarea name="approvalForm" id="approvalForm" rows="10" cols="100"></textarea>
-										
+
+			<!-- Smart Editor UI -->
+			<textarea name="approvalForm" id="approvalForm" rows="10" cols="100"></textarea>
+
 
 			<!-- add button -->
-			<div style="margin-left:200px;">
-			<button class="btn btn-info">임시저장</button>
-			<button class="btn btn-info" id="text-delete-btn">지우기</button>
-			<button class="btn btn-info" style="margin-left:100px;">결재</button>
+			<div style="margin-left: 200px;">
+				<button class="btn btn-info">임시저장</button>
+				<button class="btn btn-info" id="text-delete-btn">지우기</button>
+				<button class="btn btn-info" style="margin-left: 100px;">결재</button>
 			</div>
 		</div>
 
@@ -163,14 +166,14 @@
 				<div class="modal-body">
 
 					<div>
-					<form action="GET">
-						 <input type="radio"> 이름 
-						 <input type="radio"> 부서
-						 <input type="search">
-						 <button type="submit" class="btn btn-info material-icons">search</span>
-					</form>
+						<form action="GET">
+							<input type="radio"> 이름 <input type="radio"> 부서 <input
+								type="search">
+							<button type="submit" class="btn btn-info material-icons">
+								search</span>
+						</form>
 					</div>
-                    
+
 					<div style="display: flex; float: left; width: 40%;">
 						<div style="">
 
@@ -217,12 +220,13 @@
 		</div>
 	</div>
 	</div>
-	
-	
+
+
 	<!-- form modal -->
 	<div class="modal fade" id="formModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-xl" id="form-modal-size"
+			role="document">
 			<div class="modal-content"
 				style="border-bottom: white; border-radius: 0rem;">
 				<div class="modal-header">
@@ -235,14 +239,14 @@
 				<div class="modal-body">
 
 					<div>
-					<form action="GET">
-						 <input type="radio"> 이름 
-						 <input type="radio"> 부서
-						 <input type="search">
-						 <button type="submit" class="btn btn-info material-icons">search</span>
-					</form>
+						<form action="GET">
+							<input type="radio"> 이름 <input type="radio"> 부서 <input
+								type="search">
+							<button type="submit" class="btn btn-info material-icons">
+								search</span>
+						</form>
 					</div>
-                    
+
 					<div style="display: flex; float: left; width: 40%;">
 						<div style="">
 
@@ -254,7 +258,7 @@
 
 						</div>
 					</div>
-					
+
 
 
 
@@ -266,13 +270,13 @@
 			</div>
 			<div class="modal-footer" style="background: white;">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-info">확인</button>
+				<button type="button" class="btn btn-info" id="modal-confirm-btn">확인</button>
 			</div>
 		</div>
 	</div>
 	</div>
-	
-	
+
+
 	<!-- modal end -->
 
 
