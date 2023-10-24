@@ -164,10 +164,4 @@ $.ajax({
       zTreeObj = $.fn.zTree.init($("#form"), formSetting, formNodes);
    });
    
-   $('#modal-confirm-btn').click(function(){
-	   let formHtml=$('#form_list').val();
-	   console.log(formHtml);
-	   oEditors.getById["approvalForm"].exec("PASTE_HTML",["formHtml"]);
-
-
-   });
+   
