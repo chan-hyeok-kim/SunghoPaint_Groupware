@@ -6,7 +6,28 @@
    // zTree configuration information, refer to API documentation (setting details)
    
    
-   var setting = {
+
+  
+   /**
+	* 문서 상위분류 리스트 뿌려주기
+    */
+   let upArr=new Array();
+   let r=[];
+   $('.get-up-code-name').each(function(i,item){
+    codeName=$(this).text();
+    
+	  if(r.name!=codeName){
+		  r.name=codeName;
+		  upArr.push(r);
+	  }
+	  
+  })
+  
+  
+  /** 트리 설정
+   * 
+  */
+     var setting = {
 	   check: {
 		autoCheckTrigger: false,
 		chkStyle: "checkbox",
@@ -57,6 +78,7 @@
    if(treeNode.name=='인사'){
 	    ajaxList(treeNode.approvalUpTypeNo);
 	    console.log(ajaxList(treeNode.approvalUpTypeNo));
+	    upArr.children=ajaxList(treeNode.approvalUpTypeNo)
    }
 	  
 	  
@@ -67,7 +89,7 @@
    
   
    
-  /* function ajaxList(checkNo){
+   function ajaxList(checkNo){
 	   let ajaxArr=new Array();
 	   $.ajax({
 		   type:'GET',
@@ -84,26 +106,15 @@
 			
 	   })
 	   return ajaxArr;
-   }*/
+   }
  
    
    // zTree data attributes, refer to the API documentation (treeNode data details)
   
   
-   /**
-	* 문서 상위분류 리스트 뿌려주기
-    */
-   let upArr=new Array();
-   $('.get-up-code-name').each(function(i,item){
-    codeName=$(this).text();
-    let r=[];
-	  if(r.name!=codeName){
-		  r.name=codeName;
-		  upArr.push(r);
-	  }
-	  
-  })
- 
+  
+  
+  
 			
 			 var zNodes= [
              {name:"성호페인트 문서함", open:true, children: upArr},
