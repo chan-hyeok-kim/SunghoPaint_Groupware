@@ -11,18 +11,31 @@
    /**
 	* 문서 상위분류 리스트 뿌려주기
     */
-   let upArr=new Array();
+   var upArr=new Array();
    let r=[];
+   let y=[];
+   let x=new Array();
    $('.get-up-code-name').each(function(i,item){
-    codeName=$(this).text();
+    upCodeName=$(this).text();
+    codeName=$(this).attr('data-code-name');
+    console.log(codeName)
+    console.log(y.name)
+    if(y.name!=codeName){
+    y.name=codeName;
+    x.push(y);
     
-	  if(r.name!=codeName){
-		  r.name=codeName;
+    }
+    console.log(x)
+	  if(r.name!=upCodeName){
+		  r.name=upCodeName;
+		  
 		  upArr.push(r);
+		  upArr.children=x;
+		  console.log(upArr)
 	  }
 	  
   })
-  
+  console.log(upArr)
   
   /** 트리 설정
    * 
@@ -75,20 +88,18 @@
 	  
 	  
 	   
-   if(treeNode.name=='인사'){
-	    ajaxList(treeNode.approvalUpTypeNo);
-	    console.log(ajaxList(treeNode.approvalUpTypeNo));
-	    upArr.children=ajaxList(treeNode.approvalUpTypeNo)
-   }
+    
 	  
-	  
-	  
+	      
+			
+			
+   
 	  
 	}
    
    
   
-   
+   /**UpTypeNo로 양식리스트뽑기 */
    function ajaxList(checkNo){
 	   let ajaxArr=new Array();
 	   $.ajax({
@@ -107,8 +118,7 @@
 	   })
 	   return ajaxArr;
    }
- 
-   
+  
    // zTree data attributes, refer to the API documentation (treeNode data details)
   
   
@@ -117,15 +127,20 @@
   
 			
 			 var zNodes= [
-             {name:"성호페인트 문서함", open:true, children: upArr},
+             {name:"성호페인트 문서함", children: upArr},
              ];
 			
 			$(document).ready(function(){
 			zTreeObj = $.fn.zTree.init($("#document-tree"), setting, zNodes);
-		});
-	
- 
+		
+ })
    
   
-   
+  
+  
+  
+  
+  
+ 
+
   
