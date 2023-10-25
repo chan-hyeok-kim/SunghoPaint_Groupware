@@ -230,7 +230,7 @@ ul.nav-tabs {
 									<c:forEach items="${list}" var="vo" varStatus="i">
 										<tr>
 											<td><input type="checkbox"></td>
-											<td class="get-up-code-name">${totalList[i.index].codeName}</td>
+											<td class="get-up-code-name" data-code-name="${vo.codeName}">${totalList[i.index].codeName}</td>
 											<td>${vo.codeName}</td>
 											<td>${vo.regDate}</td>
 											<td><button class="btn btn-info">수정</button></td>
@@ -242,7 +242,6 @@ ul.nav-tabs {
 						
 						</div>
 					</div>
-
 
 					<!-- Pagination -->
 					<div style="text-align: center; margin: 20px 20px">

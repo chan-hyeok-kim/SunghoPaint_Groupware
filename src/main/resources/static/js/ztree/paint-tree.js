@@ -63,6 +63,9 @@ function myOnCheck(event, treeId, treeNode) {
                }
 	}
 
+
+
+
     let deptCode=''
 	if (treeNode.name=="인사부") {
 	    deptCode='D001'
@@ -169,7 +172,7 @@ $('#tree_list_add').click(function() {
 		'<td>결재</td>' + '<td>' + employeeName + '</td>'
 		+ '</tr>');
 }
-    employeeName='';
+    
 
 })
 
@@ -179,6 +182,7 @@ $('#tree_list_add').click(function() {
 $('#tree-line-btn').click(function(){
 	$('#last-approver').val(employeeName);
 	$('#line-confirm-close').click();
+	employeeName='';
 })
 
 
@@ -201,6 +205,30 @@ var formSetting = {
 }
 
 function formCheck(event, treeId, treeNode) {
+	otherNodes = $('#' + treeNode.tId).siblings();
+	
+	
+	for (let i=0; i<otherNodes.length; i++){
+		node=otherNodes.get(i);
+		
+		span=node.children.item(1)
+		span.className='button chk checkbox_false_full';
+		
+	}
+	
+   
+	nodes=treeNode.getParentNode();
+	
+	let childArr=nodes.children
+	for(let i in childArr){
+		if(treeNode.name!=childArr[i].name){
+			childArr[i].checked=false;
+			
+               }
+	}
+	
+	
+	
 	let checkHtml = treeNode.content;
 
 	$('#form_list').html(checkHtml);

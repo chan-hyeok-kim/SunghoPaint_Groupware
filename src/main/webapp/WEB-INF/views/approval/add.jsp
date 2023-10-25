@@ -108,7 +108,7 @@
 				</div>
 				<div>
 					<span class="title"></span><span class="title">결재자</span> <input
-						id="last-approver"; style="display: inline-block; margin-left: 4px"
+						id="last-approver" style="display: inline-block; margin-left: 4px"
 						class="form-control approval-line-search" type="search"
 						placeholder="" aria-label="Search" name="lastApprover">
 					<button id="top-search-btn" class="btn btn-info approval-line-btn"
