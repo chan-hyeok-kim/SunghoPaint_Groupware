@@ -131,3 +131,45 @@ i{
 	font-size:25px;
 	color:#A65FFF;
 }
+
+
+
+
+
+#weeksOfMonth{
+	
+}
+
+#weeksOfMonth > ul{
+	list-style:none;
+}
+
+.week img{
+	width:13px;
+	vertical-align:middle;
+	margin-right:10px;
+	cursor:pointer;
+}
+
+.week img.open{
+	content:url("/images/attendance/up_arrow.png");
+}
+
+.week img.close{
+	content:url("/images/attendance/down_arrow.png");
+}
+
+.week h3{
+	display:inline-block;
+	vertical-align:middle;
+	margin:0px;
+	font-size:17px; font-weight:600;
+}
+
+.week img.open ~ div{
+	 display:block;
+}
+
+.week img.close ~ div{
+	display:none;
+}

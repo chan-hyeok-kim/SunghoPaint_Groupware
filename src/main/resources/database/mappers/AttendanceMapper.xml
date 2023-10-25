@@ -5,9 +5,9 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.attendance.AttendanceDAO">
-	<select id="getStatus" resultType="AttendanceVO">
+	<select id="getStatus" parameterType="Map" resultType="AttendanceVO">
 		SELECT * FROM
 			ATTENDANCE
-		WHERE YEAR(CURDATE()) = YEAR(ATTENDANCE_DATE) AND MONTH(CURDATE()) = MONTH(ATTENDANCE_DATE)
+		WHERE ATTENDANCE_DATE BETWEEN #{start_day} AND #{end_day}
 	</select>
 </mapper>

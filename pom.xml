@@ -19,22 +19,28 @@
 	</properties>
 	<dependencies>
 		
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
 	
-  <!--tomcat-embed-jasper -->
+		<!-- ======================================= -->
+	
+		<!--tomcat-embed-jasper -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<!-- 버전 삭제 -->
 		</dependency>
 
-  <!-- javax.servlet/jstl -->
+		<!-- javax.servlet/jstl -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<!-- 버전 삭제, 에러 발생시 버전 적용 -->
 		</dependency>
 
-  <!-- log4jdbc-log4j2-jdbc4.1 -->
+		<!-- log4jdbc-log4j2-jdbc4.1 -->
 		<!-- 버전은 최신 버전으로 -->
 		<dependency>
 			<groupId>org.bgee.log4jdbc-log4j2</groupId>
@@ -164,5 +170,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

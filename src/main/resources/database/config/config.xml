@@ -15,8 +15,6 @@
    
    
 		<typeAlias type="java.util.List" alias="List" />
-   
-   
-   
+		<typeAlias type="java.util.Map" alias="Map" />
    </typeAliases>
 </configuration>

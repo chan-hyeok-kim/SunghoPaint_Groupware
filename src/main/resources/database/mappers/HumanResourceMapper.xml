@@ -5,7 +5,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.humanResource.HumanResourceDAO">
-	<select id="getHumanResource" resultMap="getHumanResourceResult" parameterType="String">
+	<select id="getHumanResource" parameterType="String" resultMap="getHumanResourceResult">
 		SELECT *
 			FROM HUMAN_RESOURCE HR INNER JOIN ACCOUNT_ROLE AR
 				ON HR.EMPLOYEE_ID = AR.EMPLOYEE_ID INNER JOIN ROLE R

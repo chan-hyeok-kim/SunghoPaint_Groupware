@@ -1,6 +1,6 @@
 package com.ham.len.humanResource;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,7 +19,7 @@ import lombok.ToString;
 public class HumanResourceVO implements UserDetails {
 	private String employeeID;
 	private String password;
-	private Date joinDate;
+	private Timestamp joinDate;
 	private Boolean joinType;
 	private String name;
 	private String birth;
@@ -36,7 +36,7 @@ public class HumanResourceVO implements UserDetails {
 	private String accountNumber;
 	private String accountHolder;
 	private Boolean approvalAuthority;
-	private Date quitDate;
+	private Timestamp quitDate;
 	private String quitReason;
 	private String regId;
 	private java.util.Date regDate;

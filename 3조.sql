@@ -116,7 +116,7 @@ COLLATE=utf8mb4_general_ci;
 
 
 CREATE TABLE `ATTENDANCE` (
-	`ATTENDANCE_NO`		BIGINT			NOT NULL,
+	`ATTENDANCE_NO`		BIGINT			AUTO_INCREMENT NOT NULL,
 	`EMPLOYEE_ID`		VARCHAR(255)	NOT NULL,
 	`ATTENDANCE_DATE`	DATETIME		NOT NULL,
 	`ATTENDANCE_START`	DATETIME		NOT NULL,
@@ -175,9 +175,20 @@ ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_general_ci;
 
-/* ------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------ */
 
-INSERT INTO CODE VALUES('R001', 'R00', 'ROLE_ADMIN', '', NOW(), '', '', NOW(), '');
-INSERT INTO CODE VALUES('R002', 'R00', 'ROLE_APPROVER', '', NOW(), '', '', NOW(), '');
-INSERT INTO CODE VALUES('R003', 'R00', 'ROLE_USER', '', NOW(), '', '', NOW(), '');
+INSERT INTO CODE VALUES('R001', 'R00', 'ADMIN', '', NOW(), '', '', NOW(), '');
+INSERT INTO CODE VALUES('R002', 'R00', 'APPROVER', '', NOW(), '', '', NOW(), '');
+INSERT INTO CODE VALUES('R003', 'R00', 'USER', '', NOW(), '', '', NOW(), '');
 COMMIT;
+
+
+INSERT INTO ATTENDANCE VALUES(NULL, '2023001', NOW(),
+											   STR_TO_DATE('2021-10-10 08:50:00', '%Y-%m-%d %H:%i:%S'),
+											   STR_TO_DATE('2021-10-10 18:10:10', '%Y-%m-%d %H:%i:%S'),
+											   '2023001',
+											   STR_TO_DATE('2021-10-10 08:50:00', '%Y-%m-%d %H:%i:%S'),
+											   'Test',
+											   '2023001',
+											   STR_TO_DATE('2021-10-10 08:50:00', '%Y-%m-%d %H:%i:%S'),
+											   'Test');
