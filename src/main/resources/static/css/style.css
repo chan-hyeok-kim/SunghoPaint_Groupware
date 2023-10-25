@@ -14489,4 +14489,8 @@ dl {
 #form-modal-size{
 	max-width: 1000px;
 }
+#document-tree{
+	height: 200px;
+	margin-top: 0px;
+}
 /*# sourceMappingURL=style.css.map */

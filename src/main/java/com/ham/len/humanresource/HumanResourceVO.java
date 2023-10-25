@@ -2,6 +2,8 @@ package com.ham.len.humanresource;
 
 import java.sql.Date;
 
+import com.ham.len.admin.CodeVO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class HumanResourceVO {
+public class HumanResourceVO extends CodeVO{
 
 	private String employeeID;
 	private Date joinDate;

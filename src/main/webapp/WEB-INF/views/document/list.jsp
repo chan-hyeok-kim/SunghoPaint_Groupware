@@ -175,7 +175,7 @@ ul.nav-tabs {
 							<div id="document-tree-wrapper-div">
 							<div style="float: left">
 
-								<ul id="tree" class="ztree"></ul>
+								<ul id="document-tree" class="ztree"></ul>
 							</div>
 
 							<div style="float: left">
@@ -188,10 +188,29 @@ ul.nav-tabs {
 
 							<div>
 								<div class="card" id="document-card">
-									<div class="card-body">문서양식분류코드 상위코드표시 
-									<p>상위양식함 정보</p>
-									<p>양식함명<input class="form-control document-card-input"></p>
-									</div>
+								
+								<table class="table table-bordered">
+								<form action="upAdd" method="post">
+								<tbody>
+								   <tr>
+								      <td>상위양식코드</td>
+								      <td></td>
+								   </tr>
+								   <tr>
+								      <td>상위양식함명</td>
+								      <td><input class="form-control document-card-input" name=""></td>   
+								   </tr>
+								   <tr>
+								   <td>
+								   </td>
+								   <td><button class="btn btn-info">추가</button></td>
+								</form>
+								</tbody>
+								
+								
+								
+								</table>
+									
 								</div>
 							</div>
 							
@@ -201,30 +220,20 @@ ul.nav-tabs {
 								<thead>
 									<tr>
 										<th>선택</th>
-										<th>기안일자</th>
-										<th>제목</th>
-										<th>구분</th>
-										<th>기안자</th>
-										<th>결재자</th>
-										<th>진행상태</th>
-										<th>결재 확인</th>
+										<th>문서양식함</th>
+										<th>문서양식명</th>
+										<th>등록일</th>
+										<th>관리</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach items="${list}" var="vo" varStatus="i">
 										<tr>
 											<td><input type="checkbox"></td>
-											<td>${vo.approvalStartDate}</td>
-											<td>${vo.approvalTitle}</td>
-											<td>${vo.approvalContents}</td>
-											<td>${vo.drafter}</td>
-											<td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
-											<c:choose>
-												<c:when test="${vo.approvalStatusCd eq 'R001'}">
-													<td>기안중</td>
-												</c:when>
-											</c:choose>
-											<td><a>기안서 확인</a></td>
+											<td class="get-up-code-name">${totalList[i.index].codeName}</td>
+											<td>${vo.codeName}</td>
+											<td>${vo.regDate}</td>
+											<td><button class="btn btn-info">수정</button></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -279,7 +288,7 @@ ul.nav-tabs {
 
 
 
-		
-			<script src="/js/document/document-tree.js"></script>
+		    <script src="/js/ztree/up-document-tree.js"></script>
+			
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.ham.len.admin.notice;
 
-public class NoticeVO {
+import com.ham.len.admin.CodeVO;
+
+public class NoticeVO extends CodeVO {
 
 }

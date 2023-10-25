@@ -13,4 +13,9 @@ public interface ApprovalTypeDAO {
 	
 	public List<ApprovalTypeVO> getList(Pager pager) throws Exception;
 		
+	public int setUpAdd(ApprovalUpTypeVO approvalUpTypeVO) throws Exception;
+	
+	public List<ApprovalUpTypeVO> getUpList(Pager pager) throws Exception;
+	
+	public List<ApprovalUpTypeVO> getTotalList(Pager pager) throws Exception;
 }

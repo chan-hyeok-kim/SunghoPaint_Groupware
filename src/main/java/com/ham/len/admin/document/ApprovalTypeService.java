@@ -21,4 +21,16 @@ public class ApprovalTypeService {
 		return approvalTypeDAO.getList(pager);
 	}
 	
+	public int setUpAdd(ApprovalUpTypeVO approvalUpTypeVO) throws Exception{
+        return approvalTypeDAO.setUpAdd(approvalUpTypeVO);
+    }
+	
+	public List<ApprovalUpTypeVO> getUpList(Pager pager) throws Exception{
+		return approvalTypeDAO.getUpList(pager);
+	}
+	
+	public List<ApprovalUpTypeVO> getTotalList(Pager pager) throws Exception{
+		return approvalTypeDAO.getTotalList(pager);
+	}
+	
 }

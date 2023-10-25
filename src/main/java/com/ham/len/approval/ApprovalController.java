@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ham.len.admin.document.ApprovalTypeVO;
 
 import com.ham.len.commons.Pager;
+import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,6 +56,13 @@ public class ApprovalController {
 		 
 	}
 	
+	@ResponseBody
+	@PostMapping("ajaxTeamList")
+    public List<HumanResourceVO> getTeamList(HumanResourceVO humanResourceVO) throws Exception{
+		List<HumanResourceVO> hr=approvalService.getTeamList(humanResourceVO);
+		
+		return hr;
+    }
 	
 	
 }

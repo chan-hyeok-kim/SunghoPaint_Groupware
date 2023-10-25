@@ -3,48 +3,25 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="com.ham.len.admin.document.ApprovalTypeDAO">
 
-   <select id="getList" resultMap="getListResult" parameterType="ApprovalTypeVo">
-        SELECT * 
-          FROM APPROVAL_TYPE A INNER JOIN CODE C
-            ON A.APPROVAL_TYPE_CD=C.CODE
-         ORDER BY A.APPROVAL_TYPE_NO DESC
-         LIMIT #{startRow},#{lastRow}
-   </select>
-   
-   <resultMap type="ApprovalTypeVO" id="getListResult">
-        <id column="APPROVAL_TYPE_NO" property="approvalTypeNo"/>
-        <result column="EMPLOYEE_ID" property="employeeId"/>
-        <result column="APPROVAL_FORM" property="approvalForm"/>
-        <result column="APPROVAL_TYPE_CD" property="approvalTypeCd"/>
-        <result column="REG_ID" property="regId"/>
-        <result column="REG_DATE" property="regDate"/>
-        <result column="REG_MENU" property="regMenu"/>
-        <result column="MOD_ID" property="modId"/>
-        <result column="MOD_DATE" property="modDate"/>
-        <result column="MOD_MENU" property="modMenu"/>
-        
-        <association javaType="CodeVO" property="codeVO">
-         <id column="CODE" property="code"/>
-        <result column="UP_CODE" property="upCode"/>
-        <result column="CODE_NAME" property="codeName"/>
-        <result column="REG_ID" property="regId"/>
-        <result column="REG_DATE" property="regDate"/>
-        <result column="REG_MENU" property="regMenu"/>
-        <result column="MOD_ID" property="modId"/>
-        <result column="MOD_DATE" property="modDate"/>
-        <result column="MOD_MENU" property="modMenu"/>
-        
-        </association>
-   </resultMap>
-  
-   <insert id="setAdd" parameterType="ApprovalTypeVO">
-        INSERT INTO APPROVAL_TYPE(APPROVAL_TYPE_NO, EMPLOYEE_ID,APPROVAL_FORM,APPROVAL_TYPE_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
-        VALUES(#{approvalTypeNo},#{employeeId},#{approvalForm},#{approvalTypeCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
-   </insert>
-   
+	<select id="getList" resultType="ApprovalTypeVO"
+		parameterType="Pager">
+		SELECT *
+		FROM APPROVAL_TYPE A INNER JOIN CODE C
+		ON A.APPROVAL_TYPE_CD=C.CODE 
+		ORDER BY A.APPROVAL_TYPE_NO ASC
+		LIMIT #{startRow},#{lastRow}
+	</select>
+
+
+	<insert id="setAdd" parameterType="ApprovalTypeVO">
+		INSERT INTO APPROVAL_TYPE(APPROVAL_TYPE_NO,
+		EMPLOYEE_ID,APPROVAL_FORM,APPROVAL_TYPE_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+		VALUES(#{approvalTypeNo},#{employeeId},#{approvalForm},#{approvalTypeCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
+	</insert>
+
 
 	<update id="setUpdate" parameterType="ApprovalTypeVO">
 		UPDATE APPROVAL_TYPE
@@ -52,5 +29,31 @@
 		APPROVAL_FORM=#{approvalForm},APPROVAL_TYPE_CD=#{approvalTypeCd},MOD_ID=#{modId},MOD_DATE=#{modDate},MOD_MENU=#{modMenu}
 		WHERE APPROVAL_TYPE_NO=#{approvalTypeNO}
 	</update>
+
+	<insert id="setUpAdd" parameterType="ApprovalUpTypeVO">
+		INSERT INTO APPROVAL_UP_TYPE(APPROVAL_UP_TYPE_NO,
+		EMPLOYEE_ID,APPROVAL_UP_TYPE_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+		VALUES(#{approvalUpTypeNo},#{employeeId},#{approvalUpTypeCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
+	</insert>
+	
+	<select id="getUpList" resultType="ApprovalUpTypeVO"
+		parameterType="Pager">
+		SELECT *
+		FROM APPROVAL_UP_TYPE AU INNER JOIN CODE C
+		  ON AU.APPROVAL_UP_TYPE_CD=C.CODE 
+		ORDER BY AU.APPROVAL_UP_TYPE_NO ASC
+		LIMIT #{startRow},#{lastRow}
+	</select>
+	
+	<!-- uptypeVO내용만 뿌릴거여서 resultmap안해도상관없다 -->
+	<select id="getTotalList" resultType="ApprovalUpTypeVO"
+		parameterType="Pager">
+		SELECT *
+		FROM APPROVAL_TYPE A INNER JOIN APPROVAL_UP_TYPE AU
+		  ON A.APPROVAL_UP_TYPE_NO=AU.APPROVAL_UP_TYPE_NO INNER JOIN CODE C
+		  ON AU.APPROVAL_UP_TYPE_CD=C.CODE 
+		ORDER BY AU.APPROVAL_UP_TYPE_NO ASC
+		LIMIT #{startRow},#{lastRow}
+	</select>
 
 </mapper>

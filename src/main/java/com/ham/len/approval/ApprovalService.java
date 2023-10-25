@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ham.len.admin.document.ApprovalTypeVO;
 import com.ham.len.commons.Pager;
+import com.ham.len.humanresource.HumanResourceVO;
 
 @Service
 public class ApprovalService {
@@ -19,7 +20,9 @@ public class ApprovalService {
 		return approvalDAO.getList(pager);
 	}
 	
-	
+	public List<HumanResourceVO> getTeamList(HumanResourceVO humanResourceVO) throws Exception{
+		return approvalDAO.getTeamList(humanResourceVO);
+    }
 	
 	
 }

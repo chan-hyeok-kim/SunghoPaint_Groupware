@@ -13,6 +13,13 @@
          LIMIT #{startRow},#{lastRow}
    </select>
    
+   <select id="getTeamList" resultType="HumanResourceVO" parameterType="HumanResourceVO">
+       SELECT *
+         FROM HUMAN_RESOURCE HR RIGHT OUTER JOIN CODE C
+           ON HR.DEPARTMENT_CD=C.CODE
+        WHERE HR.DEPARTMENT_CD=#{departmentCd}
+   </select>
+   
    
    
    

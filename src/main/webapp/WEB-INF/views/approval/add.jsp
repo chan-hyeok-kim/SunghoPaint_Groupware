@@ -108,9 +108,9 @@
 				</div>
 				<div>
 					<span class="title"></span><span class="title">결재자</span> <input
-						style="display: inline-block; margin-left: 4px"
+						id="last-approver"; style="display: inline-block; margin-left: 4px"
 						class="form-control approval-line-search" type="search"
-						placeholder="" aria-label="Search">
+						placeholder="" aria-label="Search" name="lastApprover">
 					<button id="top-search-btn" class="btn btn-info approval-line-btn"
 						type="submit">
 						<i class="mdi mdi-account-search"></i>
@@ -214,8 +214,8 @@
 
 			
 			<div class="modal-footer" style="background: white;">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-info">확인</button>
+				<button id="line-confirm-close" type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				<button id="tree-line-btn" type="button" class="btn btn-info">확인</button>
 			</div>
 			</div>
 		</div>
