@@ -16,9 +16,12 @@
 	}
 	
 	$(function(){
-		$(".week img.open").click(function(){
-			$(this).removeClass("open");
-			$(this).addClass("close");
+		$("#weeksOfMonth").on("click", ".week > img", function(){
+			if($(this).hasClass("open")){
+				$(this).removeClass("open").addClass("close");
+			}else if($(this).hasClass("close")){
+				$(this).removeClass("close").addClass("open");
+			}
 		});
 		
 		// =========================================================================================================================
@@ -99,33 +102,29 @@
 		<c:forEach items="${weeksOfMonth}" var="week" varStatus="week_status">
 			<c:if test="${week_status.index != 0}">
 				<li class="week">
-					<div>
-						<c:if test="${week_status.index == 1}"> 
-							<img class="open">
-						</c:if>
-						<c:if test="${week_status.index != 1}"> 
-							<img class="close">
-						</c:if>
-						<h3>${week_status.index} 주차</h3>
-						<div>
-							<table>
-								<tr>
-									<th>일자</th> <th>업무 시작</th> <th>업무 종료</th> <th>총 근무 시간</th> <th>근무 시간 상세</th>
+					<c:if test="${week_status.index == 1}"> 
+						<img class="open">
+					</c:if>
+					<c:if test="${week_status.index != 1}"> 
+						<img class="close">
+					</c:if>
+					<h3>${week_status.index} 주차</h3>
+					<table>
+						<tr>
+							<th>일자</th> <th>업무 시작</th> <th>업무 종료</th> <th>총 근무 시간</th> <th>근무 시간 상세</th>
+						</tr>
+						<c:forEach items="${week}" var="day" varStatus="day_status">
+							<c:if test="${day_status.index != 0}">
+								<tr data-day="${day}">
+									<td class="day">${day}</td>
+									<td class="start"></td>
+									<td class="end"></td>
+									<td class="total"></td>
+									<td class="detail"></td>
 								</tr>
-								<c:forEach items="${week}" var="day" varStatus="day_status">
-									<c:if test="${day_status.index != 0}">
-										<tr data-day="${day}">
-											<td class="day">${day}</td>
-											<td class="start"></td>
-											<td class="end"></td>
-											<td class="total"></td>
-											<td class="detail"></td>
-										</tr>
-									</c:if>
-								</c:forEach>
-							</table>
-						</div>
-					</div>
+							</c:if>
+						</c:forEach>
+					</table>
 				</li>
 			</c:if>
 		</c:forEach>

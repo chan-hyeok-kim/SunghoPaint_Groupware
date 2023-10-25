@@ -151,11 +151,11 @@ i{
 	cursor:pointer;
 }
 
-.week img.open{
+.week > img.open{
 	content:url("/images/attendance/up_arrow.png");
 }
 
-.week img.close{
+.week > img.close{
 	content:url("/images/attendance/down_arrow.png");
 }
 
@@ -166,10 +166,22 @@ i{
 	font-size:17px; font-weight:600;
 }
 
-.week img.open ~ div{
-	 display:block;
+.week > img.open ~ table{
+	display:table;
 }
 
-.week img.close ~ div{
+.week > img.close ~ table{
 	display:none;
+}
+
+.week > table{
+	width:100%;
+}
+
+table tr:has(th){
+	border-bottom:1px solid #B7B7B7;
+}
+
+table th, table td{
+	padding:0px 40px;
 }
