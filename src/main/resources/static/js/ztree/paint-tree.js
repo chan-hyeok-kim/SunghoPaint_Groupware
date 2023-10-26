@@ -1,6 +1,6 @@
 var zTreeObj;
 // zTree configuration information, refer to API documentation (setting details)
-var setting = {
+var humanSetting = {
 	check: {
 		autoCheckTrigger: false,
 		chkStyle: "checkbox",
@@ -148,7 +148,7 @@ function myOnCheck(event, treeId, treeNode) {
 */
 
 // zTree data attributes, refer to the API documentation (treeNode data details)
-var zNodes = [
+var humanNodes = [
 	{
 		name: "페인트 오피스", open: true, children: [
 			{ name: "인사부" }, { name: "총무부" },
@@ -160,7 +160,7 @@ var zNodes = [
 	}
 ];
 $(document).ready(function() {
-	zTreeObj = $.fn.zTree.init($("#tree"), setting, zNodes);
+	zTreeObj = $.fn.zTree.init($("#tree"), humanSetting, humanNodes);
 });
 
 
@@ -229,45 +229,19 @@ function formCheck(event, treeId, treeNode) {
 	
 	
 	
-	let checkHtml = treeNode.content;
-
-	$('#form_list').html(checkHtml);
+	
 
 }
 
 
-var formNodes = new Array();
-
-$.ajax({
-	type: 'GET',
-	url: '/document/ajaxList',
-	success: function(result) {
-		console.log(result)
-
-
-		for (let i = 0; i < result.length; i++) {
-			let name = result[i].codeName;
-			let formContents = result[i].approvalForm;
-
-			let arr = new Array();
-			arr.name = name;
-			arr.open = true;
-			arr.content = formContents
-			formNodes.push(arr);
-		}
-
-	}
-
-})
 
 
 
-
-
+/*
 $('#form-modal-btn').click(function() {
 	zTreeObj = $.fn.zTree.init($("#form"), formSetting, formNodes);
 });
 
-
+*/
 
 

@@ -48,6 +48,13 @@ ul.log li.dark {background-color: #E3E3E3;}
 #document-tree-wrapper-div{
 	margin-left: 200px;
 }
+#document-tree span{
+	font-size:15px;
+}
+
+.get-up-code-name{
+	display: none;
+}
 
 /* ruler */
 div.ruler {height:20px; width:220px; background-color:#f0f6e4;border: 1px solid #333; margin-bottom: 5px; cursor: pointer}

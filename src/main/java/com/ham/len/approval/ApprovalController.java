@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ham.len.admin.document.ApprovalTypeService;
 import com.ham.len.admin.document.ApprovalTypeVO;
-
+import com.ham.len.admin.document.ApprovalUpTypeVO;
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 
@@ -26,6 +27,8 @@ public class ApprovalController {
 	@Autowired
 	private ApprovalService approvalService;
 
+	@Autowired
+	private ApprovalTypeService approvalTypeService;
 	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
@@ -52,8 +55,12 @@ public class ApprovalController {
 	}
 	
 	@GetMapping("add")
-	public void setAdd() throws Exception{
-		 
+	public void setAdd(Model model,Pager pager) throws Exception{
+		List<ApprovalTypeVO> ar=approvalTypeService.getList(pager);
+		List<ApprovalUpTypeVO> total=approvalTypeService.getTotalList(pager);
+	    
+		model.addAttribute("list", ar);
+		model.addAttribute("totalList", total);
 	}
 	
 	@ResponseBody

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -251,16 +252,21 @@
 					<div style="display: flex; float: left; width: 40%;">
 						<div style="">
 
-							<ul id="form" class="ztree"></ul>
+							<ul id="document-tree" class="ztree"></ul>
 						</div>
-
+						
 						<div style="margin-left: 20px;" id="tree_list_empty">
 							<ul id="form_list" class="ztree"></ul>
 
 						</div>
 					</div>
 
-
+<!-- 문서 data -->
+<c:forEach items="${totalList}" var="tvo" varStatus="i">
+						    <span class="get-up-code-name" data-up-type-cd="${tvo.approvalUpTypeCd}" data-code-name="${list[i.index].codeName}"
+						    data-up-code-name="${tvo.codeName}">${list[i.index].approvalForm}</span>
+						   <%--  <div class="save" style="display: none" data-form="${list[i.index].approvalForm}"></div> --%>
+						</c:forEach>
 
 
 
@@ -288,7 +294,21 @@
 
 	<!-- tree -->
 	<script src="/js/ztree/paint-tree.js"></script>
+    <script src="/js/ztree/up-document-tree.js"></script>
+    
+<script type="text/javascript">
+let formList=${list}
 
+var formArr=new Array();
 
+let count=$('.get-up-code-name').length;
+console.log(count)
+
+for(i=0; i<count; i++){
+	
+	formArr.push(formList[i].approvalForm);
+}
+
+</script>
 </body>
 </html>

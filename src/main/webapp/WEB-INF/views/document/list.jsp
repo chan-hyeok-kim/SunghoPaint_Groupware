@@ -29,7 +29,8 @@
 
 #approval-table {
 	text-align: center;
-	width: 100%
+	width: 100%;
+	
 }
 
 .nav-tabs>li:before, .nav-tabs>li:after {
@@ -194,11 +195,11 @@ ul.nav-tabs {
 								<tbody>
 								   <tr>
 								      <td>상위양식코드</td>
-								      <td></td>
+								      <td><input id="up-type-cd" class="form-control document-card-input" name="approvalUpTypeCd"></td>
 								   </tr>
 								   <tr>
 								      <td>상위양식함명</td>
-								      <td><input class="form-control document-card-input" name=""></td>   
+								      <td><input class="form-control document-card-input" name="codeName"></td>   
 								   </tr>
 								   <tr>
 								   <td>
@@ -220,7 +221,7 @@ ul.nav-tabs {
 								<thead>
 									<tr>
 										<th>선택</th>
-										<th>문서양식함</th>
+										<th>상위폴더</th>
 										<th>문서양식명</th>
 										<th>등록일</th>
 										<th>관리</th>
@@ -230,7 +231,7 @@ ul.nav-tabs {
 									<c:forEach items="${list}" var="vo" varStatus="i">
 										<tr>
 											<td><input type="checkbox"></td>
-											<td class="get-up-code-name" data-code-name="${vo.codeName}">${totalList[i.index].codeName}</td>
+											<td>${totalList[i.index].codeName}</td>
 											<td>${vo.codeName}</td>
 											<td>${vo.regDate}</td>
 											<td><button class="btn btn-info">수정</button></td>
@@ -239,7 +240,9 @@ ul.nav-tabs {
 								</tbody>
 
 							</table>
-						
+						<c:forEach items="${totalList}" var="tvo" varStatus="i">
+						    <span style="display: none;" class="get-up-code-name" data-up-type-cd="${tvo.approvalUpTypeCd}" data-code-name="${list[i.index].codeName}" data-up-code-name="${tvo.codeName}"></span>
+						</c:forEach>
 						</div>
 					</div>
 

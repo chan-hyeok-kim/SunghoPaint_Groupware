@@ -1,6 +1,8 @@
 package com.ham.len.admin.document;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,6 +47,7 @@ public class ApprovalTypeController {
 		List<ApprovalTypeVO> ar=approvalTypeService.getList(pager);
 		List<ApprovalUpTypeVO> total=approvalTypeService.getTotalList(pager);
 		
+		log.warn("======={}========",total);
 		model.addAttribute("list", ar);
 		model.addAttribute("totalList", total);
 		
@@ -60,8 +63,9 @@ public class ApprovalTypeController {
 	}
 	
 	@GetMapping("add")
-	public void setAdd(HttpServletRequest request) throws Exception{
+	public void setAdd() throws Exception{
 		
+	
 	}
 	
 	@PostMapping("add")
@@ -93,9 +97,14 @@ public class ApprovalTypeController {
 	
 	@GetMapping("ajaxList")
 	@ResponseBody
-	public List<ApprovalTypeVO> getAjaxList(Pager pager) throws Exception{
+	public Map<String, Object> getAjaxList(Pager pager) throws Exception{
 		List<ApprovalTypeVO> ar=approvalTypeService.getList(pager);
-		return ar;
+		List<ApprovalUpTypeVO> total=approvalTypeService.getTotalList(pager);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", ar);
+		map.put("total", total);
+		return map;
 	}
 	
 	/*
@@ -111,7 +120,7 @@ public class ApprovalTypeController {
     @PostMapping("upAdd")
     public String setUpAdd(ApprovalUpTypeVO approvalUpTypeVO,HttpServletRequest request) throws Exception{
     	
-    	
+    	approvalUpTypeVO.setEmployeeId(id);
     	String path=request.getRequestURI();
     	approvalUpTypeVO=(ApprovalUpTypeVO)makeColumn.getColumn(approvalUpTypeVO, path, id);
     	
