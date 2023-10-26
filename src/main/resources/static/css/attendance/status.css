@@ -19,7 +19,7 @@ i{
 
 #cur_time{
 	margin-bottom:10px;
-	text-align:center; 
+	text-align:center;
 	font-size:42px;
 	color:#5E5E5E;
 }
@@ -118,7 +118,7 @@ i{
 	float:left;
 }
 
-#total > .wrap > .component:nth-child(2){
+#total > .wrap > .component:nth-of-type(2){
 	margin-left:100px;
 }
 
@@ -132,6 +132,9 @@ i{
 	color:#A65FFF;
 }
 
+.component > .time > span:not(:last-of-type){
+	padding-right:7px;
+}
 
 
 

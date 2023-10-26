@@ -28,14 +28,13 @@ public class AttendanceController {
 	@GetMapping("status")
 	public String getStatus(Model model) {
 		Calendar cal = Calendar.getInstance(Locale.KOREA);
-		int[][] weeksOfMonth = WeeksOfMonth.get(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1);
+		String[][] weeksOfMonth = WeeksOfMonth.get(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1);
 		
 		Map<String, String> params = new HashMap<>();
 		
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH) + 1;
-		int day = weeksOfMonth[1][1];
-		log.info("========== {} ==========", weeksOfMonth);
+		String day = weeksOfMonth[1][1];
 		
 		log.info("시작 날 : {}", year + "-" + month + "-" + day);
 		params.put("start_day", year + "-" + month + "-" + day);
@@ -48,14 +47,21 @@ public class AttendanceController {
 		
 		day = weeksOfMonth[weeksOfMonth.length - 1][7];
 		
-		params.put("end_day", year + "-" + month + "-" + day);
 		log.info("마지막 날 : {}", year + "-" + month + "-" + day);
+		params.put("end_day", year + "-" + month + "-" + day);
 		
 		List<AttendanceVO> attendances = attendanceService.getStatus(params);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		
+		
+		Map<String, Integer> date = new HashMap<>();
+		date.put("year", year);
+		date.put("month", month);
+		
+		model.addAttribute("date", date);
 		model.addAttribute("weeksOfMonth", weeksOfMonth);
+		model.addAttribute("weeksOfMonth_json", gson.toJson(weeksOfMonth));
 		model.addAttribute("attendances_json", gson.toJson(attendances));
 		
 		return "attendance/status";

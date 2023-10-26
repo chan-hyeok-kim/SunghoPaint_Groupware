@@ -6,7 +6,7 @@ import java.util.Locale;
 public class WeeksOfMonth {
 	private static boolean isMonthOver;
 	
-	public static int[][] get(int year, int month) {
+	public static String[][] get(int year, int month) {
 		Calendar cal = Calendar.getInstance(Locale.KOREA);
 		cal.set(year, month - 1, 1); // 0(1월) ~ 11(12월)
 		
@@ -25,7 +25,7 @@ public class WeeksOfMonth {
 		
 		// ========================================================================================
 		
-		int[][] weeksOfMonth = new int[lastWeekOfMonth + 1][7 + 1]; // 날짜를 편리하게 관리하기 위해 0(첫 번째) index는 비워 둠
+		String[][] weeksOfMonth = new String[lastWeekOfMonth + 1][7 + 1]; // 날짜를 편리하게 관리하기 위해 0(첫 번째) index는 비워 둠
 		
 		for(int i = 1; i <= lastWeekOfMonth; i++) {
 			cal.set(Calendar.WEEK_OF_MONTH, i);
@@ -49,7 +49,13 @@ public class WeeksOfMonth {
 			
 			int j = 1;
 			for(int k = startDayOfWeek; k <= endDayOfWeek; k++) {
-				weeksOfMonth[i][j] = (k > lastDayOfCurrentMonth) ? k - lastDayOfCurrentMonth : k;
+				int day = (k > lastDayOfCurrentMonth) ? k - lastDayOfCurrentMonth : k;
+				
+				Calendar c = Calendar.getInstance(Locale.KOREA);
+				c.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), day); 
+				
+				String[] dayOfWeek = {"일", "월", "화", "수", "목", "금", "토"};
+				weeksOfMonth[i][j] = day + " " + dayOfWeek[c.get(Calendar.DAY_OF_WEEK) - 1];
 				
 				j++;
 			}
