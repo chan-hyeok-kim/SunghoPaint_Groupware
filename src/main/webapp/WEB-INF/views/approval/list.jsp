@@ -257,11 +257,14 @@ ul.nav-tabs {
 
 
 <!-- Sign -->
-<div>
-     <button type="button" class="btn" data-toggle="modal"  data-target="#signModal">서명/도장 등록</button>
+<div style="float:left">
+     <button type="button" class="btn" data-toggle="modal"  data-target="#stampModal">도장 등록</button>
   </div> 
  
-  
+<!-- Stamp --> 
+<div>
+    <button type="button" class="btn" data-toggle="modal"  data-target="#signModal">서명 등록</button>
+</div> 
   
 
   
@@ -272,8 +275,8 @@ ul.nav-tabs {
 
 				  
 
-<!-- Sign-Modal -->
-<div class="modal fade" id="signModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Stamp-Modal -->
+<div class="modal fade" id="stampModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
       <div class="modal-header">
@@ -291,11 +294,11 @@ ul.nav-tabs {
      
      
      <div id="sign-file-reg-div">
-     <div style="border: 1px solid gray;">
+     <div style="border-bottom: 1px solid gray;">
       
       <input type="file" accept="image/*" id="file" name="file" style="display: none;" onchange="loadFile(this)">
       <div id="sign-file-div" onclick="document.getElementById('file').click()">
-      <span class="material-symbols-outlined">upload</span>이미지를 선택하세요
+      <span class="material-symbols-outlined">upload</span>이미지를 등록하세요
       </div>
        
          <div id="fileName"></div>
@@ -304,7 +307,49 @@ ul.nav-tabs {
       </div>
      </div>
       
+
      
+     
+     
+     <div style="border: 1px solid gray;">
+     <div style="border: 1px solid gray;">
+      미리보기
+     </div>
+        <div id="small-image-show" style="align-content: center"></div>  
+        </div>    
+    
+      
+      
+  </div>     
+  
+  
+      </div>
+      <div class="modal-footer" style="background: white">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-info">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Sign Modal  -->
+  
+  <div class="modal fade" id="signModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">도장/서명올리기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+      
+      <div>*사인해주세요</div>
+      
+    
     <p style="margin-top: 40px">서명란</p>
      <div>
      
@@ -336,7 +381,6 @@ ul.nav-tabs {
       </div>
     </div>
   </div>
-
 <!-- modal end -->			
 	
 
