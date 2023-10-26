@@ -47,7 +47,10 @@ console.log(cdcheck);
  *  */ 
 const canvas = document.querySelector("canvas");
 
-const signaturePad = new SignaturePad(canvas);
+const signaturePad = new SignaturePad(canvas,{
+    minWidth: 5,
+    maxWidth: 10
+});
 
 // Returns signature image as data URL (see https://mdn.io/todataurl for the list of possible parameters)
 signaturePad.toDataURL(); // save image as PNG
@@ -58,3 +61,11 @@ signaturePad.toDataURL("image/svg+xml"); // save image as SVG data url
 $('#clear-sign').click(function(){
 	signaturePad.clear();
 })
+
+
+signaturePad.fromData(signaturePad.toData())
+
+
+/**
+ * 
+ */

@@ -14494,7 +14494,8 @@ dl {
 	margin-top: 0px;
 }
 #sign-canvas{
-	
+	width: 400px;
+	height: 300px;
 }
 #sign-file-div{
 	cursor: pointer;
