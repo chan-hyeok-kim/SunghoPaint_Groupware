@@ -27,8 +27,12 @@
 	
 	
 	<!-- 성호 -->
-	<definition name="sales/list" extends="layout">
-	  <put-attribute name="body" value="/WEB-INF/views/sales/list.jsp"/>
+	<definition name="sales/reservationStatus" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/reservationStatus.jsp"/>
+	</definition>
+	
+	<definition name="sales/carReservation" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/carReservation.jsp"/>
 	</definition>
 	<!-- 성호 -->
 	

@@ -6,11 +6,27 @@
   
 <mapper namespace="com.ham.len.sales.SalesDAO">
 
-   <insert id="setCarReservation" parameterType="CarReservationVO">
+   <insert id="setCarReservationAdd" parameterType="CarReservationVO">
 		INSERT INTO CAR_RESERVATION 
-		values(0, '2023001', 0, #{rentalDate}, 1, #{rentalLocation}, #{returnDate}, 'test', sysdate(), 'test', 'test', sysdate(), 'test');
+		values(0, #{employeeId}, #{carNo}, #{rentalDate}, #{rentalReasonCd}, #{rentalLocation}, #{returnDate}, 'test', sysdate(), 'test', 'test', sysdate(), 'test');
    </insert>
    
+   <select id="getReservationList" resultType="CarReservationVO">
+   		SELECT * FROM CAR_RESERVATION
+   </select>
    
+	<update id="setReservationUpdate" parameterType="CarReservationVO">
+		UPDATE CAR_RESERVATION SET
+  		EMPLOYEE_ID=#{employeeId}, CAR_NO=#{carNo}, RENTAL_DATE=#{rentalDate}, RENTAL_REASON_CD=#{rentalReasonCd}, RENTAL_LOCATION=#{rentalLocation}, RETURN_DATE=#{returnDate}
+  		WHERE RENTAL_NO=#{rentalNo}
+	</update>
 
+	<delete id="setReservationDelete" parameterType="CarReservationVO">
+			DELETE FROM CAR_RESERVATION
+			WHERE RENTAL_NO=#{rentalNo}
+	</delete>
+
+	<select id="getCarList" resultType="CarListVO">
+   		SELECT * FROM CAR_LIST
+   </select>
 </mapper>

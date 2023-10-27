@@ -16,6 +16,8 @@
    
    
    <typeAlias type="com.ham.len.sales.CarReservationVO" alias="CarReservationVO"/>
+   <typeAlias type="com.ham.len.sales.CarListVO" alias="CarListVO"/>
+   
    
    
    </typeAliases>
