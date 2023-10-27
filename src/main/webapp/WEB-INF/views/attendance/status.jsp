@@ -20,15 +20,15 @@
 			
 			let attendanceStart = new Date(element.attendanceStart);
 			let attendanceEnd = new Date(element.attendanceEnd);
-			let formatted_attendanceStart = formatTime(attendanceStart.getHours(), attendanceStart.getMinutes(), attendanceStart.getSeconds());
-			let formatted_attendanceEnd = formatTime(attendanceEnd.getHours(), attendanceEnd.getMinutes(), attendanceEnd.getSeconds());
+			let formatted_attendanceStart = formatTime(attendanceStart.getHours(), attendanceStart.getMinutes(), attendanceStart.getSeconds(), ":");
+			let formatted_attendanceEnd = formatTime(attendanceEnd.getHours(), attendanceEnd.getMinutes(), attendanceEnd.getSeconds(), ":");
 			
 			$("[data-day='" + day + "']").find(".start").html(formatted_attendanceStart);
 			$("[data-day='" + day + "']").find(".end").html(formatted_attendanceEnd);
 			
 			// 총 근무 시간 구하기
 			let diff = attendanceEnd.getTime() - attendanceStart.getTime();
-			let formatted_diff = timeToTimeString(diff);
+			let formatted_diff = timeDiffToTimeString(diff, ":");
 			$("[data-day='" + day + "']").find(".total").html(formatted_diff);
 			
 			// 연장, 야간 근무 시간 구하기
@@ -38,18 +38,18 @@
 			standard_leaveWork.setHours(18, 0, 0);
 			
 			diff = standard_leaveWork.getTime() - attendanceStart.getTime();
-			formatted_diff = timeToTimeString(diff);
-			let diff_hour = parseInt(formatted_diff.split("h")[0]);
+			formatted_diff = timeDiffToTimeString(diff, ":");
+			let diff_hour = parseInt(formatted_diff.split(":")[0]);
 			if(diff_hour >= 9) formatted_diff = "09:00:00"
 			detail += "기본 " + formatted_diff;
 			
 			diff = attendanceEnd.getTime() - standard_leaveWork.getTime();
-			formatted_diff = timeToTimeString(diff);
-
+			formatted_diff = timeDiffToTimeString(diff, ":");
+			
 			diff_hours = parseInt(formatted_diff.split(":")[0]);
 			diff_minutes = parseInt(formatted_diff.split(":")[1]);
 			diff_seconds = parseInt(formatted_diff.split(":")[2]);
-
+			
 			if(diff_hours >= 1){
 				detail += " / 연장 " + formatted_diff;
 				if(diff_hours >= 5){
@@ -69,13 +69,14 @@
 				$(".week > img").not(this).removeClass("open").addClass("close");
 				$(this).removeClass("close").addClass("open");
 				
-				// ===============================================
+				// ====================================================================
 				
 				// - 선택한 주차의 누적, 초과, 잔여 시간 구하기 -
 				
 				// 누적
 				let week = parseInt($(this).siblings("h3").html().split(" ")[0]);
 				let accrue = "00:00:00";
+				
 				$.each(weeksOfMonth_json[week], function(index, element){
 					if(index == 0) return true; // == continue
 					
@@ -83,45 +84,35 @@
 					let total = $("[data-day='" + day + "']").find(".total").html();
 
 					if(total != ""){
-						let t1 = timeStringToHours(accrue);
-						let t2 = timeStringToHours(total);
-						console.log("accrue : " + t1);
-						console.log("total : " + t2);
-
-						accrue = hoursToTimeString(t1 + t2);
+						accrue = hoursToTimeString(timeStringToHours(accrue, ":") + timeStringToHours(total, ":"), "hms");
 					}
 				});
-
+				
 				let week_accrue = $("#total #week_accrue > .time > span").html(accrue);
+				let excess = "00h 00m 00s"; // ing . . .
 				
 				// 초과
-				/*
-					let timeObj = new Object();
-					splitTimeString("", timeObj);
+				let accrue_timeObj = splitTimeString(accrue, "hms");
+				
+				if(accrue_timeObj.hours >= 40){
+					excess = hoursToTimeString(timeStringToHours(accrue, "hms") - timeStringToHours("40h 00m 00s", "hms"));
+				}
+				
+				let week_excess = $("#total #week_excess > .time");
+				let week_accrue = $("#total #week_excess > .time > span").html(excess);
 
-					if(accrue_timeObj.hours >= 40){
-						let result = hoursToTimeString(timeStringToHours(accrue) - timeStringToHours("40:00:00"));
-						splitTimeString(result, timeObj);
-					}
-					
-					let week_excess = $("#total #week_excess > .time");
-					week_excess.children("span:eq(0)").html(timeObj.hours + "h");
-					week_excess.children("span:eq(1)").html(timeObj.minutes + "m");
-					week_excess.children("span:eq(2)").html(timeObj.seconds + "s");
+				// 잔여
+				let remain_timeObj = splitTimeString("", timeObj);
 
-					// 잔여
-					splitTimeString("", timeObj);
+				if(accrue_timeObj.hours < 40){
+					let result = hoursToTimeString(timeStringToHours("40:00:00") - timeStringToHours(accrue));
+					remain_timeObj = splitTimeString(result);
+				}
 
-					if(accrue_timeObj.hours < 40){
-						let result = hoursToTimeString(timeStringToHours("40:00:00") - timeStringToHours(accrue));
-						splitTimeString(result, timeObj);
-					}
-
-					let week_remain = $("#total #week_remain > .time");
-					week_remain.children("span:eq(0)").html(timeObj.hours + "h");
-					week_remain.children("span:eq(1)").html(timeObj.minutes + "m");
-					week_remain.children("span:eq(2)").html(timeObj.seconds + "s");
-				*/
+				let week_remain = $("#total #week_remain > .time");
+				week_remain.children("span:eq(0)").html(remain_timeObj.hours + "h");
+				week_remain.children("span:eq(1)").html(remain_timeObj.minutes + "m");
+				week_remain.children("span:eq(2)").html(remain_timeObj.seconds + "s");
 			}
 		});
 	});

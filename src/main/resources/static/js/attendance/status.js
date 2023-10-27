@@ -8,58 +8,59 @@
 	}
 */
 
-function formatTime(h, m, s, type){
-	switch(type){
-		case 1:
-			return (h < 10 ? "0" : "") + h + "h " + (m < 10 ? "0" : "") + m + "m " + (s < 10 ? "0" : "") + s + "s";
-			break;
-		default:
+function formatTime(h, m, s, format){
+	switch(format){
+		case ":":
 			return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+		case "hms":
+			return (h < 10 ? "0" : "") + h + "h " + (m < 10 ? "0" : "") + m + "m " + (s < 10 ? "0" : "") + s + "s";
 	}
 }
 
 
-function splitTimeString(timeString, timeObj){
-	if(timeString != ""){
-		let parts = timeString.split(":");
-		timeObj.hours = parts[0];
-		timeObj.minutes = parts[1];
-		timeObj.seconds = parts[2];
-	}else{
-		timeObj.hours = 0;
-		timeObj.minutes = 0;
-		timeObj.seconds = 0;
+function splitTimeString(timeString, format){
+	let timeObj = new Object();
+	
+	if(format == ":"){
+		parts = timeString.split(":");
+		timeObj.hours = parseInt(parts[0]);
+		timeObj.minutes = parseInt(parts[1]);
+		timeObj.seconds = parseInt(parts[2]);
+	}else if(format == "hms"){
+		parts = timeString.split(" ");
+		timeObj.hours = parseInt(parts[0].substr(1));
+		timeObj.minutes = parseInt(parts[1].substr(1));
+		timeObj.seconds = parseInt(parts[2].substr(1));
 	}
+	
+	return timeObj;
 }
 
 
 // ex) timeToTimeString(날짜.getTime() - 날짜.getTime()) = "HH:mm:ss"
-function timeToTimeString(time){
+function timeDiffToTimeString(time, format){
 	let h = Math.floor(time / (1000 * 60 * 60));
 	let m = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
 	let s = Math.floor((time % (1000 * 60)) / 1000);
-	return formatTime(h, m, s);
+	return formatTime(h, m, s, format);
 }
 
 
 /*
-	"HH:mm:ss" 형식 시간 연산 함수(날짜 개념 X)
+	"HH:mm:ss" 형식 '시간' 계산 함수(날짜 개념 X)
 	ex) "10:10:10" + "20:20:20" = "30:30:30"
 */
 
-function timeStringToHours(timeString){
-	let parts = timeString.split(":");
-	let h = parseInt(parts[0]);
-	let m = parseInt(parts[1]);
-	let s = parseInt(parts[2]);
-	return h + (m / 60) + (s / 3600);
+function timeStringToHours(timeString, format){
+	let timeObj = splitTimeString(timeString, format);
+	return timeObj.hours + (timeObj.minutes / 60) + (timeObj.seconds / 3600);
 }
 
-function hoursToTimeString(hours){
+function hoursToTimeString(hours, format){
 	let h = Math.floor(hours);
 	let m = Math.floor((hours - h) * 60);
 	let s = Math.round((hours - h - m / 60) * 3600);
-	return formatTime(h, m, s);
+	return formatTime(h, m, s, format);
 }
 
 
