@@ -14,7 +14,7 @@
    <typeAlias type="com.ham.len.approval.ApprovalVO" alias="ApprovalVO"/>
    <typeAlias type="com.ham.len.admin.document.ApprovalTypeVO" alias="ApprovalTypeVO"/>
    <typeAlias type="com.ham.len.admin.document.ApprovalUpTypeVO" alias="ApprovalUpTypeVO"/>
-   
+   <typeAlias type="com.ham.len.humanresource.sign.SignatureVO" alias="SignatureVO"/>
    
    
    

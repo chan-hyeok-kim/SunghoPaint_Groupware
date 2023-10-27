@@ -128,6 +128,28 @@ ul.nav-tabs {
 }
 
 </style>
+
+
+<meta name="description" content="Signature Pad - HTML5 canvas based smooth signature drawing using variable width spline interpolation.">
+   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+    <!-- <link rel="stylesheet" href="/css/sign/signature-pad.css">
+   -->
+    <script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script><script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-39365077-1']);
+      _gaq.push(['_trackPageview']);
+  
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script> 
+
 </head>
 <body id="page-top">
 	<div id="wrapper">
@@ -258,12 +280,12 @@ ul.nav-tabs {
 
 <!-- Sign -->
 <div style="float:left">
-     <button type="button" class="btn" data-toggle="modal"  data-target="#stampModal">도장 등록</button>
+     <button type="button" class="btn" data-toggle="modal"  data-target="#stampModal">도장/서명 등록</button>
   </div> 
  
 <!-- Stamp --> 
 <div>
-    <button type="button" class="btn" data-toggle="modal"  data-target="#signModal">서명 등록</button>
+    <button type="button" class="btn" data-toggle="modal"  data-target="#signModal">서명 만들기</button>
 </div> 
   
 
@@ -288,21 +310,25 @@ ul.nav-tabs {
       <div class="modal-body">
       
       
-      <div>* 이미지를 등록하거나 사인해주세요</div>
+      <div>* 사인이나 도장이 나오는 이미지를 등록해주세요</div>
       
       
      
      
      <div id="sign-file-reg-div">
-     <div style="border-bottom: 1px solid gray;">
-      
-      <input type="file" accept="image/*" id="file" name="file" style="display: none;" onchange="loadFile(this)">
+     <div>
+     <form id="sign-frm" enctype="multipart/form-data">
+      <input type="file" id="file" name="file" style="display: none;" onchange="loadFile(this)">
+<input type="file">
       <div id="sign-file-div" onclick="document.getElementById('file').click()">
       <span class="material-symbols-outlined">upload</span>이미지를 등록하세요
       </div>
        
          <div id="fileName"></div>
+         
+         
       <div id="image-show"></div>
+      </form>
       
       </div>
      </div>
@@ -315,58 +341,83 @@ ul.nav-tabs {
      <div style="border: 1px solid gray;">
       미리보기
      </div>
+         
         <div id="small-image-show" style="align-content: center"></div>  
         </div>    
-    
-      
+       
+     
       
   </div>     
   
   
-      </div>
+   
       <div class="modal-footer" style="background: white">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-info">확인</button>
+        <button type="button" class="btn btn-info" id="sign-submit-btn">확인</button>
+        
         </div>
       </div>
     </div>
-  </div>
+   </div>
   
   
   <!-- Sign Modal  -->
   
   <div class="modal fade" id="signModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog" id="sign-modal-size" role="document">
     <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">도장/서명올리기</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <!-- <button type="button" class="close btn-info" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
       </div>
       <div class="modal-body">
       
-      
-      <div>*사인해주세요</div>
+     
+      <div>*아래에 서명해주세요</div>
       
     
-    <p style="margin-top: 40px">서명란</p>
+   
      <div>
      
-     <canvas id="sign-canvas" style="border: 1px solid gray"></canvas>
+     <!-- Sign Canvas -->
+     
+      <div id="signature-pad" class="signature-pad" style="margin-top: 20px;">
+      <div class="signature-pad--body">
+       <canvas width="664" height="290" id="sign-canvas" style="border: 1px solid gray"></canvas> 
+      
+<%-- <canvas width="664" style="touch-action: none; user-select: none;" height="290"></canvas>  --%>
+      </div>
+      <div class="signature-pad--footer">
+        <div class="description"></div>
+  
+        <div class="signature-pad--actions">
+          <div class="column">
+            <button type="button" class="button clear btn-info" data-action="clear">지우기</button>
+            <button type="button" class="button btn-info" data-action="undo">이전으로</button>
+  
+          </div>
+          <div class="column">
+            <button type="button" class="button save btn-info" data-action="save-png">PNG로 저장</button>
+            <button type="button" class="button save btn-info" data-action="save-jpg">JPG로 저장</button>
+            <button type="button" class="button save btn-info" data-action="save-svg">SVG로 저장</button>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+     
+     
+  <%--    <canvas id="sign-canvas" style="border: 1px solid gray"></canvas>
      </div>
      <div style="float:left">
      <button id="clear-sign" type="button">지우기</button>
-     </div>
+     </div> --%>
      
      
      
-     <div style="border: 1px solid gray;">
-     <div style="border: 1px solid gray;">
-      미리보기
-     </div>
-        <div id="small-image-show" style="align-content: center"></div>  
-        </div>    
+    
     
       
       
@@ -388,7 +439,7 @@ ul.nav-tabs {
 				</div>
               </div>
 			</div>
-
+</div>
 		
 
 	
@@ -398,10 +449,14 @@ ul.nav-tabs {
 	
 	<script src="/js/commons/list-date.js"></script>
 	<!-- Signature_pad -->
+	  <script src="/js/commons/signature.js"></script>   
+     <!-- <script src="/js/commons/app.js"></script>  -->
 	<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 	
-	<script src="/js/commons/sign.js"></script>
-	
+    
+    
+	<script src="/js/commons/sign.js"></script> 
+	 
 
 
 

@@ -1,6 +1,7 @@
 /**
  * 도장 이미지
  */
+var file;
  function loadFile(input) {
     var file = input.files[0];	//선택된 파일 가져오기
 
@@ -32,9 +33,11 @@
     document.getElementById('fileName').textContent = null; 
     
     var fileUrl = $('#file-img').attr('src');
-    console.log();
+    console.log(fileUrl);
     $('#small-image-show').html('<img src='+fileUrl+' width="60px" height="40px">')
-    
+    $('#file').val();
+    console.log( $('#file').val())
+    console.log(file);
 };
 
 let cdcheck=$('#check').attr('data-check');
@@ -49,7 +52,8 @@ const canvas = document.querySelector("canvas");
 
 const signaturePad = new SignaturePad(canvas,{
     minWidth: 5,
-    maxWidth: 10
+    maxWidth: 10,
+    backgroundColor: 'rgb(255, 255, 255)'
 });
 
 // Returns signature image as data URL (see https://mdn.io/todataurl for the list of possible parameters)
@@ -67,5 +71,114 @@ signaturePad.fromData(signaturePad.toData())
 
 
 /**
- * 
+ *  btn save as
  */
+const wrapper = document.getElementById("signature-pad");
+const clearButton = wrapper.querySelector("[data-action=clear]");
+const undoButton = wrapper.querySelector("[data-action=undo]");
+const savePNGButton = wrapper.querySelector("[data-action=save-png]");
+const saveJPGButton = wrapper.querySelector("[data-action=save-jpg]");
+const saveSVGButton = wrapper.querySelector("[data-action=save-svg]");
+
+clearButton.addEventListener("click", () => {
+  signaturePad.clear();
+});
+
+undoButton.addEventListener("click", () => {
+  const data = signaturePad.toData();
+
+  if (data) {
+    data.pop(); // remove the last dot or line
+    signaturePad.fromData(data);
+  }
+});
+
+savePNGButton.addEventListener("click", () => {
+  if (signaturePad.isEmpty()) {
+    alert("먼저 서명해주세요");
+  } else {
+    const dataURL = signaturePad.toDataURL();
+    download(dataURL, "signature.png");
+  }
+});
+
+saveJPGButton.addEventListener("click", () => {
+  if (signaturePad.isEmpty()) {
+    alert("먼저 서명해주세요");
+  } else {
+    const dataURL = signaturePad.toDataURL("image/jpeg");
+    download(dataURL, "signature.jpg");
+  }
+});
+
+saveSVGButton.addEventListener("click", () => {
+  if (signaturePad.isEmpty()) {
+    alert("먼저 서명해주세요");
+  } else {
+    const dataURL = signaturePad.toDataURL('image/svg+xml');
+    download(dataURL, "signature.svg");
+  }
+});
+
+/**서명 설정 */
+
+
+function download(dataURL, filename) {
+  const blob = dataURLToBlob(dataURL);
+  const url = window.URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.style = "display: none";
+  a.href = url;
+  a.download = filename;
+
+  document.body.appendChild(a);
+  a.click();
+
+  window.URL.revokeObjectURL(url);
+}
+
+// One could simply use Canvas#toBlob method instead, but it's just to show
+// that it can be done using result of SignaturePad#toDataURL.
+function dataURLToBlob(dataURL) {
+  // Code taken from https://github.com/ebidel/filer.js
+  const parts = dataURL.split(';base64,');
+  const contentType = parts[0].split(":")[1];
+  const raw = window.atob(parts[1]);
+  const rawLength = raw.length;
+  const uInt8Array = new Uint8Array(rawLength);
+
+  for (let i = 0; i < rawLength; ++i) {
+    uInt8Array[i] = raw.charCodeAt(i);
+  }
+
+  return new Blob([uInt8Array], { type: contentType });
+}
+
+
+/** 사인 전송  
+ * 
+ * 
+*/
+$('#sign-submit-btn').click(function(){
+	var form=$('#sign-frm')[0];
+	var formData=new FormData(form);
+	formData.append('file', $('#file')[0].files[0]);
+	console.log(formData)
+	
+	$.ajax({
+		type:"POST",
+		 url:"/sign/ajaxAdd",
+		 data: formData
+		 ,
+		 contentType: false, 
+		 processData: false
+		 ,success:function(result){
+			console.log('성공')
+			console.log(result) 
+		 },error:function(){
+			console.log('실패')
+		 }
+	})
+	
+})
