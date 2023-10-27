@@ -53,8 +53,8 @@
 	  <put-attribute name="body" value="/WEB-INF/views/document/add.jsp"/>
 	</definition>
 	
-    <definition name="commons/ajaxResult" extends="layout">
-	  <put-attribute name="body" value="/WEB-INF/views/commons/ajaxResult.jsp"/>
+    <definition name="commons/ajaxResult" template="/WEB-INF/views/commons/ajaxResult.jsp">
+	  
 	</definition>
 	
 	

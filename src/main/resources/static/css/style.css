@@ -14497,10 +14497,12 @@ dl {
 	
 }
 #sign-file-reg-div{
-	border: 1px solid gray; 
+	
+	border-bottom: 1px solid gray;  
 	float:left; 
-	width: 470px; 
+	width: 458.06px; 
 	height: 250px;
+	margin-bottom:20px;
 }
 
 

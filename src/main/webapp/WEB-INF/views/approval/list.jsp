@@ -318,16 +318,17 @@ ul.nav-tabs {
      <div id="sign-file-reg-div">
      <div>
      <form id="sign-frm">
-      <input type="file" accept="image/*" id="file" name="file" style="display: none;" onchange="loadFile(this)"> 
+      <input type="file" accept="image/*" id="file" name="file" onchange="loadFile(this)"> 
       </form>
       <div id="sign-file-div" onclick="document.getElementById('file').click()">
-      <span class="material-symbols-outlined">upload</span>이미지를 등록하세요
+      <span class="material-symbols-outlined">upload</span>이곳을 클릭해서 이미지를 등록하세요
+      
       </div>
        
          <div id="fileName"></div>
          
          
-      <div id="image-show"></div>
+      <div id="image-show" style="padding: 30px 0 0 100px;"></div>
      
       
       </div>
@@ -338,11 +339,11 @@ ul.nav-tabs {
      
      
      <div style="border: 1px solid gray;">
-     <div style="border: 1px solid gray;">
+     <div style="border-bottom: 1px solid gray;">
       미리보기
      </div>
          
-        <div id="small-image-show" style="align-content: center"></div>  
+        <div id="small-image-show" style="padding: 30px 0 0 195px; height: 100px;"></div>  
         </div>    
        
      
@@ -396,12 +397,12 @@ ul.nav-tabs {
           <div class="column">
             <button type="button" class="button clear btn-info" data-action="clear">지우기</button>
             <button type="button" class="button btn-info" data-action="undo">이전으로</button>
-  
+            <button type="button" class="button save btn-info" data-action="save-png">PNG로 저장</button>
           </div>
           <div class="column">
-            <button type="button" class="button save btn-info" data-action="save-png">PNG로 저장</button>
-            <button type="button" class="button save btn-info" data-action="save-jpg">JPG로 저장</button>
-            <button type="button" class="button save btn-info" data-action="save-svg">SVG로 저장</button>
+            
+          <!--   <button type="button" class="button save btn-info" data-action="save-jpg">JPG로 저장</button>
+            <button type="button" class="button save btn-info" data-action="save-svg">SVG로 저장</button> -->
            
           </div>
         </div>
@@ -426,8 +427,8 @@ ul.nav-tabs {
   
       </div>
       <div class="modal-footer" style="background: white">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-info">확인</button>
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button> -->
+         <button type="button" class="btn btn-info" data-dismiss="modal">확인</button>
         </div>
       </div>
     </div>

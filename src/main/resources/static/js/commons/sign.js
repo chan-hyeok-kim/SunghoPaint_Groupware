@@ -102,7 +102,7 @@ savePNGButton.addEventListener("click", () => {
   }
 });
 
-saveJPGButton.addEventListener("click", () => {
+/*saveJPGButton.addEventListener("click", () => {
   if (signaturePad.isEmpty()) {
     alert("먼저 서명해주세요");
   } else {
@@ -118,7 +118,7 @@ saveSVGButton.addEventListener("click", () => {
     const dataURL = signaturePad.toDataURL('image/svg+xml');
     download(dataURL, "signature.svg");
   }
-});
+});*/
 
 /**서명 설정 */
 
@@ -172,7 +172,7 @@ $('#sign-submit-btn').click(function(){
 	
 	var formData=new FormData(form);
 	formData.append('file', $('#file')[0].files[0]);
-	console.log(form)
+	console.log(formData)
 	
 	$.ajax({
 		type:"POST",
