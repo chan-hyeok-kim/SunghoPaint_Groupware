@@ -31,7 +31,7 @@ public class SignatureService {
     	return signDAO.getDetail(signVO);
     }
 	    
-	public int setAdd(MultipartFile file, HttpSession session) throws Exception{
+	public String setAdd(MultipartFile file, HttpSession session) throws Exception{
 //		session.get이나 security에서 아이디꺼내주면됨
 		String id="2023001";
 		String path=uploadPath+sign;
@@ -44,7 +44,7 @@ public class SignatureService {
 		
 		
 		 
-		return 1; //signDAO.setAdd(signVO);
+		return fileName; //signDAO.setAdd(signVO);
 	}
 	
     public int setUpdate(SignatureVO signVO) throws Exception{

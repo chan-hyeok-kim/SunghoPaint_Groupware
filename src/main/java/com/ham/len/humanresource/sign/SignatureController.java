@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ham.len.commons.ImgToBase64;
 import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,15 +23,19 @@ public class SignatureController {
 	@Autowired
 	private SignatureService signService;
 
+	@Autowired
+	private ImgToBase64 imgToBase64;
+	
 	@GetMapping("detail")
 	public SignatureVO getDetail(SignatureVO signVO) throws Exception {
 		return signService.getDetail(signVO);
 	}
 
 	@PostMapping("ajaxAdd")
-	public String setAdd(MultipartFile formData, HttpSession session, Model model) throws Exception {
-		log.warn("*******{}*******",formData);
-		int result = signService.setAdd(formData, session);
+	public String setAdd(MultipartFile file, HttpSession session, Model model) throws Exception {
+		log.warn("*******{}*******",file);
+		
+		String result = signService.setAdd(file, session);
 		model.addAttribute("result", result);
 		return "commons/ajaxResult";
 	}

@@ -30,10 +30,12 @@ public class FileManager {
 		file = new File(file,fileName);
 		
 		log.warn("===={}=======",fileName);
-		String base64=imgToBase64.imageToBase64(file.getPath(), fileName);
+	    
+		multipartFile.transferTo(file);
+		String base64=imgToBase64.imageToBase64(file);
 		log.warn("===={}=======",base64);
 		
-		//multipartFile.transferTo(file);
+		
 		
 		//return fileName;
 		

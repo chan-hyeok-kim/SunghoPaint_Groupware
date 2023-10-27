@@ -161,10 +161,18 @@ function dataURLToBlob(dataURL) {
  * 
 */
 $('#sign-submit-btn').click(function(){
+	
+	var file=document.querySelector('#file')
+	console.log($('#file').val());
+	
+	if($('#file').val()==0){
+		return;
+	}
 	var form=$('#sign-frm')[0];
+	
 	var formData=new FormData(form);
 	formData.append('file', $('#file')[0].files[0]);
-	console.log(formData)
+	console.log(form)
 	
 	$.ajax({
 		type:"POST",

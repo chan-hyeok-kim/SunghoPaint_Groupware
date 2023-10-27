@@ -317,9 +317,9 @@ ul.nav-tabs {
      
      <div id="sign-file-reg-div">
      <div>
-     <form id="sign-frm" enctype="multipart/form-data">
-      <input type="file" id="file" name="file" style="display: none;" onchange="loadFile(this)">
-<input type="file">
+     <form id="sign-frm">
+      <input type="file" accept="image/*" id="file" name="file" style="display: none;" onchange="loadFile(this)"> 
+      </form>
       <div id="sign-file-div" onclick="document.getElementById('file').click()">
       <span class="material-symbols-outlined">upload</span>이미지를 등록하세요
       </div>
@@ -328,7 +328,7 @@ ul.nav-tabs {
          
          
       <div id="image-show"></div>
-      </form>
+     
       
       </div>
      </div>
