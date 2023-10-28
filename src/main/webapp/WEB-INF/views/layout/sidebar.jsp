@@ -36,8 +36,17 @@
         </ul>
       </div>
     </li>
+    <script>
+      function sendPost(){
+        let form = $("<form></form>");
+        form.attr("method", "POST");
+        form.attr("action", "/attendance/status");
+        form.appendTo("body");
+        form.submit();
+      }
+    </script>
     <li class="nav-item">
-      <a class="nav-link" href="/attendance/status">
+      <a class="nav-link" onclick="sendPost()" style="cursor:pointer;">
         <span class="menu-title">근태 관리</span>
         <i class="mdi mdi-contacts menu-icon"></i>
       </a>

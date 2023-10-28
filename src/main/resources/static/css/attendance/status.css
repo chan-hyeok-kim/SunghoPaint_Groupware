@@ -139,11 +139,11 @@ i{
 
 
 
-#weeksOfMonth{
+#weeksOfMonthInfo{
 	
 }
 
-#weeksOfMonth > ul{
+#weeksOfMonthInfo > ul{
 	list-style:none;
 }
 

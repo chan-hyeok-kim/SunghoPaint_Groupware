@@ -8,19 +8,33 @@
 	}
 */
 
+function dateToDataDateAttribute(date){
+	let y = date.getFullYear();
+	let m = date.getMonth() + 1;
+	let d = date.getDate();
+	return y + "y" + m + "m" + d + "d";
+}
+
+
 function formatTime(h, m, s, format){
 	switch(format){
 		case ":":
-			return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+			return (h >= 0 && h < 10 ? "0" : "") + h + ":" + (m >= 0 && m < 10 ? "0" : "") + m + ":" + (s >= 0 && s < 10 ? "0" : "") + s;
 		case "hms":
-			return (h < 10 ? "0" : "") + h + "h " + (m < 10 ? "0" : "") + m + "m " + (s < 10 ? "0" : "") + s + "s";
+			return h + "h " + m + "m " + s + "s";
 	}
+}
+
+
+function convertFormatTime(timeString, before_format, after_format){
+	let timeObj = splitTimeString(timeString, before_format);
+	return formatTime(timeObj.hours, timeObj.minutes, timeObj.seconds, after_format);
 }
 
 
 function splitTimeString(timeString, format){
 	let timeObj = new Object();
-	
+
 	if(format == ":"){
 		parts = timeString.split(":");
 		timeObj.hours = parseInt(parts[0]);
@@ -28,16 +42,24 @@ function splitTimeString(timeString, format){
 		timeObj.seconds = parseInt(parts[2]);
 	}else if(format == "hms"){
 		parts = timeString.split(" ");
-		timeObj.hours = parseInt(parts[0].substr(1));
-		timeObj.minutes = parseInt(parts[1].substr(1));
-		timeObj.seconds = parseInt(parts[2].substr(1));
+		let hours = parts[0];
+		let minutes = parts[1];
+		let seconds = parts[2];
+
+		timeObj.hours = parseInt(hours.substr(0, hours.length - 1));
+		timeObj.minutes = parseInt(minutes.substr(0, minutes.length - 1));
+		timeObj.seconds = parseInt(seconds.substr(0, seconds.length - 1));
 	}
 	
 	return timeObj;
 }
 
 
-// ex) timeToTimeString(날짜.getTime() - 날짜.getTime()) = "HH:mm:ss"
+/*
+	시간 '차이' 계산(날짜 개념 있음)
+	1. let timeString = timeDiffToTimeString(날짜.getTime() - 날짜.getTime(), "hms");
+	2. console.log(timeString); // "○○h ○○m ○○s"
+*/
 function timeDiffToTimeString(time, format){
 	let h = Math.floor(time / (1000 * 60 * 60));
 	let m = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
@@ -47,8 +69,10 @@ function timeDiffToTimeString(time, format){
 
 
 /*
-	"HH:mm:ss" 형식 '시간' 계산 함수(날짜 개념 X)
-	ex) "10:10:10" + "20:20:20" = "30:30:30"
+	단순 '시간' 계산(날짜 개념 없음)
+	1. let hours = timeStringToHours("10:10:10", ":") + timeStringToHours("20:20:20", ":");
+	2. let timeString = hoursToTimeString(hours, ":");
+	3. console.log(timeString); // "30:30:30"
 */
 
 function timeStringToHours(timeString, format){
@@ -86,4 +110,26 @@ $(function(){
 		cur_time = new Date().toTimeString().split(" ")[0];
 		$("#cur_time").html(cur_time);
 	}, 1000);
+});
+
+// 월(Month) 이동
+$(function(){
+	$("#move_month > i").click(function(){
+		let date = $(this).siblings("h2").html();
+		let year = parseInt(date.split(".")[0]);
+		let month = parseInt(date.split(".")[1]) - 1;
+
+		date = ($(this).attr("id") == "before_month") ? new Date(year, month - 1) : new Date(year, month + 1);
+		year = date.getFullYear();
+		month = date.getMonth() + 1;
+
+		let form = $("<form></form>");
+        form.attr("method", "POST");
+        form.attr("action", "/attendance/status");
+		form.append($("<input/>", {type:"hidden", name:"year", value:year}));
+		form.append($("<input/>", {type:"hidden", name:"month", value:month}));
+		form.append("<input/>", );
+        form.appendTo("body");
+        form.submit();
+	});
 });

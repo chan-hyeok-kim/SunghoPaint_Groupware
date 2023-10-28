@@ -8,6 +8,6 @@
 	<select id="getStatus" parameterType="Map" resultType="AttendanceVO">
 		SELECT * FROM
 			ATTENDANCE
-		WHERE ATTENDANCE_DATE BETWEEN #{start_day} AND #{end_day}
+		WHERE ATTENDANCE_DATE BETWEEN #{start_date} AND #{end_date}
 	</select>
 </mapper>
