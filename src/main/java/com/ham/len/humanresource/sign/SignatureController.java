@@ -23,16 +23,14 @@ public class SignatureController {
 	@Autowired
 	private SignatureService signService;
 
-	@Autowired
-	private ImgToBase64 imgToBase64;
 	
 	@GetMapping("detail")
 	public SignatureVO getDetail(SignatureVO signVO) throws Exception {
 		return signService.getDetail(signVO);
 	}
 
-	@PostMapping("ajaxAdd")
-	public String setAdd(MultipartFile file, HttpSession session, Model model) throws Exception {
+	@PostMapping("ajaxUpdate")
+	public String setUpdate(MultipartFile file, HttpSession session, Model model) throws Exception {
 		log.warn("*******{}*******",file);
 		
 		String result = signService.setAdd(file, session);
@@ -40,14 +38,10 @@ public class SignatureController {
 		return "commons/ajaxResult";
 	}
 
-	@GetMapping("update")
-	public int setUpdate(SignatureVO signVO) throws Exception {
-		return signService.setUpdate(signVO);
-	}
+	/*
+	 * @GetMapping("update") public int setUpdate(SignatureVO signVO) throws
+	 * Exception { return signService.setUpdate(signVO); }
+	 */
 
-	// update할때만 삭제하면되서 나중에 지울예정
-	@GetMapping("delete")
-	public int setDelete(SignatureVO signVO) throws Exception {
-		return signService.setDelete(signVO);
-	}
+
 }

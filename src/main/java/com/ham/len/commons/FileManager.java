@@ -20,8 +20,11 @@ public class FileManager {
 	@Autowired
 	private ImgToBase64 imgToBase64;
 	
-	@Value("${data.img.path}")
-	private String basePath;
+	@Value("${base.img.prefix}")
+	private String basePrefix;
+	
+	@Value("${base.img.suffix}")
+	private String baseSuffix;
 	
 	public String save(String path, MultipartFile multipartFile) throws Exception{
 		File file = new File(path);
@@ -36,6 +39,7 @@ public class FileManager {
 		log.warn("===={}=======",fileName);
 		
 //	    확장자 알아내기
+//		여기서 확장자 조건 걸어줘야 함
 		String extension=fileName.substring(fileName.lastIndexOf(".")+1);
 		log.warn("====={}=====",extension);
 	    
@@ -43,7 +47,7 @@ public class FileManager {
 		String base64=imgToBase64.imageToBase64(file);
 		log.warn("===={}=======",base64);
 		
-		base64=basePath+extension+";base64,"+base64;
+		base64=basePrefix+extension+baseSuffix+base64;
 		log.warn("===={}=======",base64);
 		//return fileName;
 		

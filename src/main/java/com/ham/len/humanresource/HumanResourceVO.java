@@ -28,7 +28,7 @@ public class HumanResourceVO extends CodeVO{
 	private String bank;
 	private String accountNumber;
 	private String accountHolder;
-	private Boolean approvalAuthority;
+	private String signature;
 	private Date quitDate;
 	private String quitReason;
 	private String regId;
