@@ -47,6 +47,13 @@ public class WeekOfMonthInfoCalculator {
 		cal.setFirstDayOfWeek(Calendar.MONDAY);
 		cal.setMinimalDaysInFirstWeek(4);
 		
+		/*
+ 			버그인지 아닌지는 잘 모르겠지만, 아래 64번째 라인("cal.set(Calendar.WEEK_OF_MONTH, 5);")을 실행하기 이전에
+ 			이처럼 get 메서드를 한 번 실행해주어야 67번째 라인("cal.get(Calendar.WEEK_OF_MONTH)")를 실행했을 때 정상적인 결과가 나온다.
+ 			※참고로 반드시 WEEK_OF_MONTH가 아니어도 된다.  →  cal.get(Calendar.아무거나 상관없음);
+		*/
+		cal.get(Calendar.WEEK_OF_MONTH);
+		
 		// - 해당 달이 5주차까지 존재하는지 확인 -
 		
 		cal.set(Calendar.WEEK_OF_MONTH, 5); // 5주차로 설정

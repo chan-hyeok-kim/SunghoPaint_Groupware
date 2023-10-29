@@ -84,33 +84,66 @@ function hoursToTimeString(hours, format){
 	let h = Math.floor(hours);
 	let m = Math.floor((hours - h) * 60);
 	let s = Math.round((hours - h - m / 60) * 3600);
+
+	if(s == 60){
+		s = 0;
+		m++
+		if(m == 60){
+			m = 0;
+			h++;
+		}
+	}
+
 	return formatTime(h, m, s, format);
 }
 
 
-// init
+// 출퇴근 버튼
+function commute(url){
+	let param = new Object();
+
+	let date = $("#cur_date").html();
+	date = date.substr(0, date.indexOf("("));
+	let time = $("#cur_time").html();
+
+	if(url.indexOf("goWork") != -1){
+		param.start = date + " " + time;
+	}else if(url.indexOf("leaveWork") != -1){
+		param.end = date + " " + time;
+	}
+
+	$.ajax({
+		url:url,
+		type:"POST",
+		data:param,
+		success:function(result){
+			if(result > 0){
+				let form = $("<form></form>");
+				form.attr("method", "POST");
+				form.attr("action", "./status");
+				form.appendTo("body");
+				form.submit();
+			}else{
+				alert("이미 처리되었습니다.");
+			}
+		}
+	});
+}
+
 $(function(){
-	let cur_time = new Date().toTimeString().split(" ")[0];
-	
-	$("#attendance").html("<p id='cur_date'></p>" +
-								   "<p id='cur_time'>" + cur_time + "</p>" +
-								   "<div id='start_time' class='attendance_time'><i>출근 시간</i> <span>미등록</span></div>" +
-								   "<div id='end_time' class='attendance_time'><i>퇴근 시간</i> <span>미등록</span></div>" +
-								   "<div id='attendance_btn' class='on'>" +
-									   "<button id=start_btn'>출근하기</button> &nbsp;" +
-									   "<button id='end_btn'>퇴근하기</button>" +
-								   "</div>");
-	
-	let daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
-	let dayOfWeek = new Date().getDay();
-	let cur_date = new Date().toLocaleDateString().replace(/\./g, "").replace(/\s/g, "-");
-	$("#cur_date").html(cur_date + "(" + daysOfWeek[dayOfWeek] + ")");
-	
-	setInterval(function(){
-		cur_time = new Date().toTimeString().split(" ")[0];
-		$("#cur_time").html(cur_time);
-	}, 1000);
+	$("#attendance").on("click", "#start_btn.on", function(){
+		if(selected = confirm("출근하시겠습니까?")){
+			commute("./goWork");
+		}
+	});
+
+	$("#attendance").on("click", "#end_btn.on", function(){
+		if(selected = confirm("퇴근하시겠습니까?")){
+			commute("./leaveWork");
+		}
+	});
 });
+
 
 // 월(Month) 이동
 $(function(){
@@ -128,7 +161,6 @@ $(function(){
         form.attr("action", "/attendance/status");
 		form.append($("<input/>", {type:"hidden", name:"year", value:year}));
 		form.append($("<input/>", {type:"hidden", name:"month", value:month}));
-		form.append("<input/>", );
         form.appendTo("body");
         form.submit();
 	});

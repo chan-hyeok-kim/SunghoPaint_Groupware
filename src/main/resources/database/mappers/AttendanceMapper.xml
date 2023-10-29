@@ -6,8 +6,21 @@
   
 <mapper namespace="com.ham.len.attendance.AttendanceDAO">
 	<select id="getStatus" parameterType="Map" resultType="AttendanceVO">
-		SELECT * FROM
-			ATTENDANCE
+	<![CDATA[
+		SELECT *
+			FROM ATTENDANCE
 		WHERE ATTENDANCE_DATE BETWEEN #{start_date} AND #{end_date}
+	]]>
 	</select>
+	
+	<insert id="setGoWork" parameterType="AttendanceVO">
+		INSERT INTO ATTENDANCE
+		VALUES(NULL, #{employeeId}, #{attendanceDate}, #{attendanceStart}, NULL, #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu})
+	</insert>
+	
+	<update id="setLeaveWork" parameterType="AttendanceVO">
+		UPDATE ATTENDANCE SET
+		ATTENDANCE_END = #{attendanceEnd}, MOD_ID = #{modId}, MOD_DATE = #{modDate}, MOD_MENU = #{modMenu}
+		WHERE EMPLOYEE_ID = #{employeeId}
+	</update>
 </mapper>

@@ -17,4 +17,12 @@ public class AttendanceService {
 	public List<AttendanceVO> getStatus(Map<String, String> params) {
 		return attendanceDAO.getStatus(params);
 	}
+	
+	public int setGoWork(AttendanceVO attendanceVO) {
+		return attendanceDAO.setGoWork(attendanceVO);
+	}
+	
+	public int setLeaveWork(AttendanceVO attendanceVO) {
+		return attendanceDAO.setLeaveWork(attendanceVO);
+	}
 }

@@ -51,16 +51,16 @@ i{
 	background-color:white;
 }
 
-#attendance_btn.on > button{
+#attendance_btn > button.on{
 	border:1px solid #A65FFF;
 	color:#A65FFF;
 }
 
-#attendance_btn.on > button:hover{
+#attendance_btn > button.on:hover{
 	background-color:#F2E8FF;
 }
 
-#attendance_btn.off > button{
+#attendance_btn > button.off{
 	border:1px solid #CDCDCD;
 	color:#CDCDCD;
 	cursor:unset;
@@ -98,6 +98,7 @@ i{
 	display:flex;
 	justify-content:center;
 	align-items:center;
+	margin-bottom:50px;
 	overflow:hidden;
 	border:1px solid #B7B7B7;
 }
@@ -139,6 +140,7 @@ i{
 
 
 
+
 #weeksOfMonthInfo{
 	
 }
@@ -147,44 +149,69 @@ i{
 	list-style:none;
 }
 
-.week img{
+#weeksOfMonthInfo > ul > .week{
+	margin-bottom:20px;
+}
+
+.week > .week_title{
+	padding-bottom:10px;
+	border-bottom:1px solid #D9D9D9;
+}
+
+.week_title > img{
 	width:13px;
 	vertical-align:middle;
 	margin-right:10px;
 	cursor:pointer;
 }
 
-.week > img.open{
+.week_title > img.open{
 	content:url("/images/attendance/up_arrow.png");
 }
 
-.week > img.close{
+.week_title > img.close{
 	content:url("/images/attendance/down_arrow.png");
 }
 
-.week h3{
+.week_title > h3{
 	display:inline-block;
 	vertical-align:middle;
 	margin:0px;
 	font-size:17px; font-weight:600;
 }
 
-.week > img.open ~ table{
+.week_title > p{
+	float:right;
+	padding-top:10px;
+	font-size:13px;
+	color:#878787;
+}
+
+.week_title:has(img.open) ~ table{
 	display:table;
 }
 
-.week > img.close ~ table{
+.week_title:has(img.close) ~ table{
 	display:none;
 }
 
 .week > table{
 	width:100%;
+	border-bottom:1px solid #D9D9D9;
 }
 
 table tr:has(th){
-	border-bottom:1px solid #B7B7B7;
+	border-bottom:1px solid #E5E5E5;
 }
 
 table th, table td{
-	padding:0px 40px;
+	padding:10px 40px;
+}
+
+
+
+
+
+footer{
+	border-top:none !important;
 }
