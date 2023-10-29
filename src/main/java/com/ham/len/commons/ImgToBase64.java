@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,12 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class ImgToBase64 {
-
+	
 	public String imageToBase64(File f) throws Exception{
 	    String base64Img = "";
 	    
 	    //File f = new File(filePath + fileName);
 	    log.warn("======={}=========",f);
+	    
 	    if (f.exists() && f.isFile() && f.length() > 0) {
 	        byte[] bt = new byte[(int) f.length()];
 	        FileInputStream fis = null;
@@ -48,37 +50,6 @@ public class ImgToBase64 {
 	
 	
 	
-	@SuppressWarnings("null")
-	public String fileToString(File file) {
-        String fileString = new String();
-        FileInputStream inputStream = null;
-        ByteArrayOutputStream byteOutStream = null;
-        try {
-            inputStream = new FileInputStream(file);
-            int len = 0;
-            byte[] buf = new byte[1024];
-            while ((len = inputStream.read(buf)) != -1) {
-                byteOutStream.write(buf, 0, len);
-            }
-            byte[] fileArray = byteOutStream.toByteArray();
-            fileString = new String(Base64.encodeBase64(fileArray));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                byteOutStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return fileString;
-        
-    }
+	
 
 }

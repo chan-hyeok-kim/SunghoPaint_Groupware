@@ -436,7 +436,6 @@ ul.nav-tabs {
 <!-- modal end -->			
 	
 
-
 				</div>
               </div>
 			</div>
@@ -451,11 +450,7 @@ ul.nav-tabs {
 	<script src="/js/commons/list-date.js"></script>
 	<!-- Signature_pad -->
 	  <script src="/js/commons/signature.js"></script>   
-     <!-- <script src="/js/commons/app.js"></script>  -->
 	<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
-	
-    
-    
 	<script src="/js/commons/sign.js"></script> 
 	 
 
