@@ -262,9 +262,9 @@
 					</div>
 
 <!-- 문서 data -->
-<c:forEach items="${totalList}" var="tvo" varStatus="i">
-						    <span class="get-up-code-name" data-up-type-cd="${tvo.approvalUpTypeCd}" data-code-name="${list[i.index].codeName}"
-						    data-up-code-name="${tvo.codeName}">${list[i.index].approvalForm}</span>
+<c:forEach items="${list}" var="vo" varStatus="i">
+						    <span class="get-up-code-name" data-up-type-cd="${vo.approvalUpTypeVO.approvalUpTypeCd}" data-code-name="${vo.codeName}"
+						    data-up-code-name="${vo.approvalUpTypeVO.codeName}">${vo.approvalForm}</span>
 						   <%--  <div class="save" style="display: none" data-form="${list[i.index].approvalForm}"></div> --%>
 						</c:forEach>
 
@@ -297,7 +297,7 @@
     <script src="/js/ztree/up-document-tree.js"></script>
     
 <script type="text/javascript">
-let formList=${list}
+/* let formList=${list}
 
 var formArr=new Array();
 
@@ -308,7 +308,7 @@ for(i=0; i<count; i++){
 	
 	formArr.push(formList[i].approvalForm);
 }
-
+ */
 </script>
 </body>
 </html>

@@ -36,20 +36,25 @@ public class FileManager {
 		String fileName= UUID.randomUUID().toString()+'_'+multipartFile.getOriginalFilename();
 		file = new File(file,fileName);
 		
-		log.warn("===={}=======",fileName);
-		
+	
 //	    확장자 알아내기
 //		여기서 확장자 조건 걸어줘야 함
 		String extension=fileName.substring(fileName.lastIndexOf(".")+1);
+		
+		String base64=null;
+		if(extension.equalsIgnoreCase("JPEG") && extension.equalsIgnoreCase("PNG") && extension.equalsIgnoreCase("JPG")
+				&& extension.equalsIgnoreCase("GIF") && extension.equalsIgnoreCase("PDF") && extension.equalsIgnoreCase("PSD") 
+				&& extension.equalsIgnoreCase("Al") && extension.equalsIgnoreCase("TIFF") && extension.equalsIgnoreCase("BMP")
+				&& extension.equalsIgnoreCase("EPS") && extension.equalsIgnoreCase("SVG")) {
 		log.warn("====={}=====",extension);
 	    
 		multipartFile.transferTo(file);
-		String base64=imgToBase64.imageToBase64(file);
-		log.warn("===={}=======",base64);
+		       base64=imgToBase64.imageToBase64(file);
 		
 		base64=basePrefix+extension+baseSuffix+base64;
-		log.warn("===={}=======",base64);
+		
 		//return fileName;
+		}
 		
 		return base64;
 	}

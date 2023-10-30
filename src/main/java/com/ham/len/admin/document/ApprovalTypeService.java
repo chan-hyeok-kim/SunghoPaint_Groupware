@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ham.len.admin.CodeVO;
 import com.ham.len.commons.Pager;
 
 @Service
@@ -29,8 +30,13 @@ public class ApprovalTypeService {
 		return approvalTypeDAO.getUpList(pager);
 	}
 	
-	public List<ApprovalUpTypeVO> getTotalList(Pager pager) throws Exception{
+	public List<ApprovalTypeVO> getTotalList(Pager pager) throws Exception{
 		return approvalTypeDAO.getTotalList(pager);
 	}
+	
+	public ApprovalUpTypeVO getUpDetail(ApprovalUpTypeVO approvalUpTypeVO) throws Exception{
+		return approvalTypeDAO.getUpDetail(approvalUpTypeVO);
+	}
+	   
 	
 }

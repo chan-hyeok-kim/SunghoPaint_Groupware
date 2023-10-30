@@ -20,8 +20,7 @@ public class ImgToBase64 {
 	public String imageToBase64(File f) throws Exception{
 	    String base64Img = "";
 	    
-	    //File f = new File(filePath + fileName);
-	    log.warn("======={}=========",f);
+	    
 	    
 	    if (f.exists() && f.isFile() && f.length() > 0) {
 	        byte[] bt = new byte[(int) f.length()];
@@ -30,7 +29,7 @@ public class ImgToBase64 {
 	            fis = new FileInputStream(f);
 	            fis.read(bt);
 	            base64Img = new String(Base64.encodeBase64(bt));
-	            log.warn("======={}=========",base64Img);
+	          
 	        } catch (Exception e) {
 	            throw e;
 	        } finally {

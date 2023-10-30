@@ -22,7 +22,7 @@
 
 			<div class="card">
 				<div class="card-body">
-					<form action="./add" method="post" id="frm">
+					
 						<div class="wrapper-toolbar">
 							<div>문서 양식 등록</div>
 						</div>
@@ -33,9 +33,10 @@
 							<table class="table table-bordered">
 								<tbody>
 								    <tr>
-										<td style="padding: 20px">코드명</td>
-										<td><input class="form-control" name="approvalTypeCd"></td>
+										<td style="padding: 20px">상위양식함명</td>
+										<td><input class="form-control" name="approvalUpTypeNo" value="${vo.codeName}"></td>
 									</tr>
+									<form action="./add" method="post" id="frm">
 									<tr>
 										<td style="padding: 20px">양식명</td>
 										<td><input class="form-control" name="codeName"></td>
@@ -56,7 +57,7 @@
 							<div id="document-add-btn-list">
 								<button type="button" class="btn btn-info"
 									onclick="location.href='/document/list'">취소</button>
-								<button class="btn btn-info" id="document-add-btn">등록</button>
+								<button type="button" class="btn btn-info" id="document-add-btn">등록</button>
 							</div>
 						</div>
 						<!-- Wrapper Toolbar End -->

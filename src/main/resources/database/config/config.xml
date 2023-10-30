@@ -7,6 +7,8 @@
 <configuration>
    <typeAliases>
    
+   <typeAlias type="java.lang.String" alias="String"/>
+   
    
    <typeAlias type="com.ham.len.humanresource.HumanResourceVO" alias="HumanResourceVO"/>
    <typeAlias type="com.ham.len.commons.Pager" alias="Pager"/>

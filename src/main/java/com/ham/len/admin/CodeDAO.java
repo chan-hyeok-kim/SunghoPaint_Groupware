@@ -18,4 +18,6 @@ public interface CodeDAO {
 	public int setUpdate(CodeVO codeVO) throws Exception;
 	
 	public int setDelete(CodeVO codeVO) throws Exception;
+	
+	public String getLastId(CodeVO codeVO) throws Exception;
 }

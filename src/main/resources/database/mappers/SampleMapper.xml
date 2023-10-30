@@ -23,4 +23,16 @@ VALUES
 		WHERE 
  
   -->
+  
+  <!-- resultMap
+        <result column="REG_ID" property="regId"/>
+		<result column="REG_DATE" property="regDate"/>
+		<result column="REG_MENU" property="regMenu"/>
+		<result column="MOD_ID" property="modId"/>
+		<result column="MOD_DATE" property="modDate"/>
+		<result column="MOD_MENU" property="modMenu"/>
+		<result column="CODE" property="code"/>
+		<result column="UP_CODE" property="upCode"/>
+		<result column="CODE_NAME" property="codeName"/>
+   -->
 </mapper>

@@ -2,14 +2,14 @@ package com.ham.len.humanresource.sign;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ham.len.humanresource.HumanResourceVO;
+
 @Mapper
 public interface SignatureDAO {
 
-    public SignatureVO getDetail(SignatureVO signVO) throws Exception;
+    public HumanResourceVO getDetail(HumanResourceVO humanResourceVO) throws Exception;
     
-	public int setAdd(SignatureVO signVO) throws Exception;
+	public int setSignUpdate(HumanResourceVO humanResourceVO) throws Exception;
 	
-	public int setUpdate(SignatureVO signVO) throws Exception;
 	
-	public int setDelete(SignatureVO signVO) throws Exception;
 }

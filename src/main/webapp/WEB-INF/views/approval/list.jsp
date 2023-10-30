@@ -353,7 +353,7 @@ ul.nav-tabs {
   
    
       <div class="modal-footer" style="background: white">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-secondary" id="sign-close" data-dismiss="modal">취소</button>
         <button type="button" class="btn btn-info" id="sign-submit-btn">확인</button>
         
         </div>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ham.len.admin.CodeVO;
 import com.ham.len.commons.Pager;
 
 @Mapper
@@ -17,5 +18,9 @@ public interface ApprovalTypeDAO {
 	
 	public List<ApprovalUpTypeVO> getUpList(Pager pager) throws Exception;
 	
-	public List<ApprovalUpTypeVO> getTotalList(Pager pager) throws Exception;
+	public List<ApprovalTypeVO> getTotalList(Pager pager) throws Exception;
+
+    public ApprovalUpTypeVO getUpDetail(ApprovalUpTypeVO approvalUpTypeVO) throws Exception;
+    
+    
 }

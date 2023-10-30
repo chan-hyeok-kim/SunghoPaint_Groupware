@@ -176,18 +176,21 @@ $('#sign-submit-btn').click(function(){
 	
 	$.ajax({
 		type:"POST",
-		 url:"/sign/ajaxAdd",
+		 url:"/sign/signUpdate",
 		 data: formData
 		 ,
 		 contentType: false, 
 		 processData: false
 		 ,success:function(result){
-			console.log('성공')
-			console.log(result) 
-			
+			if(result.trim()>0){
+				console.log('성공')
+				
+			}
 		 },error:function(){
 			console.log('실패')
 		 }
+		 
 	})
+	$('#sign-close').click();
 	
 })

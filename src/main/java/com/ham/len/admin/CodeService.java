@@ -27,4 +27,8 @@ public class CodeService {
 	public int setDelete(CodeVO codeVO) throws Exception{
 		return codeDAO.setDelete(codeVO);
 	}
+	
+	public String getLastId(CodeVO codeVO) throws Exception{
+		return codeDAO.getLastId(codeVO);
+	}
 }

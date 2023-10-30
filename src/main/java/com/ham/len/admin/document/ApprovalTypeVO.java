@@ -16,6 +16,7 @@ public class ApprovalTypeVO extends CodeVO {
 
 	private Long approvalTypeNo;
 	private String employeeId;
+	private Long approvalUpTypeNo;
 	private String approvalForm;
 	private String approvalTypeCd;
 	private ApprovalUpTypeVO approvalUpTypeVO;

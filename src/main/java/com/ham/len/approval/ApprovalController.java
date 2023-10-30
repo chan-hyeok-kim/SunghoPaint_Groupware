@@ -16,6 +16,8 @@ import com.ham.len.admin.document.ApprovalTypeVO;
 import com.ham.len.admin.document.ApprovalUpTypeVO;
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
+import com.ham.len.humanresource.sign.SignatureService;
+import com.nimbusds.jose.JWSObjectJSON.Signature;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,11 +32,18 @@ public class ApprovalController {
 	@Autowired
 	private ApprovalTypeService approvalTypeService;
 	
+	@Autowired
+	private SignatureService signatureService;
+	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
-		 List<ApprovalVO> ar = approvalService.getList(pager);
+		 List<ApprovalVO> ar = approvalService.getList(pager);		                    
 		 log.warn("========{}========",ar);
+		 
+		 
 		 model.addAttribute("list", ar);
+		 
+		 
 		 return "approval/list";
 	}
 	
@@ -56,11 +65,10 @@ public class ApprovalController {
 	
 	@GetMapping("add")
 	public void setAdd(Model model,Pager pager) throws Exception{
-		List<ApprovalTypeVO> ar=approvalTypeService.getList(pager);
-		List<ApprovalUpTypeVO> total=approvalTypeService.getTotalList(pager);
+		List<ApprovalTypeVO> total=approvalTypeService.getTotalList(pager);
 	    
-		model.addAttribute("list", ar);
-		model.addAttribute("totalList", total);
+		model.addAttribute("list", total);
+		
 	}
 	
 	@ResponseBody

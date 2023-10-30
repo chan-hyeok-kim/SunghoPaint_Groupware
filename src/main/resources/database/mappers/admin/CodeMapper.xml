@@ -6,14 +6,14 @@
 
 <mapper namespace="com.ham.len.admin.CodeDAO">
 
-    <select id="getDetail" resultType="CodeVO" parameterType="CodeVO">
-        SELECT *
-          FROM CODE
-         WHERE CODE=#{code}
-    </select>
+	<select id="getDetail" resultType="CodeVO"
+		parameterType="CodeVO">
+		SELECT *
+		FROM CODE
+		WHERE CODE=#{code}
+	</select>
 
-	<select id="getList" resultType="CodeVO"
-		parameterType="Pager">
+	<select id="getList" resultType="CodeVO" parameterType="Pager">
 		SELECT *
 		FROM CODE
 		ORDER BY CODE DESC
@@ -21,20 +21,33 @@
 	</select>
 
 	<insert id="setAdd" parameterType="CodeVO">
-	    INSERT INTO CODE(CODE,UP_CODE,CODE_NAME,
-	    REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
-	    VALUES(#{code},#{upCode},#{codeName},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
+		INSERT INTO
+		CODE(CODE,UP_CODE,CODE_NAME,
+		REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+		VALUES(#{code},#{upCode},#{codeName},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
 	</insert>
-	
+
 	<update id="setUpdate" parameterType="CodeVO">
-	     UPDATE CODE
-            SET CODE=#{code},UP_CODE=#{upCode},CODE_NAME=#{codeName}
-		   ,MOD_ID=#{modId},MOD_DATE=#{modDate},MOD_MENU=#{modMenu}
-		  WHERE CODE=#{code}
+		UPDATE CODE
+		SET
+		CODE=#{code},UP_CODE=#{upCode},CODE_NAME=#{codeName}
+		,MOD_ID=#{modId},MOD_DATE=#{modDate},MOD_MENU=#{modMenu}
+		WHERE
+		CODE=#{code}
 	</update>
 
-    <delete id="setDelete" parameterType="CodeVO">
-         DELETE FROM CODE
-          WHERE CODE=#{code}
-    </delete>
+	<delete id="setDelete" parameterType="CodeVO">
+		DELETE FROM CODE
+		WHERE
+		CODE=#{code}
+	</delete>
+
+	<select id="getLastId" resultType="String"
+		parameterType="CodeVO">
+		SELECT CONCAT(LEFT(CODE,1),'0',(MAX(SUBSTRING(CODE,2))+1)) AS NEXT_CODE
+		FROM CODE
+		WHERE LEFT(CODE,3)=#{code};
+	</select>
+
+
 </mapper>

@@ -44,12 +44,12 @@ public class ApprovalTypeController {
 	
 	@GetMapping("list")
 	public void getList(Pager pager,Model model) throws Exception{
-		List<ApprovalTypeVO> ar=approvalTypeService.getList(pager);
-		List<ApprovalUpTypeVO> total=approvalTypeService.getTotalList(pager);
+		
+		List<ApprovalTypeVO> total=approvalTypeService.getTotalList(pager);
 		
 		log.warn("======={}========",total);
-		model.addAttribute("list", ar);
-		model.addAttribute("totalList", total);
+		
+		model.addAttribute("list", total);
 		
 		
 	}
@@ -63,9 +63,10 @@ public class ApprovalTypeController {
 	}
 	
 	@GetMapping("add")
-	public void setAdd() throws Exception{
-		
-	
+	public void setAdd(ApprovalUpTypeVO approvalUpTypeVO,Model model) throws Exception{
+		approvalUpTypeVO=approvalTypeService.getUpDetail(approvalUpTypeVO);
+		log.warn("====={}========",approvalUpTypeVO);
+		model.addAttribute("vo", approvalUpTypeVO);
 	}
 	
 	@PostMapping("add")
@@ -77,8 +78,15 @@ public class ApprovalTypeController {
 		log.warn("====={}======",path);
 		approvalTypeVO=(ApprovalTypeVO)makeColumn.getColumn(approvalTypeVO, path, id);
 		
+		//현재approvalUpTypeVO에 담긴값
+		//코드네임, 해당 테이블의 코드
+		//채워야될값: 코드, 업코드
+		//이제 해당 VO에는 코드가 담기지 않게 하는 거지.
 		
-	    String code=approvalTypeVO.getApprovalTypeCd();
+		CodeVO codeVO=makeColumn.setUpCode(approvalTypeVO, request);
+	    String code=codeService.getLastId(approvalTypeVO);
+	    //이 codeVO에는 코드만 있다. 최신 코드에 +1된 값
+	    approvalTypeVO.setApprovalTypeCd(code);
 	    approvalTypeVO.setCode(code);
 	    approvalTypeVO.setUpCode(code.substring(0,3));
 	    
@@ -99,7 +107,7 @@ public class ApprovalTypeController {
 	@ResponseBody
 	public Map<String, Object> getAjaxList(Pager pager) throws Exception{
 		List<ApprovalTypeVO> ar=approvalTypeService.getList(pager);
-		List<ApprovalUpTypeVO> total=approvalTypeService.getTotalList(pager);
+		List<ApprovalTypeVO> total=approvalTypeService.getTotalList(pager);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", ar);
@@ -129,6 +137,7 @@ public class ApprovalTypeController {
 	    approvalUpTypeVO.setUpCode(code.substring(0,3));
 	    
 	    approvalUpTypeVO=(ApprovalUpTypeVO)makeColumn.getColumn(approvalUpTypeVO, path, id);
+	    
 	    
 	    int result=codeService.setAdd(approvalUpTypeVO);
 		result=approvalTypeService.setUpAdd(approvalUpTypeVO);

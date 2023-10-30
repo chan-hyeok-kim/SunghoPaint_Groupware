@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ham.len.commons.FileManager;
+import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,32 +28,24 @@ public class SignatureService {
 	@Autowired
 	private FileManager fileManager;
 	
-    public SignatureVO getDetail(SignatureVO signVO) throws Exception{
-    	return signDAO.getDetail(signVO);
+    public HumanResourceVO getDetail(HumanResourceVO humanResourceVO) throws Exception{
+    	return signDAO.getDetail(humanResourceVO);
     }
 	    
-	public String setAdd(MultipartFile file, HttpSession session) throws Exception{
+	public int setSignUpdate(MultipartFile file, HttpSession session,HumanResourceVO humanResourceVO) throws Exception{
 //		session.get이나 security에서 아이디꺼내주면됨
-		String id="2023001";
+		
 		String path=uploadPath+sign;
 		String fileName=fileManager.save(path, file);
 		
 		log.warn("********{}*******",fileName);
 		
-		
-		SignatureVO signVO=new SignatureVO();
-		
-		
-		 
-		return fileName; //signDAO.setAdd(signVO);
+		humanResourceVO.setSignature(fileName);
+		int result=signDAO.setSignUpdate(humanResourceVO);
+
+		return result; 
 	}
 	
-    public int setUpdate(SignatureVO signVO) throws Exception{
-    	return signDAO.setUpdate(signVO);
-    }
 	
-	public int setDelete(SignatureVO signVO) throws Exception{
-		return signDAO.setDelete(signVO);
-	}
 	
 }

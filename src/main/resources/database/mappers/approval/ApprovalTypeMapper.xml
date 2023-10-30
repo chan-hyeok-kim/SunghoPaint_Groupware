@@ -6,18 +6,27 @@
 
 <mapper namespace="com.ham.len.admin.document.ApprovalTypeDAO">
 
+    <select id="getUpDetail" resultType="ApprovalUpTypeVO" parameterType="ApprovalUpTypeVO">
+        SELECT *,FN_CODE_NM(LEFT(APPROVAL_UP_TYPE_CD,3),APPROVAL_UP_TYPE_CD) AS CODE_NAME
+          FROM APPROVAL_UP_TYPE
+         WHERE APPROVAL_UP_TYPE_NO=1;
+    </select>
+
 	<select id="getList" resultType="ApprovalTypeVO"
 		parameterType="Pager">
 		SELECT *
 		FROM APPROVAL_TYPE A INNER JOIN CODE C
-		ON A.APPROVAL_TYPE_CD=C.CODE 
+		ON
+		A.APPROVAL_TYPE_CD=C.CODE
 		ORDER BY A.APPROVAL_TYPE_NO ASC
-		LIMIT #{startRow},#{lastRow}
+		LIMIT
+		#{startRow},#{lastRow}
 	</select>
 
 
 	<insert id="setAdd" parameterType="ApprovalTypeVO">
-		INSERT INTO APPROVAL_TYPE(APPROVAL_TYPE_NO,
+		INSERT INTO
+		APPROVAL_TYPE(APPROVAL_TYPE_NO,
 		EMPLOYEE_ID,APPROVAL_FORM,APPROVAL_TYPE_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
 		VALUES(#{approvalTypeNo},#{employeeId},#{approvalForm},#{approvalTypeCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
 	</insert>
@@ -31,29 +40,67 @@
 	</update>
 
 	<insert id="setUpAdd" parameterType="ApprovalUpTypeVO">
-		INSERT INTO APPROVAL_UP_TYPE(APPROVAL_UP_TYPE_NO,
+		INSERT INTO
+		APPROVAL_UP_TYPE(APPROVAL_UP_TYPE_NO,
 		EMPLOYEE_ID,APPROVAL_UP_TYPE_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
 		VALUES(#{approvalUpTypeNo},#{employeeId},#{approvalUpTypeCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
 	</insert>
-	
+
 	<select id="getUpList" resultType="ApprovalUpTypeVO"
 		parameterType="Pager">
 		SELECT *
 		FROM APPROVAL_UP_TYPE AU INNER JOIN CODE C
-		  ON AU.APPROVAL_UP_TYPE_CD=C.CODE 
+		ON
+		AU.APPROVAL_UP_TYPE_CD=C.CODE
 		ORDER BY AU.APPROVAL_UP_TYPE_NO ASC
-		LIMIT #{startRow},#{lastRow}
+		LIMIT
+		#{startRow},#{lastRow}
 	</select>
-	
+
 	<!-- uptypeVO내용만 뿌릴거여서 resultmap안해도상관없다 -->
-	<select id="getTotalList" resultType="ApprovalUpTypeVO"
+	<!-- <select id="getTotalList" resultType="ApprovalUpTypeVO" parameterType="Pager"> 
+		SELECT * FROM APPROVAL_UP_TYPE AU INNER JOIN CODE C ON AU.APPROVAL_UP_TYPE_CD=C.CODE 
+		LEFT OUTER JOIN APPROVAL_TYPE A ON A.APPROVAL_UP_TYPE_NO=AU.APPROVAL_UP_TYPE_NO 
+		ORDER BY AU.APPROVAL_UP_TYPE_NO ASC LIMIT #{startRow},#{lastRow} </select> -->
+
+	<select id="getTotalList" resultMap="getTypeList"
 		parameterType="Pager">
-	  SELECT *
-		FROM APPROVAL_UP_TYPE AU INNER JOIN CODE C
-		  ON AU.APPROVAL_UP_TYPE_CD=C.CODE LEFT OUTER JOIN APPROVAL_TYPE A
-		  ON A.APPROVAL_UP_TYPE_NO=AU.APPROVAL_UP_TYPE_NO
-	   ORDER BY AU.APPROVAL_UP_TYPE_NO ASC
-		LIMIT #{startRow},#{lastRow}
+		SELECT
+		*,FN_CODE_NM(LEFT(A.APPROVAL_TYPE_CD,3),A.APPROVAL_TYPE_CD) AS
+		A_CODE_NAME,
+		FN_CODE_NM(LEFT(AU.APPROVAL_UP_TYPE_CD,3),AU.APPROVAL_UP_TYPE_CD) AS
+		AU_CODE_NAME
+		FROM APPROVAL_TYPE A RIGHT OUTER JOIN APPROVAL_UP_TYPE AU
+		ON A.APPROVAL_UP_TYPE_NO=AU.APPROVAL_UP_TYPE_NO;
 	</select>
+
+	<resultMap type="ApprovalTypeVO" id="getTypeList">
+		<id column="APPROVAL_TYPE_NO" property="approvalTypeNo"/>
+		<result column="EMPLOYEE_ID" property="employeeId"/>
+		<result column="APPROVAL_FORM" property="approvalForm"/>
+		<result column="APPROVAL_TYPE_CD" property="approvalTypeCd"/>
+		<result column="REG_ID" property="regId"/>
+		<result column="REG_DATE" property="regDate"/>
+		<result column="REG_MENU" property="regMenu"/>
+		<result column="MOD_ID" property="modId"/>
+		<result column="MOD_DATE" property="modDate"/>
+		<result column="MOD_MENU" property="modMenu"/>
+		<result column="A_CODE_NAME" property="codeName"/>
+
+		<association property="approvalUpTypeVO"
+			javaType="ApprovalUpTypeVO">
+             <id column="APPROVAL_UP_TYPE_NO" property="approvalUpTypeNo"/>
+             <result column="EMPLOYEE_ID" property="employeeId"/>
+             <result column="APPROVAL_UP_TYPE_CD" property="approvalUpTypeCd"/>
+             <result column="REG_ID" property="regId"/>
+		     <result column="REG_DATE" property="regDate"/>
+		     <result column="REG_MENU" property="regMenu"/>
+		     <result column="MOD_ID" property="modId"/>
+		     <result column="MOD_DATE" property="modDate"/>
+		     <result column="MOD_MENU" property="modMenu"/>
+		     <result column="AU_CODE_NAME" property="codeName"/>
+		</association>
+	</resultMap>
+
 
 </mapper>

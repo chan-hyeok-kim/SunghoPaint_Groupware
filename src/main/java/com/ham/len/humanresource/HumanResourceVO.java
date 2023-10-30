@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class HumanResourceVO extends CodeVO{
 
-	private String employeeID;
+	private String employeeId;
 	private Date joinDate;
 	private Boolean joinType;
 	private String name;

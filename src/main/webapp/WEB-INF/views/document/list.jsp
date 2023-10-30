@@ -191,6 +191,7 @@ ul.nav-tabs {
 								<div class="card" id="document-card">
 								
 								<table class="table table-bordered">
+								<input type="hidden" id="up-type-no">
 								<form action="upAdd" method="post">
 								<tbody>
 								   <tr>
@@ -203,9 +204,16 @@ ul.nav-tabs {
 								   </tr>
 								   <tr>
 								   <td>
+								   <button class="btn btn-info">추가</button>
 								   </td>
-								   <td><button class="btn btn-info">추가</button></td>
-								</form>
+								   </form>
+								   <td>
+								   <button id="approval-add-btn" class="btn btn-info" onclick="location.href='/document/add'">신규 양식 등록</button>
+								   </td>
+								   </tr>
+								   
+								   
+								
 								</tbody>
 								
 								
@@ -229,9 +237,9 @@ ul.nav-tabs {
 								</thead>
 								<tbody>
 									<c:forEach items="${list}" var="vo" varStatus="i">
-										<tr>
-											<td><input type="checkbox"></td>
-											<td>${totalList[i.index].codeName}</td>
+										<tr class="approval-list">
+											<td><input type="checkbox" name="checkList" value="${vo.approvalTypeNo}"></td>
+											<td>${vo.approvalUpTypeVO.codeName}</td>
 											<td>${vo.codeName}</td>
 											<td>${vo.regDate}</td>
 											<td><button class="btn btn-info">수정</button></td>
@@ -240,8 +248,9 @@ ul.nav-tabs {
 								</tbody>
 
 							</table>
-						<c:forEach items="${totalList}" var="tvo" varStatus="i">
-						    <span style="display: none;" class="get-up-code-name" data-up-type-cd="${tvo.approvalUpTypeCd}" data-code-name="${list[i.index].codeName}" data-up-code-name="${tvo.codeName}"></span>
+						<c:forEach items="${list}" var="vo" varStatus="i">
+						    <span style="display: none;" class="get-up-code-name" data-up-type-cd="${vo.approvalUpTypeVO.approvalUpTypeCd}" data-code-name="${vo.codeName}" data-up-code-name="${vo.approvalUpTypeVO.codeName}"
+						    data-up-no="${vo.approvalUpTypeVO.approvalUpTypeNo}"></span>
 						</c:forEach>
 						</div>
 					</div>
@@ -271,7 +280,7 @@ ul.nav-tabs {
 								
 								<!-- Button List -->
 								
-								<button class="btn btn-info" onclick="location.href='/document/add'">신규 양식 등록</button>
+								
 								
 								<!-- Button List End -->
 								
@@ -291,6 +300,6 @@ ul.nav-tabs {
 
 
 		    <script src="/js/ztree/up-document-tree.js"></script>
-			
+			<script src="/js/document/check-box.js"></script>
 </body>
 </html>
