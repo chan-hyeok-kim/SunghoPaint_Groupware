@@ -5,13 +5,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class SalesService {
 
 	@Autowired
 	private SalesDAO salesDAO;
 	
 	public int setCarReservationAdd(CarReservationVO carReservationVO) throws Exception {
+		CarListVO carListVO = new CarListVO();
+		carListVO.setCarNo(carReservationVO.getCarNo());
+		
+		salesDAO.setCarListUpdateUnavailable(carListVO);
+		
 		return salesDAO.setCarReservationAdd(carReservationVO);
 	}
 	
@@ -24,6 +32,11 @@ public class SalesService {
 	}
 	
 	public int setReservationDelete(CarReservationVO carReservationVO) throws Exception{
+		CarListVO carListVO = new CarListVO();
+		carListVO.setCarNo(carReservationVO.getCarNo());
+		
+		salesDAO.setCarListUpdateAvailable(carListVO);
+		
 		return salesDAO.setReservationDelete(carReservationVO);
 	}
 	

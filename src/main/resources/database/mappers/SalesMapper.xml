@@ -6,26 +6,43 @@
   
 <mapper namespace="com.ham.len.sales.SalesDAO">
 
+	<!-- 배차 신청 -->
    <insert id="setCarReservationAdd" parameterType="CarReservationVO">
 		INSERT INTO CAR_RESERVATION 
 		values(0, #{employeeId}, #{carNo}, #{rentalDate}, #{rentalReasonCd}, #{rentalLocation}, #{returnDate}, 'test', sysdate(), 'test', 'test', sysdate(), 'test');
    </insert>
    
+   <!-- 배차 신청시 CAR_STATUS_CD 업데이트 쿼리 -->
+   <update id="setCarListUpdateUnavailable" parameterType="CarListVO">
+   		UPDATE CAR_LIST SET CAR_STATUS_CD='C012'
+   		WHERE CAR_NO=#{carNo}
+   </update>
+
+   <!-- 배차 신청시 CAR_STATUS_CD 업데이트 쿼리2 -->
+   <update id="setCarListUpdateAvailable" parameterType="CarListVO">
+   		UPDATE CAR_LIST SET CAR_STATUS_CD='C011'
+   		WHERE CAR_NO=#{carNo}
+   </update>
+   
+   <!-- 배차 조회 -->
    <select id="getReservationList" resultType="CarReservationVO">
    		SELECT * FROM CAR_RESERVATION
    </select>
    
+   <!-- 배차 수정 -->
 	<update id="setReservationUpdate" parameterType="CarReservationVO">
 		UPDATE CAR_RESERVATION SET
   		EMPLOYEE_ID=#{employeeId}, CAR_NO=#{carNo}, RENTAL_DATE=#{rentalDate}, RENTAL_REASON_CD=#{rentalReasonCd}, RENTAL_LOCATION=#{rentalLocation}, RETURN_DATE=#{returnDate}
   		WHERE RENTAL_NO=#{rentalNo}
 	</update>
 
+	<!-- 배차 삭제 -->
 	<delete id="setReservationDelete" parameterType="CarReservationVO">
 			DELETE FROM CAR_RESERVATION
 			WHERE RENTAL_NO=#{rentalNo}
 	</delete>
 
+	<!-- 차량 항목 조회 -->
 	<select id="getCarList" resultType="CarListVO">
    		SELECT * FROM CAR_LIST
    </select>

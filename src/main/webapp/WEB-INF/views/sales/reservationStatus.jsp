@@ -71,9 +71,11 @@
                     	
                         <select class="form-select form-select-sm" aria-label="Small select example" id="carList" name="carNo">
 						  <option selected>항목을 선택하세요</option>
-						  <option value="1">G80</option>
-						  <option value="2">모하비</option>
-						  <option value="3">1톤</option>
+						  <option value="9">모닝 (151허 5155)</option>
+						  <option value="10">G80 (301하 5148)</option>
+						  <option value="11">싼타페 (143호 1234)</option>
+						  <option value="12">포터 (871허 1234)</option>
+						  <option value="13">윙바디 (678허 9876)</option>
 						</select>
 						
                         <label for="taskId" class="col-form-label">대여일</label>
@@ -133,9 +135,11 @@
                     	<label for="taskId" class="col-form-label">항목 선택</label>
                         <select class="form-select form-select-sm" aria-label="Small select example" id="car_update" name="carNo">
 						  <option selected>항목을 선택하세요</option>
-						  <option value="1">G80</option>
-						  <option value="2">모하비</option>
-						  <option value="3">1톤</option>
+							  <option value="9">모닝 (151허 5155)</option>
+							  <option value="10">G80 (301하 5148)</option>
+							  <option value="11">싼타페 (143호 1234)</option>
+							  <option value="12">포터 (871허 1234)</option>
+							  <option value="13">윙바디 (678허 9876)</option>
 						</select>
 						
                         <label for="taskId" class="col-form-label">대여일</label>
@@ -170,7 +174,8 @@
                         id="modalClose">취소</button>
                 </form>
                 <form id="deleteForm" action="./delete" method="post">
-                	<input type="hidden" id="rental_no_delete" name="rentalNo">
+                	<input type="hidden" id="rental_no_delete_rentalNo" name="rentalNo">
+                	<input type="hidden" id="rental_no_delete_carNo" name="carNo">
                     <button type="submit" class="btn btn-danger" id="deleteCalendar">삭제</button>
                     </form>
                 </div>
@@ -315,7 +320,8 @@
         		let modal = $("#calendarUpdateModal");
         		$("#calendarUpdateModal").modal("show");
         		
-        		$("#rental_no_delete").val(event.event.id);
+        		$("#rental_no_delete_rentalNo").val(event.event.id);
+        		$("#rental_no_delete_carNo").val(event.event.extendedProps.carCategory);
         		$("#rental_no_update").val(event.event.id);
         		$("#rental_reason_update").val(event.event.extendedProps.rentalReason).prop("selected", true);
         		$("#car_update").val(event.event.extendedProps.carCategory).prop("selected", true);

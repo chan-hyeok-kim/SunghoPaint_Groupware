@@ -19,4 +19,7 @@ public interface SalesDAO {
 	
 	public List<CarListVO> getCarList(CarListVO carListVO) throws Exception;
 	
+	public int setCarListUpdateUnavailable(CarListVO carListVO) throws Exception;
+	
+	public int setCarListUpdateAvailable(CarListVO carListVO) throws Exception;
 }

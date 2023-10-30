@@ -34,6 +34,10 @@
 	<definition name="sales/carReservation" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/sales/carReservation.jsp"/>
 	</definition>
+	
+	<definition name="sales/carReservationAdd" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/carReservationAdd.jsp"/>
+	</definition>
 	<!-- 성호 -->
 	
 </tiles-definitions>
