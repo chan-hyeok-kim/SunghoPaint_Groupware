@@ -23,13 +23,13 @@
 		let cur_time = new Date().toTimeString().split(" ")[0];
 		
 		$("#attendance").html("<p id='cur_date'></p>" +
-									"<p id='cur_time'>" + cur_time + "</p>" +
-									"<div id='start_time' class='attendance_time'><i>출근 시간</i> <span>미등록</span></div>" +
-									"<div id='end_time' class='attendance_time'><i>퇴근 시간</i> <span>미등록</span></div>" +
-									"<div id='attendance_btn'>" +
-										"<button id='start_btn' class='" + startBtn_status + "'>출근하기</button> &nbsp;" +
-										"<button id='end_btn' class='" + endBtn_status + "'>퇴근하기</button>" +
-									"</div>");
+									   "<p id='cur_time'>" + cur_time + "</p>" +
+									   "<div id='start_time' class='attendance_time'><i>출근 시간</i> <span>미등록</span></div>" +
+									   "<div id='end_time' class='attendance_time'><i>퇴근 시간</i> <span>미등록</span></div>" +
+									   "<div id='attendance_btn'>" +
+										   "<button id='start_btn' class='" + startBtn_status + "'>출근하기</button> &nbsp;" +
+										   "<button id='end_btn' class='" + endBtn_status + "'>퇴근하기</button>" +
+									   "</div>");
 		
 		let daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 		let dayOfWeek = new Date().getDay();
@@ -162,9 +162,10 @@
 				$("#total #week_remain > .time > span").html(remain);
 			}
 		});
-
+		
 		$("#weeksOfMonthInfo .week > .week_title > img.close").trigger("click");
-		$("#weeksOfMonthInfo .week[data-weekOfMonth='${date.weekOfMonth}'] > .week_title > img.close").trigger("click");
+		let weekOfMonth = (${date.weekOfMonth} == 0) ? 1 : ${date.weekOfMonth};
+		$("#weeksOfMonthInfo .week[data-weekOfMonth='" + weekOfMonth + "'] > .week_title > img.close").trigger("click");
 	});
 </script>
 

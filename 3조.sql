@@ -188,7 +188,7 @@ INSERT INTO ATTENDANCE VALUES(NULL, '2023001', STR_TO_DATE('2023-10-11 08:50:00'
 											   STR_TO_DATE('2023-10-12 01:10:10', '%Y-%m-%d %H:%i:%S'),
 											   '2023001',
 											   STR_TO_DATE('2023-10-11 08:50:00', '%Y-%m-%d %H:%i:%S'),
-											   'Test',
+											   '',
 											   '2023001',
 											   STR_TO_DATE('2023-10-11 08:50:00', '%Y-%m-%d %H:%i:%S'),
-											   'Test');
+											   '');

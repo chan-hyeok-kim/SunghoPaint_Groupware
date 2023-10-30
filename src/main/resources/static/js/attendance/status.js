@@ -118,9 +118,16 @@ function commute(url){
 		data:param,
 		success:function(result){
 			if(result > 0){
+				let year = date.split("-")[0];
+				let month = date.split("-")[1];
+				let day = date.split("-")[2];
+				
 				let form = $("<form></form>");
 				form.attr("method", "POST");
 				form.attr("action", "./status");
+				form.append($("<input/>", {type:"hidden", name:"year", value:year}));
+				form.append($("<input/>",{type:"hidden", name:"month", value:month}));
+				form.append($("<input/>",{type:"hidden", name:"day", value:day}));
 				form.appendTo("body");
 				form.submit();
 			}else{

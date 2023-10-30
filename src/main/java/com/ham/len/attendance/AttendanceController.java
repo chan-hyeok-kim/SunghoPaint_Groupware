@@ -63,11 +63,24 @@ public class AttendanceController {
 	}
 	
 	@PostMapping("status")
-	public String getStatus(@RequestParam(value = "year", defaultValue = "0")int year, @RequestParam(value = "month", defaultValue = "0")int month, Model model) {
+	public String getStatus(@RequestParam(value = "year", defaultValue = "0")int year,
+									@RequestParam(value = "month", defaultValue = "0")int month,
+									@RequestParam(value = "day", required = false)Integer day,
+									Model model) {
+		
 		Calendar cal = Calendar.getInstance(Locale.KOREA);
+		int weekOfMonth = 0;
 		if(year == 0 && month == 0) {
 			year = cal.get(Calendar.YEAR);
 			month = cal.get(Calendar.MONTH) + 1;
+		}else if(day != null) {
+			cal.set(Calendar.YEAR, year);
+			cal.set(Calendar.MONTH, month - 1);
+			cal.set(Calendar.DATE, day);
+			Map<String, Integer> currentWeekOfMonth = WeekOfMonthInfoCalculator.getCurrentWeekOfMonth(cal.getTime());
+			year = currentWeekOfMonth.get("year");
+			month = currentWeekOfMonth.get("month");
+			weekOfMonth = currentWeekOfMonth.get("weekOfMonth");
 		}
 		
 		String[][] weeksOfMonthInfo = WeekOfMonthInfoCalculator.getWeeksOfMonthInfo(year, month);
@@ -84,9 +97,6 @@ public class AttendanceController {
 		
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		
-		int weekOfMonth = 1;
-		if(year == cal.get(Calendar.YEAR) && month == cal.get(Calendar.MONTH) + 1) weekOfMonth = WeekOfMonthInfoCalculator.getCurrentWeekOfMonth(cal.getTime());
 		
 		Map<String, Integer> date = new HashMap<>();
 		date.put("year", year);

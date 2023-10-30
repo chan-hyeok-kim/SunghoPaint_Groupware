@@ -2,13 +2,16 @@ package com.ham.len.util;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class WeekOfMonthInfoCalculator {
-	public static int getCurrentWeekOfMonth(Date date) {
+	public static Map<String, Integer> getCurrentWeekOfMonth(Date date) {
 		Calendar calendar = Calendar.getInstance(Locale.KOREA);
 		calendar.setTime(date);
-		// int month = calendar.get(Calendar.MONTH) + 1;
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH) + 1;
 		int day = calendar.get(Calendar.DATE);
 		
 		// 한 주의 시작은 월요일이고, 첫 주에 4일이 포함되어 있어야 첫 주 취급(목/금/토/일)
@@ -35,8 +38,11 @@ public class WeekOfMonthInfoCalculator {
 			}
 		}
 		
-		// return month + "월 " + weekOfMonth + "주차";
-		return weekOfMonth;
+		Map<String, Integer> currentWeekOfMonth = new HashMap<>();
+		currentWeekOfMonth.put("year", year);
+		currentWeekOfMonth.put("month", month);
+		currentWeekOfMonth.put("weekOfMonth", weekOfMonth);
+		return currentWeekOfMonth;
 	}
 	
 	public static String[][] getWeeksOfMonthInfo(int year, int month) {
