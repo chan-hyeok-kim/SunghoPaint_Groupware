@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %> 
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,8 +30,6 @@
 
 
  <div class="container-scroller">
-      
-      
       <tiles:insertAttribute name="navbar"/>
       <div class="container-fluid page-body-wrapper">
       
@@ -49,7 +48,9 @@
     <!-- container-scroller-ends-->
     
     <!-- plugins:js -->
-    <script src="/vendors/js/vendor.bundle.base.js"></script>
+    <c:if test="${!isTransferForm}">
+        <script src="/vendors/js/vendor.bundle.base.js"></script>
+    </c:if>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="/vendors/chart.js/Chart.min.js"></script>
