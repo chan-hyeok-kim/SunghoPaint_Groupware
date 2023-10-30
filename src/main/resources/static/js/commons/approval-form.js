@@ -12,12 +12,7 @@ nhn.husky.EZCreator.createInIFrame({
 });
 
 
-let check = [false, false];
-$('.form-cotrol').each(function(){
-	if ($(this).val()!='') {
-		check[0] == true;
-	}
-})
+let checkResult=[false, false];
 
 
 
@@ -32,10 +27,16 @@ $("#document-add-btn").click(function() {
 
 
 	oEditors.getById["approvalForm"].exec("UPDATE_CONTENTS_FIELD", []);
+    
+    
+	if ($('#check-cd').val()!='') {
+		checkResult[0]==true;
+	}
+
 
 	// 이부분에 에디터 validation 검증
 	if ($('#approvalForm').val() != '') {
-		check[1] == true;
+		checkResult[1]==true;
 	}
 	console.log($('#approvalForm').val())
 	console.log(check)

@@ -30,6 +30,7 @@
 						</ul>
 
 						<div>
+						
 							<table class="table table-bordered">
 								<tbody>
 								    <tr>
@@ -37,9 +38,10 @@
 										<td><input class="form-control" name="approvalUpTypeNo" value="${vo.codeName}"></td>
 									</tr>
 									<form action="./add" method="post" id="frm">
+									<input type="hidden" name="approvalUpTypeNo" value="${vo.approvalUpTypeNo}">	
 									<tr>
 										<td style="padding: 20px">양식명</td>
-										<td><input class="form-control" name="codeName"></td>
+										<td><input class="form-control" name="codeName" id="check-cd"></td>
 									</tr>
 									<tr>
 										<td style="padding: 20px">양식</td>
