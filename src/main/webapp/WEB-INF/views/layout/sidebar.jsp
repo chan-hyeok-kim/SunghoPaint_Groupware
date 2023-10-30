@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
@@ -45,12 +46,22 @@
         form.submit();
       }
     </script>
-    <li class="nav-item">
-      <a class="nav-link" onclick="sendPost()" style="cursor:pointer;">
-        <span class="menu-title">근태 관리</span>
-        <i class="mdi mdi-contacts menu-icon"></i>
-      </a>
-    </li>
+    <sec:authorize access="hasRole('USER')">
+	    <li class="nav-item">
+	      <a class="nav-link" onclick="sendPost()" style="cursor:pointer;">
+	        <span class="menu-title">근태 관리</span>
+	        <i class="mdi mdi-contacts menu-icon"></i>
+	      </a>
+	    </li>
+    </sec:authorize>
+    <sec:authorize access="hasRole('ADMIN')">
+	    <li class="nav-item">
+	      <a class="nav-link" href="/transfer/" style="cursor:pointer;">
+	        <span class="menu-title">인사 발령</span>
+	        <i class="mdi mdi-contacts menu-icon"></i>
+	      </a>
+	    </li>
+    </sec:authorize>
     <li class="nav-item">
       <a class="nav-link" href="pages/forms/basic_elements.html">
         <span class="menu-title">Forms</span>

@@ -30,7 +30,11 @@
    </definition>
    
    <definition name="attendance/status" extends="layout">
-   	<put-attribute name="body" value="/WEB-INF/views/attendance/status.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/attendance/status.jsp"/>
+   </definition>
+   
+   <definition name="transfer/form" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/transfer/form.jsp"/>
    </definition>
 	
 </tiles-definitions>
