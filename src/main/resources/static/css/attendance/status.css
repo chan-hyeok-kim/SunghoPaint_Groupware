@@ -1,17 +1,5 @@
 @charset "UTF-8";
 
-*{
-	box-sizing:border-box;
-}
-
-p{
-	margin:0px;
-}
-
-i{
-	font-style:unset;
-}
-
 #cur_date{
 	font-size:13px;
 	color:#888;

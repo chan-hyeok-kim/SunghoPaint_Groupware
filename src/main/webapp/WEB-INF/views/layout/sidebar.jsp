@@ -46,14 +46,14 @@
         form.submit();
       }
     </script>
-    <sec:authorize access="hasRole('USER')">
 	    <li class="nav-item">
 	      <a class="nav-link" onclick="sendPost()" style="cursor:pointer;">
 	        <span class="menu-title">근태 관리</span>
 	        <i class="mdi mdi-contacts menu-icon"></i>
 	      </a>
 	    </li>
-    </sec:authorize>
+    <!-- <sec:authorize access="hasRole('USER')"> -->
+    <!-- </sec:authorize> -->
     <sec:authorize access="hasRole('ADMIN')">
 	    <li class="nav-item">
 	      <a class="nav-link" href="/transfer/" style="cursor:pointer;">
