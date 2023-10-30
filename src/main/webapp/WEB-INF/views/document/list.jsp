@@ -242,7 +242,7 @@ ul.nav-tabs {
 											<td>${vo.approvalUpTypeVO.codeName}</td>
 											<td>${vo.codeName}</td>
 											<td>${vo.regDate}</td>
-											<td><button class="btn btn-info">수정</button></td>
+											<td><button class="btn btn-info document-update" onclick="location.href='/document/update?approvalTypeNo=${vo.approvalTypeNo}'">수정</button></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -301,5 +301,6 @@ ul.nav-tabs {
 
 		    <script src="/js/ztree/up-document-tree.js"></script>
 			<script src="/js/document/check-box.js"></script>
+			
 </body>
 </html>

@@ -78,7 +78,7 @@ public class ApprovalTypeController {
 		log.warn("====={}======",path);
 		approvalTypeVO=(ApprovalTypeVO)makeColumn.getColumn(approvalTypeVO, path, id);
 		
-		//현재approvalUpTypeVO에 담긴값
+		//현재approvalTypeVO에 담긴값
 		//코드네임, 해당 테이블의 코드
 		//채워야될값: 코드, 업코드
 		//이제 해당 VO에는 코드가 담기지 않게 하는 거지.
@@ -145,6 +145,19 @@ public class ApprovalTypeController {
     	return "redirect:./list";
     }
 	
+    @GetMapping("update")
+    public void setUpdate(ApprovalTypeVO approvalTypeVO,Model model) throws Exception{
+    	approvalTypeVO=approvalTypeService.getDetail(approvalTypeVO);
+    	model.addAttribute("vo", approvalTypeVO);
+    }
+    
+    @PostMapping("update")
+    public String setUpdate(ApprovalTypeVO approvalTypeVO) throws Exception{
+    	int result=approvalTypeService.setUpdate(approvalTypeVO);
+    	
+    	
+    	return "redirect:./list";
+    }
     
 	
 }

@@ -14,8 +14,8 @@ public class MakeColumn {
 	@Value("${view.jsp.suffix}")
 	private String suffix;
 	
-	@Value("${approval.uptype.cd}")
-	private String upTypeUpCd;
+	@Value("${approval.typeup.cd}")
+	private String typeUpCd;
 	
 	public CodeVO getColumn(CodeVO codeVO,String path, String id) throws Exception{
 		codeVO.setRegId(id);
@@ -36,7 +36,7 @@ public class MakeColumn {
 	public CodeVO setUpCode(CodeVO codeVO,HttpServletRequest request) throws Exception{
 		String path=request.getRequestURI();
 		if(path.substring(0, path.lastIndexOf("/")).equals("/document")) {
-			codeVO.setUpCode(upTypeUpCd);
+			codeVO.setUpCode(typeUpCd);
 		}
 		
 		

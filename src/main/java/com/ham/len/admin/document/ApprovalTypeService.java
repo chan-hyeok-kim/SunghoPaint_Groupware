@@ -13,30 +13,45 @@ public class ApprovalTypeService {
 
 	@Autowired
 	private ApprovalTypeDAO approvalTypeDAO;
-	
-	public int setAdd(ApprovalTypeVO approvalTypeVO) throws Exception{
+
+	public int setAdd(ApprovalTypeVO approvalTypeVO) throws Exception {
 		return approvalTypeDAO.setAdd(approvalTypeVO);
 	}
-	
-	public List<ApprovalTypeVO> getList(Pager pager) throws Exception{
+
+	public List<ApprovalTypeVO> getList(Pager pager) throws Exception {
 		return approvalTypeDAO.getList(pager);
 	}
-	
-	public int setUpAdd(ApprovalUpTypeVO approvalUpTypeVO) throws Exception{
-        return approvalTypeDAO.setUpAdd(approvalUpTypeVO);
-    }
-	
-	public List<ApprovalUpTypeVO> getUpList(Pager pager) throws Exception{
+
+	public int setUpAdd(ApprovalUpTypeVO approvalUpTypeVO) throws Exception {
+		return approvalTypeDAO.setUpAdd(approvalUpTypeVO);
+	}
+
+	public List<ApprovalUpTypeVO> getUpList(Pager pager) throws Exception {
 		return approvalTypeDAO.getUpList(pager);
 	}
-	
-	public List<ApprovalTypeVO> getTotalList(Pager pager) throws Exception{
+
+	public List<ApprovalTypeVO> getTotalList(Pager pager) throws Exception {
 		return approvalTypeDAO.getTotalList(pager);
 	}
-	
-	public ApprovalUpTypeVO getUpDetail(ApprovalUpTypeVO approvalUpTypeVO) throws Exception{
+
+	public ApprovalUpTypeVO getUpDetail(ApprovalUpTypeVO approvalUpTypeVO) throws Exception {
 		return approvalTypeDAO.getUpDetail(approvalUpTypeVO);
 	}
-	   
-	
+
+	public ApprovalTypeVO getDetail(ApprovalTypeVO approvalTypeVO) throws Exception{
+		return approvalTypeDAO.getDetail(approvalTypeVO);
+	}
+    
+	public int setUpdate(ApprovalTypeVO approvalTypeVO) throws Exception{
+		return approvalTypeDAO.setUpdate(approvalTypeVO);
+	}
+
+	public int setDelete(ApprovalTypeVO approvalTypeVO) throws Exception{
+		return approvalTypeDAO.setDelete(approvalTypeVO);
+	}
+
+	public int setUpDelete(ApprovalTypeVO approvalTypeVO) throws Exception{
+		return approvalTypeDAO.setUpDelete(approvalTypeVO);
+	}
+
 }

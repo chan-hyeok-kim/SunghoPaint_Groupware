@@ -22,5 +22,11 @@ public interface ApprovalTypeDAO {
 
     public ApprovalUpTypeVO getUpDetail(ApprovalUpTypeVO approvalUpTypeVO) throws Exception;
     
+    public ApprovalTypeVO getDetail(ApprovalTypeVO approvalTypeVO) throws Exception;
     
+    public int setUpdate(ApprovalTypeVO approvalTypeVO) throws Exception;
+	
+    public int setDelete(ApprovalTypeVO approvalTypeVO) throws Exception;
+	
+    public int setUpDelete(ApprovalTypeVO approvalTypeVO) throws Exception;
 }

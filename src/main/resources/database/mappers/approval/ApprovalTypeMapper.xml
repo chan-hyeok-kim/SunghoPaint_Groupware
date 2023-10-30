@@ -6,11 +6,53 @@
 
 <mapper namespace="com.ham.len.admin.document.ApprovalTypeDAO">
 
-    <select id="getUpDetail" resultType="ApprovalUpTypeVO" parameterType="ApprovalUpTypeVO">
-        SELECT *,FN_CODE_NM(LEFT(APPROVAL_UP_TYPE_CD,3),APPROVAL_UP_TYPE_CD) AS CODE_NAME
-          FROM APPROVAL_UP_TYPE
-         WHERE APPROVAL_UP_TYPE_NO=1;
-    </select>
+	<select id="getDetail" resultMap="getDetailResult"
+		parameterType="ApprovalTypeVO">
+		SELECT *,FN_CODE_NM(LEFT(A.APPROVAL_TYPE_CD,3),A.APPROVAL_TYPE_CD) AS
+		A_CODE_NAME,
+		FN_CODE_NM(LEFT(AU.APPROVAL_UP_TYPE_CD,3),AU.APPROVAL_UP_TYPE_CD) AS
+		AU_CODE_NAME
+		FROM APPROVAL_TYPE A INNER JOIN APPROVAL_UP_TYPE AU
+		ON A.APPROVAL_UP_TYPE_NO=AU.APPROVAL_UP_TYPE_NO
+		WHERE A.APPROVAL_TYPE_NO=#{approvalTypeNo}
+	</select>
+
+	<resultMap type="ApprovalTypeVO" id="getDetailResult">
+		<id column="APPROVAL_TYPE_NO" property="approvalTypeNo" />
+		<result column="EMPLOYEE_ID" property="employeeId" />
+		<result column="APPROVAL_FORM" property="approvalForm" />
+		<result column="APPROVAL_TYPE_CD" property="approvalTypeCd" />
+		<result column="REG_ID" property="regId" />
+		<result column="REG_DATE" property="regDate" />
+		<result column="REG_MENU" property="regMenu" />
+		<result column="MOD_ID" property="modId" />
+		<result column="MOD_DATE" property="modDate" />
+		<result column="MOD_MENU" property="modMenu" />
+		<result column="A_CODE_NAME" property="codeName" />
+
+		<association property="approvalUpTypeVO"
+			javaType="ApprovalUpTypeVO">
+			<id column="APPROVAL_UP_TYPE_NO" property="approvalUpTypeNo" />
+			<result column="EMPLOYEE_ID" property="employeeId" />
+			<result column="APPROVAL_UP_TYPE_CD"
+				property="approvalUpTypeCd" />
+			<result column="REG_ID" property="regId" />
+			<result column="REG_DATE" property="regDate" />
+			<result column="REG_MENU" property="regMenu" />
+			<result column="MOD_ID" property="modId" />
+			<result column="MOD_DATE" property="modDate" />
+			<result column="MOD_MENU" property="modMenu" />
+			<result column="AU_CODE_NAME" property="codeName" />
+		</association>
+	</resultMap>
+
+	<select id="getUpDetail" resultType="ApprovalUpTypeVO"
+		parameterType="ApprovalUpTypeVO">
+		SELECT *,FN_CODE_NM(LEFT(APPROVAL_UP_TYPE_CD,3),APPROVAL_UP_TYPE_CD) AS
+		CODE_NAME
+		FROM APPROVAL_UP_TYPE
+		WHERE APPROVAL_UP_TYPE_NO=#{approvalUpTypeNo}
+	</select>
 
 	<select id="getList" resultType="ApprovalTypeVO"
 		parameterType="Pager">
@@ -35,9 +77,22 @@
 	<update id="setUpdate" parameterType="ApprovalTypeVO">
 		UPDATE APPROVAL_TYPE
 		SET
-		APPROVAL_FORM=#{approvalForm},APPROVAL_TYPE_CD=#{approvalTypeCd},MOD_ID=#{modId},MOD_DATE=#{modDate},MOD_MENU=#{modMenu}
-		WHERE APPROVAL_TYPE_NO=#{approvalTypeNO}
+		APPROVAL_FORM=#{approvalForm},MOD_ID=#{modId},MOD_DATE=#{modDate},MOD_MENU=#{modMenu},
+		CODE_NAME=#{codeName},APPROVAL_UP_TYPE_NO=#{approvalUpTypeNo}
+		WHERE
+		APPROVAL_TYPE_NO=#{approvalTypeNO}
 	</update>
+
+	<delete id="setDelete" parameterType="ApprovalTypeVO">
+		DELETE FROM APPROVAL_TYPE
+		 WHERE APPROVAL_TYPE_NO=#{approvalTypeNO}
+	</delete>
+
+	<delete id="setUpDelete" parameterType="ApprovalUpTypeVO">
+		DELETE FROM APPROVAL_UP_TYPE
+		 WHERE APPROVAL_UP_TYPE_NO=#{approvalUpTypeNO}
+	</delete>
+
 
 	<insert id="setUpAdd" parameterType="ApprovalUpTypeVO">
 		INSERT INTO
@@ -75,30 +130,31 @@
 	</select>
 
 	<resultMap type="ApprovalTypeVO" id="getTypeList">
-		<id column="APPROVAL_TYPE_NO" property="approvalTypeNo"/>
-		<result column="EMPLOYEE_ID" property="employeeId"/>
-		<result column="APPROVAL_FORM" property="approvalForm"/>
-		<result column="APPROVAL_TYPE_CD" property="approvalTypeCd"/>
-		<result column="REG_ID" property="regId"/>
-		<result column="REG_DATE" property="regDate"/>
-		<result column="REG_MENU" property="regMenu"/>
-		<result column="MOD_ID" property="modId"/>
-		<result column="MOD_DATE" property="modDate"/>
-		<result column="MOD_MENU" property="modMenu"/>
-		<result column="A_CODE_NAME" property="codeName"/>
+		<id column="APPROVAL_TYPE_NO" property="approvalTypeNo" />
+		<result column="EMPLOYEE_ID" property="employeeId" />
+		<result column="APPROVAL_FORM" property="approvalForm" />
+		<result column="APPROVAL_TYPE_CD" property="approvalTypeCd" />
+		<result column="REG_ID" property="regId" />
+		<result column="REG_DATE" property="regDate" />
+		<result column="REG_MENU" property="regMenu" />
+		<result column="MOD_ID" property="modId" />
+		<result column="MOD_DATE" property="modDate" />
+		<result column="MOD_MENU" property="modMenu" />
+		<result column="A_CODE_NAME" property="codeName" />
 
 		<association property="approvalUpTypeVO"
 			javaType="ApprovalUpTypeVO">
-             <id column="APPROVAL_UP_TYPE_NO" property="approvalUpTypeNo"/>
-             <result column="EMPLOYEE_ID" property="employeeId"/>
-             <result column="APPROVAL_UP_TYPE_CD" property="approvalUpTypeCd"/>
-             <result column="REG_ID" property="regId"/>
-		     <result column="REG_DATE" property="regDate"/>
-		     <result column="REG_MENU" property="regMenu"/>
-		     <result column="MOD_ID" property="modId"/>
-		     <result column="MOD_DATE" property="modDate"/>
-		     <result column="MOD_MENU" property="modMenu"/>
-		     <result column="AU_CODE_NAME" property="codeName"/>
+			<id column="APPROVAL_UP_TYPE_NO" property="approvalUpTypeNo" />
+			<result column="EMPLOYEE_ID" property="employeeId" />
+			<result column="APPROVAL_UP_TYPE_CD"
+				property="approvalUpTypeCd" />
+			<result column="REG_ID" property="regId" />
+			<result column="REG_DATE" property="regDate" />
+			<result column="REG_MENU" property="regMenu" />
+			<result column="MOD_ID" property="modId" />
+			<result column="MOD_DATE" property="modDate" />
+			<result column="MOD_MENU" property="modMenu" />
+			<result column="AU_CODE_NAME" property="codeName" />
 		</association>
 	</resultMap>
 
