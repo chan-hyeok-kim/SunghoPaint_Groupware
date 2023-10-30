@@ -5,21 +5,77 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.purchase.PurchaseDAO">
+	
+	<!-- <sql id="forPager">
+		<choose>
+			<when test="kind=='1'">
+				clientName
+			</when>
+			
+			<when test="kind=='2'">
+				materialProductNo
+			</when>
+			
+			<otherwise>
+				name
+			</otherwise>
+		</choose>
+	</sql> -->
+	
 
-   <select id="getList" resultType="PurchaseVO" parameterType="Pager">
+	<select id="getList" resultMap="PurchaseList" parameterType="Pager">
+         <!-- SELECT * FROM PURCHASE_MANAGEMENT ORDER BY PURCHASE_NO DESC -->
+        
         SELECT * 
-          FROM PURCHASE_MANAGEMENT
+          FROM PURCHASE_MANAGEMENT P 
+    
+    INNER JOIN HUMAN_RESOURCE H
+         	ON P.EMPLOYEE_ID = H.EMPLOYEE_ID
+    
+    INNER JOIN CLIENT_LIST C
+    		ON P.CLIENT_NO = C.CLIENT_NO
+    
+    INNER JOIN MATERIAL_PRODUCT M
+    		ON P.MATERIAL_PRODUCT_NO = M.MATERIAL_PRODUCT_NO
+    
          ORDER BY PURCHASE_NO DESC
          LIMIT #{startRow},#{lastRow}
-   </select>
+         
+	</select>
+	
+	<resultMap type="PurchaseVO" id="PurchaseList">
+  		<id column="PURCHASE_NO" property="purchaseNo"/>
+  		<result column="CLIENT_NO" property="clientNo"/>
+  		<result column="MATERIAL_PRODUCT_NO" property="materialProductNo"/>
+  		<result column="EMPLOYEE_ID" property="employeeId"/>
+  		<result column="PURCHASE_DATE" property="purchaseDate"/>
+  		<result column="TOTAL_PRICE" property="totalPrice"/>
+  			<association property="clientVO" javaType="ClientVO">
+  				<result column="CLIENT_NAME" property="clientName"/>
+  			</association>
+
+  			<association property="employeeVO" javaType="EmployeeVO">
+  				<result column="NAME" property="name"/>
+  			</association>
+
+  			<association property="materialProductVO" javaType="MaterialProductVO">
+  				<result column="MATERIAL_PRODUCT_CATEGORY" property="materialProductCategory"/>
+  			</association>
+  		
+  	</resultMap>
    
-   <insert id="setAdd" parameterType="PurchaseVO">
-   		INSERT INTO PURCHASETYPE(PURCHASE_NO, CLIENT_NO, MATERIAL_PRODUCT_NO, EMPLOYEE_ID, PURCHASE_DATE, TOTAL_PRICE, MOD_MENU, MOD_ID, MOD_DATE, REG_MENU, REG_ID, REG_DATE)
-   		VALUES (NULL, #{CLIENT_NO}, ${MATERIAL_PRODUCT_NO}, ${EMPLOYEE_ID}, ${PURCHASE_DATE}, ${TOTAL_PRICE}, ${MOD_MENU}, ${MOD_ID}, ${MOD_DATE}, ${REG_MENU}, ${REG.ID}, ${REG.DATE});   
-   </insert>
    
-   
-   
-   
+    <!-- <insert id="setAdd" parameterType="PurchaseVO">
+    
+    	INSERT INTO PURCHASE_MANAGEMENT
+			( ,MOD_MENU,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE)
+		VALUES
+			( #{}, #{}, #{}, #{}, #{}, #{}, #{modMenu},#{regId},NOW(),#{regMenu},#{modId},NOW())
+    
+    값이 DB에서 생성되기 때문에 PURCHASE_NO는 NULL입니다.
+    
+    </insert>  -->
+    
+    
 
 </mapper>

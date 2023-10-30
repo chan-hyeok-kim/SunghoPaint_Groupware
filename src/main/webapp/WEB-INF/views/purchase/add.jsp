@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,183 +57,93 @@
 </style>
 
 
-<!-- Toast API -->
-<script
-	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 </head>
 <body>
+
+
+
 	<div class="card">
 		<div class="card-body">
-			<div class="wrapper-toolbar">구매 입력</div>
-
-
-			<div id="purchase-content">
-				<span class="title">일자</span> 
-				<span class="input-date"><input type="date"></span>
-
-				<div>
-					<span class="title">제목</span> <span class="input-date"><input
-						name="purchaseTitle"> </span>
-				</div>
-
-				<div>
-					<span class="title"></span> <span class="title">결재라인</span> <input
+			<div class="wrapper-toolbar">구매서 작성</div>
+			
+			<br><br>
+			
+			<table class="table table-bordered">
+			    <tr>
+			        <td	>일자</td>
+			        <td><input type="date" placeholder="날짜 입력"></td>
+			        <td>거래처</td>
+			        <td><input
 						style="display: inline-block;"
 						class="form-control purchase-line-search" type="search"
-						placeholder="" aria-label="Search">
-					<button class="btn btn-info purchase-line-btn" type="submit"
-						data-toggle="modal" data-target="#purchaseModal">
-						<i class="mdi mdi-account-search"></i>
-					</button>
-				</div>
-				<div>
-					<span class="title">결재라인</span> <span class="title">검토자</span> <input
+						placeholder="거래처 입력"  aria-label="Search">
+					</td>
+			    </tr>
+			    <tr>
+			        <td>담당자</td>
+			        <td><input
 						style="display: inline-block;"
 						class="form-control purchase-line-search" type="search"
-						placeholder="" aria-label="Search">
-					<button id="top-search-btn" class="btn btn-info purchase-line-btn"
-						type="submit">
-						<i class="mdi mdi-account-search"></i>
-					</button>
-				</div>
-				<div>
-					<span class="title"></span><span class="title">추가검토자</span> <input
+						placeholder="담당자 입력"  aria-label="Search">
+					</td>
+			        <td>입고창고</td>
+			        <td><input
 						style="display: inline-block;"
 						class="form-control purchase-line-search" type="search"
-						placeholder="" aria-label="Search">
-					<button id="top-search-btn" class="btn btn-info purchase-line-btn"
-						type="submit">
-						<i class="mdi mdi-account-search"></i>
-					</button>
-				</div>
-				<div>
-					<span class="title"></span><span class="title">결재자</span> <input
-						style="display: inline-block;"
-						class="form-control purchase-line-search" type="search"
-						placeholder="" aria-label="Search">
-					<button id="top-search-btn" class="btn btn-info purchase-line-btn"
-						type="submit">
-						<i class="mdi mdi-account-search"></i>
-					</button>
-				</div>
+						placeholder="입고창고 입력"  aria-label="Search">
+					</td>
+			    </tr>
+			    <tr>
+			        <td>납기일자</td>
+			        <td><input type="date" ></td>
+			        
+			        <!-- <td>거래유형</td>
+			        <td><div class="dropdown">
+						  <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						    Dropdown button
+						  </button>
+						  <ul class="dropdown-menu info">
+						    <li><a class="dropdown-item" href="#">Action</a></li>
+						    <li><a class="dropdown-item" href="#">Another action</a></li>
+						    <li><a class="dropdown-item" href="#">Something else here</a></li>
+						  </ul>
+						</div></td> -->
+			    </tr>
+			</table>
+			<br><br><br><br><br>
+			<table class="table table-bordered">
+			    <tr>
+			        <td>#</td>
+			        <td>일자</td>
+			        <td>거래처</td>
+			        <td>담당자</td>
+			        <td>입고창고</td>
+			        <td>납기일자</td>
+			    </tr>
+				    <c:forEach items="${add}" var="vo" varStatus="i">
+					    <tr>
+					        <%-- <td></td>
+					        <td>${vo.}</td>
+					        <td>${vo.}</td>
+					        <td>${vo.}</td>
+					        <td>${vo.}</td>
+					        <td>${vo.}</td> --%>
+					    </tr>
+				    </c:forEach>
+			</table>
 
 
-				<div>
-					구분(결재양식) <input style="display: inline-block;"
-						class="form-control purchase-line-search" type="search"
-						placeholder="" aria-label="Search">
-					<button id="top-search-btn" class="btn btn-info purchase-line-btn"
-						type="submit">
-						<i class="mdi mdi-account-search"></i>
-					</button>
-				</div>
 
-
-				</ul>
-			</div>
-
-			<!-- Toast UI -->
-			<div id="editor"></div>
-
-
-			<!-- add button -->
+	<br><br><br>
 		<div style="float: right;">
 			<button class="btn btn-info">임시저장</button>
 			<button class="btn btn-info">지우기</button>
-			<button class="btn btn-info">입력완료</button>
+			<button class="btn btn-info" type="submit">입력완료</button>
 		</div>
 		</div>
 
 
 	</div>
-
-
-	<!-- Modal -->
-
-	<div class="modal fade" id="purchaseModal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-xl" role="document">
-			<div class="modal-content"
-				style="border-bottom: white; border-radius: 0rem;">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">결재양식 선택</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-
-					<div>
-					<form action="GET">
-						 <input type="radio"> 이름 
-						 <input type="radio"> 부서
-						 <input type="search">
-						 <button type="submit" class="btn btn-info material-icons">search</span>
-					</form>
-					</div>
-                    
-					<div style="display: flex; float: left; width: 40%;">
-						<div style="">
-
-							<ul id="tree" class="ztree"></ul>
-						</div>
-
-						<div style="margin-left: 20px;" id="tree_list_empty">
-							<ul id="tree_list" class="ztree"></ul>
-
-						</div>
-					</div>
-					<div style="float: right; width: 40%">
-						<div style="float: left;">
-							<button type="button" class="btn btn-info" id="tree_list_add">결재
-								></button>
-						</div>
-
-						<div style="overflow: auto; float: left;" id="tree-table-div">
-							<table id="tree-table">
-								<tbody id="tree-table-body">
-									<tr style="height: 10%">
-										<td>결재</td>
-										<td>이대리<br>디자인팀 이대리
-										</td>
-									</tr>
-
-								</tbody>
-							</table>
-						</div>
-					</div>
-
-
-
-
-				</div>
-
-
-
-			</div>
-			<div class="modal-footer" style="background: white;">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-info">확인</button>
-			</div>
-		</div>
-	</div>
-	</div>
-	<!-- modal end -->
-
-
-
-	<script type="text/javascript">
-		const Editor = toastui.Editor;
-		const editor = new Editor({
-			el : document.querySelector('#editor'),
-
-		});
-	</script>
-
-
-	<!-- tree -->
-	<script src="/js/ztree/paint-tree.js"></script>
 
 
 </body>

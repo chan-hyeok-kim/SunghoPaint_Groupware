@@ -2,7 +2,7 @@ package com.ham.len.order;
 
 import java.sql.Date;
 
-import com.ham.len.commons.CommonsVO;
+import com.ham.len.admin.CodeVO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import lombok.ToString;
 
 @Getter @Setter
 @ToString
-public class OrderVO extends CommonsVO {
+public class OrderVO extends CodeVO {
 	private Long orderNo;
 	private Long materialProductNo;
 	private Long clientNo;

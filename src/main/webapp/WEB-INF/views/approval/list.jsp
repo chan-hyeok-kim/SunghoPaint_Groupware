@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -196,22 +197,22 @@ ul.nav-tabs {
 				           </tr>
 				        </thead>
 				        <tbody>
-				        <c:forEach items="${list}" var="vo" varStatus="i">
-				           <tr>
-				             <td><input type="checkbox"></td>
-				             <td>${vo.approvalStartDate}</td>
-				             <td>${vo.approvalTitle}</td>
-				             <td>${vo.approvalContents}</td>
-				             <td>${vo.drafter}</td>
-				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
-				             <c:choose>
-				             <c:when test="${vo.approvalStatusCd eq 'R001'}">
-				             <td>기안중</td>
-				             </c:when>
-				             </c:choose>
-				             <td><a>기안서 확인</a></td>
-				           </tr>
-				         </c:forEach>
+					        <c:forEach items="${list}" var="vo" varStatus="i">
+					           <tr>
+					             <td><input type="checkbox"></td>
+					             <td>${vo.approvalStartDate}</td>
+					             <td>${vo.approvalTitle}</td>
+					             <td>${vo.approvalContents}</td>
+					             <td>${vo.drafter}</td>
+					             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
+					             <c:choose>
+					             <c:when test="${vo.approvalStatusCd eq 'R001'}">
+					             <td>기안중</td>
+					             </c:when>
+					             </c:choose>
+					             <td><a>기안서 확인</a></td>
+					           </tr>
+					        </c:forEach>
 				        </tbody>
 				      
 				    </table>

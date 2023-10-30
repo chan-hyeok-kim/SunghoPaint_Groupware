@@ -19,6 +19,7 @@
    <typeAlias type="com.ham.len.workorder.WorkOrderVO" alias="WorkOrderVO"/>
    <typeAlias type="com.ham.len.productionReceipt.ProductionReceiptVO" alias="ProductionReceiptVO"/>
    
+   <typeAlias type="com.ham.len.commons.Pager" alias="Pager"/>
    
    </typeAliases>
 </configuration>

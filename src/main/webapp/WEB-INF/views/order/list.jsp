@@ -239,7 +239,7 @@ ul.nav-tabs {
 						<!-- Button List  -->
 						
 						<div style="float: right;">
-							<button class="btn btn-info">버튼</button>
+							<button class="btn btn-info" onclick="location.href='/order/add'">신규 발주서 추가</button>
 						</div>
 					</div>
 				</div>

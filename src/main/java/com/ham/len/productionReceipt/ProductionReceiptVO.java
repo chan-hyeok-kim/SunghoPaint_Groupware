@@ -2,7 +2,7 @@ package com.ham.len.productionReceipt;
 
 import java.sql.Date;
 
-import com.ham.len.commons.CommonsVO;
+import com.ham.len.admin.CodeVO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import lombok.ToString;
 
 @Getter @Setter
 @ToString
-public class ProductionReceiptVO extends CommonsVO {
+public class ProductionReceiptVO extends CodeVO {
 	
 	private Long productNo;
 	private Long materialProductNo;

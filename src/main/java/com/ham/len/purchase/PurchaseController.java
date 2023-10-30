@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ham.len.admin.CodeService;
+import com.ham.len.admin.CodeVO;
 import com.ham.len.commons.Pager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,12 +26,14 @@ public class PurchaseController {
 	@GetMapping("list")
 	public String getList(Pager pager,Model model)throws Exception{
 		List<PurchaseVO> ar = purchaseService.getList(pager);
-		log.warn("========{}=========", ar);
+		log.warn("=============={}==============", ar);
+		log.warn("=============={}==============", model);
 		model.addAttribute("list", ar);
+		
 		return "purchase/list";
 	}
 	
-	@GetMapping("add")
+	@GetMapping("add") //입력폼으로 이동시켜주는것
 	public String add()throws Exception{
 		
 		return "purchase/add";
@@ -41,3 +45,5 @@ public class PurchaseController {
 		return "redirect:./";
 	}
 }
+
+
