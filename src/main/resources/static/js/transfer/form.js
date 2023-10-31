@@ -1,58 +1,44 @@
-let list_json;
-function getList(url){
-	$.ajax({
-		url:url,
-		type:"GET",
-		success:function(result){
-			list_json = JSON.parse(JSON.stringify(result));
-			
-			for(i = 0; i < 100; i++){
-			$.each(list_json, function(index, element){
-				$("#searchWindow #list > table").append("<tr>" +
-																			"<td class='select'><input type='checkbox'></td>" +
-																			"<td class='employeeID'>" + element.employeeID + "</td>" +
-																			"<td class='name'>" + element.name + "</td>" +
-																			"<td class='departmentCdName'>" + element.departmentCdName + "</td>" +
-																			"<td class='positionCdName'>" + element.positionCdName + "</td>" +
-																		"</tr>");
-			});
-			}
-			
-			$(".select > input[type='checkbox']").change(function(){
-				if($(this).is(":checked")){
-					$(".select > input[type='checkbox']").not(this).prop("checked", false);
-				}
-			});
-		}
-	});
-}
-
 $(function(){
 	$("#transferForm .search").click(function(){
-		let search_type = $(this).attr("id");
-		// substr
-		if(){
-			
+		let id = $(this).attr("id");
+		let url;
+		let title;
+		let table_header;
+		let table_body = new Array();
+		
+		if(id == "search_existing"){
+			url = "/transfer/getHumanResourceList";
+			title = "사원 정보";
+			table_header = "<th></th>" +
+								 "<th>사원번호</th>" +
+								 "<th>성명</th>" +
+								 "<th>부서</th>" +
+								 "<th>직급</th>";
+			table_body.push("employeeID");
+			table_body.push("name");
+			table_body.push("departmentCdName");
+			table_body.push("positionCdName");
+		}else if(id == "search_transferType"){
+			url = "/transfer/...";
+			title = "발령 구분";
+		}else if(id == "search_position"){
+			url = "/transfer/...";
+			title = "직급";
+		}else if(id == "search_department"){
+			url = "/transfer/...";
+			title = "부서";
 		}
 		
 		if($("#searchWindow").length > 0) $("#searchWindow").remove();
 		
-		getList("/transfer/getHumanResourceList");
-		
 		$("body").append("<div id='searchWindow'>" +
 									"<div id='titleBar'>" +
-										"<p>○○구분 리스트</p>" +
+										"<p>" + title + " 리스트</p>" +
 										"<img id='close' src='/images/transfer/close-icon.png'>" +
 									"</div>" +
 									"<div id='list'>" +
 										"<table>" +
-											"<tr>" +
-												"<th></th>" +
-												"<th>사원번호</th>" +
-												"<th>성명</th>" +
-												"<th>부서</th>" +
-												"<th>직급</th>" +
-											"</tr>" +
+											"<tr>" + table_header + "</tr>" +
 										"</table>" +
 									"</div>" +
 									"<div id='footer'>" +
@@ -60,10 +46,31 @@ $(function(){
 									"</div>" +
 								"</div>");
 		
+		$.ajax({
+			url:url,
+			type:"GET",
+			success:function(result){
+				list_json = JSON.parse(JSON.stringify(result));
+				
+				$.each(list_json, function(index, element){
+						$("#searchWindow #list > table").append("<tr><td class='select'><input type='checkbox'></td></tr>");
+						$.each(table_body, function(i, e){
+								$("#searchWindow #list > table tr:last-of-type").append("<td class='" + e + "'>" + element[e] + "</td>");
+						});
+				});
+				
+				$(".select > input[type='checkbox']").change(function(){
+					if($(this).is(":checked")){
+						$(".select > input[type='checkbox']").not(this).prop("checked", false);
+					}
+				});
+			}
+		});
+		
 		$("#searchWindow").draggable({
 			handle:"#titleBar",
 			cancel:"#close",
-			containment:"document",
+			containment:"document"
 		});
 		
 		$("#apply").click(function(){
