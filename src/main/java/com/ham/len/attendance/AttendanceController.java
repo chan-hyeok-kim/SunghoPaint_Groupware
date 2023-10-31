@@ -73,6 +73,10 @@ public class AttendanceController {
 		if(year == 0 && month == 0) {
 			year = cal.get(Calendar.YEAR);
 			month = cal.get(Calendar.MONTH) + 1;
+			Map<String, Integer> currentWeekOfMonth = WeekOfMonthInfoCalculator.getCurrentWeekOfMonth(cal.getTime());
+			if(currentWeekOfMonth.get("year") == year && currentWeekOfMonth.get("month") == month) {
+				weekOfMonth = currentWeekOfMonth.get("weekOfMonth");
+			}
 		}else if(day != null) {
 			cal.set(Calendar.YEAR, year);
 			cal.set(Calendar.MONTH, month - 1);

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ham.len.transfer.TransferDAO">
+	<select id="getHumanResourceList" resultType="HumanResourceVO">
+		SELECT *,
+		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD_NAME,
+		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME 
+			FROM HUMAN_RESOURCE;
+	</select>
+</mapper>

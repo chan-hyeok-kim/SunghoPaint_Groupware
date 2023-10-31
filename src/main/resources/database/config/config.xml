@@ -10,6 +10,7 @@
    
 	   <typeAlias type="com.ham.len.humanResource.HumanResourceVO" alias="HumanResourceVO"/>
 	   <typeAlias type="com.ham.len.attendance.AttendanceVO" alias="AttendanceVO"/>
+	   <typeAlias type="com.ham.len.transfer.TransferVO" alias="TransferVO"/>
 	   <typeAlias type="com.ham.len.commons.Pager" alias="Pager"/>
 	   
 	   <typeAlias type="com.ham.len.approval.ApprovalVO" alias="ApprovalVO"/>

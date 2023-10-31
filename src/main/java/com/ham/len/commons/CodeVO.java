@@ -14,7 +14,7 @@ public class CodeVO {
 	private String upCode;
 	private String codeName;
 	private String regId;
-    private Date regDate;
+	private Date regDate;
     private String regMenu;
     private String modId;
     private Date modDate;

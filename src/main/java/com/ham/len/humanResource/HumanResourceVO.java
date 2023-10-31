@@ -9,6 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.ham.len.commons.CodeVO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,7 +18,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class HumanResourceVO implements UserDetails {
+public class HumanResourceVO extends CodeVO implements UserDetails {
 	private String employeeID;
 	private String password;
 	private Timestamp joinDate;
@@ -24,7 +26,9 @@ public class HumanResourceVO implements UserDetails {
 	private String name;
 	private String birth;
 	private String departmentCd;
+	private String departmentCdName;
 	private String positionCd;
+	private String positionCdName;
 	private String extensionNumber;
 	private String phone;
 	private String mainNumber;
@@ -44,7 +48,7 @@ public class HumanResourceVO implements UserDetails {
 	private String modId;
 	private java.util.Date modDate;
 	private String modMenu;
-	private List<RoleVO> roles;
+	private List<RoleVO> roles = new ArrayList<>(); // NullPointerException 방지
 	
 	@Override
 	public String getUsername() {
