@@ -35,7 +35,7 @@ $('#delete-btn').click(function(){
 	
 	 $.ajax({
 		 type: 'POST',
-		 url: '/approval/delete',
+		 url: '/document/delete',
 		 data: {
 			  typeNoArr: arr
 		 },success:function(result){

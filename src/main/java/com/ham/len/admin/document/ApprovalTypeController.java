@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -189,8 +190,16 @@ public class ApprovalTypeController {
     }
     
     @PostMapping("delete")
-    public void setDelete(List<String> typeNoArr) throws Exception{
-    	
+    public String setDelete(@RequestParam(value = "typeNoArr") List<String> typeNoArr,Model model) throws Exception{
+    	int result=0;
+    	for(String t: typeNoArr) {
+    	    ApprovalTypeVO approvalTypeVO=new ApprovalTypeVO();
+    	    approvalTypeVO.setApprovalTypeNo(Long.parseLong(t));
+    	    
+    	    result=approvalTypeService.setDelete(approvalTypeVO);
+    	}
+    	model.addAttribute("result", result);
+    	return "commons/ajaxResult";
     }
 	
 }
