@@ -18,7 +18,7 @@ var upArr = new Array();
 let x = new Array();
 let z = new Array();
 //두번째 자식
-
+let xz = new Array();
 $('.get-up-code-name').each(function(i, item) {
 
 	upCodeName = $(this).attr('data-up-code-name');
@@ -29,46 +29,80 @@ $('.get-up-code-name').each(function(i, item) {
 
 
 	let y = [];
-	if (y.name != codeName && codeName != '') {
+    i=i+1;
+	if (y.name == codeName && codeName == '') {
+		return;
+		}
 		y.name = codeName;
-		y.pId = '1';
-		y.id = '11';
+		y.pId = i;
+		y.id = '2';
 		y.cd = cd;
 		y.no = no;
+		y.upCd = upCodeName;
 		y.form = approvalForm;
-		upArr.push(y);
-	}
-
+		
+    
+	
 
 	//첫번째 자식
 	let r = [];
-	var equalCheck;
-
-
-
+	
+    
+   
 	r.name = upCodeName;
 	r.pId = '0';
-	r.id = '1'
+	r.id = i;
 	r.cd = cd
 	r.no = no;
 	r.open = 'true'
-	z.push(r)
-	console.log(z)
-	if (i > 1) {
-		console.log(z[i - 1].name);
-		equalCheck = z[i - 1].name;
+	
+	
+    
+    upArr.push(r)
+    /*중복제거*/
+const result=upArr.reduce((acc, v) => {
+    return acc.find(x => x.name === v.name) ? acc : [...acc, v];
+}, []);
+
+console.log(result)
+upArr=result;
 
 
-		if (r.name == equalCheck) {
-			upArr.push(r);
-		} else {
-			r.id = r.id * 1 + 1;
-			upArr.push(r);
-		}
-	}
-	console.log(upArr)
+/*중복제거한 후에 
+* 부모값있는지체크
+*/
+   const unique = upArr.map(function (val, index) {
+	return val['id'];
+}).filter(function (val, index, arr) {
+	return arr.indexOf(val) === index;
+});
 
+   console.log(unique);
+   console.log(unique.includes(y.pId))
+   if(!unique.includes(y.pId)){
+	   unique.pop();
+	   y.pId=unique.at(-1);
+   }
+   
+   
+   console.log(y)
+   upArr.push(y)
+   
 })
+
+const result=upArr.reduce((acc, v) => {
+    return acc.find(x => x.name === v.name) ? acc : [...acc, v];
+}, []);
+
+console.log(result)
+upArr=result;
+/* const unique = upArr.map(function (val, index) {
+	return val['name'];
+}).filter(function (val, index, arr) {
+	return arr.indexOf(val) === index;
+});
+console.log(unique)*/
+
 x.name = '성호페인트 문서함';
 x.id = '0';
 x.pId = 'root';
@@ -107,17 +141,17 @@ var setting = {
 
 function upDocumentCheck(event, treeId, treeNode) {
 
-	
+
 
 	otherNodes = $('#' + treeNode.tId).siblings();
 
-/*	for (let i = 0; i < otherNodes.length; i++) {
-		node = otherNodes.get(i);
-
-		span = node.children.item(1)
-		span.className = 'button chk checkbox_false_full';
-
-	}*/
+	/*	for (let i = 0; i < otherNodes.length; i++) {
+			node = otherNodes.get(i);
+	
+			span = node.children.item(1)
+			span.className = 'button chk checkbox_false_full';
+	
+		}*/
 
 
 	nodes = treeNode.getParentNode();
@@ -126,12 +160,12 @@ function upDocumentCheck(event, treeId, treeNode) {
 	for (i of childArr) {
 		if (treeNode.name != i.name) {
 			i.checked = false;
-               zTreeObj.updateNode(i)
+			zTreeObj.updateNode(i)
 		}
-		if (i.children!=null){
-			for(n of i.children){
-			   n.checked = false;
-			   zTreeObj.updateNode(n);
+		if (i.children != null) {
+			for (n of i.children) {
+				n.checked = false;
+				zTreeObj.updateNode(n);
 			}
 		}
 
@@ -148,7 +182,7 @@ function upDocumentCheck(event, treeId, treeNode) {
 	console.log(treeId)
 	console.log(event)
 	$('#up-type-cd').val(treeNode.cd);
-    $('#up-type-no').val(treeNode.no);
+	$('#up-type-no').val(treeNode.no);
 
 	/** add*/
 	let checkHtml = treeNode.form;
@@ -184,45 +218,7 @@ $(document).ready(function() {
 
 
 
-/**
- *   여기서부터 결재 add임
- * 
- */
 
-var formNodes = new Array();
-formNodes.push(x);
-$.ajax({
-	type: 'GET',
-	url: '/document/ajaxList',
-	success: function(result) {
-		list = result.list;
-		total = result.total;
-		console.log(list);
-		for (let i in total) {
-			console.log(list[i].codeName);
-
-			if (list[i].codeName == '') {
-				continue;
-			} else {
-				ajaxList(i, total[i].codeName, list[i].codeName, total[i].approvalUpTypeCd,
-					list[i].approvalForm)
-			}
-
-		}
-		/*for (let i = 0; i < result.length; i++) {
-			let name = result[i].codeName;
-			let formContents = result[i].approvalForm;
-
-			let arr = new Array();
-			arr.name = name;
-			arr.open = true;
-			arr.content = formContents
-			formNodes.push(arr);
-		}
-*/
-	}
-
-})
 
 $('#form-modal-btn').click(function() {
 	var modalNodes = formNodes;
@@ -231,43 +227,4 @@ $('#form-modal-btn').click(function() {
 
 
 
-function ajaxList(i, upCodeName, codeName, cd, approvalForm) {
 
-	z = new Array();
-	let y = [];
-	if (y.name != codeName && codeName != '') {
-		y.name = codeName;
-		y.pId = '1';
-		y.id = '11';
-		y.cd = cd;
-		y.form = approvalForm;
-		formNodes.push(y);
-	}
-
-
-	//첫번째 자식
-	let r = [];
-	var equalCheck;
-
-
-
-	r.name = upCodeName;
-	r.pId = '0';
-	r.id = '1'
-	r.open = 'true'
-	z.push(r)
-	console.log(z)
-
-	console.log(z[i].name);
-	equalCheck = z[i].name;
-
-
-	if (r.name == equalCheck) {
-		formNodes.push(r);
-	} else {
-		r.id = r.id * 1 + 1;
-		formNodes.push(r);
-	}
-
-	console.log(formNodes)
-}
