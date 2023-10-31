@@ -35,7 +35,7 @@
 								<tbody>
 								    <tr>
 										<td style="padding: 20px">상위양식함명</td>
-										<td><input class="form-control" name="approvalUpTypeNo" value="${vo.codeName}"></td>
+										<td><input disabled="disabled" class="form-control" name="approvalUpTypeNo" value="${vo.codeName}"></td>
 									</tr>
 									<form action="./add" method="post" id="frm">
 									<input type="hidden" name="approvalUpTypeNo" value="${vo.approvalUpTypeNo}">	
@@ -77,6 +77,6 @@
 
 <!-- approval-form에 html style적용 -->
 	<script src="/js/commons/approval-form.js"></script>
-
+    <script src="/js/document/add-check.js"></script>
 </body>
 </html>

@@ -17,91 +17,106 @@ var upArr = new Array();
 
 let x = new Array();
 let z = new Array();
-//두번째 자식
-let xz = new Array();
+
 $('.get-up-code-name').each(function(i, item) {
 
 	upCodeName = $(this).attr('data-up-code-name');
 	codeName = $(this).attr('data-code-name');
 	cd = $(this).attr('data-up-type-cd');
-	no = $(this).attr('data-up-no');
+	no = $(this).attr('data-up-up-no');
+	refNo = $(this).attr('data-up-no');
 	approvalForm = $(this).html();
-
-
-	let y = [];
-    i=i+1;
-	if (y.name == codeName && codeName == '') {
-		return;
-		}
-		y.name = codeName;
-		y.pId = i;
-		y.id = '2';
-		y.cd = cd;
-		y.no = no;
-		y.upCd = upCodeName;
-		y.form = approvalForm;
 		
     
 	
 
 	//첫번째 자식
 	let r = [];
-	
+	i=i+1;
     
    
 	r.name = upCodeName;
-	r.pId = '0';
+	r.pId = 0;
 	r.id = i;
 	r.cd = cd
 	r.no = no;
 	r.open = 'true'
-	
-	
+    r.psId= i;
     
     upArr.push(r)
-    /*중복제거*/
+    
+    
+     /* JSON타입 배열의 중복제거
+    *  객체 보존 가능
+    */
 const result=upArr.reduce((acc, v) => {
     return acc.find(x => x.name === v.name) ? acc : [...acc, v];
 }, []);
 
-console.log(result)
+
+
 upArr=result;
 
 
-/*중복제거한 후에 
-* 부모값있는지체크
+    //두번째 자식
+    let y = [];
+    
+    
+    /*중복제거한 후에 
+* 부모값있는지체크. 객체 보존 안됨
 */
    const unique = upArr.map(function (val, index) {
-	return val['id'];
+	return val['psId'];
 }).filter(function (val, index, arr) {
 	return arr.indexOf(val) === index;
 });
 
-   console.log(unique);
-   console.log(unique.includes(y.pId))
+const uniqueNo = upArr.map(function (val, index) {
+	return val['no'];
+}).filter(function (val, index, arr) {
+	return arr.indexOf(val) === index;
+});
+ 
+   
+	if (codeName!='') {
+		y.name = codeName;
+		y.pId = r.psId;
+		y.id = '10'+i;
+		y.cd = cd;
+		y.refNo = refNo;
+		y.upCd = upCodeName;
+		y.form = approvalForm;
+
+   
+
    if(!unique.includes(y.pId)){
-	   unique.pop();
-	   y.pId=unique.at(-1);
+	  
+	   for(u of upArr){
+		   if(u.no==y.refNo && u.psId!=undefined){
+			  y.pId=u.psId; 
+		   }
+		   
+	   }
+	   
+	   
+	   /*unique.pop();
+	   y.pId=unique.at(-1);*/
    }
    
    
-   console.log(y)
+  
    upArr.push(y)
-   
+   }
 })
 
-const result=upArr.reduce((acc, v) => {
+/*const result=upArr.reduce((acc, v) => {
     return acc.find(x => x.name === v.name) ? acc : [...acc, v];
 }, []);
 
 console.log(result)
 upArr=result;
-/* const unique = upArr.map(function (val, index) {
-	return val['name'];
-}).filter(function (val, index, arr) {
-	return arr.indexOf(val) === index;
-});
-console.log(unique)*/
+*/
+
 
 x.name = '성호페인트 문서함';
 x.id = '0';
@@ -154,7 +169,7 @@ function upDocumentCheck(event, treeId, treeNode) {
 		}*/
 
 
-	nodes = treeNode.getParentNode();
+	nodes=treeNode.getParentNode();
 
 	let childArr = nodes.children;
 	for (i of childArr) {
@@ -170,17 +185,12 @@ function upDocumentCheck(event, treeId, treeNode) {
 		}
 
 	}
+	
+	parentNodes=treeNode.getParentNode().getParentNode();
+	
+	
+	
 
-
-	if (treeNode.children != null) {
-		console.log('자식 있음')
-	} else {
-		console.log('자식 없음')
-	}
-
-	console.log(treeNode.cd)
-	console.log(treeId)
-	console.log(event)
 	$('#up-type-cd').val(treeNode.cd);
 	$('#up-type-no').val(treeNode.no);
 
@@ -206,7 +216,7 @@ var zNodes = upArr;
 //[{name:"성호페인트 문서함", id: '0'}]
 
 
-console.log(zNodes)
+
 $(document).ready(function() {
 	zTreeObj = $.fn.zTree.init($("#document-tree"), setting, zNodes);
 

@@ -238,7 +238,7 @@ ul.nav-tabs {
 								<tbody>
 									<c:forEach items="${list}" var="vo" varStatus="i">
 										<tr class="approval-list">
-											<td><input type="checkbox" name="checkList" value="${vo.approvalTypeNo}"></td>
+											<td><input type="checkbox" class="approval-check-box" name="checkList" value="${vo.approvalTypeNo}"></td>
 											<td>${vo.approvalUpTypeVO.codeName}</td>
 											<td>${vo.codeName}</td>
 											<td>${vo.regDate}</td>
@@ -250,7 +250,7 @@ ul.nav-tabs {
 							</table>
 						<c:forEach items="${list}" var="vo" varStatus="i">
 						    <span style="display: none;" class="get-up-code-name" data-up-type-cd="${vo.approvalUpTypeVO.approvalUpTypeCd}" data-code-name="${vo.codeName}" data-up-code-name="${vo.approvalUpTypeVO.codeName}"
-						    data-up-no="${vo.approvalUpTypeVO.approvalUpTypeNo}"></span>
+						    data-up-up-no="${vo.approvalUpTypeVO.approvalUpTypeNo}" data-up-no="${vo.approvalUpTypeNo}"></span>
 						</c:forEach>
 						</div>
 					</div>
@@ -280,7 +280,8 @@ ul.nav-tabs {
 								
 								<!-- Button List -->
 								
-								
+								<button id="delete-btn" class="btn btn-info">삭제하기
+								</button>
 								
 								<!-- Button List End -->
 								

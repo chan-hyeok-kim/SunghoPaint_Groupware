@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -7,9 +7,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="/css/demo.css" type="text/css">
-<link rel="stylesheet" href="/css/zTreeStyle/zTreeStyle.css"
-	type="text/css">
+
+ <link rel="stylesheet" href="/css/demo.css" type="text/css"> 
+ <link rel="stylesheet" href="/css/zTreeStyle/zTreeStyle.css"
+	type="text/css"> 
 
 <style type="text/css">
 .wrapper-toolbar {
@@ -55,7 +56,7 @@
 
 
 <!-- Smart Editor2  -->
-<script type="text/javascript" src="/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
+ <script type="text/javascript" src="/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
 
 </head>
@@ -262,11 +263,11 @@
 					</div>
 
 <!-- 문서 data -->
-<c:forEach items="${list}" var="vo" varStatus="i">
+ <c:forEach items="${list}" var="vo" varStatus="i">
 						    <span class="get-up-code-name" data-up-type-cd="${vo.approvalUpTypeVO.approvalUpTypeCd}" data-code-name="${vo.codeName}"
 						    data-up-code-name="${vo.approvalUpTypeVO.codeName}">${vo.approvalForm}</span>
-						   <%--  <div class="save" style="display: none" data-form="${list[i.index].approvalForm}"></div> --%>
-						</c:forEach>
+						   
+						</c:forEach> 
 
 
 
@@ -290,25 +291,12 @@
 
 
 	<!-- approval-form에 html style적용 -->
-	<script src="/js/commons/approval-form.js"></script>
+	 <script src="/js/commons/approval-form.js"></script>
 
 	<!-- tree -->
 	<script src="/js/ztree/paint-tree.js"></script>
     <script src="/js/ztree/up-document-tree.js"></script>
     
-<script type="text/javascript">
-/* let formList=${list}
 
-var formArr=new Array();
-
-let count=$('.get-up-code-name').length;
-console.log(count)
-
-for(i=0; i<count; i++){
-	
-	formArr.push(formList[i].approvalForm);
-}
- */
-</script>
 </body>
-</html>
+</html>   

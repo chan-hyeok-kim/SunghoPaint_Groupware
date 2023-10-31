@@ -174,7 +174,7 @@ public class ApprovalTypeController {
     	Long upTypeNo=approvalUpTypeVO.getApprovalUpTypeNo();
     	log.warn("*******{}**********",approvalTypeVO);
     	approvalTypeVO.setApprovalUpTypeNo(upTypeNo);
-    	//해야하느게뭔데
+    	//해야하는게뭔데
     	//수정용 코드테이블 만들어서 보내줘야함
     	approvalTypeVO=(ApprovalTypeVO)makeColumn.getModColumn(approvalTypeVO, id, request.getRequestURI());
     	String code=approvalTypeVO.getApprovalTypeCd();
@@ -185,8 +185,12 @@ public class ApprovalTypeController {
     	int result=approvalTypeService.setUpdate(approvalTypeVO);
     	result=codeService.setUpdate(approvalTypeVO);
     	
-    	return "redirect:./list";
+    	return "redirect:/document/list";
     }
     
+    @PostMapping("delete")
+    public void setDelete(List<String> typeNoArr) throws Exception{
+    	
+    }
 	
 }

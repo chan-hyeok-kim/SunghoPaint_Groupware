@@ -39,7 +39,7 @@
 										<td style="padding: 20px">상위양식함
 										</td>
 										
-										<td><select name="upTypeCodeName" >
+										<td><select id="select-form" name="upTypeCodeName">
 										<option value="">-----선택하세요-----</option>
 										<c:forEach items="${list}" var="vos">
 										<option value="${vos.codeName}">${vos.codeName}</option>
@@ -49,6 +49,7 @@
 									</tr>
 									<input type="hidden" name="approvalUpTypeNo" value="${vo.approvalUpTypeNo}">
 									<input type="hidden" name="approvalTypeCd" value="${vo.approvalTypeCd}">	
+									<input type="hidden" name="approvalTypeNo" value="${vo.approvalTypeNo}">
 									<tr>
 										<td style="padding: 20px">양식명</td>
 										<td><input class="form-control" name="codeName" id="check-cd" value="${vo.codeName}"></td>
@@ -57,7 +58,8 @@
 										<td style="padding: 20px">양식</td>
 										<td>
 										<!-- Smart Editor UI -->
-							<textarea name="approvalForm" id="approvalForm" rows="10" cols="100" value="${vo.approvalForm}"></textarea>
+							<textarea name="approvalForm" id="approvalForm" rows="10" cols="100"></textarea>
+										<span style="display: none;" id="form-list-update">${vo.approvalForm}</span>
 										
 										</td>
 									</tr>
@@ -69,7 +71,7 @@
 							<div id="document-add-btn-list">
 								<button type="button" class="btn btn-info"
 									onclick="location.href='/document/list'">취소</button>
-								<button type="button" class="btn btn-info" id="document-add-btn">등록</button>
+								<button type="button" class="btn btn-info" id="document-update-btn">등록</button>
 							</div>
 						</div>
 						<!-- Wrapper Toolbar End -->
@@ -87,6 +89,6 @@
 
 <!-- approval-form에 html style적용 -->
 	<script src="/js/commons/approval-form.js"></script>
-
+    <script src="/js/document/update-check.js"></script>
 </body>
 </html>

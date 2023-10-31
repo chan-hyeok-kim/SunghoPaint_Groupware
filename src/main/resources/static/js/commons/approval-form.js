@@ -9,53 +9,22 @@ nhn.husky.EZCreator.createInIFrame({
 	elPlaceHolder: "approvalForm",
 	sSkinURI: "/se2/SmartEditor2Skin.html",
 	fCreator: "createSEditor2",
+	fOnAppLoad : function(){
+        formUpdateHtml = $('#form-list-update').html();
+        if(formUpdateHtml===undefined){
+			formUpdateHtml='';
+		}
+        oEditors.getById["approvalForm"].exec("PASTE_HTML", [formUpdateHtml]);
+    }
 });
 
 
-checkResult=[false, false];
-
-
-
-$("#document-add-btn").mouseover(function(){
-		if ($('#check-cd').val()!='') {
-		checkResult[0]=true;
-	}
-	console.log(checkResult)
-})
-
-
-$("#document-add-btn").click(function() {
-	//id가 smarteditor인 textarea에 에디터에서 대입
-	console.log($('#approvalForm').val())
 
 
 
 
-	oEditors.getById["approvalForm"].exec("UPDATE_CONTENTS_FIELD", []);
-    
-    
 
-
-
-	// 이부분에 에디터 validation 검증
-	if ($('#approvalForm').val() != '') {
-		checkResult[1]=true;
-	}
-	console.log($('#approvalForm').val())
-	console.log(checkResult)
-	//폼 submit
-	/*$("#frm").submit();*/
-	if (!checkResult.includes(false)) {
-		$("#frm").submit();
-	} else {
-		alert('빈 내용을 채워주세요')
-	}
-})
-
-/*$('#document-add-btn').mouseover(function(){
-	$('#se2_iframe').attr('name','approvalName')
-	
-})*/
+/*지우기*/
 
 $('#text-delete-btn').click(function() {
 	oEditors.getById["approvalForm"].exec("SET_IR", [""]);
@@ -63,6 +32,8 @@ $('#text-delete-btn').click(function() {
 
 })
 
+
+/*버튼 누르면 내용 추가하고 모달 닫기*/
 $('#modal-confirm-btn').click(function() {
 	let formHtml = $('#form_list').html();
 	oEditors.getById["approvalForm"].exec("PASTE_HTML", [formHtml]);
@@ -70,3 +41,6 @@ $('#modal-confirm-btn').click(function() {
 	$('#modal-confirm-close').click();
 
 });
+
+
+

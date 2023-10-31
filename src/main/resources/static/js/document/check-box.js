@@ -21,3 +21,31 @@ $('.approval-list').find('input:checked').each(function(index){
    	}
 })
 
+
+$('#delete-btn').click(function(){
+	
+    let arr=new Array();
+    $('input[name=checkList]:checked').each(function(){
+       arr.push($(this).val());
+	})
+    console.log(arr);
+ 
+   
+	
+	
+	 $.ajax({
+		 type: 'POST',
+		 url: '/approval/delete',
+		 data: {
+			  typeNoArr: arr
+		 },success:function(result){
+			 if(result.trim()>0){
+				 console.log('삭제 성공')
+			 }
+			 
+		 },error:function(){
+			 
+		 }
+		     
+	 })
+})

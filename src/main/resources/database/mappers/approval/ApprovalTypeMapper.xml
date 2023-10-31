@@ -124,8 +124,8 @@
 
 	<select id="getTotalList" resultMap="getTypeList"
 		parameterType="Pager">
-		SELECT
-		*,FN_CODE_NM(LEFT(A.APPROVAL_TYPE_CD,3),A.APPROVAL_TYPE_CD) AS
+		SELECT *,A.APPROVAL_UP_TYPE_NO AS A_UP_NO,AU.APPROVAL_UP_TYPE_NO AS AU_UP_NO,
+		FN_CODE_NM(LEFT(A.APPROVAL_TYPE_CD,3),A.APPROVAL_TYPE_CD) AS
 		A_CODE_NAME,
 		FN_CODE_NM(LEFT(AU.APPROVAL_UP_TYPE_CD,3),AU.APPROVAL_UP_TYPE_CD) AS
 		AU_CODE_NAME
@@ -136,7 +136,7 @@
 	<resultMap type="ApprovalTypeVO" id="getTypeList">
 		<id column="APPROVAL_TYPE_NO" property="approvalTypeNo" />
 		<result column="EMPLOYEE_ID" property="employeeId" />
-		<result column="APPROVAL_UP_TYPE_NO" property="approvalUpTypeNo" />
+		<result column="A_UP_NO" property="approvalUpTypeNo" />
 		<result column="APPROVAL_FORM" property="approvalForm" />
 		<result column="APPROVAL_TYPE_CD" property="approvalTypeCd" />
 		<result column="REG_ID" property="regId" />
@@ -149,7 +149,7 @@
 
 		<association property="approvalUpTypeVO"
 			javaType="ApprovalUpTypeVO">
-			<id column="APPROVAL_UP_TYPE_NO" property="approvalUpTypeNo" />
+			<id column="AU_UP_NO" property="approvalUpTypeNo" />
 			<result column="EMPLOYEE_ID" property="employeeId" />
 			<result column="APPROVAL_UP_TYPE_CD"
 				property="approvalUpTypeCd" />
