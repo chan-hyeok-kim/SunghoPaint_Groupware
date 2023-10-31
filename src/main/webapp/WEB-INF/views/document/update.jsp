@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,11 +35,20 @@
 							<table class="table table-bordered">
 								<tbody>
 								    <tr>
-										<td style="padding: 20px">상위양식함명</td>
-										<td><input class="form-control" name="approvalUpTypeNo" value="${vo.approvalUpTypeVO.codeName}"></td>
+								    <form action="./update" method="post" id="frm">
+										<td style="padding: 20px">상위양식함
+										</td>
+										
+										<td><select name="upTypeCodeName" >
+										<option value="">-----선택하세요-----</option>
+										<c:forEach items="${list}" var="vos">
+										<option value="${vos.codeName}">${vos.codeName}</option>
+										</c:forEach>
+										</select>
+										<%-- <input class="form-control" name="approvalUpTypeNo" value="${vo.approvalUpTypeVO.codeName}"></td> --%>
 									</tr>
-									<form action="./update" method="post" id="frm">
-									<input type="hidden" name="approvalUpTypeNo" value="${vo.approvalUpTypeNo}">	
+									<input type="hidden" name="approvalUpTypeNo" value="${vo.approvalUpTypeNo}">
+									<input type="hidden" name="approvalTypeCd" value="${vo.approvalTypeCd}">	
 									<tr>
 										<td style="padding: 20px">양식명</td>
 										<td><input class="form-control" name="codeName" id="check-cd" value="${vo.codeName}"></td>

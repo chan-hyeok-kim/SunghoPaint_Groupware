@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.ham.len.admin.CodeVO;
 import com.ham.len.commons.Pager;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ApprovalTypeService {
 
 	@Autowired
@@ -26,8 +29,8 @@ public class ApprovalTypeService {
 		return approvalTypeDAO.setUpAdd(approvalUpTypeVO);
 	}
 
-	public List<ApprovalUpTypeVO> getUpList(Pager pager) throws Exception {
-		return approvalTypeDAO.getUpList(pager);
+	public List<ApprovalUpTypeVO> getUpList() throws Exception {
+		return approvalTypeDAO.getUpList();
 	}
 
 	public List<ApprovalTypeVO> getTotalList(Pager pager) throws Exception {
@@ -38,20 +41,25 @@ public class ApprovalTypeService {
 		return approvalTypeDAO.getUpDetail(approvalUpTypeVO);
 	}
 
-	public ApprovalTypeVO getDetail(ApprovalTypeVO approvalTypeVO) throws Exception{
+	public ApprovalTypeVO getDetail(ApprovalTypeVO approvalTypeVO) throws Exception {
 		return approvalTypeDAO.getDetail(approvalTypeVO);
 	}
-    
-	public int setUpdate(ApprovalTypeVO approvalTypeVO) throws Exception{
+
+	public int setUpdate(ApprovalTypeVO approvalTypeVO) throws Exception {
+		log.warn("*******{}**********",approvalTypeVO);
 		return approvalTypeDAO.setUpdate(approvalTypeVO);
 	}
 
-	public int setDelete(ApprovalTypeVO approvalTypeVO) throws Exception{
+	public int setDelete(ApprovalTypeVO approvalTypeVO) throws Exception {
 		return approvalTypeDAO.setDelete(approvalTypeVO);
 	}
 
-	public int setUpDelete(ApprovalTypeVO approvalTypeVO) throws Exception{
+	public int setUpDelete(ApprovalTypeVO approvalTypeVO) throws Exception {
 		return approvalTypeDAO.setUpDelete(approvalTypeVO);
+	}
+
+	public ApprovalUpTypeVO getDetailByName(String codeName) throws Exception{
+		return approvalTypeDAO.getDetailByName(codeName);
 	}
 
 }

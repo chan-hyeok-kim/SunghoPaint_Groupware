@@ -16,7 +16,7 @@ public interface ApprovalTypeDAO {
 		
 	public int setUpAdd(ApprovalUpTypeVO approvalUpTypeVO) throws Exception;
 	
-	public List<ApprovalUpTypeVO> getUpList(Pager pager) throws Exception;
+	public List<ApprovalUpTypeVO> getUpList() throws Exception;
 	
 	public List<ApprovalTypeVO> getTotalList(Pager pager) throws Exception;
 
@@ -29,4 +29,7 @@ public interface ApprovalTypeDAO {
     public int setDelete(ApprovalTypeVO approvalTypeVO) throws Exception;
 	
     public int setUpDelete(ApprovalTypeVO approvalTypeVO) throws Exception;
+
+    public ApprovalUpTypeVO getDetailByName(String codeName) throws Exception;
+    
 }

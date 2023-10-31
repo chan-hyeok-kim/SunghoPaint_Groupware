@@ -8,13 +8,16 @@
 
 	<select id="getDetail" resultMap="getDetailResult"
 		parameterType="ApprovalTypeVO">
-		SELECT *,FN_CODE_NM(LEFT(A.APPROVAL_TYPE_CD,3),A.APPROVAL_TYPE_CD) AS
+		SELECT
+		*,FN_CODE_NM(LEFT(A.APPROVAL_TYPE_CD,3),A.APPROVAL_TYPE_CD) AS
 		A_CODE_NAME,
 		FN_CODE_NM(LEFT(AU.APPROVAL_UP_TYPE_CD,3),AU.APPROVAL_UP_TYPE_CD) AS
 		AU_CODE_NAME
 		FROM APPROVAL_TYPE A INNER JOIN APPROVAL_UP_TYPE AU
-		ON A.APPROVAL_UP_TYPE_NO=AU.APPROVAL_UP_TYPE_NO
-		WHERE A.APPROVAL_TYPE_NO=#{approvalTypeNo}
+		ON
+		A.APPROVAL_UP_TYPE_NO=AU.APPROVAL_UP_TYPE_NO
+		WHERE
+		A.APPROVAL_TYPE_NO=#{approvalTypeNo}
 	</select>
 
 	<resultMap type="ApprovalTypeVO" id="getDetailResult">
@@ -48,10 +51,12 @@
 
 	<select id="getUpDetail" resultType="ApprovalUpTypeVO"
 		parameterType="ApprovalUpTypeVO">
-		SELECT *,FN_CODE_NM(LEFT(APPROVAL_UP_TYPE_CD,3),APPROVAL_UP_TYPE_CD) AS
+		SELECT
+		*,FN_CODE_NM(LEFT(APPROVAL_UP_TYPE_CD,3),APPROVAL_UP_TYPE_CD) AS
 		CODE_NAME
 		FROM APPROVAL_UP_TYPE
-		WHERE APPROVAL_UP_TYPE_NO=#{approvalUpTypeNo}
+		WHERE
+		APPROVAL_UP_TYPE_NO=#{approvalUpTypeNo}
 	</select>
 
 	<select id="getList" resultType="ApprovalTypeVO"
@@ -64,33 +69,41 @@
 		LIMIT
 		#{startRow},#{lastRow}
 	</select>
+	
+	<select id="getUpList" resultType="ApprovalUpTypeVO">
+		SELECT
+		*,FN_CODE_NM(LEFT(APPROVAL_UP_TYPE_CD,3),APPROVAL_UP_TYPE_CD) AS
+		CODE_NAME
+		FROM APPROVAL_UP_TYPE
+	</select>
 
 
 	<insert id="setAdd" parameterType="ApprovalTypeVO">
 		INSERT INTO
 		APPROVAL_TYPE(APPROVAL_TYPE_NO,
-		EMPLOYEE_ID,APPROVAL_FORM,APPROVAL_TYPE_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
-		VALUES(#{approvalTypeNo},#{employeeId},#{approvalForm},#{approvalTypeCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
+		EMPLOYEE_ID,APPROVAL_UP_TYPE_NO,APPROVAL_FORM,APPROVAL_TYPE_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+		VALUES(#{approvalTypeNo},#{employeeId},#{APPROVAL_UP_TYPE_NO},#{approvalForm},#{approvalTypeCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
 	</insert>
 
 
 	<update id="setUpdate" parameterType="ApprovalTypeVO">
 		UPDATE APPROVAL_TYPE
 		SET
-		APPROVAL_FORM=#{approvalForm},MOD_ID=#{modId},MOD_DATE=#{modDate},MOD_MENU=#{modMenu},
-		CODE_NAME=#{codeName},APPROVAL_UP_TYPE_NO=#{approvalUpTypeNo}
+		APPROVAL_FORM=#{approvalForm},MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu},
+		APPROVAL_UP_TYPE_NO=#{approvalUpTypeNo}
 		WHERE
-		APPROVAL_TYPE_NO=#{approvalTypeNO}
+		APPROVAL_TYPE_NO=#{approvalTypeNo}
 	</update>
 
 	<delete id="setDelete" parameterType="ApprovalTypeVO">
 		DELETE FROM APPROVAL_TYPE
-		 WHERE APPROVAL_TYPE_NO=#{approvalTypeNO}
+		WHERE APPROVAL_TYPE_NO=#{approvalTypeNO}
 	</delete>
 
 	<delete id="setUpDelete" parameterType="ApprovalUpTypeVO">
-		DELETE FROM APPROVAL_UP_TYPE
-		 WHERE APPROVAL_UP_TYPE_NO=#{approvalUpTypeNO}
+		DELETE FROM
+		APPROVAL_UP_TYPE
+		WHERE APPROVAL_UP_TYPE_NO=#{approvalUpTypeNO}
 	</delete>
 
 
@@ -101,16 +114,7 @@
 		VALUES(#{approvalUpTypeNo},#{employeeId},#{approvalUpTypeCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
 	</insert>
 
-	<select id="getUpList" resultType="ApprovalUpTypeVO"
-		parameterType="Pager">
-		SELECT *
-		FROM APPROVAL_UP_TYPE AU INNER JOIN CODE C
-		ON
-		AU.APPROVAL_UP_TYPE_CD=C.CODE
-		ORDER BY AU.APPROVAL_UP_TYPE_NO ASC
-		LIMIT
-		#{startRow},#{lastRow}
-	</select>
+	
 
 	<!-- uptypeVO내용만 뿌릴거여서 resultmap안해도상관없다 -->
 	<!-- <select id="getTotalList" resultType="ApprovalUpTypeVO" parameterType="Pager"> 
@@ -132,6 +136,7 @@
 	<resultMap type="ApprovalTypeVO" id="getTypeList">
 		<id column="APPROVAL_TYPE_NO" property="approvalTypeNo" />
 		<result column="EMPLOYEE_ID" property="employeeId" />
+		<result column="APPROVAL_UP_TYPE_NO" property="approvalUpTypeNo" />
 		<result column="APPROVAL_FORM" property="approvalForm" />
 		<result column="APPROVAL_TYPE_CD" property="approvalTypeCd" />
 		<result column="REG_ID" property="regId" />
@@ -158,5 +163,14 @@
 		</association>
 	</resultMap>
 
+	<select id="getDetailByName" resultType="ApprovalUpTypeVO"
+		parameterType="String">
+		SELECT *
+		FROM(SELECT
+		*,FN_CODE_NM(LEFT(APPROVAL_UP_TYPE_CD,3),APPROVAL_UP_TYPE_CD) AS
+		CODE_NAME
+		FROM APPROVAL_UP_TYPE) A
+		WHERE A.CODE_NAME=#{codeName}
+	</select>
 
 </mapper>

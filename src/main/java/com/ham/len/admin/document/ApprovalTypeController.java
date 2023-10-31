@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -42,6 +44,9 @@ public class ApprovalTypeController {
 	
 	private String id="2023001";
 	
+	@Value("${approval.typeup.cd}")
+	private String typeUpCd;
+	
 	@GetMapping("list")
 	public void getList(Pager pager,Model model) throws Exception{
 		
@@ -57,7 +62,7 @@ public class ApprovalTypeController {
 	@GetMapping("upList")
 	@ResponseBody
 	public List<ApprovalUpTypeVO> getUplist(Pager pager) throws Exception{
-		List<ApprovalUpTypeVO> aur=approvalTypeService.getUpList(pager);
+		List<ApprovalUpTypeVO> aur=approvalTypeService.getUpList();
 		
 		return aur;
 	}
@@ -73,6 +78,7 @@ public class ApprovalTypeController {
 	public void setAdd(ApprovalTypeVO approvalTypeVO, HttpServletRequest request) throws Exception{
 		
 		
+		
 		approvalTypeVO.setEmployeeId(id);
 		String path=request.getRequestURI();
 		log.warn("====={}======",path);
@@ -82,9 +88,10 @@ public class ApprovalTypeController {
 		//코드네임, 해당 테이블의 코드
 		//채워야될값: 코드, 업코드
 		//이제 해당 VO에는 코드가 담기지 않게 하는 거지.
-		
-		CodeVO codeVO=makeColumn.setUpCode(approvalTypeVO, request);
-	    String code=codeService.getLastId(approvalTypeVO);
+		CodeVO codeVO = new CodeVO();
+		codeVO.setCode(typeUpCd);
+	    String code=codeService.getLastId(codeVO);
+	    log.warn("&&&&&&&{}&&&&&&&",code);
 	    //이 codeVO에는 코드만 있다. 최신 코드에 +1된 값
 	    approvalTypeVO.setApprovalTypeCd(code);
 	    approvalTypeVO.setCode(code);
@@ -148,13 +155,35 @@ public class ApprovalTypeController {
     @GetMapping("update")
     public void setUpdate(ApprovalTypeVO approvalTypeVO,Model model) throws Exception{
     	approvalTypeVO=approvalTypeService.getDetail(approvalTypeVO);
+    	List<ApprovalUpTypeVO> ar=approvalTypeService.getUpList();
+    	
+    	
+    	model.addAttribute("list", ar);
     	model.addAttribute("vo", approvalTypeVO);
     }
     
     @PostMapping("update")
-    public String setUpdate(ApprovalTypeVO approvalTypeVO) throws Exception{
-    	int result=approvalTypeService.setUpdate(approvalTypeVO);
+    public String setUpdate(ApprovalTypeVO approvalTypeVO, String upTypeCodeName,HttpServletRequest request) throws Exception{
+    	String path=request.getPathInfo();
+    	String path1=request.getServletPath();
+    	log.warn("====={}======",path);
+    	log.warn("====={}======",path1);
+		
     	
+    	ApprovalUpTypeVO approvalUpTypeVO=approvalTypeService.getDetailByName(upTypeCodeName);
+    	Long upTypeNo=approvalUpTypeVO.getApprovalUpTypeNo();
+    	log.warn("*******{}**********",approvalTypeVO);
+    	approvalTypeVO.setApprovalUpTypeNo(upTypeNo);
+    	//해야하느게뭔데
+    	//수정용 코드테이블 만들어서 보내줘야함
+    	approvalTypeVO=(ApprovalTypeVO)makeColumn.getModColumn(approvalTypeVO, id, request.getRequestURI());
+    	String code=approvalTypeVO.getApprovalTypeCd();
+    	approvalTypeVO.setCode(code);
+    	approvalTypeVO.setUpCode(code.substring(0,3));
+    	
+    	log.warn("*******{}**********",approvalTypeVO);
+    	int result=approvalTypeService.setUpdate(approvalTypeVO);
+    	result=codeService.setUpdate(approvalTypeVO);
     	
     	return "redirect:./list";
     }

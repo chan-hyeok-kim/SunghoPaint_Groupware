@@ -397,12 +397,12 @@ ul.nav-tabs {
           <div class="column">
             <button type="button" class="button clear btn-info" data-action="clear">지우기</button>
             <button type="button" class="button btn-info" data-action="undo">이전으로</button>
-            <button type="button" class="button save btn-info" data-action="save-png">PNG로 저장</button>
+            
           </div>
           <div class="column">
-            
-          <!--   <button type="button" class="button save btn-info" data-action="save-jpg">JPG로 저장</button>
-            <button type="button" class="button save btn-info" data-action="save-svg">SVG로 저장</button> -->
+            <button type="button" class="button save btn-info" data-action="save-png">PNG로 저장</button>
+            <button type="button" class="button save btn-info" data-action="save-jpg">JPG로 저장</button>
+            <button type="button" class="button save btn-info" data-action="save-svg">SVG로 저장</button> 
            
           </div>
         </div>

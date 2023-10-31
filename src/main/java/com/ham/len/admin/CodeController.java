@@ -52,4 +52,7 @@ public class CodeController {
 	public void setDelete(CodeVO codeVO) throws Exception{
 		int result=codeService.setDelete(codeVO);
 	}
+	
+	
+	
 }

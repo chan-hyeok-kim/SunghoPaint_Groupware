@@ -31,7 +31,7 @@
 		UPDATE CODE
 		SET
 		CODE=#{code},UP_CODE=#{upCode},CODE_NAME=#{codeName}
-		,MOD_ID=#{modId},MOD_DATE=#{modDate},MOD_MENU=#{modMenu}
+		,MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
 		WHERE
 		CODE=#{code}
 	</update>
@@ -48,6 +48,8 @@
 		FROM CODE
 		WHERE LEFT(CODE,3)=#{code};
 	</select>
+	
+	
 
 
 </mapper>

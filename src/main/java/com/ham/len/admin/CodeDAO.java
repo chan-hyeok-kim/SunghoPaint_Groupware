@@ -20,4 +20,6 @@ public interface CodeDAO {
 	public int setDelete(CodeVO codeVO) throws Exception;
 	
 	public String getLastId(CodeVO codeVO) throws Exception;
+	
+	
 }

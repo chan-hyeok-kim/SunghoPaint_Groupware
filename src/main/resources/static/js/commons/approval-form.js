@@ -12,11 +12,16 @@ nhn.husky.EZCreator.createInIFrame({
 });
 
 
-let checkResult=[false, false];
+checkResult=[false, false];
 
 
 
-
+$("#document-add-btn").mouseover(function(){
+		if ($('#check-cd').val()!='') {
+		checkResult[0]=true;
+	}
+	console.log(checkResult)
+})
 
 
 $("#document-add-btn").click(function() {
@@ -29,20 +34,18 @@ $("#document-add-btn").click(function() {
 	oEditors.getById["approvalForm"].exec("UPDATE_CONTENTS_FIELD", []);
     
     
-	if ($('#check-cd').val()!='') {
-		checkResult[0]==true;
-	}
+
 
 
 	// 이부분에 에디터 validation 검증
 	if ($('#approvalForm').val() != '') {
-		checkResult[1]==true;
+		checkResult[1]=true;
 	}
 	console.log($('#approvalForm').val())
-	console.log(check)
+	console.log(checkResult)
 	//폼 submit
 	/*$("#frm").submit();*/
-	if (!check.includes(false)) {
+	if (!checkResult.includes(false)) {
 		$("#frm").submit();
 	} else {
 		alert('빈 내용을 채워주세요')

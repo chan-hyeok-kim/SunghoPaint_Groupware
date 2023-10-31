@@ -20,4 +20,6 @@ public class ApprovalTypeVO extends CodeVO {
 	private String approvalForm;
 	private String approvalTypeCd;
 	private ApprovalUpTypeVO approvalUpTypeVO;
+	
+	
 }
