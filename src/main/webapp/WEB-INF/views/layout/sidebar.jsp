@@ -55,11 +55,18 @@
     <!-- <sec:authorize access="hasRole('USER')"> -->
     <!-- </sec:authorize> -->
     <sec:authorize access="hasRole('ADMIN')">
-	    <li class="nav-item">
-	      <a class="nav-link" href="/transfer/" style="cursor:pointer;">
-	        <span class="menu-title">인사 발령</span>
-	        <i class="mdi mdi-contacts menu-icon"></i>
+    	<li class="nav-item">
+	      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+	        <span class="menu-title">인사 관리</span>
+	        <i class="menu-arrow"></i>
+	        <i class="mdi mdi-medical-bag menu-icon"></i>
 	      </a>
+	      <div class="collapse" id="general-pages">
+	        <ul class="nav flex-column sub-menu">
+	          <li class="nav-item"> <a class="nav-link" href="/transfer/registration"> 발령 등록 </a></li>
+	          <li class="nav-item"> <a class="nav-link" href="/transfer/view"> 발령 조회 </a></li>
+	        </ul>
+	      </div>
 	    </li>
     </sec:authorize>
     <li class="nav-item">

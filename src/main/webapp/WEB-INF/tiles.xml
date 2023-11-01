@@ -33,8 +33,12 @@
 		<put-attribute name="body" value="/WEB-INF/views/attendance/status.jsp"/>
    </definition>
    
-   <definition name="transfer/form" extends="layout">
-		<put-attribute name="body" value="/WEB-INF/views/transfer/form.jsp"/>
+   <definition name="transfer/registration" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/transfer/registration.jsp"/>
+   </definition>
+   
+   <definition name="transfer/view" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/transfer/view.jsp"/>
    </definition>
 	
 </tiles-definitions>

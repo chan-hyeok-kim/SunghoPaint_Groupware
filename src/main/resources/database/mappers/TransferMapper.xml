@@ -11,4 +11,23 @@
 		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME 
 			FROM HUMAN_RESOURCE;
 	</select>
+	
+	<select id="getCodeList" parameterType="String" resultType="CodeVO">
+		SELECT CODE, CODE_NAME FROM CODE WHERE UP_CODE = #{value}
+	</select>
+	
+	<insert id="setTransfer" parameterType="TransferVO">
+		INSERT INTO TRANSFER
+		VALUES
+		(
+			NULL, #{employeeId}, #{name}, #{transferDate}, #{transferTypeCd},
+			#{beforePositionCd}, #{transferPositionCd},
+			#{beforeDepartmentCd}, #{transferDepartmentCd},
+			#{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu}
+		)
+	</insert>
+	
+	<select id="getTransferList" resultType="TransferVO">
+		SELECT * FROM TRANSFER ORDER BY TRANSFER_DATE DESC
+	</select>
 </mapper>

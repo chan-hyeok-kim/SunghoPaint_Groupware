@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/css/commons.css">
 <link rel="stylesheet" href="/css/transfer/form.css">
 
-<h1 id="title">인사 발령</h1>
+<h1 id="title">발령 등록</h1>
 <form id="transferForm" method="POST">
 	<div class="component">
 		<label for="transferDate">발령 일자</label>

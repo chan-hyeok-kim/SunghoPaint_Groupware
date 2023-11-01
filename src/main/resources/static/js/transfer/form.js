@@ -2,6 +2,7 @@ $(function(){
 	$("#transferForm .search").click(function(){
 		let id = $(this).attr("id");
 		let url;
+		let param = new Object();
 		let title;
 		let table_header;
 		let table_body = new Array();
@@ -19,14 +20,32 @@ $(function(){
 			table_body.push("departmentCdName");
 			table_body.push("positionCdName");
 		}else if(id == "search_transferType"){
-			url = "/transfer/...";
+			url = "/transfer/getCodeList";
 			title = "발령 구분";
+			param.upCode = "U01";
+			table_header = "<th></th>" +
+								 "<th>발령 구분 코드</th>" +
+								 "<th>발령 구분명</th>";
+			table_body.push("code");
+			table_body.push("codeName");
 		}else if(id == "search_position"){
-			url = "/transfer/...";
+			url = "/transfer/getCodeList";
 			title = "직급";
+			param.upCode = "U00";
+			table_header = "<th></th>" +
+								 "<th>직급 코드</th>" +
+								 "<th>직급명</th>";
+			table_body.push("code");
+			table_body.push("codeName");
 		}else if(id == "search_department"){
-			url = "/transfer/...";
+			url = "/transfer/getCodeList";
 			title = "부서";
+			param.upCode = "D00";
+			table_header = "<th></th>" +
+								 "<th>부서 코드</th>" +
+								 "<th>부서명</th>";
+			table_body.push("code");
+			table_body.push("codeName");
 		}
 		
 		if($("#searchWindow").length > 0) $("#searchWindow").remove();
@@ -49,6 +68,7 @@ $(function(){
 		$.ajax({
 			url:url,
 			type:"GET",
+			data:param,
 			success:function(result){
 				list_json = JSON.parse(JSON.stringify(result));
 				
@@ -74,7 +94,26 @@ $(function(){
 		});
 		
 		$("#apply").click(function(){
+			let checked = $(".select > input[type='checkbox']:checked");
 			
+			if(checked.length == 0){
+				alert("항목을 선택해주세요.");
+			}else{
+				if(id == "search_existing"){
+					$("#employeeId").val(checked.parent().siblings(".employeeID").html());
+					$("#name").val(checked.parent().siblings(".name").html());
+					$("#beforeDepartmentCd").val(checked.parent().siblings(".departmentCdName").html());
+					$("#beforePositionCd").val(checked.parent().siblings(".positionCdName").html());
+				}else if(id == "search_transferType"){
+					$("#transferTypeCd").val(checked.parent().siblings(".codeName").html());
+				}else if(id == "search_position"){
+					$("#transferPositionCd").val(checked.parent().siblings(".codeName").html());
+				}else if(id == "search_department"){
+					$("#transferDepartmentCd").val(checked.parent().siblings(".codeName").html());
+				}
+				
+				$("#searchWindow").remove();
+			}
 		});
 		
 		$("#close").click(function(){

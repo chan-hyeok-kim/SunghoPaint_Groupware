@@ -122,20 +122,11 @@ public class AttendanceController {
 		if(getTodayCommuteWhether().get("goWork") == false) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	        Timestamp timestamp = new Timestamp(sdf.parse(start).getTime());
-	        
-	        String referer = httpServletRequest.getHeader("Referer");
-	        String menu = referer.substring(referer.lastIndexOf("/") + 1) + ".jsp";
 			
 	        AttendanceVO attendanceVO = new AttendanceVO();
 			attendanceVO.setEmployeeId(humanResourceVO.getEmployeeID());
 			attendanceVO.setAttendanceDate(timestamp);
 			attendanceVO.setAttendanceStart(timestamp);
-			attendanceVO.setRegId(humanResourceVO.getEmployeeID());
-			attendanceVO.setRegDate(timestamp);
-			attendanceVO.setRegMenu(menu);
-			attendanceVO.setModId(humanResourceVO.getEmployeeID());
-			attendanceVO.setModDate(timestamp);
-			attendanceVO.setModMenu(menu);
 			
 			return attendanceService.setGoWork(attendanceVO);
 		}
@@ -150,15 +141,9 @@ public class AttendanceController {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	        Timestamp timestamp = new Timestamp(sdf.parse(end).getTime());
 	        
-	        String referer = httpServletRequest.getHeader("Referer");
-	        String menu = referer.substring(referer.lastIndexOf("/") + 1) + ".jsp";
-			
 	        AttendanceVO attendanceVO = new AttendanceVO();
 			attendanceVO.setEmployeeId(humanResourceVO.getEmployeeID());
 			attendanceVO.setAttendanceEnd(timestamp);
-			attendanceVO.setModId(humanResourceVO.getEmployeeID());
-			attendanceVO.setModDate(timestamp);
-			attendanceVO.setModMenu(menu);
 			
 			return attendanceService.setLeaveWork(attendanceVO);
 		}
