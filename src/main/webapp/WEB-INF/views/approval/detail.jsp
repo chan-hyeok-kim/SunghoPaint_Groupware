@@ -94,27 +94,33 @@
 							<td>중간검토자</td>
 							<td>${vo.midApprover}</td>
 						</tr>
-						<tr>	
+						<tr>
 							<td>추가검토자</td>
-							<td>${vo.addApprover}</td>
-					    </tr>
+							<td id="add-app">${vo.addApprover}</td>
+						</tr>
 						<tr>
 							<td>결재자</td>
 							<td>${vo.lastApprover}</td>
 						</tr>
-                        <tr>
-                          <td>구분(결재양식)</td>
-                          <td>${vo.approvalTypeVO.codeName}</td>
-                        </tr>
-					
+						<tr>
+							<td>구분(결재양식)</td>
+							<td>${vo.approvalTypeVO.codeName}</td>
+						</tr>
 
+						
 					</table>
 				</div>
-				
-                <div>
+				<table class="table table-bordered">
+					<tr>
+						<td>
+						<div style="display: flex; justify-content: center;">
                 ${vo.approvalContents}
                 </div>
-			<!-- 	 Smart Editor UI 
+						</td>
+					</tr>
+
+				</table>
+				<!-- 	 Smart Editor UI 
 				<textarea name="approvalContents" id="approvalForm" rows="10"
 					cols="100" ></textarea> -->
 
@@ -306,7 +312,7 @@
 	<!-- tree -->
 	<script src="/js/ztree/paint-tree.js"></script>
 	<script src="/js/ztree/up-document-tree.js"></script>
-    <script src="/js/approval/line-add.js"></script>
+	<script src="/js/approval/line-add.js"></script>
 
 </body>
 </html>

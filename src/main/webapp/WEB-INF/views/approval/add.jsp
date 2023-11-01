@@ -54,8 +54,15 @@
 	width: 30px;
 }
 
+
 #approvalForm~iframe {
-	margin-left: 350px;
+	margin-left: 75px;
+	
+}
+
+.content-wrapper {
+	padding-left: 300px;
+	padding-right: 300px;
 }
 </style>
 
@@ -72,8 +79,20 @@
 			<div class="wrapper-toolbar" style="height: 56px; padding: 10px;">기안서
 				작성</div>
 
+
             <form action="add" method="post">
 			<div id="approval-content">
+		<!-- 	<table>
+						<tr>
+							<td>일자</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>일자</td>
+							<td></td>
+						</tr>
+
+					</table> -->
 				<span class="title">일자</span> <span class="input-date">
 				<input style="display: inline-block; margin-left: 4px" 
 				class="form-control approval-line-search" type="date" name="approvalStartDate"></span>
@@ -144,11 +163,12 @@
 
 
 			<!-- Smart Editor UI -->
+			
 			<textarea name="approvalContents" id="approvalForm" rows="10" cols="100"></textarea>
-
+            
 
 			<!-- add button -->
-			<div style="margin-left: 350px;">
+			<div id="form-add-btn-box">
 				<button type="button" class="btn btn-info">임시저장</button>
 				<button type="button" class="btn btn-info" id="text-delete-btn">지우기</button>
 				<button class="btn btn-info" style="margin-left: 400px;">결재</button>
