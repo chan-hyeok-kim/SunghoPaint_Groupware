@@ -54,8 +54,13 @@
 	width: 30px;
 }
 
-#approvalForm~iframe {
-	margin-left: 350px;
+#approvalForm ~iframe {
+	margin-left: 75px;
+}
+
+.content-wrapper {
+	padding-left: 300px;
+	padding-right: 300px;
 }
 </style>
 
@@ -70,92 +75,59 @@
 	<div class="card">
 		<div class="card-body">
 			<div class="wrapper-toolbar" style="height: 56px; padding: 10px;">기안서
-				작성</div>
+				확인</div>
 
-            <form action="add" method="post">
-			<div id="approval-content">
-				<span class="title">일자</span> <span class="input-date">
-				<input style="display: inline-block; margin-left: 4px" 
-				class="form-control approval-line-search" type="date" name="approvalStartDate"></span>
+			<form action="add" method="post">
 
-				<div>
-					<span class="title">제목</span> <span class="input-date"><input
-						style="display: inline-block; margin-left: 4px"
-						class="form-control approval-line-search" type="search"
-						placeholder="" aria-label="Search" name="approvalTitle"> </span>
+				<div id="approval-content">
+					<table class="table table-bordered">
+						<tr>
+							<td>일자</td>
+							<td colspan="2">${vo.approvalStartDate}</td>
+						</tr>
+						<tr>
+							<td>제목</td>
+							<td colspan="2">${vo.approvalTitle}</td>
+						</tr>
+						<tr>
+							<td rowspan="4">결재라인</td>
+							<td>중간검토자</td>
+							<td>${vo.midApprover}</td>
+						</tr>
+						<tr>	
+							<td>추가검토자</td>
+							<td>${vo.addApprover}</td>
+					    </tr>
+						<tr>
+							<td>결재자</td>
+							<td>${vo.lastApprover}</td>
+						</tr>
+                        <tr>
+                          <td>구분(결재양식)</td>
+                          <td>${vo.approvalTypeVO.codeName}</td>
+                        </tr>
+					
+
+					</table>
 				</div>
+				
+                <div>
+                ${vo.approvalContents}
+                </div>
+			<!-- 	 Smart Editor UI 
+				<textarea name="approvalContents" id="approvalForm" rows="10"
+					cols="100" ></textarea> -->
 
-				<div>
-					<span class="title"></span> <span class="title"> 라인</span> <input
-						style="display: inline-block;"
-						class="form-control approval-line-search" type="search"
-						placeholder="" aria-label="Search">
-					<button class="btn btn-info approval-line-btn" type="button"
-						data-toggle="modal" data-target="#approvalModal">
-						<i class="mdi mdi-account-search"></i>
-					</button>
+
+				<!-- add button -->
+				<div id="form-add-btn-box">
+					<button type="button" class="btn btn-info">임시저장</button>
+					<button type="button" class="btn btn-info" id="text-delete-btn">지우기</button>
+					<button class="btn btn-info" style="margin-left: 400px;">결재</button>
 				</div>
-				<div>
-					<span class="title">결재라인</span> <span class="title">검토자</span> <input
-						id="mid-approver" style="display: inline-block;"
-						class="form-control approval-line-search" type="search" name="midApprover"
-						placeholder="" aria-label="Search">
-					<!-- <button id="top-search-btn" class="btn btn-info approval-line-btn"
-						type="submit">
-						<i class="mdi mdi-account-search"></i>
-					</button> -->
-				</div>
-				<div>
-					<span class="title"></span><span class="title">추가검토자</span> <input
-						style="display: inline-block; margin-left: 4px"
-						id="add-approver"
-						class="form-control approval-line-search" type="search"
-						placeholder="" aria-label="Search" name="addApprover">
-					<!-- <button id="top-search-btn" class="btn btn-info approval-line-btn"
-						type="submit">
-						<i class="mdi mdi-account-search"></i>
-					</button> -->
-				</div>
-				<div>
-					<span class="title"></span><span class="title">결재자</span> <input
-						id="last-approver" style="display: inline-block; margin-left: 4px"
-						class="form-control approval-line-search" type="search"
-						placeholder="" aria-label="Search" name="lastApprover">
-					<!-- <button id="top-search-btn" class="btn btn-info approval-line-btn"
-						type="submit">
-						<i class="mdi mdi-account-search"></i>
-					</button> -->
-				</div>
-
-
-				<div>
-					<span class="title">구분(결재양식)</span> <input
-					style="display: inline-block; margin-left: 4px"
-						class="form-control approval-line-search" type="search"
-						placeholder="" aria-label="Search">
-					<button id="form-modal-btn" type="button"
-						class="btn btn-info material-icons" data-toggle="modal"
-						data-target="#formModal">search</button>
-				</div>
-
-
-
-			</div>
-
-
-			<!-- Smart Editor UI -->
-			<textarea name="approvalContents" id="approvalForm" rows="10" cols="100"></textarea>
-
-
-			<!-- add button -->
-			<div style="margin-left: 350px;">
-				<button type="button" class="btn btn-info">임시저장</button>
-				<button type="button" class="btn btn-info" id="text-delete-btn">지우기</button>
-				<button class="btn btn-info" style="margin-left: 400px;">결재</button>
-			</div>
 		</div>
 		<input type="hidden" id="form-add-no" name="approvalTypeNo">
- </form>
+		</form>
 
 	</div>
 
@@ -184,9 +156,9 @@
 								search</button>
 						</form>
 					</div>
-                   
-                
-					<div style="display:flex; float: left; width: 40%;">
+
+
+					<div style="display: flex; float: left; width: 40%;">
 						<div style="float: left;">
 
 							<ul id="tree" class="ztree"></ul>
@@ -197,52 +169,52 @@
 
 						</div>
 					</div>
-			
-						<div id="btn-box">
+
+					<div id="btn-box">
 						<div>
-							<button type="button" class="btn btn-info" id="tree-mid-app">중간 검토자
-								추가</button>
-								</div>
-								<div>
-							<button type="button" class="btn btn-info" id="tree-add-app">추가 검토자 
-								추가</button>
-								</div>
-								<div>
+							<button type="button" class="btn btn-info" id="tree-mid-app">중간
+								검토자 추가</button>
+						</div>
+						<div>
+							<button type="button" class="btn btn-info" id="tree-add-app">추가
+								검토자 추가</button>
+						</div>
+						<div>
 							<button type="button" class="btn btn-info" id="tree-last-app">결재자
 								추가</button>
-								</div>
-						</div>
-						
-
-						<div style="overflow: auto; float: left;" id="tree-table-div">
-							<table id="tree-table" class="table table-bordered">
-								<tbody id="tree-table-body">
-									<tr style="height: 20%">
-										<td colspan="2">결재라인 설정</td>
-										
-									</tr>
-									<tr style="height: 20%">
-										<td>중간 검토자</td>
-										<td id="mid-app" width="100px"></td>
-									</tr>
-									<tr style="height: 20%">
-										<td>추가 검토자</td>
-										<td id="add-app"></td>
-									</tr>
-									<tr style="height: 20%">
-										<td>결재자</td>
-										<td id="last-app"></td>
-									</tr>
-
-								</tbody>
-							</table>
 						</div>
 					</div>
 
 
+					<div style="overflow: auto; float: left;" id="tree-table-div">
+						<table id="tree-table" class="table table-bordered">
+							<tbody id="tree-table-body">
+								<tr style="height: 20%">
+									<td colspan="2">결재라인 설정</td>
+
+								</tr>
+								<tr style="height: 20%">
+									<td>중간 검토자</td>
+									<td id="mid-app" width="100px"></td>
+								</tr>
+								<tr style="height: 20%">
+									<td>추가 검토자</td>
+									<td id="add-app"></td>
+								</tr>
+								<tr style="height: 20%">
+									<td>결재자</td>
+									<td id="last-app"></td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
 
 
-				
+
+
+
 
 
 
@@ -252,10 +224,10 @@
 						class="btn btn-secondary" data-dismiss="modal">취소</button>
 					<button id="tree-line-btn" type="button" class="btn btn-info">확인</button>
 				</div>
-				</div>
 			</div>
 		</div>
-	
+	</div>
+
 
 
 
@@ -334,7 +306,7 @@
 	<!-- tree -->
 	<script src="/js/ztree/paint-tree.js"></script>
 	<script src="/js/ztree/up-document-tree.js"></script>
-
+    <script src="/js/approval/line-add.js"></script>
 
 </body>
 </html>

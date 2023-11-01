@@ -24,5 +24,23 @@ public class ApprovalService {
 		return approvalDAO.getTeamList(humanResourceVO);
     }
 	
+	public ApprovalVO getDetail(ApprovalVO approvalVO) throws Exception{
+		return approvalDAO.getDetail(approvalVO);
+	}
+	
+	public int setAdd(ApprovalVO approvalVO) throws Exception{
+		return approvalDAO.setAdd(approvalVO);
+	}
+	 
+	public int setUpdate(ApprovalVO approvalVO) throws Exception{
+		return approvalDAO.setUpdate(approvalVO);
+	}
+	
+	public int setDelete(ApprovalVO approvalVO) throws Exception{
+		return approvalDAO.setDelete(approvalVO);
+	}
+	 
+	
+	
 	
 }

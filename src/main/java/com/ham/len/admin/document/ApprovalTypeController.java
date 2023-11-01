@@ -76,9 +76,7 @@ public class ApprovalTypeController {
 	}
 	
 	@PostMapping("add")
-	public void setAdd(ApprovalTypeVO approvalTypeVO, HttpServletRequest request) throws Exception{
-		
-		
+	public String setAdd(ApprovalTypeVO approvalTypeVO, HttpServletRequest request) throws Exception{
 		
 		approvalTypeVO.setEmployeeId(id);
 		String path=request.getRequestURI();
@@ -104,6 +102,8 @@ public class ApprovalTypeController {
 	    
 	    int result=codeService.setAdd(approvalTypeVO);
 		result=approvalTypeService.setAdd(approvalTypeVO);
+		
+		return "redirect:/document/list";
 	}
 	
 	@PostMapping("setImg")
@@ -190,13 +190,16 @@ public class ApprovalTypeController {
     }
     
     @PostMapping("delete")
-    public String setDelete(@RequestParam(value = "typeNoArr") List<String> typeNoArr,Model model) throws Exception{
+    public String setDelete(@RequestParam(value = "typeNoArr[]", required = false) List<String> typeNoArr,Model model) throws Exception{
+    	log.warn("**********{}********",typeNoArr);
     	int result=0;
+    	if(typeNoArr!=null) {
     	for(String t: typeNoArr) {
     	    ApprovalTypeVO approvalTypeVO=new ApprovalTypeVO();
     	    approvalTypeVO.setApprovalTypeNo(Long.parseLong(t));
     	    
     	    result=approvalTypeService.setDelete(approvalTypeVO);
+    	    }
     	}
     	model.addAttribute("result", result);
     	return "commons/ajaxResult";

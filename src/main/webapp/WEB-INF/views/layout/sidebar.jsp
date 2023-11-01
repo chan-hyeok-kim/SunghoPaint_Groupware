@@ -104,7 +104,7 @@
       <a class="nav-link" data-bs-toggle="collapse" href="#approval-admin-pages" aria-expanded="false" aria-controls="admin-pages">
         <span class="menu-title">관리자</span>
         <i class="menu-arrow"></i>
-        <i class="mdi mdi-file-check menu-icon"></i>
+        <i class="mdi mdi-folder-lock menu-icon"></i>
       </a>
       <div class="collapse" id="approval-admin-pages">
         <ul class="nav flex-column sub-menu">

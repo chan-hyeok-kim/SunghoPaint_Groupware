@@ -23,6 +23,7 @@ $('.get-up-code-name').each(function(i, item) {
 	upCodeName = $(this).attr('data-up-code-name');
 	codeName = $(this).attr('data-code-name');
 	cd = $(this).attr('data-up-type-cd');
+	num = $(this).attr('data-no')
 	no = $(this).attr('data-up-up-no');
 	refNo = $(this).attr('data-up-no');
 	approvalForm = $(this).html();
@@ -79,6 +80,7 @@ const uniqueNo = upArr.map(function (val, index) {
  
    
 	if (codeName!='') {
+		y.num = num;
 		y.name = codeName;
 		y.pId = r.psId;
 		y.id = '10'+i;
@@ -177,7 +179,8 @@ function upDocumentCheck(event, treeId, treeNode) {
 			i.checked = false;
 			zTreeObj.updateNode(i)
 		}
-		if (i.children != null) {
+		console.log(i.children)
+		    if(i.children!=null && i.children!=undefined){
 			for (n of i.children) {
 				n.checked = false;
 				zTreeObj.updateNode(n);
@@ -195,10 +198,10 @@ function upDocumentCheck(event, treeId, treeNode) {
 	$('#up-type-no').val(treeNode.no);
 
 	/** add*/
-	let checkHtml = treeNode.form;
-
+	let checkHtml=treeNode.form;
+    let addTypeNo=treeNode.num;
 	$('#form_list').html(checkHtml);
-
+    $('#form-add-no').val(addTypeNo);
 
 }
 
@@ -229,12 +232,13 @@ $(document).ready(function() {
 
 
 
-
+/*
 $('#form-modal-btn').click(function() {
 	var modalNodes = formNodes;
 	zTreeObj = $.fn.zTree.init($("#form"), setting, modalNodes);
+    
 });
 
-
+*/
 
 

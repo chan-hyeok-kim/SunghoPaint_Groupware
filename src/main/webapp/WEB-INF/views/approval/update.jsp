@@ -76,13 +76,17 @@
 			<div id="approval-content">
 				<span class="title">일자</span> <span class="input-date">
 				<input style="display: inline-block; margin-left: 4px" 
-				class="form-control approval-line-search" type="date" name="approvalStartDate"></span>
+				class="form-control approval-line-search" type="date"
+				 value="${vo.approvalStartDate}"
+				 name="approvalStartDate"></span>
 
 				<div>
 					<span class="title">제목</span> <span class="input-date"><input
 						style="display: inline-block; margin-left: 4px"
 						class="form-control approval-line-search" type="search"
-						placeholder="" aria-label="Search" name="approvalTitle"> </span>
+				value="${vo.approvalTitle}"		
+				placeholder="" aria-label="Search" name="approvalTitle"> </span>
+			
 				</div>
 
 				<div>
@@ -98,6 +102,7 @@
 				<div>
 					<span class="title">결재라인</span> <span class="title">검토자</span> <input
 						id="mid-approver" style="display: inline-block;"
+						value="${vo.midApprover}"
 						class="form-control approval-line-search" type="search" name="midApprover"
 						placeholder="" aria-label="Search">
 					<!-- <button id="top-search-btn" class="btn btn-info approval-line-btn"
@@ -108,7 +113,7 @@
 				<div>
 					<span class="title"></span><span class="title">추가검토자</span> <input
 						style="display: inline-block; margin-left: 4px"
-						id="add-approver"
+						id="add-approver" value="${vo.addApprover}"
 						class="form-control approval-line-search" type="search"
 						placeholder="" aria-label="Search" name="addApprover">
 					<!-- <button id="top-search-btn" class="btn btn-info approval-line-btn"
@@ -118,7 +123,8 @@
 				</div>
 				<div>
 					<span class="title"></span><span class="title">결재자</span> <input
-						id="last-approver" style="display: inline-block; margin-left: 4px"
+						id="last-approver" value="${vo.lastApprover}"
+						style="display: inline-block; margin-left: 4px"
 						class="form-control approval-line-search" type="search"
 						placeholder="" aria-label="Search" name="lastApprover">
 					<!-- <button id="top-search-btn" class="btn btn-info approval-line-btn"

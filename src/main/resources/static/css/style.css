@@ -13617,7 +13617,6 @@ dl {
   .table th,
   .table td {
     vertical-align: middle;
-    font-size: 0.875rem;
     line-height: 1;
     white-space: nowrap;
     padding: 0.9375rem; }
@@ -14465,6 +14464,10 @@ dl {
 	
 }
 
+#btn-box button{
+	margin: 20px 0 0 0;
+}
+
 /* textarea */
 #approvalForm{
 	width: 800px;
@@ -14478,7 +14481,16 @@ dl {
 
 /* div */
 #approval-content{
-	padding: 20px 0 0 150px;
+	padding: 20px 0 0 0px;
+	margin-left:px;
+}
+
+#btn-box{
+	width: 22%;
+	display: inline-block;
+	margin-left: 50px;
+	margin-top: 50px;
+	float:left;
 }
 
 /* tree ul */
@@ -14515,4 +14527,28 @@ dl {
 	background: white;
 }
 
+/* table */
+#tree-table{
+	border: 1px solid gainsboro;
+	font-size:24px;
+	margin-top: 10px;
+	background: white;
+	width: 220px;
+	height: 360px;
+}
+
+#tree-table td{
+	empty-cells: show;
+}
+
+.nav-tabs>li.active:after {
+    box-shadow: #005b9e -1px 1px 0;
+}
+.nav-tabs>li.active, .nav-tabs>li.active:before, .nav-tabs>li.active:after {
+    background-color: #005b9e;
+}
+
+#form-add-btn-box{
+	margin-left: 75px;
+}
 /*# sourceMappingURL=style.css.map */

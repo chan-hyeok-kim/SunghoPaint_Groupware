@@ -201,15 +201,11 @@ ul.nav-tabs {
 				             <td><input type="checkbox"></td>
 				             <td>${vo.approvalStartDate}</td>
 				             <td>${vo.approvalTitle}</td>
-				             <td>${vo.approvalContents}</td>
+				             <td>${vo.codeName}</td>
 				             <td>${vo.drafter}</td>
 				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
-				             <c:choose>
-				             <c:when test="${vo.approvalStatusCd eq 'R001'}">
-				             <td>기안중</td>
-				             </c:when>
-				             </c:choose>
-				             <td><a>기안서 확인</a></td>
+				             <td></td>
+				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
 				           </tr>
 				         </c:forEach>
 				        </tbody>

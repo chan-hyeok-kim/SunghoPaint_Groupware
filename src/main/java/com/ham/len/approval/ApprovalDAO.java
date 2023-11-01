@@ -15,6 +15,13 @@ public interface ApprovalDAO {
 	
 	public List<HumanResourceVO> getTeamList(HumanResourceVO humanResourceVO) throws Exception;
 		
+	public ApprovalVO getDetail(ApprovalVO approvalVO) throws Exception;
+	
+	public int setAdd(ApprovalVO approvalVO) throws Exception;
  
+	public int setUpdate(ApprovalVO approvalVO) throws Exception;
+	 
+	public int setDelete(ApprovalVO approvalVO) throws Exception;
+	 
 	
 }

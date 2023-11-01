@@ -3,6 +3,8 @@ package com.ham.len.approval;
 import java.io.Console;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ham.len.admin.document.ApprovalTypeService;
 import com.ham.len.admin.document.ApprovalTypeVO;
 import com.ham.len.admin.document.ApprovalUpTypeVO;
+import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.humanresource.sign.SignatureService;
@@ -34,6 +37,12 @@ public class ApprovalController {
 	
 	@Autowired
 	private SignatureService signatureService;
+	
+	@Autowired
+	private MakeColumn makeColumn;
+	
+	private String id="2023001";
+	
 	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
@@ -56,11 +65,11 @@ public class ApprovalController {
 	}
 	
 	@GetMapping("totalList")
-	public String getTotalList(Pager pager,Model model) throws Exception{
+	public void getTotalList(Pager pager,Model model) throws Exception{
 		 List<ApprovalVO> ar = approvalService.getList(pager);
 		 log.warn("========{}========",ar);
 		 model.addAttribute("list", ar);
-		 return "approval/list";
+		
 	}
 	
 	@GetMapping("add")
@@ -71,6 +80,22 @@ public class ApprovalController {
 		
 	}
 	
+	@PostMapping("add")
+	public String setAdd(ApprovalVO approvalVO, HttpServletRequest request) throws Exception{
+		
+		String path=request.getRequestURI();
+		approvalVO=(ApprovalVO)makeColumn.getColumn(approvalVO, path, id);
+		
+		//나머지 값 세팅
+		approvalVO.setEmployeeId(id);
+		approvalVO.setDrafter("최지우");
+	
+		int result=approvalService.setAdd(approvalVO);
+		
+	    
+		return "redirect:/approval/list";
+	}
+	
 	@ResponseBody
 	@PostMapping("ajaxTeamList")
     public List<HumanResourceVO> getTeamList(HumanResourceVO humanResourceVO) throws Exception{
@@ -78,6 +103,13 @@ public class ApprovalController {
 		
 		return hr;
     }
+	
+	@GetMapping("detail")
+	public void getDetail(ApprovalVO approvalVO,Model model) throws Exception{
+		approvalVO=approvalService.getDetail(approvalVO);
+		model.addAttribute("vo", approvalVO);
+	
+	}
 	
 	
 }

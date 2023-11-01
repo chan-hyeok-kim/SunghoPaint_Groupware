@@ -3,25 +3,166 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="com.ham.len.approval.ApprovalDAO">
 
-   <select id="getList" resultType="ApprovalVO" parameterType="Pager">
-        SELECT * 
-          FROM APPROVAL
-         ORDER BY APPROVAL_NO DESC
-         LIMIT #{startRow},#{lastRow}
-   </select>
-   
-   <select id="getTeamList" resultType="HumanResourceVO" parameterType="HumanResourceVO">
-       SELECT *
-         FROM HUMAN_RESOURCE HR RIGHT OUTER JOIN CODE C
-           ON HR.DEPARTMENT_CD=C.CODE
-        WHERE HR.DEPARTMENT_CD=#{departmentCd}
-   </select>
-   
-   
-   
-   
+	<select id="getList" resultMap="getListResult"
+		parameterType="Pager">
+		SELECT *,A.APPROVAL_TYPE_NO AS A_APPROVAL_TYPE_NO, APT.APPROVAL_TYPE_NO AS
+		APT_APPROVAL_TYPE_NO,
+		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
+		A_CODE_NAME,
+		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS
+		APT_CODE_NAME
+		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
+		ON
+		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
+		ORDER BY APPROVAL_NO DESC
+		LIMIT
+		#{startRow},#{lastRow}
+	</select>
+
+	<resultMap type="ApprovalVO" id="getListResult">
+		<id column="APPROVAL_NO" property="approvalNo" />
+		<result column="EMPLOYEE_ID" property="employeeId" />
+		<result column="A_APPROVAL_TYPE_NO" property="approvalTypeNo" />
+		<result column="APPROVAL_TITLE" property="approvalTitle" />
+		<result column="APPROVAL_CONTENTS" property="approvalContents" />
+		<result column="APPROVAL_STATUS_CD" property="approvalStatusCd" />
+		<result column="APPROVAL_START_DATE"
+			property="approvalStartDate" />
+		<result column="APPROVAL_END_DATE" property="approvalEndDate" />
+		<result column="DRAFTER" property="drafter" />
+		<result column="MID_APPROVER" property="midApprover" />
+		<result column="ADD_APPROVER" property="addApprover" />
+		<result column="LAST_APPROVER" property="lastApprover" />
+		<result column="ADMONITION" property="admonition" />
+		<result column="REG_ID" property="regId" />
+		<result column="REG_DATE" property="regDate" />
+		<result column="REG_MENU" property="regMenu" />
+		<result column="MOD_ID" property="modId" />
+		<result column="MOD_DATE" property="modDate" />
+		<result column="MOD_MENU" property="modMenu" />
+		<result column="A_CODE_NAME" property="codeName" />
+
+		<association property="approvalTypeVO"
+			javaType="ApprovalTypeVO">
+			<id column="APT_APPROVAL_TYPE_NO" property="approvalTypeNo" />
+			<result column="APT_CODE_NAME" property="codeName" />
+
+		</association>
+
+	</resultMap>
+
+	<select id="getDetail" resultMap="getDetailResult"
+		parameterType="ApprovalVO">
+		SELECT *,A.APPROVAL_TYPE_NO AS A_APPROVAL_TYPE_NO, APT.APPROVAL_TYPE_NO AS
+		APT_APPROVAL_TYPE_NO,
+		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
+		A_CODE_NAME,
+		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS
+		APT_CODE_NAME
+		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
+		ON
+		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
+		WHERE APPROVAL_NO=#{approvalNo}
+	</select>
+	
+	<resultMap type="ApprovalVO" id="getDetailResult">
+		<id column="APPROVAL_NO" property="approvalNo" />
+		<result column="EMPLOYEE_ID" property="employeeId" />
+		<result column="A_APPROVAL_TYPE_NO" property="approvalTypeNo" />
+		<result column="APPROVAL_TITLE" property="approvalTitle" />
+		<result column="APPROVAL_CONTENTS" property="approvalContents" />
+		<result column="APPROVAL_STATUS_CD" property="approvalStatusCd" />
+		<result column="APPROVAL_START_DATE"
+			property="approvalStartDate" />
+		<result column="APPROVAL_END_DATE" property="approvalEndDate" />
+		<result column="DRAFTER" property="drafter" />
+		<result column="MID_APPROVER" property="midApprover" />
+		<result column="ADD_APPROVER" property="addApprover" />
+		<result column="LAST_APPROVER" property="lastApprover" />
+		<result column="ADMONITION" property="admonition" />
+		<result column="REG_ID" property="regId" />
+		<result column="REG_DATE" property="regDate" />
+		<result column="REG_MENU" property="regMenu" />
+		<result column="MOD_ID" property="modId" />
+		<result column="MOD_DATE" property="modDate" />
+		<result column="MOD_MENU" property="modMenu" />
+		<result column="A_CODE_NAME" property="codeName" />
+
+		<association property="approvalTypeVO"
+			javaType="ApprovalTypeVO">
+			<id column="APT_APPROVAL_TYPE_NO" property="approvalTypeNo" />
+			<result column="APT_CODE_NAME" property="codeName" />
+
+		</association>
+
+	</resultMap>
+
+	<delete id="setDelete" parameterType="ApprovalVO">
+		DELETE FROM APPROVAL
+		WHERE
+		APPROVAL_NO=#{approvalNo}
+	</delete>
+
+
+	<select id="getTeamList" resultMap="teamList"
+		parameterType="HumanResourceVO">
+		SELECT
+		*,FN_CODE_NM(LEFT(POSITION_CD,3),POSITION_CD) AS
+		P_CODE_NAME,
+		FN_CODE_NM(LEFT(DEPARTMENT_CD,3),DEPARTMENT_CD) AS
+		D_CODE_NAME
+		FROM HUMAN_RESOURCE HR
+		WHERE
+		HR.DEPARTMENT_CD=#{departmentCd}
+	</select>
+
+	<resultMap type="HumanResourceVO" id="teamList">
+		<id column="EMPLOYEE_ID" property="employeeId" />
+		<result column="JOIN_DATE" property="joinDate" />
+		<result column="JOIN_TYPE" property="joinType" />
+		<result column="NAME" property="name" />
+		<result column="BIRTH" property="birth" />
+		<result column="D_CODE_NAME" property="departmentCd" />
+		<result column="P_CODE_NAME" property="positionCd" />
+		<result column="PHONE" property="phone" />
+		<result column="EMAIL" property="email" />
+		<result column="ZIPCODE" property="zipCode" />
+		<result column="ADDRESS" property="address" />
+		<result column="ADDRESS_DETAIL" property="addressDetail" />
+		<result column="BANK" property="bank" />
+		<result column="ACCOUNT_NUMBER" property="accountNumber" />
+		<result column="ACCOUNT_HOLDER" property="accountHolder" />
+		<result column="SIGNATURE" property="signature" />
+		<result column="QUIT_DATE" property="quitDate" />
+		<result column="QUIT_REASON" property="quitReason" />
+		<result column="REG_ID" property="regId" />
+		<result column="REG_DATE" property="regDate" />
+		<result column="REG_MENU" property="regMenu" />
+		<result column="MOD_ID" property="modId" />
+		<result column="MOD_DATE" property="modDate" />
+		<result column="MOD_MENU" property="modMenu" />
+
+	</resultMap>
+
+	<insert id="setAdd" parameterType="ApprovalVO">
+		INSERT INTO
+		APPROVAL(APPROVAL_NO,EMPLOYEE_ID,APPROVAL_TYPE_NO,
+		APPROVAL_TITLE,APPROVAL_CONTENTS,APPROVAL_STATUS_CD,
+		APPROVAL_START_DATE,APPROVAL_END_DATE,DRAFTER,MID_APPROVER,
+		ADD_APPROVER,LAST_APPROVER,ADMONITION,REG_ID,REG_DATE,
+		REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+		VALUES
+		(#{approvalNo},#{employeeId},#{approvalTypeNo},#{approvalTitle}
+		,#{approvalContents},'R032',NOW(),NULL,#{drafter},
+		#{midApprover},#{addApprover},#{lastApprover},NULL,
+		#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
+	</insert>
+
+	<update id="setUpdate" parameterType="ApprovalVO">
+	</update>
+
 
 </mapper>

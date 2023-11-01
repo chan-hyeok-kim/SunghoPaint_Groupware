@@ -82,7 +82,7 @@
 		INSERT INTO
 		APPROVAL_TYPE(APPROVAL_TYPE_NO,
 		EMPLOYEE_ID,APPROVAL_UP_TYPE_NO,APPROVAL_FORM,APPROVAL_TYPE_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
-		VALUES(#{approvalTypeNo},#{employeeId},#{APPROVAL_UP_TYPE_NO},#{approvalForm},#{approvalTypeCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
+		VALUES(#{approvalTypeNo},#{employeeId},#{approvalUpTypeNo},#{approvalForm},#{approvalTypeCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
 	</insert>
 
 
@@ -97,7 +97,7 @@
 
 	<delete id="setDelete" parameterType="ApprovalTypeVO">
 		DELETE FROM APPROVAL_TYPE
-		WHERE APPROVAL_TYPE_NO=#{approvalTypeNO}
+		WHERE APPROVAL_TYPE_NO=#{approvalTypeNo}
 	</delete>
 
 	<delete id="setUpDelete" parameterType="ApprovalUpTypeVO">
