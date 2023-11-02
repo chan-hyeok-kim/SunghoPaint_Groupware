@@ -1,9 +1,21 @@
 @charset "UTF-8";
 
+table{
+	width:80%;
+	margin:auto;
+}
+
 table, th, td{
 	padding:5px 10px;
 	text-align:center;
-	border:1px solid #CDCDCD;
+	border-top:1px solid #CDCDCD;
+	border-bottom:1px solid #CDCDCD;
 	border-collapse:collapse;
 	font-size:14px;
+}
+
+nav:has(ul.pagination){
+	display:table;
+	margin:auto;
+	margin-top:50px;
 }
