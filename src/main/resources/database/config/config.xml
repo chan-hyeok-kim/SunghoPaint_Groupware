@@ -29,5 +29,12 @@
    
 		<typeAlias type="java.util.List" alias="List" />
 		<typeAlias type="java.util.Map" alias="Map" />
+		
+		
+		  <typeAlias type="com.ham.len.order.OrderVO" alias="OrderVO"/>   
+   <typeAlias type="com.ham.len.purchase.PurchaseVO" alias="PurchaseVO"/>
+   <typeAlias type="com.ham.len.workorder.WorkOrderVO" alias="WorkOrderVO"/>
+   <typeAlias type="com.ham.len.productionReceipt.ProductionReceiptVO" alias="ProductionReceiptVO"/>
+   
    </typeAliases>
 </configuration>
