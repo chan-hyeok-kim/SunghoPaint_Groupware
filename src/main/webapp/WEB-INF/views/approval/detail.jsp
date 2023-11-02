@@ -117,7 +117,25 @@
 						</td>
 					</tr>
 					<tr>
-
+<c:choose>
+<c:when test="${not empty vo.admonition}">
+  <td width="20%">대표이사 김성호</td>
+  <td><textarea class="form-control"
+  disabled="disabled"
+  >[첨언] ${vo.admonition}</textarea></td>
+</c:when>
+<c:otherwise>
+<form action="/approval/oneUpdate" method="post">
+								<td>첨언</td> <input type="hidden" name="approvalNo"
+									value="${vo.approvalNo}">
+								<td><textarea rows="5" name="admonition" class="form-control"></textarea>
+								<div style="display:flex; padding:10px 0 0 0; 
+								justify-content: flex-end;">
+								<button class="btn btn-info" >첨언 추가</button>
+								</div>
+								</td>
+</c:otherwise>
+</c:choose>
 						
 							<c:if test="${empty vo.admonition}">
 							    <form action="/approval/oneUpdate" method="post">

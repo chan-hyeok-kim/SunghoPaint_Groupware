@@ -14540,11 +14540,17 @@ dl {
 	empty-cells: show;
 }
 
-.nav-tabs>li.active:after {
+/* .nav-tabs>li.active:after {
     box-shadow: #005b9e -1px 1px 0;
-}
+} */ 
 .nav-tabs>li.active, .nav-tabs>li.active:before, .nav-tabs>li.active:after {
     background-color: #005b9e;
+    color: black;
+    box-shadow: black;
+}
+
+.nav-tabs>li.active:hover,.nav-tabs>li.active:hover:before, .nav-tabs>li.active:hover:after{
+	background-color: #F7F7F7;
 }
 
 #form-add-btn-box{

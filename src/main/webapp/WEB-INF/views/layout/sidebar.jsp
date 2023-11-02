@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
-    <li class="nav-item nav-profile">
+    <li id="attendance" class="nav-item nav-profile">
       <a href="#" class="nav-link">
         <div class="nav-profile-image">
           <img src="/images/faces/face1.jpg" alt="profile">
@@ -17,6 +17,7 @@
         <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
       </a>
     </li>
+	
     <li class="nav-item">
       <a class="nav-link" href="/">
         <span class="menu-title">Dashboard</span>
@@ -36,12 +37,38 @@
         </ul>
       </div>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="pages/icons/mdi.html">
-        <span class="menu-title">Icons</span>
-        <i class="mdi mdi-contacts menu-icon"></i>
-      </a>
-    </li>
+    <script>
+      function sendPost(){
+        let form = $("<form></form>");
+        form.attr("method", "POST");
+        form.attr("action", "/attendance/status");
+        form.appendTo("body");
+        form.submit();
+      }
+    </script>
+	    <li class="nav-item">
+	      <a class="nav-link" onclick="sendPost()" style="cursor:pointer;">
+	        <span class="menu-title">근태 관리</span>
+	        <i class="mdi mdi-contacts menu-icon"></i>
+	      </a>
+	    </li>
+    <!-- <sec:authorize access="hasRole('USER')"> -->
+    <!-- </sec:authorize> -->
+    <sec:authorize access="hasRole('ADMIN')">
+    	<li class="nav-item">
+	      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+	        <span class="menu-title">인사 관리</span>
+	        <i class="menu-arrow"></i>
+	        <i class="mdi mdi-medical-bag menu-icon"></i>
+	      </a>
+	      <div class="collapse" id="general-pages">
+	        <ul class="nav flex-column sub-menu">
+	          <li class="nav-item"> <a class="nav-link" href="/transfer/registration"> 발령 등록 </a></li>
+	          <li class="nav-item"> <a class="nav-link" href="/transfer/view"> 발령 조회 </a></li>
+	        </ul>
+	      </div>
+	    </li>
+    </sec:authorize>
     <li class="nav-item">
       <a class="nav-link" href="pages/forms/basic_elements.html">
         <span class="menu-title">Forms</span>

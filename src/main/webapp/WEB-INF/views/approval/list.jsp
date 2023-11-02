@@ -189,7 +189,7 @@ ul.nav-tabs {
 						<li><a class="link-tab">진행중</a></li>
 						<li><a class="link-tab">반려</a></li>
 						<li><a class="link-tab">결재</a></li>
-					</ul>
+					</ul>	
 
 
 					<div
@@ -448,7 +448,7 @@ ul.nav-tabs {
 	  <script src="/js/commons/signature.js"></script>   
 	<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 	<script src="/js/commons/sign.js"></script> 
-	 
+	<script src="/js/commons/ul-tabs.js"></script>
 
 
 
