@@ -18,25 +18,7 @@
       </a>
     </li>
 	
-    <li class="nav-item">
-      <a class="nav-link" href="/">
-        <span class="menu-title">Dashboard</span>
-        <i class="mdi mdi-home menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-        <span class="menu-title">Basic UI Elements</span>
-        <i class="menu-arrow"></i>
-        <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-      </a>
-      <div class="collapse" id="ui-basic">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
-        </ul>
-      </div>
-    </li>
+   
     <script>
       function sendPost(){
         let form = $("<form></form>");
@@ -69,43 +51,8 @@
 	      </div>
 	    </li>
     </sec:authorize>
+   
     <li class="nav-item">
-      <a class="nav-link" href="pages/forms/basic_elements.html">
-        <span class="menu-title">Forms</span>
-        <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="pages/charts/chartjs.html">
-        <span class="menu-title">Charts</span>
-        <i class="mdi mdi-chart-bar menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="pages/tables/basic-table.html">
-        <span class="menu-title">Tables</span>
-        <i class="mdi mdi-table-large menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-        <span class="menu-title">배차 관리</span>
-        <i class="menu-arrow"></i>
-        <i class="mdi mdi-medical-bag menu-icon"></i>
-      </a>
-      <div class="collapse" id="general-pages">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="/sales/carReservation"> 차량예약 </a></li>
-          <li class="nav-item"> <a class="nav-link" href="/sales/calendarReservation"> 차량예약 현황 </a></li>
-          <li class="nav-item"> <a class="nav-link" href="/sales/reservationStatus"> 대여 현황/내 예약 </a></li>
-          <li class="nav-item"> <a class="nav-link" href="/sales/assetManagement"> 자산관리 </a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-        </ul>
-      </div>
-    </li>
-    
-    
-        <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#approval-general-pages" aria-expanded="false" aria-controls="general-pages">
         <span class="menu-title">전자결재</span>
         <i class="menu-arrow"></i>
@@ -119,23 +66,24 @@
         </ul>
       </div>
     </li>
-    
-     
-        <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#approval-admin-pages" aria-expanded="false" aria-controls="admin-pages">
-        <span class="menu-title">관리자</span>
+   
+   
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+        <span class="menu-title">예약</span>
         <i class="menu-arrow"></i>
-        <i class="mdi mdi-folder-lock menu-icon"></i>
+        <i class="mdi mdi-medical-bag menu-icon"></i>
       </a>
-      <div class="collapse" id="approval-admin-pages">
+      <div class="collapse" id="general-pages">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="/code/list">코드 관리</a></li>
-          <li class="nav-item"> <a class="nav-link" href="/document/list">문서 양식함</a></li>
-          
+          <li class="nav-item"> <a class="nav-link" href="/sales/carReservation"> 차량예약 </a></li>
+          <li class="nav-item"> <a class="nav-link" href="/sales/calendarReservation"> 차량예약 현황 </a></li>
+          <li class="nav-item"> <a class="nav-link" href="/sales/reservationStatus"> 대여 현황/내 예약 </a></li>
+          <li class="nav-item"> <a class="nav-link" href="/sales/assetManagement"> 자산관리 </a></li>
+          <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
         </ul>
       </div>
     </li>
-    
     
         <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#purchase-general-pages" aria-expanded="false" aria-controls="general-pages">
@@ -165,8 +113,22 @@
         </ul>
       </div>
     </li>  
+    
        
-        
+        <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#approval-admin-pages" aria-expanded="false" aria-controls="admin-pages">
+        <span class="menu-title">관리자</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-folder-lock menu-icon"></i>
+      </a>
+      <div class="collapse" id="approval-admin-pages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/code/list">코드 관리</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/document/list">문서 양식함</a></li>
+          
+        </ul>
+      </div>
+    </li>
          
           </ul>
        
