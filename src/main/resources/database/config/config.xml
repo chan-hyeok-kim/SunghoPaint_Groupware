@@ -25,6 +25,8 @@
    <typeAlias type="com.ham.len.admin.document.ApprovalUpTypeVO" alias="ApprovalUpTypeVO"/>
    <typeAlias type="com.ham.len.humanresource.sign.SignatureVO" alias="SignatureVO"/>
    
+   <typeAlias type="com.ham.len.sales.CarReservationVO" alias="CarReservationVO"/>
+   <typeAlias type="com.ham.len.sales.CarListVO" alias="CarListVO"/>
    
    
 		<typeAlias type="java.util.List" alias="List" />

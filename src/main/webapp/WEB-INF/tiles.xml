@@ -117,6 +117,25 @@
 	
 	
 	
-	</tiles-definitions>
 	
 	
+	
+	<!-- 성호 -->
+	<definition name="sales/calendarReservation" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/calendarReservation.jsp"/>
+	</definition>
+	
+	<definition name="sales/carReservation" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/carReservation.jsp"/>
+	</definition>
+	
+	<definition name="sales/reservationStatus" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/reservationStatus.jsp"/>
+	</definition>
+	
+	<definition name="sales/assetManagement" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/assetManagement.jsp"/>
+	</definition>
+	<!-- 성호 -->
+	
+</tiles-definitions>
