@@ -45,15 +45,25 @@
 	</definition>
 	
 	<!-- 구매 관련 -->
+	<!-- 리스트 -->
 	<definition name="purchase/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/purchase/list.jsp"/>
 	</definition>
 	
+	<!-- 구매서 추가 -->
 	<definition name="purchase/add" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/purchase/add.jsp"/>
 	</definition>
 	
+	<!-- 구매서 상세 -->
+	<definition name="purchase/detail" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/purchase/detail.jsp"/>
+	</definition>
 	
+	<!-- 구매서 수정 -->
+	<definition name="purchase/update" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/purchase/update.jsp"/>
+	</definition>
 	
 	<!-- 작업 지시서 관련 -->
 	<definition name="workOrder/list" extends="layout">

@@ -91,7 +91,6 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="/purchase/list">구매 조회</a></li>
           <li class="nav-item"> <a class="nav-link" href="/purchase/add">구매서 작성</a></li>
-        </ul>
       </div>
     </li>
     

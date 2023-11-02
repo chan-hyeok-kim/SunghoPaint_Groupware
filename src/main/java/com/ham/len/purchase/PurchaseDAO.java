@@ -13,5 +13,11 @@ public interface PurchaseDAO {
 	public List<PurchaseVO> getList(Pager pager)throws Exception;
 
 	public int setAdd(PurchaseVO purchaseVO)throws Exception;
+	
+	public PurchaseVO getDetail(PurchaseVO purchaseVO)throws Exception;
+	
+	public int setUpdate(PurchaseVO purchaseVO)throws Exception;
+	
+	public int setDelete(PurchaseVO purchaseVO)throws Exception;
 
 }

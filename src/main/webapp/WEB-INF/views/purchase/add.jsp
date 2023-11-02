@@ -69,77 +69,44 @@
 			<br><br>
 			
 			<table class="table table-bordered">
-			    <tr>
-			        <td	>일자</td>
-			        <td><input type="date" placeholder="날짜 입력"></td>
-			        <td>거래처</td>
-			        <td><input
-						style="display: inline-block;"
-						class="form-control purchase-line-search" type="search"
-						placeholder="거래처 입력"  aria-label="Search">
-					</td>
-			    </tr>
-			    <tr>
-			        <td>담당자</td>
-			        <td><input
-						style="display: inline-block;"
-						class="form-control purchase-line-search" type="search"
-						placeholder="담당자 입력"  aria-label="Search">
-					</td>
-			        <td>입고창고</td>
-			        <td><input
-						style="display: inline-block;"
-						class="form-control purchase-line-search" type="search"
-						placeholder="입고창고 입력"  aria-label="Search">
-					</td>
-			    </tr>
-			    <tr>
-			        <td>납기일자</td>
-			        <td><input type="date" ></td>
-			        
-			        <!-- <td>거래유형</td>
-			        <td><div class="dropdown">
-						  <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-						    Dropdown button
-						  </button>
-						  <ul class="dropdown-menu info">
-						    <li><a class="dropdown-item" href="#">Action</a></li>
-						    <li><a class="dropdown-item" href="#">Another action</a></li>
-						    <li><a class="dropdown-item" href="#">Something else here</a></li>
-						  </ul>
-						</div></td> -->
-			    </tr>
+				<form action="add" method="post">
+				    <tr>
+				        <td	>일자</td>
+				        <td><input type="date" class="form-control" name="purchaseDate"></td>
+				        <td>거래처</td>
+				        <td><input
+							class="form-control" type="text" name="clientName"
+							placeholder="거래처 입력">
+						</td>
+				    </tr>
+				    <tr>
+				        <td>담당자</td>
+				        <td><input
+							class="form-control" type="text" name="name"
+							placeholder="담당자 입력">
+						</td>
+				        <td>입고창고</td>
+				        <td>				        
+					        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+							  <input type="radio" class="btn-check" name="" id="btnradio1" autocomplete="off" checked>
+							  <label class="btn btn-outline-primary" for="btnradio1">원료 창고</label>
+							
+							  <input type="radio" class="btn-check" name="" id="btnradio2" autocomplete="off">
+							  <label class="btn btn-outline-primary" for="btnradio2">제품 창고</label>
+							</div>
+						</td>
+				    </tr>
+				    <tr>
+				        <td>납기일자</td>
+				        <td><input type="date" class="form-control"></td>
+				    </tr>
 			</table>
 			<br><br><br><br><br>
-			<table class="table table-bordered">
-			    <tr>
-			        <td>#</td>
-			        <td>일자</td>
-			        <td>거래처</td>
-			        <td>담당자</td>
-			        <td>입고창고</td>
-			        <td>납기일자</td>
-			    </tr>
-				    <c:forEach items="${add}" var="vo" varStatus="i">
-					    <tr>
-					        <%-- <td></td>
-					        <td>${vo.}</td>
-					        <td>${vo.}</td>
-					        <td>${vo.}</td>
-					        <td>${vo.}</td>
-					        <td>${vo.}</td> --%>
-					    </tr>
-				    </c:forEach>
-			</table>
-
-
-
-	<br><br><br>
 		<div style="float: right;">
-			<button class="btn btn-info">임시저장</button>
-			<button class="btn btn-info">지우기</button>
+			<button class="btn btn-danger" type="reset">지우기</button>
 			<button class="btn btn-info" type="submit">입력완료</button>
 		</div>
+		</form>
 		</div>
 
 

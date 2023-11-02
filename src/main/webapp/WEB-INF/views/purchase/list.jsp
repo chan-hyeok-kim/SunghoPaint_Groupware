@@ -193,9 +193,9 @@ ul.nav-tabs {
 								<tbody>
 				        <c:forEach items="${list}" var="vo" varStatus="i">
 				           <tr>
-				             <td><input type="checkbox"></td>
+				             <td><input type="checkbox" value="${vo.purchaseNo}"></td>
 				             <td>${vo.purchaseDate}</td>
-				             <td>${vo.clientVO.clientName}</td>
+				             <td style="cursor: pointer;" onclick="location.href='/purchase/update?purchaseNo=${vo.purchaseNo}'">${vo.clientVO.clientName}</td>
 				             <td>${vo.materialProductVO.materialProductCategory}</td>
 				             <td>${vo.totalPrice}</td>
 				             <td>${vo.employeeVO.name}</td>
@@ -219,8 +219,11 @@ ul.nav-tabs {
 
 
 					<!-- pagination -->
-					<nav class="room-pagination" aria-label="Page navigation example">
-			<ul class="pagination" id="product-ul-list2">
+					
+		<br><br><br><br><br>
+					
+		<nav class="room-pagination" aria-label="Page navigation example">
+			<ul class="pagination" id="product-ul-list2" >
 
 				<li class="page-item ${pager.pre?'':'disabled'}"><a
 					class="page-link"
@@ -245,30 +248,7 @@ ul.nav-tabs {
 
 			</ul>
 		</nav>
-					<ul class="pagination" id="product-ul-list2">
-		
-						<li class="page-item ${pager.pre?'':'disabled'}"><a
-							class="page-link"
-							href="./list?page=${pager.startNum-1}&kind=${param.kind}&search=${param.search}"
-							aria-label="Previous fa-long-arrow-left"> <span
-								aria-hidden="true">&laquo;</span>
-						</a></li>
-		
-						<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-							<li class="page-item"><a class="page-link"
-								href="./list?page=${i}&kind=${param.kind}&search=${param.search}">${i}</a></li>
-						</c:forEach>
-						<c:if test="${pager.next}">
-							<li class="page-item"><a class="page-link"
-								href="./list?page=${pager.lastNum+1}&kind=${param.kind}&search=${param.search}"
-								aria-label="Next fa-long-arrow-right"> <span
-									aria-hidden="true">&raquo;</span>
-							</a></li>
-						</c:if>
-		
-		
-		
-					</ul>
+					
 							
 					<!-- <div style="text-align: center; margin: 20px 20px">
 						<nav aria-label="Page navigation example"
