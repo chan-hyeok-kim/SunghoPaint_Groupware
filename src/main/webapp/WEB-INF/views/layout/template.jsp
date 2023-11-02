@@ -56,9 +56,9 @@
     <!-- container-scroller-ends-->
     
     <!-- plugins:js -->
-    <c:if test="${!isTransferForm}">
-        <script src="/vendors/js/vendor.bundle.base.js"></script>
-    </c:if>
+    
+    <script src="/vendors/js/vendor.bundle.base.js"></script>
+    
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="/vendors/chart.js/Chart.min.js"></script>
