@@ -6597,7 +6597,7 @@ textarea.form-control-lg {
   flex-direction: column;
   width: 100%;
   pointer-events: auto;
-  background-color: #f2edf3;
+  background-color: #EEF1F6;
   background-clip: padding-box;
   border: 1px solid #ebedf2;
   border-radius: 0.3rem;
@@ -13617,7 +13617,6 @@ dl {
   .table th,
   .table td {
     vertical-align: middle;
-    font-size: 0.875rem;
     line-height: 1;
     white-space: nowrap;
     padding: 0.9375rem; }
@@ -14153,7 +14152,7 @@ dl {
             font-size: 1.125rem;
             line-height: 1;
             margin-left: auto;
-            color: #bba8bff5; }
+            color: #198ae3 }
             .rtl .sidebar .nav .nav-item .nav-link i.menu-icon {
               margin-left: 0;
               margin-right: auto; }
@@ -14191,10 +14190,10 @@ dl {
       .sidebar .nav .nav-item.active {
         background: #ffffff; }
         .sidebar .nav .nav-item.active > .nav-link .menu-title {
-          color: #b66dff;
+          color: black;
           font-family: "ubuntu-medium", sans-serif; }
         .sidebar .nav .nav-item.active > .nav-link i {
-          color: #b66dff; }
+          color: black;}
       .sidebar .nav .nav-item:hover {
         background: #fcfcfc; }
       .sidebar .nav .nav-item.nav-profile .nav-link {
@@ -14261,7 +14260,7 @@ dl {
               left: auto;
               right: 0; }
           .sidebar .nav.sub-menu .nav-item .nav-link.active {
-            color: #b66dff;
+            color: #198ae3;
             background: transparent; }
           .sidebar .nav.sub-menu .nav-item .nav-link:hover {
             color: #555555; }
@@ -14446,5 +14445,114 @@ dl {
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1; }
+
+/* toolbar */
+
+.wrapper-toolbar {
+	padding: 10px 10px;
+}
+
+/* btn */
+#document-add-btn-list btn{
+	padding: 0;
+	text-align: right;
+}
+
+#document-add-btn-list{
+	padding: 10px 0 0 10px;
+	margin-left:80%;
+	
+}
+
+#btn-box button{
+	margin: 20px 0 0 0;
+}
+
+/* textarea */
+#approvalForm{
+	width: 100%;
+	height: 500px;
+	
+}
+
+
+
+
+/* div */
+#approval-content{
+	padding: 20px 0 0 0px;
+	margin-left:px;
+}
+
+#btn-box{
+	width: 20%;
+	display: inline-block;
+	margin-left: 50px;
+	margin-top: 50px;
+	float:left;
+}
+
+/* tree ul */
+#form_list{
+	width: 700px;
+	height: 770px;
+}
+
+#document-tree{
+	height: 200px;
+	margin-top: 0px;
+}
+
+#sign-file-div{
+	cursor: pointer;
+	
+}
+#sign-file-reg-div{
+	
+	border-bottom: 1px solid gray;  
+	float:left; 
+	width: 458.06px; 
+	height: 250px;
+	margin-bottom:20px;
+}
+
+
+/* modal */
+#form-modal-size{
+	max-width: 1000px;
+}
+#sign-modal-size{
+	max-width: 700px;
+	background: white;
+}
+
+/* table */
+#tree-table{
+	border: 1px solid gainsboro;
+	font-size:24px;
+	margin-top: 10px;
+	background: white;
+	width: 365px;
+	height: 360px;
+}
+
+#tree-table td{
+	empty-cells: show;
+}
+
+.nav-tabs>li.active:after {
+    box-shadow: #005b9e -1px 1px 0;
+}
+.nav-tabs>li.active, .nav-tabs>li.active:before, .nav-tabs>li.active:after {
+    background-color: #005b9e;
+}
+
+#form-add-btn-box{
+	padding: 20px 0 0 0;
+	display: flex; 
+	justify-content: center;
+	
+}
+
 
 /*# sourceMappingURL=style.css.map */

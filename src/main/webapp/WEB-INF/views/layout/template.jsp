@@ -19,9 +19,16 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="/images/favicon.ico" />
    
+   <!-- Google Icon -->
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
    
+   <!-- swal -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    
 
+<!-- Ztree -->
 <script type="text/javascript" src="/js/ztree/jquery-1.4.4.min.js"></script>
   <script type="text/javascript" src="/js/ztree/jquery.ztree.core.js"></script>
  </head>
@@ -39,12 +46,14 @@
       <div class="content-wrapper">
       <tiles:insertAttribute name="body"/>
           
-       <!-- content-wrapper ends -->
-      
-      <tiles:insertAttribute name="footer"/>
-      
+       
+             </div>
+             <tiles:insertAttribute name="footer"/>
+       </div>
+     
         </div>
       <!-- page-body-wrapper ends -->
+      
     </div>
     <!-- container-scroller-ends-->
     

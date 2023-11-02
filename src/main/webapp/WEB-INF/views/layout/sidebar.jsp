@@ -78,11 +78,45 @@
     </li>
     <li class="nav-item sidebar-actions">
       <span class="nav-link">
+      
         <div class="border-bottom">
-          <h6 class="font-weight-normal mb-3">전자결재</h6>
         </div>
-        <button onclick="location.href='/approval/list'" class="btn btn-block btn-lg btn-info mt-4">내 결재 관리</button>
-        <div class="mt-4">
+     
+        <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#approval-general-pages" aria-expanded="false" aria-controls="general-pages">
+        <span class="menu-title">전자결재</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-file-check menu-icon"></i>
+      </a>
+      <div class="collapse" id="approval-general-pages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/approval/list">내 결재 관리</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/approval/add"> 기안서 작성 </a></li>
+          <li class="nav-item"> <a class="nav-link" href="/approval/totalList"> 기안서 통합관리  </a></li>
+        </ul>
+      </div>
+    </li>
+    
+    <div class="border-bottom">
+        </div>
+     
+        <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#approval-admin-pages" aria-expanded="false" aria-controls="admin-pages">
+        <span class="menu-title">관리자</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-folder-lock menu-icon"></i>
+      </a>
+      <div class="collapse" id="approval-admin-pages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/code/list">코드 관리</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/document/list">문서 양식함</a></li>
+          
+        </ul>
+      </div>
+    </li>
+    
+        
+        
           <div class="border-bottom">
             <p class="text-secondary">Categories</p>
           </div>
@@ -90,7 +124,7 @@
             <li>Free</li>
             <li>Pro</li>
           </ul>
-        </div>
+       
       </span>
     </li>
   </ul>

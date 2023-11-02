@@ -2,6 +2,8 @@ package com.ham.len.humanresource;
 
 import java.sql.Date;
 
+import com.ham.len.admin.CodeVO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,9 +11,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class HumanResourceVO {
+public class HumanResourceVO extends CodeVO{
 
-	private String employeeID;
+	private String employeeId;
 	private Date joinDate;
 	private Boolean joinType;
 	private String name;
@@ -26,7 +28,7 @@ public class HumanResourceVO {
 	private String bank;
 	private String accountNumber;
 	private String accountHolder;
-	private Boolean approvalAuthority;
+	private String signature;
 	private Date quitDate;
 	private String quitReason;
 	private String regId;
