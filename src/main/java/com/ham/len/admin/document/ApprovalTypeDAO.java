@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ham.len.admin.CodeVO;
+import com.ham.len.commons.CodeVO;
 import com.ham.len.commons.Pager;
 
 @Mapper

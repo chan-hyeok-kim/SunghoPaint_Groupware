@@ -1,4 +1,4 @@
-package com.ham.len.humanResource;
+package com.ham.len.humanresource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +20,9 @@ public class HumanResourceService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String employeeID) throws UsernameNotFoundException {
-		HumanResourceVO humanResourceVO = humanResourceDAO.getHumanResource(employeeID);		
+		log.warn("========== 김민진{} ==========", employeeID);
+		HumanResourceVO humanResourceVO = humanResourceDAO.getHumanResource(employeeID);
+		log.warn("========== {} ==========",humanResourceVO);
 		return humanResourceVO;
 	}
 }

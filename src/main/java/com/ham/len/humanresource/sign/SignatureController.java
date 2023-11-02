@@ -42,11 +42,11 @@ public class SignatureController {
 //		원래 세션에서 꺼내서 조회해야됨.여기선 리퀘스트에서 조회할 예정
 		HumanResourceVO humanResourceVO=new HumanResourceVO();
 		String id="2023001";
-		humanResourceVO.setEmployeeId(id);
+		humanResourceVO.setEmployeeID(id);
 		humanResourceVO=signatureService.getDetail(humanResourceVO);
 		
 		String path=request.getRequestURI();
-		makeColumn.getModColumn(humanResourceVO, path, id);
+		humanResourceVO=(HumanResourceVO)makeColumn.getModColumn(humanResourceVO, path, id);
 		
 		int result = signatureService.setSignUpdate(file, request.getSession(),humanResourceVO);
 		model.addAttribute("result", result);

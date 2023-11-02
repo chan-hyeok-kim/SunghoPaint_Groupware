@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.ham.len.humanResource.HumanResourceService;
+import com.ham.len.humanresource.HumanResourceService;
 
 @Configuration
 @EnableWebSecurity

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.ham.len.admin.CodeVO;
+import com.ham.len.commons.CodeVO;
 import com.ham.len.admin.document.ApprovalUpTypeVO;
 
 @Component

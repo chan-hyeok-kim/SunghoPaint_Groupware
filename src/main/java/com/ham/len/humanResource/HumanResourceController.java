@@ -1,4 +1,4 @@
-package com.ham.len.humanResource;
+package com.ham.len.humanresource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

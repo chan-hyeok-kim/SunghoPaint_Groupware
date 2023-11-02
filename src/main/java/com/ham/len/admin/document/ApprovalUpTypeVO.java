@@ -1,6 +1,8 @@
 package com.ham.len.admin.document;
 
-import com.ham.len.admin.CodeVO;
+
+
+import com.ham.len.commons.CodeVO;
 
 import lombok.Getter;
 import lombok.Setter;

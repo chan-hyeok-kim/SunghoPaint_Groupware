@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ham.len.admin.CodeService;
-import com.ham.len.admin.CodeVO;
+import com.ham.len.commons.CodeVO;
 import com.ham.len.approval.ApprovalService;
 import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;

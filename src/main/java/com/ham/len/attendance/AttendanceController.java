@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ham.len.humanResource.HumanResourceVO;
+import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.util.WeekOfMonthInfoCalculator;
 
 import lombok.extern.slf4j.Slf4j;

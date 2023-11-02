@@ -1,4 +1,25 @@
-	<!-- Kmj -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC  
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	
+	<!-- layout -->
+	<definition name="layout" template="/WEB-INF/views/layout/template.jsp">
+		<put-attribute name="navbar" value="/WEB-INF/views/layout/navbar.jsp"/>
+		<put-attribute name="sidebar" value="/WEB-INF/views/layout/sidebar.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/> 
+	    <put-attribute name="body" value="" />
+	</definition>
+	
+
+
+	<!-- controller view 받은 후 -->
+	<definition name="index" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
+	</definition>
+	
+	<!-- 김민진 -->
 	<definition name="login" template="/WEB-INF/views/login.jsp">
    </definition>
    
@@ -12,6 +33,15 @@
    
    <definition name="transfer/view" extends="layout">
 		<put-attribute name="body" value="/WEB-INF/views/transfer/view.jsp"/>
+   </definition>
+
+
+
+
+<!-- 김찬혁 -->
+    <definition name="approval/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
+	</definition>
 
 	<definition name="approval/listEx" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/listEx.jsp"/>
@@ -49,5 +79,6 @@
 	  
 	</definition>
 	
+	</tiles-definitions>
 	
 	
