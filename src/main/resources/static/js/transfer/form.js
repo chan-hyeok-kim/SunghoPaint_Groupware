@@ -18,7 +18,9 @@ $(function(){
 			table_body.push("employeeID");
 			table_body.push("name");
 			table_body.push("departmentCdName");
+			table_body.push("departmentCd");
 			table_body.push("positionCdName");
+			table_body.push("positionCd");
 		}else if(id == "search_transferType"){
 			url = "/transfer/getCodeList";
 			title = "발령 구분";
@@ -73,10 +75,19 @@ $(function(){
 				list_json = JSON.parse(JSON.stringify(result));
 				
 				$.each(list_json, function(index, element){
-						$("#searchWindow #list > table").append("<tr><td class='select'><input type='checkbox'></td></tr>");
-						$.each(table_body, function(i, e){
+					$("#searchWindow #list > table").append("<tr><td class='select'><input type='checkbox'></td></tr>");
+					$.each(table_body, function(i, e){
+						if(id == "search_existing"){
+							if(e.endsWith("Cd")){
+								let before = table_body[i - 1];
+								$("td." + before).attr("data-code", element[e]);
+							}else{
 								$("#searchWindow #list > table tr:last-of-type").append("<td class='" + e + "'>" + element[e] + "</td>");
-						});
+							}
+						}else{
+							$("#searchWindow #list > table tr:last-of-type").append("<td class='" + e + "'>" + element[e] + "</td>");
+						}
+					});
 				});
 				
 				$(".select > input[type='checkbox']").change(function(){
@@ -100,16 +111,21 @@ $(function(){
 				alert("항목을 선택해주세요.");
 			}else{
 				if(id == "search_existing"){
-					$("#employeeId").val(checked.parent().siblings(".employeeID").html());
-					$("#name").val(checked.parent().siblings(".name").html());
-					$("#beforeDepartmentCd").val(checked.parent().siblings(".departmentCdName").html());
-					$("#beforePositionCd").val(checked.parent().siblings(".positionCdName").html());
+					$("input[name='employeeId']").val(checked.parent().siblings(".employeeID").html());
+					$("input[name='name']").val(checked.parent().siblings(".name").html());
+					$("input[name='beforeDepartmentCd']").val(checked.parent().siblings(".departmentCdName").attr("data-code"));
+					$("input[name='beforeDepartmentCdName']").val(checked.parent().siblings(".departmentCdName").html());
+					$("input[name='beforePositionCd']").val(checked.parent().siblings(".departmentCdName").attr("data-code"));
+					$("input[name='beforePositionCdName']").val(checked.parent().siblings(".positionCdName").html());
 				}else if(id == "search_transferType"){
-					$("#transferTypeCd").val(checked.parent().siblings(".codeName").html());
+					$("input[name='transferTypeCd']").val(checked.parent().siblings(".code").html());
+					$("input[name='transferTypeCdName']").val(checked.parent().siblings(".codeName").html());
 				}else if(id == "search_position"){
-					$("#transferPositionCd").val(checked.parent().siblings(".codeName").html());
+					$("input[name='transferPositionCd']").val(checked.parent().siblings(".code").html());
+					$("input[name='transferPositionCdName']").val(checked.parent().siblings(".codeName").html());
 				}else if(id == "search_department"){
-					$("#transferDepartmentCd").val(checked.parent().siblings(".codeName").html());
+					$("input[name='transferDepartmentCd']").val(checked.parent().siblings(".code").html());
+					$("input[name='transferDepartmentCdName']").val(checked.parent().siblings(".codeName").html());
 				}
 				
 				$("#searchWindow").remove();

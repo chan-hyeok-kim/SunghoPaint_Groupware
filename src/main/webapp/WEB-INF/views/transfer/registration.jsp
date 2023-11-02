@@ -24,31 +24,36 @@
 		<input type="text" name="name" id="name" data-search-type="existing" readonly>
 	</div>
 	<div class="component">
-		<label for="transferTypeCd">발령 구분</label>
+		<label for="transferTypeCdName">발령 구분</label>
 		<div class="inputWrap">
-			<input type="text" name="transferTypeCd" id="transferTypeCd" data-search-type="transferType" readonly>
+			<input type="hidden" name="transferTypeCd">
+			<input type="text" name="transferTypeCdName" id="transferTypeCdName" data-search-type="transferType" readonly>
 			<img id="search_transferType" class="search" src="/images/transfer/search-icon.png">
 		</div>
 	</div>
 	<div class="component">
-		<label for="beforePositionCd">이전 직급</label>
-		<input type="text" name="beforePositionCd" id="beforePositionCd" data-search-type="existing" readonly>
+		<label for="beforePositionCdName">이전 직급</label>
+		<input type="hidden" name="beforePositionCd">
+		<input type="text" name="beforePositionCdName" id="beforePositionCdName" data-search-type="existing" readonly>
 	</div>
 	<div class="component">
-		<label for="transferPositionCd">발령 직급</label>
+		<label for="transferPositionCdName">발령 직급</label>
 		<div class="inputWrap">
-			<input type="text" name="transferPositionCd" id="transferPositionCd" data-search-type="position" readonly>
+			<input type="hidden" name="transferPositionCd">
+			<input type="text" name="transferPositionCdName" id="transferPositionCdName" data-search-type="position" readonly>
 			<img id="search_position" class="search" src="/images/transfer/search-icon.png">
 		</div>
 	</div>
 	<div class="component">
-		<label for="beforeDepartmentCd">이전 부서</label>
-		<input type="text" name="beforeDepartmentCd" id="beforeDepartmentCd" data-search-type="existing" readonly>
+		<label for="beforeDepartmentCdName">이전 부서</label>
+		<input type="hidden" name="beforeDepartmentCd">
+		<input type="text" name="beforeDepartmentCdName" id="beforeDepartmentCdName" data-search-type="existing" readonly>
 	</div>
 	<div class="component">
-		<label for="transferDepartmentCd">발령 부서</label>
+		<label for="transferDepartmentCdName">발령 부서</label>
 		<div class="inputWrap">
-			<input type="text" name="transferDepartmentCd" id="transferDepartmentCd" data-search-type="department" readonly>
+			<input type="hidden" name="transferDepartmentCd">
+			<input type="text" name="transferDepartmentCdName" id="transferDepartmentCdName" data-search-type="department" readonly>
 			<img id="search_department" class="search" src="/images/transfer/search-icon.png">
 		</div>
 	</div>
