@@ -28,10 +28,10 @@ public class SalesController {
 	@Autowired
 	private SalesService salesService;
 	
-	@GetMapping("reservationStatus")
+	@GetMapping("calendarReservation")
 	public String getList() throws Exception{
 		 
-		 return "sales/reservationStatus";
+		 return "sales/calendarReservation";
 	}
 	
 	@PostMapping("add")
@@ -49,10 +49,28 @@ public class SalesController {
 	        
 		 int result = salesService.setCarReservationAdd(carReservationVO);
 		
-		 return "redirect:./reservationStatus";
+		 return "redirect:./calendarReservation";
 	}
 	
-	@GetMapping("getlist")
+	@PostMapping("addCar")
+	public String setCarReservationAdd2(HttpServletRequest request, CarReservationVO carReservationVO, 
+			@RequestParam("rental_Date") String rental_Date, 
+			@RequestParam("rental_DateTime") String rental_DateTime, 
+			@RequestParam("return_Date") String return_Date, 
+			@RequestParam("return_DateTime") String return_DateTime) throws Exception{
+		
+
+		 String startTime = rental_Date + " " + rental_DateTime + ":00";
+		 carReservationVO.setRentalDate(Timestamp.valueOf(startTime));
+		 String endTime = return_Date + " " + return_DateTime + ":00";
+		 carReservationVO.setReturnDate(Timestamp.valueOf(endTime));
+	        
+		 int result = salesService.setCarReservationAdd(carReservationVO);
+		
+		 return "redirect:./carReservation";
+	}
+	
+	@GetMapping("getList")
 	@ResponseBody
 	public List<CarReservationVO> getEvents(CarReservationVO carReservationVO) throws Exception{
 	    List<CarReservationVO> events = salesService.getReservationList(carReservationVO);
@@ -75,24 +93,60 @@ public class SalesController {
 		 
 		log.info("========={}=======", carReservationVO.getRentalNo());
 		int result = salesService.setReservationUpdate(carReservationVO);
-		return "redirect:./reservationStatus";
+		return "redirect:./calendarReservation";
 	}
 	
 	@PostMapping("delete")
 	public String setReservationDelete(CarReservationVO carReservationVO) throws Exception{
 		log.info("========={}=======", carReservationVO.getRentalNo());
 		int result = salesService.setReservationDelete(carReservationVO);
-		return "redirect:./reservationStatus";
+		return "redirect:./calendarReservation";
 	}
 	
 	@GetMapping("carReservation")
 	public String carReservation(CarListVO carListVO, Model model) throws Exception{
-		List<CarListVO> arr = salesService.getCarList(carListVO); 
+		List<CarListVO> arr = salesService.getCarList(carListVO);
 		model.addAttribute("list", arr);
 		
 		 return "sales/carReservation";
 	}
 	
-
+	@GetMapping("getCarList")
+	@ResponseBody
+	public List<CarListVO> getCarList(CarListVO carListVO) throws Exception{
+	    List<CarListVO> events = salesService.getCarList(carListVO);
+	    
+	    return events;
+	}
 	
+	@GetMapping("reservationStatus")
+	public String reservationStatus(CarListVO carListVO, Model model) throws Exception{
+		List<CarListVO> arr = salesService.getAllReservation(carListVO);
+		model.addAttribute("list", arr);
+		
+		return "sales/reservationStatus";
+	}
+	
+	@GetMapping("myReservation")
+	public String getMyReservation(CarListVO carListVO, Model model) throws Exception{
+		List<CarListVO> arr = salesService.getMyReservation(carListVO);
+		model.addAttribute("list", arr);
+		
+		return "sales/ajaxMyList";
+	}
+	
+	@GetMapping("reservationList")
+	public String getReservationList(CarListVO carListVO, Model model) throws Exception{
+		List<CarListVO> arr = salesService.getAllReservation(carListVO);
+		model.addAttribute("list", arr);
+		
+		return "sales/ajaxAllList";
+	}
+	
+	@PostMapping("deleteMyStatus")
+	public String setMyReservationDelete(CarReservationVO carReservationVO) throws Exception{
+		log.info("========={}=======", carReservationVO.getRentalNo());
+		int result = salesService.setReservationDelete(carReservationVO);
+		return "sales/reservationStatus";
+	}
 }

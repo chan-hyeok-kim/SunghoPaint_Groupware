@@ -22,4 +22,10 @@ public interface SalesDAO {
 	public int setCarListUpdateUnavailable(CarListVO carListVO) throws Exception;
 	
 	public int setCarListUpdateAvailable(CarListVO carListVO) throws Exception;
+	
+	public CarReservationVO getTargetCar(CarReservationVO carReservationVO) throws Exception;
+	
+	public List<CarListVO> getAllReservation(CarListVO carListVO) throws Exception;
+	
+	public List<CarListVO> getMyReservation(CarListVO carListVO) throws Exception;
 }

@@ -28,6 +28,17 @@ public class SalesService {
 	}
 	
 	public int setReservationUpdate(CarReservationVO carReservationVO) throws Exception{
+		CarListVO carListVO = new CarListVO();
+		carListVO.setCarNo(carReservationVO.getCarNo());
+		
+		CarReservationVO oldCarReservationVO = salesDAO.getTargetCar(carReservationVO);
+		
+		CarListVO oldCarListVO = new CarListVO();
+		oldCarListVO.setCarNo(oldCarReservationVO.getCarNo());
+		
+		salesDAO.setCarListUpdateAvailable(oldCarListVO);
+		salesDAO.setCarListUpdateUnavailable(carListVO);
+		
 		return salesDAO.setReservationUpdate(carReservationVO);
 	}
 	
@@ -42,5 +53,13 @@ public class SalesService {
 	
 	public List<CarListVO> getCarList(CarListVO carListVO) throws Exception{
 		return salesDAO.getCarList(carListVO);
+	}
+	
+	public List<CarListVO> getAllReservation(CarListVO carListVO) throws Exception{
+		return salesDAO.getAllReservation(carListVO);
+	}
+	
+	public List<CarListVO> getMyReservation(CarListVO carListVO) throws Exception{
+		return salesDAO.getMyReservation(carListVO);
 	}
 }

@@ -62,16 +62,16 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-        <span class="menu-title">영업</span>
+        <span class="menu-title">배차 관리</span>
         <i class="menu-arrow"></i>
         <i class="mdi mdi-medical-bag menu-icon"></i>
       </a>
       <div class="collapse" id="general-pages">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="/sales/carReservation"> 차량예약 </a></li>
-          <li class="nav-item"> <a class="nav-link" href="/sales/reservationStatus"> 차량예약 현황 </a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
+          <li class="nav-item"> <a class="nav-link" href="/sales/calendarReservation"> 차량예약 현황 </a></li>
+          <li class="nav-item"> <a class="nav-link" href="/sales/reservationStatus"> 대여 현황/내 예약 </a></li>
+          <li class="nav-item"> <a class="nav-link" href="/sales/assetManagement"> 자산관리 </a></li>
           <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
         </ul>
       </div>

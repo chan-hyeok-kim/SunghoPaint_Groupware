@@ -7,398 +7,312 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="/css/demo.css" type="text/css">
+
+ 
+  
   
 <style type="text/css">
-#calendar_start_date_time {
-    height: 50px;
-    overflow-y: auto;
+  #tree_list_add {
+	margin-left: 20px;
 }
-#calendar_end_date_time {
-    height: 50px;
-    overflow-y: auto;
+
+#tree-table {
+	border: 1px solid black;
+	height: 360px;
+	width: 220px;
+	padding: 10px;
 }
-#calendar_start_date_time_update {
-    height: 50px;
-    overflow-y: auto;
+
+#tree-table-div {
+	margin: 10px;
 }
-#calendar_end_date_time_update {
-    height: 50px;
-    overflow-y: auto;
+
+#approval-table {
+	text-align: center;
+	width: 100%
 }
-.modal-header .close {
-    display: none;
+
+.nav-tabs>li:before, .nav-tabs>li:after {
+	content: " ";
+	display: block;
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 12px;
+	background-color: #f7f7f7;
+	transition: all 250ms ease;
+}
+
+.nav-tabs>li {
+	float: left;
+	position: relative;
+	cursor: pointer;
+	z-index: 2;
+	transition: all 250ms ease;
+	padding: 0;
+	margin: 5px 12px -1px 0;
+	background-color: #f7f7f7;
+	border-top: 1px solid #d4d4d4;
+	border-bottom: 1px solid #d4d4d4;
+	list-style: none;
+}
+
+.nav-tabs>li>a {
+	color: #999;
+	display: block;
+	padding: 4px 10px 1px 11px;
+	text-decoration: none;
+}
+
+.nav-tabs>li:after {
+	left: -4px;
+	transform: skew(-25deg, 0deg);
+	box-shadow: #d4d4d4 -1px 1px 0;
+}
+
+.nav-tabs>li {
+	border-radius: 7px 7px 0 0;
+}
+
+.nav-tabs>li:before {
+	right: -4px;;
+	transform: skew(25deg, 0deg);
+	box-shadow: #d4d4d4 1px 1px 0;
+}
+
+.nav-tabs>li:before {
+	border-radius: 0 2px 0 0;
+}
+
+.nav-tabs>li:after {
+	border-radius: 2px 0 0 0;
+}
+
+.link-tab:hover {
+	background: #f7f7f7;
+}
+
+.wrapper-toolbar {
+	padding: 10px 10px;
+}
+
+ul.nav-tabs {
+	border-bottom: 1px solid #d4d4d4;
+}
+
+#grid-top-date {
+	margin: 4px 0;
+	line-height: 1.7;
+	position: relative;
+	display: inline-block;
+}
+
+#top-search-bar {
+	width: 200px;
+	align-content: flex-end;
+	height: 18.53px;
+}
+
+#top-search-btn {
+	width: 77px;
+	height: 20px;
+	padding: 0px;
+	height: 32.06px;
+}
+
+#top-search-select {
+	width: 77px;
+	height: 20px;
+	padding: 0px;
+	height: 32.06px;
+}
+
+.nav-tabs>li.active:after {
+    box-shadow: #005b9e -1px 1px 0;
+}
+.nav-tabs>li.active, .nav-tabs>li.active:before, .nav-tabs>li.active:after {
+    background-color: #005b9e;
 }
 </style>
+
+
+
 </head>
 <body id="page-top">
 	<div id="wrapper">
-		
+
+
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
-			<div id="content">
+			<div class="card">
+				<div class="card-body">
 
-				<div class="container-fluid">
+					<div class="wrapper-toolbar">
+
+						<div style="float:left">대여 현황/내 예약</div> 
+						<div style="text-align: right;">
+							<form class="form-inline">
+
+								<!-- 검색 설정 -->
+								<select class="btn btn-gradient-light" id="top-search-select">
+									<option selected="selected">차량명</option>
+									<option>대여자</option>
+								</select> 
+								
+								
+								<input style="display: inline-block;" id="top-search-bar"
+									class="form-control" type="search" placeholder="입력 후 [Enter]"
+									aria-label="Search">
+								<button id="top-search-btn" class="btn btn-info" type="submit">검색</button>
+
+							</form>
+						</div>
+					</div>
+
+					<ul class="nav-tabs">
+						<li id="liAll"><a class="link-tab" id="all">대여 현황</a></li>
+						<li id="liMy"><a class="link-tab" id="my">내 예약</a></li>
+					</ul>
+
+
+					<div
+						style="text-align: right; padding-top: 20px; padding-right: 10px">
+						<div id="grid-top-date"></div>
+					</div>
+					<div id="content">
+
+
+						<div class="container-fluid">
+
+
 				  
-				  <h1>차량 예약 목록</h1>
 				  
-				  <div class="card">
-				  	<div class="card-body">
-						<div id='calendar'></div>
-				  	</div>
+				
+				    <table class="table-bordered mt-2" id="approval-table">
+				        <thead>
+				           <tr>
+				             <th>번호</th>
+				             <th>차종</th>
+				             <th>예약 시간</th>
+				             <th>반납 시간</th>
+				             <th>대여자</th>
+				           </tr>
+				        </thead>
+				        <tbody>
+				        <c:forEach items="${list}" var="vo" varStatus="i">
+				           <tr>
+				           	 <td>${i.index + 1}</td>
+				             <td>${vo.carModelName}</td>
+				             <td>${vo.carReservationVO.rentalDate}</td>
+				             <td>${vo.carReservationVO.returnDate}</td>
+				             <td>${vo.carReservationVO.employeeId}</td>
+				           </tr>
+				         </c:forEach>
+				        </tbody>
+				      
+				    </table>
 				  </div>
-				  	  
-    </div>
-  </div>
-</div>
-
- <!------------------------------------------------- Add modal ------------------------------------------------->
- <div class="modal fade" id="calendarAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">차량 예약</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                
-                <form id="addForm" action="./add" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                    	<label for="taskId" class="col-form-label">항목 선택</label>
-                    	
-                        <select class="form-select form-select-sm" aria-label="Small select example" id="carList" name="carNo">
-						  <option selected>항목을 선택하세요</option>
-						  <option value="9">모닝 (151허 5155)</option>
-						  <option value="10">G80 (301하 5148)</option>
-						  <option value="11">싼타페 (143호 1234)</option>
-						  <option value="12">포터 (871허 1234)</option>
-						  <option value="13">윙바디 (678허 9876)</option>
-						</select>
-						
-                        <label for="taskId" class="col-form-label">대여일</label>
-                        <input type="date" class="form-control" id="calendar_start_date" name="rental_Date">
-                        <select class="form-select form-select-sm" id="calendar_start_date_time" name="rental_DateTime" style="padding-left:20px;"></select>
-                        
-                        <label for="taskId" class="col-form-label">반납 예정일</label>
-                        <input type="date" class="form-control" id="calendar_end_date" name="return_Date">
-                        <select class="form-select form-select-sm" id="calendar_end_date_time" name="return_DateTime" style="padding-left:20px;"></select>
-                        
-                        <label for="taskId" class="col-form-label">대여자</label>
-                        <input type="text" class="form-control" id="calendar_name" name="employeeId">
-                        
-                        <label for="taskId" class="col-form-label">대여 용도</label>
-                        <select class="form-select form-select-sm" aria-label="Small select example" id="calendar_content" name="rentalReasonCd">
-						  <option selected>항목을 선택하세요</option>
-						  <option value="1">외부인 미팅</option>
-						  <option value="2">제품 홍보</option>
-						  <option value="3">출장</option>
-						  <option value="4">외근</option>
-						</select>
-                        
-                        <label for="taskId" class="col-form-label">행선지</label>
-                        <input type="text" class="form-control" id="calendar_location" name="rentalLocation">
-                        
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-warning" id="addCalendar">추가</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="sprintSettingModalClose">취소</button>
-                </div>
-    			</form>
-            </div>
-        </div>
-    </div>
-<!------------------------------------------------- Add modal ------------------------------------------------->
+				  </div>
+				  
+				  
+				  <!-- pagination -->
+				  <div style="text-align: center; margin: 20px 20px">
+				  <nav aria-label="Page navigation example" style="display: inline-block;">
+  <ul class="pagination">
+    <li class="page-item ${pager.pre?'':'disabled'}">
+      <a class="page-link" href="/approval/getList?page=${startNum-1}" aria-label="Previous">
+        <i class="mdi mdi-arrow-left-drop-circle"></i>
+      </a>
+    </li>
     
-<!------------------------------------------------- Update modal ------------------------------------------------->
- <div class="modal fade" id="calendarUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">차량 예약</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                
-                <form id="updateForm" action="./update" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                    
-                    	<input type="hidden" id="rental_no_update" name="rentalNo">
-                    
-                    	<label for="taskId" class="col-form-label">항목 선택</label>
-                        <select class="form-select form-select-sm" aria-label="Small select example" id="car_update" name="carNo">
-						  <option selected>항목을 선택하세요</option>
-							  <option value="9">모닝 (151허 5155)</option>
-							  <option value="10">G80 (301하 5148)</option>
-							  <option value="11">싼타페 (143호 1234)</option>
-							  <option value="12">포터 (871허 1234)</option>
-							  <option value="13">윙바디 (678허 9876)</option>
-						</select>
-						
-                        <label for="taskId" class="col-form-label">대여일</label>
-                        <input type="date" class="form-control" id="calendar_start_date_update" name="rental_Date">
-                        <select class="form-select form-select-sm" id="calendar_start_date_time_update" name="rental_DateTime" style="padding-left:20px;"></select>
-                        
-                        <label for="taskId" class="col-form-label">반납 예정일</label>
-                        <input type="date" class="form-control" id="calendar_end_date_update" name="return_Date">
-                        <select class="form-select form-select-sm" id="calendar_end_date_time_update" name="return_DateTime" style="padding-left:20px;"></select>
-                        
-                        <label for="taskId" class="col-form-label">대여자</label>
-                        <input type="text" class="form-control" id="calendar_name_update" name="employeeId">
-                        
-                        <label for="taskId" class="col-form-label">대여 용도</label>
-                        <select class="form-select form-select-sm" aria-label="Small select example" id="rental_reason_update" name="rentalReasonCd">
-						  <option selected>항목을 선택하세요</option>
-						  <option value="1">외부인 미팅</option>
-						  <option value="2">제품 홍보</option>
-						  <option value="3">출장</option>
-						  <option value="4">외근</option>
-						</select>
-                        
-                        <label for="taskId" class="col-form-label">행선지</label>
-                        <input type="text" class="form-control" id="calendar_location_update" name="rentalLocation">
-                        
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-warning" id="updateCalendar">수정</button>
-                    <input type="hidden" id="eventId" name="eventId" />
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="modalClose">취소</button>
-                </form>
-                <form id="deleteForm" action="./delete" method="post">
-                	<input type="hidden" id="rental_no_delete_rentalNo" name="rentalNo">
-                	<input type="hidden" id="rental_no_delete_carNo" name="carNo">
-                    <button type="submit" class="btn btn-danger" id="deleteCalendar">삭제</button>
-                    </form>
-                </div>
-    			<!-- </form> -->
-            </div>
-        </div>
+    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+    <li class="page-item"><a class="page-link" href="/approval/getList?page=${i}"><%-- ${i} --%>1</a></li>
+    </c:forEach>
+    
+    <li class="page-item ${pager.next?'':'disabled'}">
+      <a class="page-link" href="/approval/getList?page=${lastNum+1}" aria-label="Next">
+        <i class="mdi mdi-arrow-right-drop-circle"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+  </div>
+
+      </div>
     </div>
-<!------------------------------------------------- Update modal ------------------------------------------------->
-     
-     <div style="border: 1px solid gray;">
-        <div id="small-image-show" style="align-content: center"></div>  
-        </div>    
+   </div>
+
 </div>
       
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
-
+	
 <script type="text/javascript">
-		const arr = new Array();
-		
-		function timeFormat(time){
-		      return String(time).padStart(2, "0");
-		   }
-		
-		$.ajax({
-			  type: "GET", 
-			  url: "/sales/getlist",
-			  async: false,
-			  success: function (res) {
-			    for (const key in res) {
-			      let obj = new Object();
-			      
-			      obj.id = res[key].rentalNo;
-			      
-			      obj.title = res[key].employeeId;
-			      
-			      obj.location = res[key].rentalLocation;
-			      
-			      let rentalDate = new Date(res[key].rentalDate);
-			      rentalDate.setHours(rentalDate.getHours() + 9);
-			      obj.start = rentalDate;
-			      
-			      let returnDate = new Date(res[key].returnDate);
-			      returnDate.setHours(returnDate.getHours() + 9);
-			      obj.end = returnDate;
+$(document).ready(function() {
+	// 처음 페이지 로드시 "전체 목록" 탭을 active로 설정
+    $('#liAll').addClass('active');
+	
+    $('#my').click(function(event) {
+        event.preventDefault();
+        $.ajax({
+    		type:"GET",
+    		url:"/sales/myReservation",
+    		
+    	
+    	success:function(result){
+    		$("#content table").remove();
+    		$("#content > .container-fluid").html(result);
+    		
+    		$('#liMy').addClass('active');
+        	$('#liAll').removeClass('active');
+    	},
+    	error:function(){
+    		alert("error");
+    	}
+    	
+    	})
+        
+    });
+    
+    $('#all').click(function(event) {
+        event.preventDefault();
+        $.ajax({
+    		type:"GET",
+    		url:"/sales/reservationList",
+    		
+    	
+    	success:function(result){
+    		$("#content table").remove();
+    		$("#content > .container-fluid").html(result);
+    		
+    		$('#liAll').addClass('active');
+        	$('#liMy').removeClass('active');
+    	},
+    	error:function(){
+    		alert("error");
+    	}
+    	
+    	})
+        
+    });
+});
 
-			      let originalRentalDate = new Date(res[key].rentalDate);
-			      let hoursStart = originalRentalDate.getHours();
-			      let minutesStart = rentalDate.getMinutes();
-			      let timeStart = timeFormat(hoursStart) + ':' + timeFormat(minutesStart);
-			      obj.timeStart = timeStart;
-			      
-			      let originalReturnDate = new Date(res[key].returnDate);
-			      let hoursEnd = originalReturnDate.getHours();
-			      let minutesEnd = returnDate.getMinutes();
-			      let timeEnd = timeFormat(hoursEnd) + ':' + timeFormat(minutesEnd);
-			      obj.timeEnd = timeEnd;
-			      
-			      obj.carCategory = res[key].carNo;
-			      
-			      obj.rentalReason = res[key].rentalReasonCd;
-			      
-			      arr.push(obj);
-			    }
-			    console.log(arr);
-			
-			  },
-			  error: function (XMLHttpRequest, textStatus, errorThrown) {
-			    console.log('error')
-			  },
-			});
+$(document).ready(function() {
+    // 테이블의 행 개수를 체크
+    var rowCount = $('#approval-table tbody tr').length;
+
+    // 만약 행이 없다면 메시지를 추가
+    if (rowCount === 0) {
+        $('#approval-table tbody').append('<tr><td colspan="4">예약 목록이 없습니다.</td></tr>');
+    }
+    
+});
 
 
-	document.addEventListener('DOMContentLoaded', function() {
-	    var calendarEl = document.getElementById('calendar');
-	    var calendar = new FullCalendar.Calendar(calendarEl, {
-	      locale: "ko",
-	      timeZone: 'Asia/Seoul',
-	      initialView: 'dayGridMonth',
-	      selectable: true,
-	      select: function(start, end, allDays){
-	    	  $("#calendarAddModal").modal("show");
-	    	  
-	    	  /* 
-	    	  $('#addCalendar').click(function(){
-	    		  console.log("추가")
-	    		})
-	    	  */
-	    	  
-	    	  $('#sprintSettingModalClose').click(function(){
-	    			$('#calendarAddModal').modal('hide')	
-	    		})
-	    		
-	      },
-	      
-	      customButtons: {
-	    	    myCustomButton: {
-	    	      text: '차량 예약',
-	    	      click: function() {
-	    	    	  $("#calendarAddModal").modal("show");
-	    	    	  
-	    	    	  /* 
-	    	    	  $('#addCalendar').click(function(){
 
-	    	    		})
-	    	    	   */
-	    	    		
-	    	    	  $('#sprintSettingModalClose').click(function(){
-	    	    			$('#calendarAddModal').modal('hide')	
-	    	    		})
-	    	    	  
-	    	      }
-	    	    }
-	    	  },
-	    	    	  
-	      headerToolbar: {
-	    	    left: 'prev,next today myCustomButton',
-	    	    center: 'title',
-	    	    right: 'dayGridMonth timeGridWeek timeGridDay'
-	    	  },
-	    	  
-	      buttonText:{
-	    	  today: '오늘'
-	    	 
-	      },
-	      
-	      
-	      /* events:[ // 일정 데이터 추가 , DB의 event를 가져오려면 JSON 형식으로 변환해 events에 넣어주면된다.
-              {
-                  title:'일정',
-                  start:'2023-10-26',
-                  end:'2023-10-28'
-              },
-          ], */
-        	events:arr,
-        	
-        	eventClick:function(event) {
- 				console.log("클릭한 이벤트", event.event.extendedProps.location);
-        		console.log("클릭한 이벤트", event.event.title);
-        		console.log("클릭한 이벤트", event.event.start);
-        		console.log("클릭한 이벤ddd트", event.event.extendedProps.carCategory);
-        		
-        		let modal = $("#calendarUpdateModal");
-        		$("#calendarUpdateModal").modal("show");
-        		
-        		$("#rental_no_delete_rentalNo").val(event.event.id);
-        		$("#rental_no_delete_carNo").val(event.event.extendedProps.carCategory);
-        		$("#rental_no_update").val(event.event.id);
-        		$("#rental_reason_update").val(event.event.extendedProps.rentalReason).prop("selected", true);
-        		$("#car_update").val(event.event.extendedProps.carCategory).prop("selected", true);
-        		$("#calendar_start_date_time_update").val(event.event.extendedProps.timeStart).prop("selected", true);
-        		$("#calendar_end_date_time_update").val(event.event.extendedProps.timeEnd).prop("selected", true);
-        		$("#calendar_start_date_update").val(event.event.start.toISOString().slice(0,10));
-        		$("#calendar_end_date_update").val(event.event.end.toISOString().slice(0,10));
-        		$("#calendar_name_update").val(event.event.title);
-        		$("#calendar_location_update").val(event.event.extendedProps.location);
-        		
-        		$('#modalClose').click(function(){
-	    			$('#calendarUpdateModal').modal('hide')	
-	    		})
-            }
-        	
-	    	  
-	    });
-	    calendar.render();
-	  });
-	
-	
-	
-	var startElement = document.getElementById('calendar_start_date_time');
-	for (var hour = 0; hour < 24; hour++) {
-	    for (var minute = 0; minute < 60; minute += 30) {
-	        var optionElement = document.createElement('option');
-	        var formattedHour = hour.toString().padStart(2, '0');
-	        var formattedMinute = minute.toString().padStart(2, '0');
-	        optionElement.value = formattedHour + ':' + formattedMinute;
-	        optionElement.text = formattedHour + ':' + formattedMinute;
-	        startElement.appendChild(optionElement);
-	        
-	    }
-	}
-	startElement.value = "09:00";
-	
-	var endElement = document.getElementById('calendar_end_date_time');
-	for (var hour = 0; hour < 24; hour++) {
-	    for (var minute = 0; minute < 60; minute += 30) {
-	        var optionElement = document.createElement('option');
-	        var formattedHour = hour.toString().padStart(2, '0');
-	        var formattedMinute = minute.toString().padStart(2, '0');
-	        optionElement.value = formattedHour + ':' + formattedMinute;
-	        optionElement.text = formattedHour + ':' + formattedMinute;
-	        endElement.appendChild(optionElement);
-	        
-	    }
-	}
-	endElement.value = "09:00";
-	
-	var updateStartElement = document.getElementById('calendar_start_date_time_update');
-	for (var hour = 0; hour < 24; hour++) {
-	    for (var minute = 0; minute < 60; minute += 30) {
-	        var optionElement = document.createElement('option');
-	        var formattedHour = hour.toString().padStart(2, '0');
-	        var formattedMinute = minute.toString().padStart(2, '0');
-	        optionElement.value = formattedHour + ':' + formattedMinute;
-	        optionElement.text = formattedHour + ':' + formattedMinute;
-	        updateStartElement.appendChild(optionElement);
-	        
-	    }
-	}
+
+
 
 	
-	var updateEndElement = document.getElementById('calendar_end_date_time_update');
-	for (var hour = 0; hour < 24; hour++) {
-	    for (var minute = 0; minute < 60; minute += 30) {
-	        var optionElement = document.createElement('option');
-	        var formattedHour = hour.toString().padStart(2, '0');
-	        var formattedMinute = minute.toString().padStart(2, '0');
-	        optionElement.value = formattedHour + ':' + formattedMinute;
-	        optionElement.text = formattedHour + ':' + formattedMinute;
-	        updateEndElement.appendChild(optionElement);
-	        
-	    }
-	}
-
-	</script>
+</script>
 </body>
 </html>
