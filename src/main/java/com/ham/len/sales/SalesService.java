@@ -62,4 +62,16 @@ public class SalesService {
 	public List<CarListVO> getMyReservation(CarListVO carListVO) throws Exception{
 		return salesDAO.getMyReservation(carListVO);
 	}
+	
+	public List<CarListVO> getCarSort() throws Exception{
+		return salesDAO.getCarSort();
+	}
+	
+	public int setCarAdd(CarListVO carListVO) throws Exception{
+		return salesDAO.setCarAdd(carListVO);
+	}
+	
+	public CarListVO getCarDetail(CarListVO carListVO) throws Exception{
+		return salesDAO.getCarDetail(carListVO);
+	}
 }

@@ -89,6 +89,19 @@
 	    </association> 
    </resultMap>
    
+   <!-- 자산 추가 관련 -->
+   <select id="getCarSort" resultType="CarListVO">
+   		SELECT * FROM CODE WHERE UP_CODE='C00'
+   </select>
    
+   <!-- 자산 추가 관련 -->
+   <insert id="setCarAdd" parameterType="CarListVO">
+   		INSERT INTO CAR_LIST 
+		values(0, #{carModelCd}, #{carModelName}, 'C011', '', sysdate(), '', '', sysdate(), '')
+   </insert>
    
+   <!-- 자산 상세 정보 -->
+   <select id="getCarDetail" parameterType="CarListVO" resultType="CarListVO">
+   		SELECT * FROM CAR_LIST WHERE CAR_NO=#{carNo}
+   </select>
 </mapper>

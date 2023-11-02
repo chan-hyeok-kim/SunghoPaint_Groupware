@@ -38,7 +38,7 @@ $(document).ready(function() {
 
     // 만약 행이 없다면 메시지를 추가
     if (rowCount === 0) {
-        $('#approval-table tbody').append('<tr><td colspan="4">예약 목록이 없습니다.</td></tr>');
+        $('#approval-table tbody').append('<tr><td colspan="5">예약 목록이 없습니다.</td></tr>');
     }
     
 $('.sweet').click(function(){

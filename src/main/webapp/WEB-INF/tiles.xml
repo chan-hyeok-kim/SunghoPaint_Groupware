@@ -136,6 +136,10 @@
 	<definition name="sales/assetManagement" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/sales/assetManagement.jsp"/>
 	</definition>
+	
+	<definition name="sales/assetManagementDetail" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/assetManagementDetail.jsp"/>
+	</definition>
 	<!-- 성호 -->
 	
 </tiles-definitions>

@@ -30,9 +30,9 @@ public class SalesController {
 	
 	@GetMapping("calendarReservation")
 	public String getList(CarListVO carListVO, Model model) throws Exception{
-		
 		List<CarListVO> arr = salesService.getCarList(carListVO);
 		model.addAttribute("carList", arr);
+		
 		return "sales/calendarReservation";
 	}
 	
@@ -153,8 +153,26 @@ public class SalesController {
 	}
 	
 	@GetMapping("assetManagement")
-	public String assetManagement() throws Exception{
+	public String assetManagement(CarListVO carListVO, Model model) throws Exception{
+		List<CarListVO> arr = salesService.getCarList(carListVO);
+		model.addAttribute("carList", arr);
 		
+		List<CarListVO> carSort = salesService.getCarSort();
+		model.addAttribute("carSort", carSort);
 		return "sales/assetManagement";
+	}
+	
+	@PostMapping("addCarList")
+	public String setCarAdd(CarListVO carListVO) throws Exception{
+		int result = salesService.setCarAdd(carListVO);
+		
+		return "redirect:./assetManagement";
+	}
+	
+	@GetMapping("assetManagementDetail")
+	public String assetManagementDetail(CarListVO carListVO, Model model) throws Exception{
+		carListVO = salesService.getCarDetail(carListVO);
+		model.addAttribute("detail", carListVO);
+		return "sales/assetManagementDetail";
 	}
 }
