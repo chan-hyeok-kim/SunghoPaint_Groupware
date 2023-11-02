@@ -331,7 +331,10 @@
 
 
 	<!-- modal end -->
-
+  
+  <script type="text/javascript">
+  
+  </script>
 
 
 	<!-- approval-form에 html style적용 -->
