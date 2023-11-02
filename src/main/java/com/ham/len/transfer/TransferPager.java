@@ -1,6 +1,18 @@
 package com.ham.len.transfer;
 
+import java.sql.Date;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class TransferPager {
+	private Date startDate;
+	private Date endDate;
+	
 	private String kind;
 	private String keyword;
 	
@@ -57,25 +69,12 @@ public class TransferPager {
 		lastRow = getPage() * getPerPage();
 	}
 	
-	
-	public String getKind() {
-		return kind;
-	}
-	
 	public String getKeyword() {
 		if(keyword == null) {
 			keyword = "";
 		}
 		
 		return keyword;
-	}
-	
-	public Long getStartRow() {
-		return startRow;
-	}
-	
-	public Long getLastRow() {
-		return lastRow;
 	}
 	
 	public Long getPage() {
@@ -92,69 +91,5 @@ public class TransferPager {
 		}
 		
 		return perPage;
-	}
-	
-	public Long getTotalPage() {
-		return totalPage;
-	}
-	
-	public Long getStartNum() {
-		return startNum;
-	}
-
-	public Long getLastNum() {
-		return lastNum;
-	}
-
-	public boolean isPre() {
-		return isPre;
-	}
-
-	public boolean isNext() {
-		return isNext;
-	}
-	
-	public void setKind(String kind) {
-		this.kind = kind;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-
-	public void setStartRow(Long startRow) {
-		this.startRow = startRow;
-	}
-	
-	public void setLastRow(Long lastRow) {
-		this.lastRow = lastRow;
-	}
-	
-	public void setPage(Long page) {
-		this.page = page;
-	}
-	
-	public void setPerPage(Long perPage) {
-		this.perPage = perPage;
-	}
-	
-	public void setTotalPage(Long totalPage) {
-		this.totalPage = totalPage;
-	}
-	
-	public void setStartNum(Long startNum) {
-		this.startNum = startNum;
-	}
-
-	public void setLastNum(Long lastNum) {
-		this.lastNum = lastNum;
-	}
-	
-	public void setPre(boolean isPre) {
-		this.isPre = isPre;
-	}
-	
-	public void setNext(boolean isNext) {
-		this.isNext = isNext;
 	}
 }

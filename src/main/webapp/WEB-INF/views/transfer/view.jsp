@@ -4,6 +4,25 @@
 <link rel="stylesheet" href="/css/commons.css">
 <link rel="stylesheet" href="/css/transfer/view.css">
 
+<form action="./">
+	<div>
+		<input type="hidden" name="page" value="${pager.page}">
+		
+		<input type="date" name="startDate" value="">
+		~
+		<input type="date" name="endDate" value="">
+
+		<select name="kind" data-kind="${pager.kind}">
+			<option class="kind" value="employeeID">사번</option>
+			<option class="kind" value="name">이름</option>
+		</select>
+		<input type="text" name="keyword" value="${pager.keyword}">
+		<div>
+			<button type="submit">검색</button>
+		</div>
+	</div>
+</form>
+
 <table>
 	<tr>
 		<th>일자</th>

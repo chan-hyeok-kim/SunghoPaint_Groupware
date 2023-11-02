@@ -5,6 +5,34 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.transfer.TransferDAO">
+	<sql id="searchSQL">
+		WHERE
+		<if test="startDate != NULL OR endDate != NULL ">
+			<choose>
+				<when test="startDate != NULL AND endDate != NULL">
+					TRANSFER_DATE BETWEEN #{startDate} AND #{endDate}
+				</when>
+				<when test="startDate != NULL AND endDate == NULL">
+					<![CDATA[TRANSFER_DATE => #{startDate}]]>
+				</when>
+				<when test="startDate == NULL AND endDate != NULL">
+					<![CDATA[TRANSFER_DATE <= #{endDate}]]>
+				</when>
+			</choose>
+		</if>
+		<if test="kind != NULL AND kind != ''">
+			AND
+			<choose>
+				<when test="kind == 'employeeID'">
+					writer EMPLOYEE_ID '%' || #{keyword} || '%'
+				</when>
+				<when test="kind == 'name'">
+					NAME LIKE '%' || #{keyword} || '%'
+				</when>
+			</choose>
+		</if>
+	</sql>
+	
 	<select id="getHumanResourceList" resultType="HumanResourceVO">
 		SELECT *,
 		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD,
@@ -41,6 +69,7 @@
 				   FN_CODE_NM(LEFT(BEFORE_DEPARTMENT_CD, 3), BEFORE_DEPARTMENT_CD) AS BEFORE_DEPARTMENT_CD_NAME,
 				   FN_CODE_NM(LEFT(TRANSFER_DEPARTMENT_CD, 3), TRANSFER_DEPARTMENT_CD) AS TRANSFER_DEPARTMENT_CD_NAME
 			FROM TRANSFER
+		<include refid="searchSQL" />
 		ORDER BY TRANSFER_DATE DESC
 		LIMIT #{startRow}, #{lastRow}
 	</select>
