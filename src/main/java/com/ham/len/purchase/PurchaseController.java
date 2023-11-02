@@ -15,7 +15,7 @@ import com.ham.len.VOs.ClientVO;
 import com.ham.len.VOs.EmployeeVO;
 import com.ham.len.VOs.FactoryStorageVO;
 import com.ham.len.admin.CodeService;
-import com.ham.len.admin.CodeVO;
+import com.ham.len.commons.CodeVO;
 import com.ham.len.commons.Pager;
 
 import lombok.extern.slf4j.Slf4j;
