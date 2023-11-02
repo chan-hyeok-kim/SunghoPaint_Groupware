@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %> 
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,17 +23,19 @@
    <!-- Google Icon -->
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+   
+   <!-- swal -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    
 
-<script type="text/javascript" src="/js/ztree/jquery-1.4.4.min.js"></script>
-  <script type="text/javascript" src="/js/ztree/jquery.ztree.core.js"></script>
+	<script type="text/javascript" src="/js/ztree/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="/js/ztree/jquery.ztree.core.js"></script>
  </head>
 <body>
 
 
  <div class="container-scroller">
-      
-      
       <tiles:insertAttribute name="navbar"/>
       <div class="container-fluid page-body-wrapper">
       
@@ -42,16 +45,20 @@
       <tiles:insertAttribute name="body"/>
           
        
-      
-      <tiles:insertAttribute name="footer"/>
-      
+             </div>
+             <tiles:insertAttribute name="footer"/>
+       </div>
+     
         </div>
       <!-- page-body-wrapper ends -->
+      
     </div>
     <!-- container-scroller-ends-->
     
     <!-- plugins:js -->
-    <script src="/vendors/js/vendor.bundle.base.js"></script>
+    <c:if test="${!isTransferForm}">
+        <script src="/vendors/js/vendor.bundle.base.js"></script>
+    </c:if>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="/vendors/chart.js/Chart.min.js"></script>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ham.len.attendance.AttendanceDAO">
+	<select id="getStatus" parameterType="Map" resultType="AttendanceVO">
+	<![CDATA[
+		SELECT *
+			FROM ATTENDANCE
+		WHERE ATTENDANCE_DATE BETWEEN #{start_date} AND #{end_date}
+	]]>
+	</select>
+	
+	<insert id="setGoWork" parameterType="AttendanceVO">
+		INSERT INTO ATTENDANCE
+		VALUES(NULL, #{employeeId}, #{attendanceDate}, #{attendanceStart}, NULL, #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu})
+	</insert>
+	
+	<update id="setLeaveWork" parameterType="AttendanceVO">
+		UPDATE ATTENDANCE SET
+		ATTENDANCE_END = #{attendanceEnd}, MOD_ID = #{modId}, MOD_DATE = #{modDate}, MOD_MENU = #{modMenu}
+		WHERE EMPLOYEE_ID = #{employeeId}
+	</update>
+</mapper>

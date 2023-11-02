@@ -13617,7 +13617,6 @@ dl {
   .table th,
   .table td {
     vertical-align: middle;
-    font-size: 0.875rem;
     line-height: 1;
     white-space: nowrap;
     padding: 0.9375rem; }
@@ -14446,5 +14445,120 @@ dl {
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1; }
+
+/* toolbar */
+
+.wrapper-toolbar {
+	padding: 10px 10px;
+}
+
+/* btn */
+#document-add-btn-list btn{
+	padding: 0;
+	text-align: right;
+}
+
+#document-add-btn-list{
+	padding: 10px 0 0 10px;
+	margin-left:80%;
+	
+}
+
+#btn-box button{
+	margin: 20px 0 0 0;
+}
+
+/* textarea */
+#approvalForm{
+	width: 100%;
+	height: 500px;
+	
+}
+
+
+
+
+/* div */
+#approval-content{
+	padding: 20px 0 0 0px;
+	margin-left:px;
+}
+
+#btn-box{
+	width: 20%;
+	display: inline-block;
+	margin-left: 50px;
+	margin-top: 50px;
+	float:left;
+}
+
+/* tree ul */
+#form_list{
+	width: 700px;
+	height: 770px;
+}
+
+#document-tree{
+	height: 200px;
+	margin-top: 0px;
+}
+
+#sign-file-div{
+	cursor: pointer;
+	
+}
+#sign-file-reg-div{
+	
+	border-bottom: 1px solid gray;  
+	float:left; 
+	width: 458.06px; 
+	height: 250px;
+	margin-bottom:20px;
+}
+
+
+/* modal */
+#form-modal-size{
+	max-width: 1000px;
+}
+#sign-modal-size{
+	max-width: 700px;
+	background: white;
+}
+
+/* table */
+#tree-table{
+	border: 1px solid gainsboro;
+	font-size:24px;
+	margin-top: 10px;
+	background: white;
+	width: 365px;
+	height: 360px;
+}
+
+#tree-table td{
+	empty-cells: show;
+}
+
+/* .nav-tabs>li.active:after {
+    box-shadow: #005b9e -1px 1px 0;
+} */ 
+.nav-tabs>li.active, .nav-tabs>li.active:before, .nav-tabs>li.active:after {
+    background-color: #005b9e;
+    color: black;
+    box-shadow: black;
+}
+
+.nav-tabs>li.active:hover,.nav-tabs>li.active:hover:before, .nav-tabs>li.active:hover:after{
+	background-color: #F7F7F7;
+}
+
+#form-add-btn-box{
+	padding: 20px 0 0 0;
+	display: flex; 
+	justify-content: center;
+	
+}
+
 
 /*# sourceMappingURL=style.css.map */

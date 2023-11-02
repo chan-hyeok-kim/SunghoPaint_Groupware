@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ham.len.commons.CodeVO;
 import com.ham.len.commons.Pager;
 
 @Service
@@ -27,4 +28,10 @@ public class CodeService {
 	public int setDelete(CodeVO codeVO) throws Exception{
 		return codeDAO.setDelete(codeVO);
 	}
+	
+	public String getLastId(CodeVO codeVO) throws Exception{
+		return codeDAO.getLastId(codeVO);
+	}
+	
+
 }

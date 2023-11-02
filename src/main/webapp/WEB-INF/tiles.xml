@@ -3,12 +3,12 @@
         "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-
-<!-- layout -->
+	
+	<!-- layout -->
 	<definition name="layout" template="/WEB-INF/views/layout/template.jsp">
 		<put-attribute name="navbar" value="/WEB-INF/views/layout/navbar.jsp"/>
 		<put-attribute name="sidebar" value="/WEB-INF/views/layout/sidebar.jsp"/>
-		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/> 
 	    <put-attribute name="body" value="" />
 	</definition>
 	
@@ -18,15 +18,31 @@
 	<definition name="index" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
 	</definition>
-
-    <definition name="notice/list" extends="layout">
-	  <put-attribute name="body" value="/WEB-INF/views/notice/list.jsp"/>
-	</definition>
 	
-	<definition name="approval/list" extends="layout">
+	<!-- 김민진 -->
+	<definition name="login" template="/WEB-INF/views/login.jsp">
+   </definition>
+   
+   <definition name="attendance/status" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/attendance/status.jsp"/>
+   </definition>
+   
+   <definition name="transfer/registration" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/transfer/registration.jsp"/>
+   </definition>
+   
+   <definition name="transfer/view" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/transfer/view.jsp"/>
+   </definition>
+
+
+
+
+<!-- 김찬혁 -->
+    <definition name="approval/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
 	</definition>
-	
+
 	<definition name="approval/listEx" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/listEx.jsp"/>
 	</definition>
@@ -37,6 +53,30 @@
 	
 	<definition name="approval/add" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/add.jsp"/>
+	</definition>
+	
+	<definition name="approval/detail" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/approval/detail.jsp"/>
+	</definition>
+	
+	<definition name="approval/update" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/approval/update.jsp"/>
+	</definition>
+	
+	<definition name="document/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/document/list.jsp"/>
+	</definition>
+	
+	<definition name="document/add" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/document/add.jsp"/>
+	</definition>
+	
+	<definition name="document/update" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/document/update.jsp"/>
+	</definition>
+	
+    <definition name="commons/ajaxResult" template="/WEB-INF/views/commons/ajaxResult.jsp">
+	  
 	</definition>
 	
 	<!-- 발주서 관련 -->
@@ -75,4 +115,8 @@
 	  <put-attribute name="body" value="/WEB-INF/views/productionReceipt/list.jsp"/>
 	</definition>
 	
-</tiles-definitions>
+	
+	
+	</tiles-definitions>
+	
+	

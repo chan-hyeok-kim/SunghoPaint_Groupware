@@ -1,13 +1,13 @@
 package com.ham.len;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 class Gdj68FinalProjectApplicationTests {
-
 	@Test
 	void contextLoads() {
+		
 	}
-
 }

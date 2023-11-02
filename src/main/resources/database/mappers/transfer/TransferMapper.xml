@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ham.len.transfer.TransferDAO">
+	<select id="getHumanResourceList" resultType="HumanResourceVO">
+		SELECT *,
+		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD,
+		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD_NAME,
+		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD,
+		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME 
+			FROM HUMAN_RESOURCE
+	</select>
+	
+	<select id="getCodeList" parameterType="String" resultType="CodeVO">
+		SELECT CODE, CODE_NAME FROM CODE WHERE UP_CODE = #{value}
+	</select>
+	
+	<insert id="setTransfer" parameterType="TransferVO">
+		INSERT INTO TRANSFER
+		VALUES
+		(
+			NULL, #{employeeId}, #{name}, #{transferDate}, #{transferTypeCd},
+			#{beforePositionCd}, #{transferPositionCd},
+			#{beforeDepartmentCd}, #{transferDepartmentCd},
+			#{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu}
+		)
+	</insert>
+	
+	<select id="getTransferList" resultType="TransferVO">
+		SELECT *,
+		FN_CODE_NM(LEFT(TRANSFER_TYPE_CD, 3), TRANSFER_TYPE_CD) AS TRANSFER_TYPE_CD_NAME,
+		FN_CODE_NM(LEFT(BEFORE_POSITION_CD, 3), BEFORE_POSITION_CD) AS BEFORE_POSITION_CD_NAME,
+		FN_CODE_NM(LEFT(TRANSFER_POSITION_CD, 3), TRANSFER_POSITION_CD) AS TRANSFER_POSITION_CD_NAME,
+		FN_CODE_NM(LEFT(BEFORE_DEPARTMENT_CD, 3), BEFORE_DEPARTMENT_CD) AS BEFORE_DEPARTMENT_CD_NAME,
+		FN_CODE_NM(LEFT(TRANSFER_DEPARTMENT_CD, 3), TRANSFER_DEPARTMENT_CD) AS TRANSFER_DEPARTMENT_CD_NAME
+			FROM TRANSFER
+		ORDER BY TRANSFER_DATE DESC;
+	</select>
+</mapper>

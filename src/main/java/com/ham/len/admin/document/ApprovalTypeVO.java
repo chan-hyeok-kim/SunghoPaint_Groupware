@@ -2,6 +2,8 @@ package com.ham.len.admin.document;
 
 import java.util.Date;
 
+import com.ham.len.commons.CodeVO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,17 +11,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ApprovalTypeVO {
+public class ApprovalTypeVO extends CodeVO {
 
 	private Long approvalTypeNo;
-	private Long employeeId;
+	private String employeeId;
+	private Long approvalUpTypeNo;
 	private String approvalForm;
 	private String approvalTypeCd;
-	private String regId;
-    private Date regDate;
-    private String regMenu;
-    private String modId;
-    private Date modDate;
-    private String modMenu;
+	private ApprovalUpTypeVO approvalUpTypeVO;
+	
 	
 }
