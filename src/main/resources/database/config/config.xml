@@ -10,7 +10,7 @@
    <typeAlias type="java.lang.String" alias="String"/>
    
 
-	      <typeAlias type="com.ham.len.humanresource.HumanResourceVO" alias="HumanResourceVO"/>
+	    <typeAlias type="com.ham.len.humanresource.HumanResourceVO" alias="HumanResourceVO"/>
 	   <typeAlias type="com.ham.len.attendance.AttendanceVO" alias="AttendanceVO"/>
 	   <typeAlias type="com.ham.len.transfer.TransferVO" alias="TransferVO"/>
 	   <typeAlias type="com.ham.len.commons.CodeVO" alias="CodeVO"/>
