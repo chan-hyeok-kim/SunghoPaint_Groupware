@@ -29,9 +29,11 @@ public class SalesController {
 	private SalesService salesService;
 	
 	@GetMapping("calendarReservation")
-	public String getList() throws Exception{
-		 
-		 return "sales/calendarReservation";
+	public String getList(CarListVO carListVO, Model model) throws Exception{
+		
+		List<CarListVO> arr = salesService.getCarList(carListVO);
+		model.addAttribute("carList", arr);
+		return "sales/calendarReservation";
 	}
 	
 	@PostMapping("add")
@@ -148,5 +150,11 @@ public class SalesController {
 		log.info("========={}=======", carReservationVO.getRentalNo());
 		int result = salesService.setReservationDelete(carReservationVO);
 		return "sales/reservationStatus";
+	}
+	
+	@GetMapping("assetManagement")
+	public String assetManagement() throws Exception{
+		
+		return "sales/assetManagement";
 	}
 }
