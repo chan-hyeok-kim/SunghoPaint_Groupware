@@ -30,13 +30,13 @@ public class MybatisConfig {
 		sqlSessionFactoryBean.setConfigLocation(new PathMatchingResourcePatternResolver().getResource("classpath:mybatis-config.xml"));
         
 		// mapper.xml 위치 패키지 주소
-		sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/database/mappers/*Mapper.xml"));
+		sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/database/mappers/*/*Mapper.xml"));
         
 		return sqlSessionFactoryBean.getObject();
 	}
 
 	@Bean(name="sqlSessionTemplate")
-	public SqlSessionTemplate sqlSessionTemplate(@Qualifier("sqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+	public SqlSessionTemplate sqlSessionTemplate(@Qualifier("sqlSessionFactory")SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
 }

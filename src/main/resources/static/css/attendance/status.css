@@ -1,0 +1,205 @@
+@charset "UTF-8";
+
+#cur_date{
+	font-size:13px;
+	color:#888;
+}
+
+#cur_time{
+	margin-bottom:10px;
+	text-align:center;
+	font-size:42px;
+	color:#5E5E5E;
+}
+
+.attendance_time > i{
+	font-size:13px; font-weight:600;
+	color:#333;
+}
+
+.attendance_time > span{
+	float:right;
+	font-size:13px;
+	color:#666;
+}
+
+#end_time{
+	margin-bottom:10px;
+}
+
+#attendance_btn{
+	padding:15px 0px;
+	border-top:1px dashed;
+	border-color:#B7B7B7;
+}
+
+#attendance_btn > button{
+	width:calc(50% - 5px); height:42px;
+	border-radius:25px;
+	background-color:white;
+}
+
+#attendance_btn > button.on{
+	border:1px solid #A65FFF;
+	color:#A65FFF;
+}
+
+#attendance_btn > button.on:hover{
+	background-color:#F2E8FF;
+}
+
+#attendance_btn > button.off{
+	border:1px solid #CDCDCD;
+	color:#CDCDCD;
+	cursor:unset;
+}
+
+
+
+
+
+#title{
+	margin-bottom:20px;
+	font-size:22px; font-weight:bold;
+}
+
+#move_month{
+	margin-bottom:50px;
+	text-align:center;
+}
+
+#move_month > i{
+	vertical-align:middle;
+	font-size:30px;
+	cursor:pointer;
+}
+
+#move_month > h2{
+	display:inline-block;
+	margin:0px 15px;
+	vertical-align:middle;
+	font-size:30px;
+}
+
+#total{
+	height:120px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	margin-bottom:50px;
+	overflow:hidden;
+	border:1px solid #B7B7B7;
+}
+
+#total > .dividing{
+	height:50%;
+	display:inline-block;
+	margin:0px 100px;
+	border-left:1px solid #B7B7B7;
+}
+
+#total > .wrap{
+	display:inline-block;
+	overflow:hidden;
+}
+
+#total > .wrap > .component{
+	float:left;
+}
+
+#total > .wrap > .component:nth-of-type(2){
+	margin-left:100px;
+}
+
+.component > h3{
+	font-size:14px; font-weight:600;
+	text-align:center;
+}
+
+.component > .time{
+	font-size:25px;
+	color:#A65FFF;
+}
+
+.component > .time > span:not(:last-of-type){
+	padding-right:7px;
+}
+
+
+
+
+
+#weeksOfMonthInfo{
+	
+}
+
+#weeksOfMonthInfo > ul{
+	list-style:none;
+}
+
+#weeksOfMonthInfo > ul > .week{
+	margin-bottom:20px;
+}
+
+.week > .week_title{
+	padding-bottom:10px;
+	border-bottom:1px solid #D9D9D9;
+}
+
+.week_title > img{
+	width:13px;
+	vertical-align:middle;
+	margin-right:10px;
+	cursor:pointer;
+}
+
+.week_title > img.open{
+	content:url("/images/attendance/up_arrow.png");
+}
+
+.week_title > img.close{
+	content:url("/images/attendance/down_arrow.png");
+}
+
+.week_title > h3{
+	display:inline-block;
+	vertical-align:middle;
+	margin:0px;
+	font-size:17px; font-weight:600;
+}
+
+.week_title > p{
+	float:right;
+	padding-top:10px;
+	font-size:13px;
+	color:#878787;
+}
+
+.week_title:has(img.open) ~ table{
+	display:table;
+}
+
+.week_title:has(img.close) ~ table{
+	display:none;
+}
+
+.week > table{
+	width:100%;
+	border-bottom:1px solid #D9D9D9;
+}
+
+table tr:has(th){
+	border-bottom:1px solid #E5E5E5;
+}
+
+table th, table td{
+	padding:10px 40px;
+}
+
+
+
+
+
+footer{
+	border-top:none !important;
+}
