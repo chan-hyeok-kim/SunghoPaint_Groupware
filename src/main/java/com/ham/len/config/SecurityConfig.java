@@ -57,7 +57,10 @@ public class SecurityConfig {
 				.tokenValiditySeconds(604800) // 일주일
 				.key(UUID.randomUUID().toString())
 				.userDetailsService(humanResourceService)
-				.and();
+				.and()
+			.headers()
+			    .frameOptions()
+			    .sameOrigin();
 		
 		return httpSecurity.build();
 	}

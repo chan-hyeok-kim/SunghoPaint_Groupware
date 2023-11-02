@@ -18,7 +18,7 @@ import lombok.ToString;
 public class ApprovalVO extends CodeVO{
 	
 	private Long approvalNo;
-	private String employeeId;
+	private String employeeID;
 	private Long approvalTypeNo;
 	private String approvalTitle;
 	private String approvalContents;

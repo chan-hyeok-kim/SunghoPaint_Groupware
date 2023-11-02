@@ -87,7 +87,7 @@ public class ApprovalController {
 		approvalVO=(ApprovalVO)makeColumn.getColumn(approvalVO, path, id);
 		
 		//나머지 값 세팅
-		approvalVO.setEmployeeId(id);
+		approvalVO.setEmployeeID(id);
 		approvalVO.setDrafter("최지우");
 	
 		int result=approvalService.setAdd(approvalVO);

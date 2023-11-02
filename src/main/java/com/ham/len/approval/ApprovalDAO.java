@@ -13,6 +13,8 @@ public interface ApprovalDAO {
 
 	public List<ApprovalVO> getList(Pager pager) throws Exception;
 	
+	public List<ApprovalVO> getSaveList(Pager pager) throws Exception;
+	
 	public List<HumanResourceVO> getTeamList(HumanResourceVO humanResourceVO) throws Exception;
 		
 	public ApprovalVO getDetail(ApprovalVO approvalVO) throws Exception;

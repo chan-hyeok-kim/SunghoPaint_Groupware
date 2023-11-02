@@ -78,7 +78,7 @@ public class ApprovalTypeController {
 	@PostMapping("add")
 	public String setAdd(ApprovalTypeVO approvalTypeVO, HttpServletRequest request) throws Exception{
 		
-		approvalTypeVO.setEmployeeId(id);
+		approvalTypeVO.setEmployeeID(id);
 		String path=request.getRequestURI();
 		log.warn("====={}======",path);
 		approvalTypeVO=(ApprovalTypeVO)makeColumn.getColumn(approvalTypeVO, path, id);
@@ -136,7 +136,7 @@ public class ApprovalTypeController {
     @PostMapping("upAdd")
     public String setUpAdd(ApprovalUpTypeVO approvalUpTypeVO,HttpServletRequest request) throws Exception{
     	
-    	approvalUpTypeVO.setEmployeeId(id);
+    	approvalUpTypeVO.setEmployeeID(id);
     	String path=request.getRequestURI();
     	approvalUpTypeVO=(ApprovalUpTypeVO)makeColumn.getColumn(approvalUpTypeVO, path, id);
     	
