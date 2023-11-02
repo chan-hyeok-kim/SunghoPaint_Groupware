@@ -47,7 +47,8 @@
 										<td style="padding: 20px">양식</td>
 										<td>
 										<!-- Smart Editor UI -->
-							<textarea name="approvalForm" id="approvalForm" rows="10" cols="100"></textarea>
+							<textarea name="approvalForm" style="width: 100%;"
+							id="approvalForm" rows="10" cols="100"></textarea>
 										
 										</td>
 									</tr>

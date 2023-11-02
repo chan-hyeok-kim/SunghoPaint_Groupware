@@ -23,5 +23,8 @@ public interface ApprovalDAO {
 	 
 	public int setDelete(ApprovalVO approvalVO) throws Exception;
 	 
-	
+	public int setOneUpdate(ApprovalVO approvalVO) throws Exception;
+	 
+	public int setEndUpdate(ApprovalVO approvalVO) throws Exception;
+	 
 }

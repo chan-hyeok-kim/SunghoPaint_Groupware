@@ -40,7 +40,13 @@ public class ApprovalService {
 		return approvalDAO.setDelete(approvalVO);
 	}
 	 
-	
+	public int setOneUpdate(ApprovalVO approvalVO) throws Exception{
+		return approvalDAO.setOneUpdate(approvalVO);
+	}
+	 
+	public int setEndUpdate(ApprovalVO approvalVO) throws Exception{
+		return approvalDAO.setEndUpdate(approvalVO);
+	}
 	
 	
 }

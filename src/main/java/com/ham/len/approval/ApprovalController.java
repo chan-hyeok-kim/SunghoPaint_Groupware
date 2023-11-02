@@ -108,8 +108,52 @@ public class ApprovalController {
 	public void getDetail(ApprovalVO approvalVO,Model model) throws Exception{
 		approvalVO=approvalService.getDetail(approvalVO);
 		model.addAttribute("vo", approvalVO);
-	
+	   
 	}
+	
+	@PostMapping("delete")
+	public String setDelete(ApprovalVO approvalVO,Model model) throws Exception{
+		int result=approvalService.setDelete(approvalVO);
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";	
+	}
+	
+	@GetMapping("update")
+	public void setUpdate(ApprovalVO approvalVO,Model model) throws Exception{
+		approvalVO=approvalService.getDetail(approvalVO);
+		model.addAttribute("vo", approvalVO);
+	}
+	
+	@PostMapping("update")
+	public String setUpdate(ApprovalVO approvalVO,HttpServletRequest request) throws Exception{
+		
+		String path=request.getRequestURI();
+		approvalVO=(ApprovalVO)makeColumn.getModColumn(approvalVO, path, id);
+		
+		int result=approvalService.setUpdate(approvalVO);
+		
+		return "redirect:approval/totalList";
+	}
+	
+//	첨언 추가
+	@PostMapping("oneUpdate")
+	public String setOneUpdate(ApprovalVO approvalVO,HttpServletRequest request) throws Exception{
+		String path=request.getRequestURI();
+		//Long redirectNo=approvalVO.getApprovalNo();
+		approvalVO=(ApprovalVO)makeColumn.getModColumn(approvalVO, path, id);
+		
+		log.warn("들어오는지확인");
+		
+		int result=approvalService.setOneUpdate(approvalVO);
+			
+		return "redirect:/approval/detail?approvalNo="+approvalVO.getApprovalNo();
+	}
+	
+	
+	
+	
+	
 	
 	
 }

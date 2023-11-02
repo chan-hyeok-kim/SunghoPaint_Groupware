@@ -77,12 +77,11 @@
 			<div class="wrapper-toolbar" style="height: 56px; padding: 10px;">기안서
 				확인</div>
 
-			<form action="add" method="post">
-
+			
 				<div id="approval-content">
 					<table class="table table-bordered">
 						<tr>
-							<td>일자</td>
+							<td>기안일자</td>
 							<td colspan="2">${vo.approvalStartDate}</td>
 						</tr>
 						<tr>
@@ -96,7 +95,7 @@
 						</tr>
 						<tr>
 							<td>추가검토자</td>
-							<td id="add-app">${vo.addApprover}</td>
+							<td id="add-app" data-no="${vo.approvalNo}">${vo.addApprover}</td>
 						</tr>
 						<tr>
 							<td>결재자</td>
@@ -107,33 +106,45 @@
 							<td>${vo.approvalTypeVO.codeName}</td>
 						</tr>
 
-						
+
 					</table>
 				</div>
 				<table class="table table-bordered">
 					<tr>
-						<td>
-						<div style="display: flex; justify-content: center;">
-                ${vo.approvalContents}
-                </div>
+						<td colspan="2">
+							<div style="display: flex; justify-content: center;">
+								${vo.approvalContents}</div>
 						</td>
+					</tr>
+					<tr>
+
+						
+							<c:if test="${empty vo.admonition}">
+							    <form action="/approval/oneUpdate" method="post">
+								<td>첨언</td> <input type="hidden" name="approvalNo"
+									value="${vo.approvalNo}">
+								<td><textarea rows="5" name="admonition" class="form-control"></textarea>
+								<div style="display:flex; padding:10px 0 0 0; 
+								justify-content: flex-end;">
+								<button class="btn btn-info" >첨언 추가</button>
+								</div>
+								</td>
+							</form>
+						</c:if>
 					</tr>
 
 				</table>
-				<!-- 	 Smart Editor UI 
-				<textarea name="approvalContents" id="approvalForm" rows="10"
-					cols="100" ></textarea> -->
 
-
-				<!-- add button -->
 				<div id="form-add-btn-box">
-					<button type="button" class="btn btn-info">임시저장</button>
-					<button type="button" class="btn btn-info" id="text-delete-btn">지우기</button>
+					<button class="btn btn-info" 
+					onclick="location.href='/approval/update?approvalNo=${vo.approvalNo}'">수정</button>
+					<button type="button" class="btn btn-info" id="app-delete-btn"
+						style="margin-left: 20px;">삭제</button>
 					<button class="btn btn-info" style="margin-left: 400px;">결재</button>
 				</div>
 		</div>
 		<input type="hidden" id="form-add-no" name="approvalTypeNo">
-		</form>
+		
 
 	</div>
 
@@ -303,7 +314,11 @@
 
 
 	<!-- modal end -->
-
+	
+<!-- 첨언 있는지 여부 체크 -->
+<script type="text/javascript">
+let admonitionCheck=${not empty vo.admonition}
+</script>
 
 
 	<!-- approval-form에 html style적용 -->
@@ -313,6 +328,7 @@
 	<script src="/js/ztree/paint-tree.js"></script>
 	<script src="/js/ztree/up-document-tree.js"></script>
 	<script src="/js/approval/line-add.js"></script>
+
 
 </body>
 </html>

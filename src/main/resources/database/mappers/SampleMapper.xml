@@ -19,7 +19,7 @@ VALUES
  
  UPDATE 
     SET
-		,MOD_ID=#{modId},MOD_DATE=#{modDate},MOD_MENU=#{modMenu}
+		,MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
 		WHERE 
  
   -->

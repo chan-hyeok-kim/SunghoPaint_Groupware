@@ -38,8 +38,8 @@ $('#text-delete-btn').click(function() {
 
 /*버튼 누르면 내용 추가하고 모달 닫기*/
 $('#modal-confirm-btn').click(function() {
-	let formHtml = $('#form_list').html();
-    
+	let formHtml=$('#form_list').html();
+    let formName=$('#form_list').attr('data-name');
     //비어있지 않으면 초기화
     if($('#approvalForm').val()!=''){
 		oEditors.getById["approvalForm"].exec("SET_IR", [""]);
@@ -48,6 +48,8 @@ $('#modal-confirm-btn').click(function() {
 	//내용 세팅
 	oEditors.getById["approvalForm"].exec("PASTE_HTML", [formHtml]);
     oEditors.getById["approvalForm"].exec("UPDATE_CONTENTS_FIELD", []);
+    
+    $('#form-add-name').val(formName);
     
 	$('#modal-confirm-close').click();
 

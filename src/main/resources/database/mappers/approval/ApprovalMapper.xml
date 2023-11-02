@@ -8,7 +8,8 @@
 
 	<select id="getList" resultMap="getListResult"
 		parameterType="Pager">
-		SELECT *,A.APPROVAL_TYPE_NO AS A_APPROVAL_TYPE_NO, APT.APPROVAL_TYPE_NO AS
+		SELECT *,A.APPROVAL_TYPE_NO AS A_APPROVAL_TYPE_NO,
+		APT.APPROVAL_TYPE_NO AS
 		APT_APPROVAL_TYPE_NO,
 		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
 		A_CODE_NAME,
@@ -56,7 +57,8 @@
 
 	<select id="getDetail" resultMap="getDetailResult"
 		parameterType="ApprovalVO">
-		SELECT *,A.APPROVAL_TYPE_NO AS A_APPROVAL_TYPE_NO, APT.APPROVAL_TYPE_NO AS
+		SELECT *,A.APPROVAL_TYPE_NO AS A_APPROVAL_TYPE_NO,
+		APT.APPROVAL_TYPE_NO AS
 		APT_APPROVAL_TYPE_NO,
 		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
 		A_CODE_NAME,
@@ -67,7 +69,7 @@
 		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
 		WHERE APPROVAL_NO=#{approvalNo}
 	</select>
-	
+
 	<resultMap type="ApprovalVO" id="getDetailResult">
 		<id column="APPROVAL_NO" property="approvalNo" />
 		<result column="EMPLOYEE_ID" property="employeeId" />
@@ -162,7 +164,33 @@
 	</insert>
 
 	<update id="setUpdate" parameterType="ApprovalVO">
+		UPDATE APPROVAL
+		SET APPROVAL_TITLE=#{approvalTitle},MID_APPROVER=#{midApprover},
+		ADD_APPROVER=#{addApprover},LAST_APPROVER=#{lastApprover},
+		APPROVAL_CONTENTS=#{approvalContents},
+		APPROVAL_TYPE_NO=#{approvalTypeNo},
+		ADMONITION=#{admonition},
+		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+		WHERE APPROVAL_NO=#{approvalNo}
 	</update>
 
+	<!-- 결재 종료시 -->
+	<update id="setEndUpdate" parameterType="ApprovalVO">
+		UPDATE APPROVAL
+		SET
+		APPROVAL_END_DATE=#{approvalEndDate},
+		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+		WHERE
+		APPROVAL_NO=#{approvalNo}
+	</update>
 
+	<!-- 첨언 추가 -->
+	<update id="setOneUpdate" parameterType="ApprovalVO">
+		UPDATE APPROVAL
+		SET
+		ADMONITION=#{admonition},
+		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+		WHERE
+		APPROVAL_NO=#{approvalNo}
+	</update>
 </mapper>
