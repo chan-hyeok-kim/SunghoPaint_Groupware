@@ -208,7 +208,7 @@ ul.nav-tabs {
 								   </td>
 								   </form>
 								   <td>
-								   <button id="approval-add-btn" class="btn btn-info" onclick="location.href='/document/add'">신규 양식 등록</button>
+								   <button id="approval-add-btn" class="btn btn-info">신규 양식 등록</button>
 								   </td>
 								   </tr>
 								   

@@ -213,7 +213,7 @@ function upDocumentCheck(event, treeId, treeNode) {
 
 
 	$('#up-type-cd').val(treeNode.cd);
-	$('#up-type-no').val(treeNode.no);
+	$('#up-type-no').val(treeNode.num);
 
 	/** add*/
 	let checkHtml = treeNode.form;

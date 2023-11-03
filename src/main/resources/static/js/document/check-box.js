@@ -5,8 +5,8 @@
 
 $('#approval-add-btn').click(function() {
 	let check = $('#up-type-no').val();
-	location.href = "/document/add?approvalUpTypeNo="+check;
-
+	console.log(check)
+	//location.href = "/document/add?approvalUpTypeNo="+check;
 })
 
 $('.approval-list').find('input:checked').each(function(index) {
@@ -15,7 +15,7 @@ $('.approval-list').find('input:checked').each(function(index) {
 	check.push($(this).val());
 
 	if (check.length > 1 && check.length == 0) {
-		swal('반드시 한개 이상 체크해주세요');
+		Swal('반드시 한개 이상 체크해주세요');
 	} else {
 
 	}
