@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -121,10 +120,9 @@
 <c:when test="${not empty vo.admonition}">
   <td width="20%">대표이사 김성호</td>
   <td><textarea class="form-control"
-  disabled="disabled"
-  >[첨언] ${vo.admonition}</textarea></td>
+  disabled="disabled">[첨언] ${vo.admonition}</textarea></td>
 </c:when>
-<c:otherwise>
+<c:when test="${empty vo.admonition}">
 <form action="/approval/oneUpdate" method="post">
 								<td>첨언</td> <input type="hidden" name="approvalNo"
 									value="${vo.approvalNo}">
@@ -134,7 +132,7 @@
 								<button class="btn btn-info" >첨언 추가</button>
 								</div>
 								</td>
-</c:otherwise>
+</c:when>
 </c:choose>
 						
 							<c:if test="${empty vo.admonition}">

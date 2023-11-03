@@ -56,9 +56,11 @@
     <!-- container-scroller-ends-->
     
     <!-- plugins:js -->
-    <c:if test="${!isTransferForm}">
-        <script src="/vendors/js/vendor.bundle.base.js"></script>
-    </c:if>
+    <script src="/vendors/js/vendor.bundle.base.js"></script>
+    
+     <!-- jquery-ui -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    	
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="/vendors/chart.js/Chart.min.js"></script>
@@ -76,8 +78,8 @@
     
     <script src="https://cdn.jsdelivr.net/npm/ztree@3.5.24/js/jquery.ztree.all.min.js"></script>
     
+   
 	<!-- Bootstrap -->
-	
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
