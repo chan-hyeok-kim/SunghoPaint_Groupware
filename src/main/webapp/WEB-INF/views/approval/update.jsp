@@ -84,7 +84,7 @@
 					<table class="table table-bordered">
 						<tr>
 							<td>기안일자</td>
-							<td colspan="2"><input disabled="disabled"
+							<td colspan="2"><input readonly 
 							value="${vo.approvalStartDate}"
 								style="display: inline-block; margin-left: 4px"
 								class="form-control approval-line-search" type="date"
@@ -342,6 +342,8 @@
 	<!-- tree -->
 	<script src="/js/ztree/paint-tree.js"></script>
 	<script src="/js/ztree/up-document-tree.js"></script>
+	
+
 
 
 </body>

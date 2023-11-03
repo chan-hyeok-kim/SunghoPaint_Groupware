@@ -137,7 +137,7 @@ public class ApprovalController {
 		
 		int result=approvalService.setUpdate(approvalVO);
 		
-		return "redirect:approval/totalList";
+		return "redirect:/approval/totalList";
 	}
 	
 //	첨언 추가
