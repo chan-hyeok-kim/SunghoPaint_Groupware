@@ -27,10 +27,14 @@
 			AND
 			<choose>
 				<when test="kind == 'employeeID'">
-					EMPLOYEE_ID EMPLOYEE_ID '%' || #{keyword} || '%'
+					<if test="keyword != ''">
+						EMPLOYEE_ID EMPLOYEE_ID '%' || #{keyword} || '%'
+					</if>
 				</when>
 				<when test="kind == 'name'">
-					NAME LIKE '%' || #{keyword} || '%'
+					<if test="keyword != ''">
+						NAME LIKE '%' || #{keyword} || '%'
+					</if>
 				</when>
 			</choose>
 		</if>
@@ -38,9 +42,7 @@
 	
 	<select id="getHumanResourceList" resultType="HumanResourceVO">
 		SELECT *,
-		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD,
 		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD_NAME,
-		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD,
 		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME 
 			FROM HUMAN_RESOURCE
 	</select>

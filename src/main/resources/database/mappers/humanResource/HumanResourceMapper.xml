@@ -18,8 +18,7 @@
 		<id column="EMPLOYEE_ID" property="employeeID" />
 		<result column="PASSWORD" property="password" />
 		<result column="JOIN_DATE" property="joinDate" />
-		<result column="email" property="joinType" />
-		<result column="birth" property="name" />
+		<result column="JOIN_TYPE" property="joinType" />
 		<result column="BIRTH" property="birth" />
 		<result column="DEPARTMENT_CD" property="departmentCd" />
 		<result column="POSITION_CD" property="positionCd" />
@@ -33,7 +32,7 @@
 		<result column="BANK" property="bank" />
 		<result column="ACCOUNT_NUMBER" property="accountNumber" />
 		<result column="ACCOUNT_HOLDER" property="accountHolder" />
-		<result column="SIGNATURE" property="signature" />
+		<result column="ACCOUNT_HOLDER" property="accountHolder" />
 		<result column="QUIT_DATE" property="quitDate" />
 		<result column="QUIT_REASON" property="quitReason" />
 		<result column="REG_ID" property="regId" />

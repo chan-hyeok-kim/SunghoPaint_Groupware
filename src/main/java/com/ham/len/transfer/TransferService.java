@@ -32,6 +32,7 @@ public class TransferService {
 		pager.makeRowNum();
 		pager.makePageNum(transferDAO.getTotal(pager));
 		log.info("{}", pager);
+		
 		return transferDAO.getTransferList(pager);
 	}
 }
