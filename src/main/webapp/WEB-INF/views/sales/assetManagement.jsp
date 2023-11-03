@@ -249,7 +249,7 @@ ul.nav-tabs {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">차량 예약</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">자산 추가</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

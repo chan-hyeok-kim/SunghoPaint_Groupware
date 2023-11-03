@@ -223,7 +223,10 @@ ul.nav-tabs {
 </div>
 		
 		
+
 <script type="text/javascript">
+
+
 function submitForm() {
     var carSortList = document.getElementById('carSortList');
     var carModelName = document.getElementById('carName');
@@ -263,7 +266,7 @@ function submitForm() {
     form.submit();
 }
 
-
+ 
 function deleteCar() {
     var carStatusCd = "${detail.carStatusCd}";
 
