@@ -132,21 +132,11 @@
 								<button class="btn btn-info" >첨언 추가</button>
 								</div>
 								</td>
+								</form>
 </c:when>
 </c:choose>
 						
-							<c:if test="${empty vo.admonition}">
-							    <form action="/approval/oneUpdate" method="post">
-								<td>첨언</td> <input type="hidden" name="approvalNo"
-									value="${vo.approvalNo}">
-								<td><textarea rows="5" name="admonition" class="form-control"></textarea>
-								<div style="display:flex; padding:10px 0 0 0; 
-								justify-content: flex-end;">
-								<button class="btn btn-info" >첨언 추가</button>
-								</div>
-								</td>
-							</form>
-						</c:if>
+						
 					</tr>
 
 				</table>

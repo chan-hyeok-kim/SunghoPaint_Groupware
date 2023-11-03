@@ -5,7 +5,7 @@
 
 $('#approval-add-btn').click(function() {
 	let check = $('#up-type-no').val();
-	location.href = "/document/add?approvalUpTypeNo=" + check;
+	location.href = "/document/add?approvalUpTypeNo="+check;
 
 })
 
