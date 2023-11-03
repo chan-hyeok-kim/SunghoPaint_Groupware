@@ -12,11 +12,14 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.ham.len.humanresource.HumanResourceService;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 	@Autowired
 	private HumanResourceService humanResourceService;
+	
+
 	
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() {
@@ -64,4 +67,6 @@ public class SecurityConfig {
 		
 		return httpSecurity.build();
 	}
+	
+	
 }

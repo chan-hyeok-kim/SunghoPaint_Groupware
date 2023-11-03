@@ -334,6 +334,10 @@
 <!-- 첨언 있는지 여부 체크 -->
 <script type="text/javascript">
 let admonitionCheck=${not empty vo.admonition}
+
+/* 얘는 싸인 값 받기 */
+console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.signature}')
+const formSign='${SPRING_SECURITY_CONTEXT.authentication.principal.signature}';
 </script>
 
 

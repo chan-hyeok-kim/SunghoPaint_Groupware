@@ -15,7 +15,7 @@ $('.approval-list').find('input:checked').each(function(index) {
 	check.push($(this).val());
 
 	if (check.length > 1 && check.length == 0) {
-		alert('반드시 한개 이상 체크해주세요');
+		swal('반드시 한개 이상 체크해주세요');
 	} else {
 
 	}

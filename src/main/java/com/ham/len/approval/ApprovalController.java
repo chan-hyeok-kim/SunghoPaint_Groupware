@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,7 @@ import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.humanresource.sign.SignatureService;
 import com.nimbusds.jose.JWSObjectJSON.Signature;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -82,6 +85,7 @@ public class ApprovalController {
 	
 	@PostMapping("add")
 	public String setAdd(ApprovalVO approvalVO, HttpServletRequest request) throws Exception{
+		
 		
 		String path=request.getRequestURI();
 		approvalVO=(ApprovalVO)makeColumn.getColumn(approvalVO, path, id);
