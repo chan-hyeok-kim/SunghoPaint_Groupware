@@ -10,14 +10,17 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ham.len.commons.CodeVO;
+import com.ham.len.transfer.TransferController;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Setter
 @ToString
+@Slf4j
 public class HumanResourceVO extends CodeVO implements UserDetails {
 	private String employeeID;
 	private String password;

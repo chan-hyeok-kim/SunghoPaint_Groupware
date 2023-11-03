@@ -35,6 +35,7 @@ public class TransferController {
 		return "transfer/view";
 	}
 	
+	// @PostMapping("view")
 	@GetMapping("view")
 	public String view(TransferPager pager, Model model) {
 		model.addAttribute("transferList", transferService.getTransferList(pager));

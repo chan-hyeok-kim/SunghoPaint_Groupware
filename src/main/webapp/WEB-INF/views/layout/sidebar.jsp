@@ -38,16 +38,16 @@
       </div>
     </li>
     <script>
-      function sendPost(){
+      function sendPost(uri){
         let form = $("<form></form>");
         form.attr("method", "POST");
-        form.attr("action", "/attendance/status");
+        form.attr("action", uri);
         form.appendTo("body");
         form.submit();
       }
     </script>
 	    <li class="nav-item">
-	      <a class="nav-link" onclick="sendPost()" style="cursor:pointer;">
+	      <a class="nav-link" onclick="sendPost('/attendance/status')" style="cursor:pointer;">
 	        <span class="menu-title">근태 관리</span>
 	        <i class="mdi mdi-contacts menu-icon"></i>
 	      </a>
@@ -64,7 +64,8 @@
 	      <div class="collapse" id="general-pages">
 	        <ul class="nav flex-column sub-menu">
 	          <li class="nav-item"> <a class="nav-link" href="/transfer/registration"> 발령 등록 </a></li>
-	          <li class="nav-item"> <a class="nav-link" href="/transfer/view"> 발령 조회 </a></li>
+	          <li class="nav-item"> <a class="nav-link" href="/transfer/view" style="cursor:pointer;"> 발령 조회 </a></li>
+	          <!-- <li class="nav-item"> <a class="nav-link" onclick="sendPost('/transfer/view')" style="cursor:pointer;"> 발령 조회 </a></li> -->
 	        </ul>
 	      </div>
 	    </li>

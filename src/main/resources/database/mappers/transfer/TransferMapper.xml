@@ -6,25 +6,28 @@
   
 <mapper namespace="com.ham.len.transfer.TransferDAO">
 	<sql id="searchSQL">
-		WHERE
-		<if test="startDate != NULL OR endDate != NULL ">
+		<if test="startDate != '' or endDate != '' or kind != ''">
+			WHERE
+		</if>
+		
+		<if test="startDate != '' or endDate != ''">
 			<choose>
-				<when test="startDate != NULL AND endDate != NULL">
+				<when test="startDate != '' and endDate != ''">
 					TRANSFER_DATE BETWEEN #{startDate} AND #{endDate}
 				</when>
-				<when test="startDate != NULL AND endDate == NULL">
-					<![CDATA[TRANSFER_DATE => #{startDate}]]>
+				<when test="startDate != '' and endDate == ''">
+					<![CDATA[TRANSFER_DATE >= #{startDate}]]>
 				</when>
-				<when test="startDate == NULL AND endDate != NULL">
+				<when test="startDate == '' and endDate != ''">
 					<![CDATA[TRANSFER_DATE <= #{endDate}]]>
 				</when>
 			</choose>
 		</if>
-		<if test="kind != NULL AND kind != ''">
+		<if test="kind != ''">
 			AND
 			<choose>
 				<when test="kind == 'employeeID'">
-					writer EMPLOYEE_ID '%' || #{keyword} || '%'
+					EMPLOYEE_ID EMPLOYEE_ID '%' || #{keyword} || '%'
 				</when>
 				<when test="kind == 'name'">
 					NAME LIKE '%' || #{keyword} || '%'
@@ -57,11 +60,11 @@
 		)
 	</insert>
 	
-	<select id="getTotal" parameterType="Pager" resultType="Long">
+	<select id="getTotal" resultType="Long">
 		SELECT COUNT(*) FROM TRANSFER
 	</select>
 	
-	<select id="getTransferList" resultType="TransferVO">
+	<select id="getTransferList" parameterType="TransferPager" resultType="TransferVO">
 		SELECT *,
 				   FN_CODE_NM(LEFT(TRANSFER_TYPE_CD, 3), TRANSFER_TYPE_CD) AS TRANSFER_TYPE_CD_NAME,
 				   FN_CODE_NM(LEFT(BEFORE_POSITION_CD, 3), BEFORE_POSITION_CD) AS BEFORE_POSITION_CD_NAME,
@@ -71,6 +74,6 @@
 			FROM TRANSFER
 		<include refid="searchSQL" />
 		ORDER BY TRANSFER_DATE DESC
-		LIMIT #{startRow}, #{lastRow}
+		LIMIT #{startRow}, 10
 	</select>
 </mapper>

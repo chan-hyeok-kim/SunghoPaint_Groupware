@@ -1,7 +1,5 @@
 package com.ham.len.transfer;
 
-import java.sql.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,16 +8,16 @@ import lombok.ToString;
 @Setter
 @ToString
 public class TransferPager {
-	private Date startDate;
-	private Date endDate;
+	private String startDate = "";
+	private String endDate = "";
 	
-	private String kind;
-	private String keyword;
+	private String kind = "";
+	private String keyword = "";
 	
 	private Long startRow;
-	private Long lastRow;
-	private Long page;
-	private Long perPage; // 페이지당 게시글 개수
+	// private Long lastRow;
+	private Long page = 1L;
+	private Long perPage = 10L; // 페이지당 게시글 개수
 	private Long totalPage;
 	private Long startNum;
 	private Long lastNum;
@@ -65,31 +63,33 @@ public class TransferPager {
 	}
 	
 	public void makeRowNum() {
-		startRow = (getPage() - 1) * getPerPage() + 1;
-		lastRow = getPage() * getPerPage();
+		startRow = (getPage() - 1) * getPerPage();
+		// lastRow = getPage() * getPerPage();
 	}
 	
-	public String getKeyword() {
-		if(keyword == null) {
-			keyword = "";
+	/*
+		public String getKeyword() {
+			if(keyword == null) {
+				keyword = "";
+			}
+			
+			return keyword;
 		}
 		
-		return keyword;
-	}
-	
-	public Long getPage() {
-		if(page == null) {
-			page = 1L;
+		public Long getPage() {
+			if(page == null) {
+				page = 1L;
+			}
+			
+			return page;
 		}
 		
-		return page;
-	}
-	
-	public Long getPerPage() {
-		if(perPage == null) {
-			perPage = 10L;
+		public Long getPerPage() {
+			if(perPage == null) {
+				perPage = 10L;
+			}
+			
+			return perPage;
 		}
-		
-		return perPage;
-	}
+	*/
 }
