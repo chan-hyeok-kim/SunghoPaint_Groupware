@@ -34,4 +34,9 @@ public interface SalesDAO {
 	public int setCarAdd(CarListVO carListVO) throws Exception;
 	
 	public CarListVO getCarDetail(CarListVO carListVO) throws Exception;
+	
+	public int setCarUpdate(CarListVO carListVO) throws Exception;
+	
+	public int setCarDelete(CarListVO carListVO) throws Exception;
+	
 }

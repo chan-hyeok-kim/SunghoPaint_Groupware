@@ -74,4 +74,13 @@ public class SalesService {
 	public CarListVO getCarDetail(CarListVO carListVO) throws Exception{
 		return salesDAO.getCarDetail(carListVO);
 	}
+	
+	public int setCarUpdate(CarListVO carListVO) throws Exception{
+		return salesDAO.setCarUpdate(carListVO);
+	}
+	
+	public int setCarDelete(CarListVO carListVO) throws Exception{
+		return salesDAO.setCarDelete(carListVO);
+	}
+	
 }

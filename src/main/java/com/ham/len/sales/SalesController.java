@@ -175,4 +175,18 @@ public class SalesController {
 		model.addAttribute("detail", carListVO);
 		return "sales/assetManagementDetail";
 	}
+	
+	@PostMapping("carUpdate")
+	public String setCarUpdate(CarListVO carListVO) throws Exception{
+		int result = salesService.setCarUpdate(carListVO);
+		log.info("--------------{}--------zz", result);
+		return "redirect:assetManagement";
+	}
+	
+	@PostMapping("carDelete")
+	public String setCarDelete(CarListVO carListVO) throws Exception{
+		int result = salesService.setCarDelete(carListVO);
+		
+		return "redirect:assetManagement";
+	}
 }

@@ -104,4 +104,18 @@
    <select id="getCarDetail" parameterType="CarListVO" resultType="CarListVO">
    		SELECT * FROM CAR_LIST WHERE CAR_NO=#{carNo}
    </select>
+   
+   <!-- 자산 상세 수정 -->
+   <update id="setCarUpdate" parameterType="CarListVO">
+		UPDATE CAR_LIST SET
+  		CAR_MODEL_CD=#{carModelCd}, CAR_MODEL_NAME=#{carModelName}, CAR_STATUS_CD=#{carStatusCd}
+  		WHERE CAR_NO=#{carNo}
+	</update>
+	
+	<!-- 자산 삭제 -->
+	<delete id="setCarDelete" parameterType="CarListVO">
+			DELETE FROM CAR_LIST
+			WHERE CAR_NO=#{carNo}
+	</delete>
+	
 </mapper>

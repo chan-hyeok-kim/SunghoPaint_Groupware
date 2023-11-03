@@ -181,6 +181,7 @@ ul.nav-tabs {
 							      <th scope="col" style="font-weight:bold;">번호</th>
 							      <th scope="col" style="font-weight:bold;">구분</th>
 							      <th scope="col" style="font-weight:bold;">이름</th>
+							      <th scope="col" style="font-weight:bold;">상태</th>
 							      <th scope="col" style="font-weight:bold;">설정</th>
 							    </tr>
 							  </thead>
@@ -198,6 +199,13 @@ ul.nav-tabs {
 							          </c:choose>
 							          </td>
 						             <td>${vo.carModelName}</td>
+						             <td>
+						             <c:choose>
+							            <c:when test="${vo.carStatusCd eq 'C011'}">대여 가능</c:when>
+							            <c:when test="${vo.carStatusCd eq 'C012'}">대여 중</c:when>
+							            <c:when test="${vo.carStatusCd eq 'C013'}">대여 불가</c:when>
+							          </c:choose>
+						             </td>
 						             <td><a href="./assetManagementDetail?carNo=${vo.carNo}"><i class="fa fa-cogs"></i></a></td>
 						           </tr>
 						         </c:forEach>

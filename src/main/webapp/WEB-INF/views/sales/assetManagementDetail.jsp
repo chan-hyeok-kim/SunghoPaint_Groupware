@@ -123,6 +123,7 @@ ul.nav-tabs {
 	height: 32.06px;
 }
 
+
 </style>
 </head>
 <body id="page-top">
@@ -159,12 +160,59 @@ ul.nav-tabs {
 
 
 						<div class="container-fluid">
-
-							<p>구분 : </p>  <input type="text" class="form-control" id="calendar_name" name="carModelCd" value=${detail.carModelCd}>
-							<p>이름 : </p>  <input type="text" class="form-control" id="calendar_name" name="carModelName" value=${detail.carModelName}>
 							
 							
+							<label for="carSortList" class="form-label">구분</label>
+								<select class="form-select form-select-sm form-control-short" aria-label="Small select example" id="carSortList" name="carModelCd">
+								    <option value="C001" ${detail.carModelCd eq 'C001' ? 'selected' : ''}>경차</option>
+								    <option value="C002" ${detail.carModelCd eq 'C002' ? 'selected' : ''}>세단</option>
+								    <option value="C003" ${detail.carModelCd eq 'C003' ? 'selected' : ''}>SUV</option>
+								    <option value="C004" ${detail.carModelCd eq 'C004' ? 'selected' : ''}>1톤</option>
+								    <option value="C005" ${detail.carModelCd eq 'C005' ? 'selected' : ''}>4.5톤</option>
+								</select>
+								
+							<br>
 							
+							<label for="carName" class="form-label">이름</label>
+							<input type="text" class="form-control form-control-short" id="carName" name="carModelName" value="${detail.carModelName}">
+							
+							<br>
+							<label for="carSortStatus" class="form-label">구분</label>
+								<select class="form-select form-select-sm form-control-short" aria-label="Small select example" id="carSortStatus" name="carStatusCd">
+							<c:choose>
+								<c:when test="${detail.carStatusCd eq 'C012'}">
+								    <option value="C011" ${detail.carStatusCd eq 'C011' ? 'selected' : ''} disabled>대여 가능</option>
+								    <option value="C012" ${detail.carStatusCd eq 'C012' ? 'selected' : ''}>대여 중</option>
+								    <option value="C013" ${detail.carStatusCd eq 'C013' ? 'selected' : ''} disabled>대여 불가</option>
+								</c:when>
+								<c:otherwise>
+									<option value="C011" ${detail.carStatusCd eq 'C011' ? 'selected' : ''}>대여 가능</option>
+								    <option value="C012" ${detail.carStatusCd eq 'C012' ? 'selected' : ''} disabled>대여 중</option>
+								    <option value="C013" ${detail.carStatusCd eq 'C013' ? 'selected' : ''}>대여 불가</option>
+								</c:otherwise>
+							</c:choose>
+								</select>
+								
+							<br><br>
+							<ul class="nav-tabs">
+							</ul>
+							<br>
+							
+							<div style="text-align: right;">
+								<form action="./carUpdate" method="post" style=display:inline-block;>
+									<input type="hidden" name="carNo" value="${detail.carNo}"/>
+									<input type="hidden" name="carModelCd" value="${detail.carModelCd}"/>
+									<input type="hidden" name="carModelName" value="${detail.carModelName}"/>
+									<input type="hidden" name="carStatusCd" value="${detail.carStatusCd}"/>
+							        <button type="button" class="btn btn-primary" id="updateBtn" onclick="submitForm()">수정</button>
+						        </form>
+						        
+						        <a href="./assetManagement"><button type="button" class="btn btn-secondary">취소</button></a>
+						        <form id="delForm" action="./carDelete" method="post" style=display:inline-block;>
+							        <input type="hidden" name="carNo" value="${detail.carNo}"/>
+						        	<button id="delBtn" type="button" class="btn btn-danger" onclick="deleteCar()">삭제</button>
+						        </form>
+						    </div>
 				  </div>
 				  </div>
 				  
@@ -175,7 +223,58 @@ ul.nav-tabs {
 </div>
 		
 		
-		 
+<script type="text/javascript">
+function submitForm() {
+    var carSortList = document.getElementById('carSortList');
+    var carModelName = document.getElementById('carName');
+    var carSortStatus = document.getElementById('carSortStatus');
+
+    var carNoInput = document.createElement('input');
+    carNoInput.type = 'hidden';
+    carNoInput.name = 'carNo';
+    carNoInput.value = "${detail.carNo}";
+
+    var carModelCdInput = document.createElement('input');
+    carModelCdInput.type = 'hidden';
+    carModelCdInput.name = 'carModelCd';
+    carModelCdInput.value = carSortList.value;
+
+    var carModelNameInput = document.createElement('input');
+    carModelNameInput.type = 'hidden';
+    carModelNameInput.name = 'carModelName';
+    carModelNameInput.value = carModelName.value;
+
+    var carStatusCdInput = document.createElement('input');
+    carStatusCdInput.type = 'hidden';
+    carStatusCdInput.name = 'carStatusCd';
+    carStatusCdInput.value = carSortStatus.value;
+
+    var form = document.createElement('form');
+    form.action = './carUpdate';
+    form.method = 'post';
+    form.style.display = 'none';
+
+    form.appendChild(carNoInput);
+    form.appendChild(carModelCdInput);
+    form.appendChild(carModelNameInput);
+    form.appendChild(carStatusCdInput);
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+
+function deleteCar() {
+    var carStatusCd = "${detail.carStatusCd}";
+
+    if (carStatusCd !== 'C012') {
+        document.getElementById('delForm').submit();
+    } else {
+        alert('대여 중인 차량은 삭제할 수 없습니다.');
+    }
+}
+
+</script>
 
 </body>
 </html>
