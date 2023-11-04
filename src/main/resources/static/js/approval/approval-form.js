@@ -57,14 +57,14 @@ $('#modal-confirm-btn').click(function() {
 
 
 
+// 서명하기 버튼
 $('#form-add-sign').click(function(){
 	const imgTag='<img width="70px" height="40px" src="'+formSign+'">'
 	 /* 결재선 내부에 이미지 추가*/
 	
-oEditors.getById["approvalForm"].exec("PASTE_HTML", [imgTag]);
-		  oEditors.getById["approvalForm"].exec("UPDATE_CONTENTS_FIELD", []);
+    oEditors.getById["approvalForm"].exec("PASTE_HTML", [imgTag]);
+    oEditors.getById["approvalForm"].exec("UPDATE_CONTENTS_FIELD", []);
 
     //$('#form-sign-span').html('<img width="70px" height="40px" src="'+formSign+'">');
 })
-
 

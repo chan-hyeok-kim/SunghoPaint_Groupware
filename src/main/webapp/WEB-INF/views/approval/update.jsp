@@ -79,7 +79,8 @@
 				수정</div>
 
 
-			<form action="update" method="post">
+			<form action="update" method="post" id="frm">
+			  <input type="hidden" name="approvalNo" value="${vo.approvalNo}"> 
 				<div id="approval-content">
 					<table class="table table-bordered">
 						<tr>
@@ -167,10 +168,10 @@
 
 				<!-- add button -->
 				<div id="form-add-btn-box" style="justify-content: flex-end; display: flex">
-					<button class="btn btn-info" style="margin-right:30px">수정</button>
+					<button type="button" id="update-confirm-btn" class="btn btn-info" style="margin-right:30px">수정</button>
 				</div>
 		</div>
-		<input type="hidden" id="form-add-no" name="approvalTypeNo">
+		<input type="hidden" value="${vo.approvalTypeNo}" id="form-add-no" name="approvalTypeNo">
 		</form>
 
 	</div>
@@ -312,6 +313,15 @@
 						</div>
 					</div>
 
+					<!-- 문서 data -->
+					<c:forEach items="${list}" var="vo" varStatus="i">
+						<span class="get-up-code-name"
+							data-up-type-cd="${vo.approvalUpTypeVO.approvalUpTypeCd}"
+							data-code-name="${vo.codeName}"
+							data-up-code-name="${vo.approvalUpTypeVO.codeName}"
+							data-no="${vo.approvalTypeNo}">${vo.approvalForm}</span>
+
+					</c:forEach>
 					
 
 
@@ -333,17 +343,20 @@
 
 
 	<!-- modal end -->
-
+	
+	
+    
 
 
 	<!-- approval-form에 html style적용 -->
-	<script src="/js/commons/approval-form.js"></script>
+	<script src="/js/approval/approval-form.js"></script>
 
 	<!-- tree -->
 	<script src="/js/ztree/paint-tree.js"></script>
 	<script src="/js/ztree/up-document-tree.js"></script>
 	
-
+    <!-- update check  -->
+    <script src="/js/approval/update-check.js"></script>
 
 
 </body>

@@ -4,6 +4,7 @@ import java.io.Console;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
@@ -24,7 +25,7 @@ import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.humanresource.sign.SignatureService;
 import com.nimbusds.jose.JWSObjectJSON.Signature;
 
-
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -49,11 +50,14 @@ public class ApprovalController {
 	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
-		 List<ApprovalVO> ar = approvalService.getList(pager);		                    
+		 List<ApprovalVO> ar = approvalService.getList(pager);	
+		 model.addAttribute("list", ar);
+		 
+			 
+		 
 		 log.warn("========{}========",ar);
 		 
 		 
-		 model.addAttribute("list", ar);
 		 
 		 
 		 return "approval/list";
@@ -70,16 +74,28 @@ public class ApprovalController {
 	@GetMapping("totalList")
 	public void getTotalList(Pager pager,Model model) throws Exception{
 		 List<ApprovalVO> ar = approvalService.getList(pager);
-		 log.warn("========{}========",ar);
 		 model.addAttribute("list", ar);
+		 
+		 
+		 log.warn("========{}========",ar);
+		
+		 
 		
 	}
 	
 	@GetMapping("add")
 	public void setAdd(Model model,Pager pager) throws Exception{
 		List<ApprovalTypeVO> total=approvalTypeService.getTotalList(pager);
-	    
 		model.addAttribute("list", total);
+		
+		//사인 값 들고오기
+		 SecurityContext context=SecurityContextHolder.getContext();
+		 if(!(context.getAuthentication().getPrincipal() instanceof String)) {
+			 HumanResourceVO humanResourceVO=(HumanResourceVO)context.getAuthentication().getPrincipal();
+	         
+			 humanResourceVO=signatureService.getDetail(humanResourceVO);
+			 model.addAttribute("sign", humanResourceVO.getSignature());
+			 }	
 		
 	}
 	
@@ -112,6 +128,15 @@ public class ApprovalController {
 	public void getDetail(ApprovalVO approvalVO,Model model) throws Exception{
 		approvalVO=approvalService.getDetail(approvalVO);
 		model.addAttribute("vo", approvalVO);
+		
+		//사인 값 들고오기
+		 SecurityContext context=SecurityContextHolder.getContext();
+		 if(!(context.getAuthentication().getPrincipal() instanceof String)) {
+			 HumanResourceVO humanResourceVO=(HumanResourceVO)context.getAuthentication().getPrincipal();
+	         
+			 humanResourceVO=signatureService.getDetail(humanResourceVO);
+			 model.addAttribute("sign", humanResourceVO.getSignature());
+			 }	
 	   
 	}
 	
@@ -124,9 +149,13 @@ public class ApprovalController {
 	}
 	
 	@GetMapping("update")
-	public void setUpdate(ApprovalVO approvalVO,Model model) throws Exception{
+	public void setUpdate(ApprovalVO approvalVO,Model model,Pager pager) throws Exception{
 		approvalVO=approvalService.getDetail(approvalVO);
+	    List<ApprovalTypeVO> total=approvalTypeService.getTotalList(pager);
+	    
+	    
 		model.addAttribute("vo", approvalVO);
+		model.addAttribute("list", total);
 	}
 	
 	@PostMapping("update")
@@ -134,6 +163,8 @@ public class ApprovalController {
 		
 		String path=request.getRequestURI();
 		approvalVO=(ApprovalVO)makeColumn.getModColumn(approvalVO, path, id);
+		
+		log.warn("********{}******",approvalVO);
 		
 		int result=approvalService.setUpdate(approvalVO);
 		

@@ -46,7 +46,7 @@ public class FileManager {
 		if(extension.equalsIgnoreCase("JPG") || extension.equalsIgnoreCase("JPEG") || extension.equalsIgnoreCase("PNG") || extension.equalsIgnoreCase("JPG")
 				|| extension.equalsIgnoreCase("GIF") || extension.equalsIgnoreCase("PDF") || extension.equalsIgnoreCase("PSD") 
 				|| extension.equalsIgnoreCase("Al") || extension.equalsIgnoreCase("TIFF") || extension.equalsIgnoreCase("BMP")
-				|| extension.equalsIgnoreCase("EPS") || extension.equalsIgnoreCase("SVG")) {
+				|| extension.equalsIgnoreCase("EPS")) {
 		log.warn("====={}=====",extension);
 	    
 		multipartFile.transferTo(file);

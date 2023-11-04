@@ -29,7 +29,7 @@ $('.approval-list').find('input:checked').each(function(index) {
 $('#delete-btn').click(function() {
 
 	if (check.length < 1 || check.length == 0) {
-		Swal.fire('반드시 한개 이상 체크해주세요');
+		swal('반드시 한개 이상 체크해주세요');
 		return;
 	} 
 let arr = new Array();

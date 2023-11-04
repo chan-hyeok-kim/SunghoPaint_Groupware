@@ -18,14 +18,14 @@ const appTab1 ='<th rowspan="3" style="height:5.5872802734375pt; border-left:sol
 
 const appTab = '<td rowspan="3" style="height:5.5872802734375pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;background-color:#cccccc;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br><br><br><p dir="ltr" style="line-height:1.2;text-align: center;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 10pt; font-family: Arial, sans-serif; background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;">결 재</span></p></td>'
 const topTab = '<td style="height:5.5872802734375pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
-const midTab = '<td style="height:62.25pt; width:82px; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
+const midTab = '<td class="mid-sign-tab" style="height:62.25pt; width:82px; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
 const botTab = '<td style="height:0pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
 
-$('#top-tap').append(appTab1);
+$('#top-tap').append(appTab);
 
 if ($('#add-app').text()=='') {
 	//$('#app-test-tbl').append(approvalLine3)
-	tabCount = 3;
+	tabCount = 2;
     console.log(tabCount)
 	for (let i=0; i < tabCount; i++) {
 		$('#top-tap').append(topTab);
@@ -36,16 +36,25 @@ if ($('#add-app').text()=='') {
 
 
 
-//$('#app-test-tbl').append(approvalLine2);
+//approval/detail 서명하기 버튼
+$('#form-mid-sign').click(function(){
+	const imgTag='<img width="70px" height="40px" src="'+formSign+'">'
+    
+	if(!formSign){
+		swal('서명이 없으면 사인하실 수 없습니다')
+    	return;
+	}
+	let midSign=document.getElementsByClassName('mid-sign-tab');
+	for(let i in midSign){
+		midSign[0].innerHTML=imgTag;
+	}
+})
+
+
 
 
 /* 삭제
 */
-
-
-
-
-
 
 $('#app-delete-btn').click(function() {
 

@@ -34,6 +34,6 @@ $("#document-add-btn").click(function() {
 	if (!checkResult.includes(false)) {
 		$("#frm").submit();
 	} else {
-		Swal('빈 내용을 채워주세요')
+		swal('빈 내용을 채워주세요')
 	}
 })

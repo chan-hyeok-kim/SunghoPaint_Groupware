@@ -1,5 +1,6 @@
 package com.ham.len.humanresource;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,6 +50,7 @@ public class HumanResourceVO extends CodeVO implements UserDetails {
 	private java.util.Date modDate;
 	private String modMenu;
 	private List<RoleVO> roles = new ArrayList<>(); // NullPointerException 방지
+	private Date appDate;
 	
 	@Override
 	public String getUsername() {

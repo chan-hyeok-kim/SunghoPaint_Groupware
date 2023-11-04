@@ -345,12 +345,12 @@
 
 
 <script type="text/javascript">
-console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.signature}')
-const formSign='${SPRING_SECURITY_CONTEXT.authentication.principal.signature}';
+console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.username}')
+const formSign='${sign}';
 </script>
 
 	<!-- approval-form에 html style적용 -->
-	<script src="/js/commons/approval-form.js"></script>
+	<script src="/js/approval/approval-form.js"></script>
 	<script src="/js/approval/approval-date.js"></script>
 
 	<!-- tree -->

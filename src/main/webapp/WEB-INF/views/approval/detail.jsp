@@ -81,7 +81,8 @@
 					<table class="table table-bordered">
 						<tr>
 							<td>기안일자</td>
-							<td colspan="2">${vo.approvalStartDate}</td>
+							<td id="approvalStartDate" colspan="2" 
+							data-date="${vo.approvalStartDate}">${vo.approvalStartDate}</td>
 						</tr>
 						<tr>
 							<td>제목</td>
@@ -104,6 +105,7 @@
 							<td>구분(결재양식)</td>
 							<td>${vo.approvalTypeVO.codeName}</td>
 						</tr>
+
 
 
 					</table>
@@ -141,12 +143,16 @@
 
 				</table>
 
+<!-- bottom btn-list  -->
 				<div id="form-add-btn-box">
 					<button class="btn btn-info" 
 					onclick="location.href='/approval/update?approvalNo=${vo.approvalNo}'">수정</button>
 					<button type="button" class="btn btn-info" id="app-delete-btn"
 						style="margin-left: 20px;">삭제</button>
-					<button class="btn btn-info" style="margin-left: 400px;">결재</button>
+					<button type="button" class="btn btn-info" id="form-mid-sign"
+					style="margin-left: 400px;"
+					>서명하기</button>
+					<button class="btn btn-info" style="margin-left: 20px;">결재</button>
 				</div>
 		</div>
 		<input type="hidden" id="form-add-no" name="approvalTypeNo">
@@ -326,14 +332,15 @@
 let admonitionCheck=${not empty vo.admonition}
 
 /* 얘는 싸인 값 받기 */
-console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.signature}')
-const formSign='${SPRING_SECURITY_CONTEXT.authentication.principal.signature}';
+console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.username}')
+const formSign='${sign}';
 </script>
 
 
 	<!-- approval-form에 html style적용 -->
-	<script src="/js/commons/approval-form.js"></script>
-
+	<script src="/js/approval/approval-form.js"></script>
+	<script src="/js/approval/approval-date.js"></script>
+    
 	<!-- tree -->
 	<script src="/js/ztree/paint-tree.js"></script>
 	<script src="/js/ztree/up-document-tree.js"></script>
