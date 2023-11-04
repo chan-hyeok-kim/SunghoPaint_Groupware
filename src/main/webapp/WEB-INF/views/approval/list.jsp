@@ -89,10 +89,6 @@
 	border-radius: 2px 0 0 0;
 }
 
-.link-tab:hover {
-	background: #f7f7f7;
-}
-
 .wrapper-toolbar {
 	padding: 10px 10px;
 }
@@ -185,11 +181,11 @@ ul.nav-tabs {
 					</div>
 
 					<ul class="nav-tabs">
-						<li><a class="link-tab">전체</a></li>
-						<li><a class="link-tab">기안중</a></li>
-						<li><a class="link-tab">진행중</a></li>
-						<li><a class="link-tab">반려</a></li>
-						<li><a class="link-tab">결재</a></li>
+						<li onclick="location.href='./list'" class="active"><a class="link-tab">전체</a></li>
+						<li data-cd="R031"><a class="link-tab">기안중</a></li>
+						<li data-cd="R032"><a class="link-tab">진행중</a></li>
+						<li data-cd="R034"><a class="link-tab">반려</a></li>
+						<li data-cd="R033"><a class="link-tab">결재</a></li>
 					</ul>	
 
 
@@ -244,17 +240,17 @@ ul.nav-tabs {
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
   <ul class="pagination">
     <li class="page-item ${pager.pre?'':'disabled'}">
-      <a class="page-link" href="/approval/getList?page=${startNum-1}" aria-label="Previous">
+      <a class="page-link" href="/approval/list?page=${startNum-1}" aria-label="Previous">
         <i class="mdi mdi-arrow-left-drop-circle"></i>
       </a>
     </li>
     
     <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-    <li class="page-item"><a class="page-link" href="/approval/getList?page=${i}">${i}</a></li>
+    <li class="page-item"><a class="page-link" href="/approval/list?page=${i}">${i}</a></li>
     </c:forEach>
     
     <li class="page-item ${pager.next?'':'disabled'}">
-      <a class="page-link" href="/approval/getList?page=${lastNum+1}" aria-label="Next">
+      <a class="page-link" href="/approval/list?page=${lastNum+1}" aria-label="Next">
         <i class="mdi mdi-arrow-right-drop-circle"></i>
       </a>
     </li>
@@ -445,6 +441,8 @@ ul.nav-tabs {
 
 	
 	<script src="/js/commons/list-date.js"></script>
+	<script src="/js/approval/list-move.js"></script>
+	
 	<!-- Signature_pad -->
 	<script src="/js/commons/signature.js"></script>   
 	<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>

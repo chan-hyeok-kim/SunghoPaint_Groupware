@@ -161,7 +161,7 @@ ul.nav-tabs {
 					</div>
 
 					<ul class="nav-tabs">
-						<li><a class="link-tab">전체</a></li>
+						<li onclick="location.href='./totalList'"><a class="link-tab">전체</a></li>
 						<li><a class="link-tab">기안중</a></li>
 						<li><a class="link-tab">진행중</a></li>
 						<li><a class="link-tab">반려</a></li>
@@ -417,6 +417,8 @@ ul.nav-tabs {
 
 	
 	<script src="/js/commons/list-date.js"></script>
+	<script src="/js/approval/list-move.js"></script>
+	
 	
     <!-- Signature_pad -->
 	<script src="/js/commons/signature.js"></script>   
