@@ -23,6 +23,7 @@ public class ApprovalVO extends CodeVO{
 	private String approvalTitle;
 	private String approvalContents;
 	private String approvalStatusCd;
+	private String approvalCheckCd;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date approvalStartDate;
 	private Date approvalEndDate;

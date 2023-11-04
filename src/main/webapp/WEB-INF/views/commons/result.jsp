@@ -6,13 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 <body>
 
 	<script type="text/javascript">
-		alert('${message}');
-		location.href="${url}";	
+		swal('${message}').then(function(){
+			location.href="${url}";		
+		})
+		
 	</script>
 
 </body>

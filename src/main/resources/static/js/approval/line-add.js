@@ -36,19 +36,7 @@ if ($('#add-app').text()=='') {
 
 
 
-//approval/detail 서명하기 버튼
-$('#form-mid-sign').click(function(){
-	const imgTag='<img width="70px" height="40px" src="'+formSign+'">'
-    
-	if(!formSign){
-		swal('서명이 없으면 사인하실 수 없습니다')
-    	return;
-	}
-	let midSign=document.getElementsByClassName('mid-sign-tab');
-	for(let i in midSign){
-		midSign[0].innerHTML=imgTag;
-	}
-})
+
 
 
 
@@ -91,8 +79,4 @@ $('#app-delete-btn').click(function() {
 })
 
 
-/*첨언 있을 시에 본문 내용에 첨언 추가
-*/
-if (admonitionCheck) {
 
-}

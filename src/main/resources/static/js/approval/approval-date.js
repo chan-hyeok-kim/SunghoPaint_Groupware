@@ -18,6 +18,8 @@ let date=appDate.innerText;
 date1=javaDatetoScript(date);
 console.log(date1);
 
+appDate.innerText=date1;
+
 // date=date.split(' ');
 // console.log(date)
 // //['Fri', 'Nov', '03', '22:48:52', 'KST', '2023']

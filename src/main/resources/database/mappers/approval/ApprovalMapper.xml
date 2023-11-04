@@ -30,6 +30,7 @@
 		<result column="APPROVAL_TITLE" property="approvalTitle" />
 		<result column="APPROVAL_CONTENTS" property="approvalContents" />
 		<result column="APPROVAL_STATUS_CD" property="approvalStatusCd" />
+		<result column="APPROVAL_CHECK_CD" property="approvalCheckCd" />
 		<result column="APPROVAL_START_DATE"
 			property="approvalStartDate" />
 		<result column="APPROVAL_END_DATE" property="approvalEndDate" />
@@ -54,10 +55,15 @@
 		</association>
 
 	</resultMap>
+	
+	<select id="getTotal" resultType="Long">
+	  SELECT COUNT(*)
+	    FROM APPROVAL
+	</select>
 
-
-<select id="getSaveList" resultMap="getSaveList"
-		parameterType="Pager">
+<!-- 파라미터를 map으로변경해야됨 -->
+<select id="getStatusList" resultMap="getSaveList"
+		parameterType="Map">
 		SELECT *,A.APPROVAL_TYPE_NO AS A_APPROVAL_TYPE_NO,
 		APT.APPROVAL_TYPE_NO AS
 		APT_APPROVAL_TYPE_NO,
@@ -68,9 +74,10 @@
 		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
 		ON
 		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
+		WHERE A.APPROVAL_STATUS_CD=#{vo.approvalStatusCd}
 		ORDER BY APPROVAL_NO DESC
 		LIMIT
-		#{startRow},#{lastRow}
+		#{pager.startRow},#{pager.lastRow}	
 	</select>
 
 	<resultMap type="ApprovalVO" id="getSaveList">
@@ -105,6 +112,11 @@
 
 	</resultMap>
 
+    <select id="getStatusTotal" resultType="Long" parameterType="ApprovalVO">
+	  SELECT COUNT(*)
+	    FROM APPROVAL
+	   WHERE APPROVAL_STATUS_CD=#{approvalStatusCd}
+	</select>
 
 	<select id="getDetail" resultMap="getDetailResult"
 		parameterType="ApprovalVO">
@@ -128,6 +140,7 @@
 		<result column="APPROVAL_TITLE" property="approvalTitle" />
 		<result column="APPROVAL_CONTENTS" property="approvalContents" />
 		<result column="APPROVAL_STATUS_CD" property="approvalStatusCd" />
+		<result column="APPROVAL_CHECK_CD" property="approvalCheckCd" />
 		<result column="APPROVAL_START_DATE"
 			property="approvalStartDate" />
 		<result column="APPROVAL_END_DATE" property="approvalEndDate" />
@@ -203,13 +216,13 @@
 	<insert id="setAdd" parameterType="ApprovalVO">
 		INSERT INTO
 		APPROVAL(APPROVAL_NO,EMPLOYEE_ID,APPROVAL_TYPE_NO,
-		APPROVAL_TITLE,APPROVAL_CONTENTS,APPROVAL_STATUS_CD,
+		APPROVAL_TITLE,APPROVAL_CONTENTS,APPROVAL_STATUS_CD, APPROVAL_CHECK_CD
 		APPROVAL_START_DATE,APPROVAL_END_DATE,DRAFTER,MID_APPROVER,
 		ADD_APPROVER,LAST_APPROVER,ADMONITION,REG_ID,REG_DATE,
 		REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
 		VALUES
 		(#{approvalNo},#{employeeID},#{approvalTypeNo},#{approvalTitle}
-		,#{approvalContents},'R032',NOW(),NULL,#{drafter},
+		,#{approvalContents},'R032','R041',NOW(),NULL,#{drafter},
 		#{midApprover},#{addApprover},#{lastApprover},NULL,
 		#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
 	</insert>
@@ -244,4 +257,37 @@
 		WHERE
 		APPROVAL_NO=#{approvalNo}
 	</update>
+	
+	<!-- 결재 상세에서 검토 시 -->
+	<update id="setCheck" parameterType="ApprovalVO">
+	    UPDATE APPROVAL
+		SET APPROVAL_CHECK_CD=#{approvalCheckCd},
+		ADMONITION=#{admonition}, APPROVAL_CONTENTS=#{approvalContents},
+		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+		WHERE
+		APPROVAL_NO=#{approvalNo}
+	</update>
+	
+	<!-- 결재 상세에서 검토 완료 시 -->
+	<update id="setEndCheck" parameterType="ApprovalVO">
+	    UPDATE APPROVAL
+		SET APPROVAL_STATUS_CD=#{approvalStatusCd},APPROVAL_END_DATE=#{approvalEndDate},
+		APPROVAL_CHECK_CD=#{approvalCheckCd},ADMONITION=#{admonition}, 
+		APPROVAL_CONTENTS=#{approvalContents},
+		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+		WHERE
+		APPROVAL_NO=#{approvalNo}
+	</update>
+	
+	<!-- 결재 상세에서 반려 시 -->
+	<update id="setReject" parameterType="ApprovalVO">
+	    UPDATE APPROVAL
+		SET APPROVAL_STATUS_CD=#{approvalStatusCd},
+		ADMONITION=#{admonition}, APPROVAL_CONTENTS=#{approvalContents},
+		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+		WHERE
+		APPROVAL_NO=#{approvalNo}
+	</update>
+	
+	
 </mapper>

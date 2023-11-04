@@ -110,12 +110,17 @@
 
 					</table>
 				</div>
+				
+				<form action="/approval/check" method="post">
 				<table class="table table-bordered">
 					<tr>
 						<td colspan="2">
-							<div style="display: flex; justify-content: center;">
+							<div id="show-contents" style="display: flex; justify-content: center;">
 								${vo.approvalContents}</div>
-						</td>
+						 <input id="mod-contents" type="hidden" name="approvalContents">
+						 <input id="check" type="hidden" name="approvalCheckCd" value="${vo.approvalCheckCd}">						</td>
+					     <input type="hidden" name="approvalNo" value="${vo.approvalNo}">
+					     <input type="hidden" name="approvalStatusCd" value="${vo.approvalStatusCd}">
 					</tr>
 					<tr>
 <c:choose>
@@ -125,16 +130,15 @@
   disabled="disabled">[첨언] ${vo.admonition}</textarea></td>
 </c:when>
 <c:when test="${empty vo.admonition}">
-<form action="/approval/oneUpdate" method="post">
-								<td>첨언</td> <input type="hidden" name="approvalNo"
-									value="${vo.approvalNo}">
+
+								<td>첨언</td>
 								<td><textarea rows="5" name="admonition" class="form-control"></textarea>
 								<div style="display:flex; padding:10px 0 0 0; 
 								justify-content: flex-end;">
-								<button class="btn btn-info" >첨언 추가</button>
+								
 								</div>
 								</td>
-								</form>
+								
 </c:when>
 </c:choose>
 						
@@ -145,7 +149,7 @@
 
 <!-- bottom btn-list  -->
 				<div id="form-add-btn-box">
-					<button class="btn btn-info" 
+					<button class="btn btn-info" type="button"
 					onclick="location.href='/approval/update?approvalNo=${vo.approvalNo}'">수정</button>
 					<button type="button" class="btn btn-info" id="app-delete-btn"
 						style="margin-left: 20px;">삭제</button>
@@ -153,6 +157,7 @@
 					style="margin-left: 400px;"
 					>서명하기</button>
 					<button class="btn btn-info" style="margin-left: 20px;">결재</button>
+				   </form>
 				</div>
 		</div>
 		<input type="hidden" id="form-add-no" name="approvalTypeNo">
@@ -339,7 +344,12 @@ const formSign='${sign}';
 
 	<!-- approval-form에 html style적용 -->
 	<script src="/js/approval/approval-form.js"></script>
+	
+	<!-- 날짜 관련 -->
 	<script src="/js/approval/approval-date.js"></script>
+    
+    <!-- 결재-검토-확인 관련 -->
+    <script src="/js/approval/detail-check.js"></script>
     
 	<!-- tree -->
 	<script src="/js/ztree/paint-tree.js"></script>
