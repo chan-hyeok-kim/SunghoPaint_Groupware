@@ -8,21 +8,16 @@ input[type="checkbox"]{
 
 
 
-#title{
-	margin-bottom:20px;
-	font-size:22px; font-weight:bold;
-}
-
-#transferForm{
+#registrationForm{
     display:table;
     margin:100px auto;
 }
 
-#transferForm > .component{
+#registrationForm > .component{
     margin-bottom:30px;
 }
 
-#transferForm > #buttonWrap{
+#registrationForm > #buttonWrap{
     width:100%;
     text-align:right;
 }
@@ -113,11 +108,11 @@ input[type="checkbox"]{
 	width:100%;
 }
 
-table, th, td{
+th, td{
 	width:20%; height:25px;
 	text-align:center;
-	border:1px solid #CDCDCD;
 	border-collapse:collapse;
+	border:1px solid #CDCDCD;
 	font-size:14px;
 }
 

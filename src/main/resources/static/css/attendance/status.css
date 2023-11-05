@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+body{
+	min-width:1500px;
+}
+
+
+
+
+
 #cur_date{
 	font-size:13px;
 	color:#888;
@@ -58,11 +66,6 @@
 
 
 
-#title{
-	margin-bottom:20px;
-	font-size:22px; font-weight:bold;
-}
-
 #move_month{
 	margin-bottom:50px;
 	text-align:center;
@@ -119,10 +122,6 @@
 .component > .time{
 	font-size:25px;
 	color:#A65FFF;
-}
-
-.component > .time > span:not(:last-of-type){
-	padding-right:7px;
 }
 
 
@@ -185,6 +184,7 @@
 
 .week > table{
 	width:100%;
+	text-align:center; 
 	border-bottom:1px solid #D9D9D9;
 }
 
@@ -193,7 +193,7 @@ table tr:has(th){
 }
 
 table th, table td{
-	padding:10px 40px;
+	padding:10px;
 }
 
 
@@ -202,4 +202,24 @@ table th, table td{
 
 footer{
 	border-top:none !important;
+}
+
+
+
+
+
+@media screen and (max-width:1770px){
+	.component > h3{
+		font-size:13x;
+	}
+	
+	.component > .time{
+		font-size:20px;
+	}
+}
+
+@media screen and (max-width:1600px){
+	#total > .dividing{
+		margin:0px 70px;
+	}
 }

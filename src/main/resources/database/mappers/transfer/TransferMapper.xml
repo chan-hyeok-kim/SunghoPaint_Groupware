@@ -6,11 +6,8 @@
   
 <mapper namespace="com.ham.len.transfer.TransferDAO">
 	<sql id="searchSQL">
-		<if test="startDate != '' or endDate != '' or kind != ''">
-			WHERE
-		</if>
-		
 		<if test="startDate != '' or endDate != ''">
+			WHERE
 			<choose>
 				<when test="startDate != '' and endDate != ''">
 					TRANSFER_DATE BETWEEN #{startDate} AND #{endDate}
@@ -23,18 +20,15 @@
 				</when>
 			</choose>
 		</if>
-		<if test="kind != ''">
-			AND
+		<if test="keyword != ''">
+			<if test="startDate == '' and endDate == ''">WHERE</if>
+			<if test="startDate != '' or endDate != ''">AND</if>
 			<choose>
 				<when test="kind == 'employeeID'">
-					<if test="keyword != ''">
-						EMPLOYEE_ID EMPLOYEE_ID '%' || #{keyword} || '%'
-					</if>
+					EMPLOYEE_ID LIKE CONCAT('%', #{keyword}, '%')
 				</when>
 				<when test="kind == 'name'">
-					<if test="keyword != ''">
-						NAME LIKE '%' || #{keyword} || '%'
-					</if>
+					NAME LIKE CONCAT('%', #{keyword}, '%')
 				</when>
 			</choose>
 		</if>
@@ -63,7 +57,9 @@
 	</insert>
 	
 	<select id="getTotal" resultType="Long">
-		SELECT COUNT(*) FROM TRANSFER
+		SELECT COUNT(*)
+			FROM TRANSFER
+		<include refid="searchSQL" />
 	</select>
 	
 	<select id="getTransferList" parameterType="TransferPager" resultType="TransferVO">

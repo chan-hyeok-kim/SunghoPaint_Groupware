@@ -38,9 +38,9 @@ table{
 table, th, td{
 	padding:10px 10px;
 	text-align:center;
+	border-collapse:collapse;
 	border-top:1px solid #CDCDCD;
 	border-bottom:1px solid #CDCDCD;
-	border-collapse:collapse;
 	font-size:14px;
 }
 
@@ -50,6 +50,10 @@ nav:has(ul.pagination){
 	margin-top:50px;
 }
 
-nav .page-link{
+.page-item.disabled > .page-link{
+	
+}
+
+.page-link{
 	color:#A65FFF;
 }

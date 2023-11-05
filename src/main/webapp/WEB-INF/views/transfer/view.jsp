@@ -5,19 +5,47 @@
 <link rel="stylesheet" href="/css/commons.css">
 <link rel="stylesheet" href="/css/transfer/view.css">
 
+<script>
+	$(function(){
+		if("${pager.startDate}") $("[name='startDate']").val("${pager.startDate}");
+		if("${pager.endDate}") $("[name='endDate']").val("${pager.endDate}");
+
+		let kind = $("[name='kind']").attr("data-kind");
+		$("[name='kind'] > option[value='" + kind + "']").prop("selected", true);
+
+		$(".page-link[data-num='${pager.page}']").css("background-color", "#DBBEFF");
+	});
+
+	$(function(){
+		$("#searchBtn").click(function(){
+			$("[name='page']").val(1);
+			$("form").submit();
+		});
+	});
+
+	$(function(){
+		$(".page-link").click(function(){
+			let page = $(this).attr("data-num");
+			$("[name='page']").val(page);
+			
+			$("form").submit();
+		});
+	});
+</script>
+
+
 <div id="wrapper">
-	<!-- <form action="./view" method="POST"> -->
-	<form action="./view" method="GET">
+	<form action="./view" method="POST">
 		<input type="hidden" name="page" value="${pager.page}">
 		
-		<input type="date" name="startDate"> ~ <input type="date" name="endDate">
+		<input type="date" name="startDate" value="${startDate}"> ~ <input type="date" name="endDate" value="${endDate}">
 	
 		<select name="kind" data-kind="${pager.kind}">
 			<option class="kind" value="employeeID">사번</option>
 			<option class="kind" value="name">이름</option>
 		</select>
 		<input type="text" name="keyword" value="${pager.keyword}">
-		<button type="button" class="btn btn-gradient-primary">검색</button>
+		<button type="button" id="searchBtn" class="btn btn-gradient-primary">검색</button>
 	</form>
 	
 	<table>
@@ -48,7 +76,7 @@
 	<nav>
 		<ul class="pagination">
 			<li class="page-item ${pager.pre ? '' : 'disabled'}">
-				<a class="page-link" data-num="${pager.startNum - 1}"><i class="mdi mdi-chevron-left"></i></a>
+				<a class="page-link" href="#" data-num="${pager.startNum - 1}"><i class="mdi mdi-chevron-left"></i></a>
 			</li>
 			<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
 				<li class="page-item">

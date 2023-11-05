@@ -1,11 +1,11 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<script src="/js/transfer/form.js"></script>
+<script src="/js/transfer/registration.js"></script>
 <link rel="stylesheet" href="/css/commons.css">
-<link rel="stylesheet" href="/css/transfer/form.css">
+<link rel="stylesheet" href="/css/transfer/registration.css">
 
 <h1 id="title">발령 등록</h1>
-<form id="transferForm" method="POST">
+<form id="registrationForm" method="POST">
 	<div class="component">
 		<label for="transferDate">발령 일자</label>
 		<input type="date" name="transferDate" id="transferDate">
