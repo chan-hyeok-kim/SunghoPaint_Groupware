@@ -14,7 +14,7 @@ public interface CodeDAO {
 	
 	public List<CodeVO> getList(Pager pager) throws Exception;
 	
-	public Long getTotal() throws Exception;
+	public Long getTotal(Pager pager) throws Exception;
 	
 	public Long getCodeCheck(CodeVO codeVO) throws Exception;
 	

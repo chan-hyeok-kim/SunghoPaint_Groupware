@@ -9,7 +9,10 @@ import com.ham.len.commons.CodeVO;
 import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class CodeService {
 	
 	@Autowired
@@ -17,9 +20,9 @@ public class CodeService {
 
 	public List<CodeVO> getList(Pager pager) throws Exception{
 		pager.makeRowNum();
-  	    Long total=codeDAO.getTotal();
+  	    Long total=codeDAO.getTotal(pager);
 		pager.makePageNum(total);
-		
+		log.warn("페이저 토탈{}",pager.getTotalPage());
 		return codeDAO.getList(pager);
 	}
 	

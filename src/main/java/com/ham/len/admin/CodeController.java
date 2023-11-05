@@ -35,6 +35,7 @@ public class CodeController {
 	
 	@GetMapping("list")
 	public void getList(Pager pager,Model model) throws Exception{
+		log.warn("페이저체크{}",pager);
 		List ar=codeService.getList(pager);
 		model.addAttribute("list", ar);
 		

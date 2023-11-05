@@ -6,6 +6,14 @@
 
 <mapper namespace="com.ham.len.admin.CodeDAO">
 
+<sql id="searchCdName">
+<choose>
+  <when test="kind=='upCode'">UP_CODE</when>
+  <when test="kind=='code'">CODE</when>
+  <otherwise>CODE_NAME</otherwise>
+</choose>
+</sql>
+
 	<select id="getDetail" resultType="CodeVO"
 		parameterType="CodeVO">
 		SELECT *
@@ -16,6 +24,8 @@
 	<select id="getList" resultType="CodeVO" parameterType="Pager">
 		SELECT *
 		FROM CODE
+		WHERE <include refid="searchCdName"></include>
+	    LIKE CONCAT('%',#{search},'%')
 		ORDER BY CODE DESC
 		LIMIT #{startRow},#{lastRow}
 	</select>
@@ -49,9 +59,11 @@
 		WHERE LEFT(CODE,3)=#{code}
 	</select>
 	
-	<select id="getTotal" resultType="Long">
+	<select id="getTotal" resultType="Long" parameterType="Pager">
 	    SELECT COUNT(*)
 	      FROM CODE
+	      WHERE <include refid="searchCdName"></include>
+	    LIKE CONCAT('%',#{search},'%')
 	</select>
 	
 	<select id="getCodeCheck" resultType="Long" parameterType="CodeVO">

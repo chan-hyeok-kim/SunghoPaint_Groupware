@@ -46,17 +46,17 @@
 
 						<div style="float:left">코드 관리</div> 
 						<div style="text-align: right;">
-							<form class="form-inline">
+							<form class="form-inline" action="./list" method="get">
 
 								<!-- 검색 설정 -->
-								<select class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected">제목</option>
-									<option>구분</option>
-									<option>결재자</option>
+								<select name="kind" class="btn btn-gradient-light" id="top-search-select">
+									<option selected="selected" value="3">코드명</option>
+									<option value="upCode">상위코드</option>
+									<option value="code">코드</option>
 								</select> 
 								
 								
-								<input style="display: inline-block;" id="top-search-bar"
+								<input style="display: inline-block;" id="top-search-bar" name="search"
 									class="form-control" type="search" placeholder="입력 후 [Enter]"
 									aria-label="Search">
 								<button id="top-search-btn" class="btn btn-info" type="submit">검색</button>
@@ -157,17 +157,17 @@
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
   <ul class="pagination">
     <li class="page-item ${pager.pre?'':'disabled'}">
-      <a class="page-link" href="/code/list?page=${startNum-1}" aria-label="Previous">
+      <a class="page-link" href="/code/list?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
         <i class="mdi mdi-arrow-left-drop-circle"></i>
       </a>
     </li>
     
     <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-    <li class="page-item"><a class="page-link" href="/code/list?page=${i}">${i}</a></li>
+    <li class="page-item"><a class="page-link" href="/code/list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
     </c:forEach>
     
     <li class="page-item ${pager.next?'':'disabled'}">
-      <a class="page-link" href="/code/list?page=${lastNum+1}" aria-label="Next">
+      <a class="page-link" href="/code/list?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}" aria-label="Next">
         <i class="mdi mdi-arrow-right-drop-circle"></i>
       </a>
     </li>
