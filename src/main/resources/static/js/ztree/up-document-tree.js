@@ -169,8 +169,10 @@ function upDocumentCheck(event, treeId, treeNode) {
 			span.className = 'button chk checkbox_false_full';
 	
 		}*/
-
-
+     
+	$('#up-type-no').val(treeNode.no);
+	$('#up-type-cd').val(treeNode.cd);
+	
 	nodes = treeNode.getParentNode();
 
 	let childArr = nodes.children;
@@ -180,7 +182,8 @@ function upDocumentCheck(event, treeId, treeNode) {
 			zTreeObj.updateNode(i)
 		}
 		console.log(i.children)
-		if (i.children != null && i.children != undefined) {
+		//if (i.children != null && i.children != undefined)
+		if (i.children) {
 			for (n of i.children) {
 				n.checked = false;
 				zTreeObj.updateNode(n);
@@ -192,7 +195,15 @@ function upDocumentCheck(event, treeId, treeNode) {
 	parentNodes = treeNode.getParentNode().getParentNode();
 
 	console.log(parentNodes);
+	
+	if(!parentNodes){
+		
+		return;
+	}
+
+	
 	childDept = parentNodes.children;
+
 	for (c of childDept) {
 		if (c.tId != treeNode.parentTId) {
 			c.checked = false;
@@ -212,8 +223,8 @@ function upDocumentCheck(event, treeId, treeNode) {
 
 
 
-	$('#up-type-cd').val(treeNode.cd);
-	$('#up-type-no').val(treeNode.num);
+	
+	$('#up-type-no').val(treeNode.refNo);
 
 	/** add*/
 	let checkHtml = treeNode.form;

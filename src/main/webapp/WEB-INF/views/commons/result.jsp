@@ -12,9 +12,21 @@
 <body>
 
 	<script type="text/javascript">
-		swal('${message}').then(function(){
-			location.href="${url}";		
-		})
+		if('${result}'>0){
+	        icon='success';
+		}else{
+			icon='warning';	
+		}
+		resultSwal(icon);
+		
+		function resultSwal(icon){
+			swal({
+				text:'${message}',
+				icon:icon
+				}).then(function(){
+				location.href="${url}";		
+			})
+		}
 		
 	</script>
 

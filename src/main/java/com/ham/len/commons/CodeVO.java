@@ -11,4 +11,5 @@ public class CodeVO extends CommonsVO {
 	private String code;
 	private String upCode;
 	private String codeName;
+	private String originCode;
 }

@@ -37,8 +37,9 @@ public class Pager{
 	private Long perPage;
 	
 	public void makeRowNum() {
-		this.startRow=(this.getPage()-1)*this.getPerPage()+1;
-		this.lastRow=this.page*this.getPerPage();
+		this.startRow=(this.getPage()-1)*this.getPerPage();
+		//this.lastRow=this.page*this.getPerPage();
+		//마리아디비는 lastRow 안건드려도됨
 	}
 	
 	public void makePageNum(Long total) {

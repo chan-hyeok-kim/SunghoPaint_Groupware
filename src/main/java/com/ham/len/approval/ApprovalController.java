@@ -201,8 +201,11 @@ public class ApprovalController {
         
 		if(result>0) {
 			model.addAttribute("message", "결재가 성공적으로 "+message+"되었습니다");
-			model.addAttribute("url", "/approval/totalList");
+		}else {
+			model.addAttribute("message", "에러. 결재 실패");
 		}
+		model.addAttribute("url", "/approval/totalList");
+		model.addAttribute("result", result);
 		
 		return "commons/result";
 	}

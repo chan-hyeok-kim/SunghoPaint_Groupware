@@ -39,5 +39,35 @@
 				      
 				    </table>
 				  </div>
+				  
+				   <!-- pagination -->
+				  <div style="text-align: center; margin: 20px 20px">
+				  <nav aria-label="Page navigation example" style="display: inline-block;">
+  <ul class="pagination">
+    <li class="page-item ${pager.pre?'':'disabled'}">
+      <a class="page-link" href="/approval/list?page=${startNum-1}" aria-label="Previous">
+        <i class="mdi mdi-arrow-left-drop-circle"></i>
+      </a>
+    </li>
+    
+    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+    <li class="page-item"><a class="page-link" href="/approval/list?page=${i}">${i}</a></li>
+    </c:forEach>
+    
+    <li class="page-item ${pager.next?'':'disabled'}">
+      <a class="page-link" href="/approval/list?page=${lastNum+1}" aria-label="Next">
+        <i class="mdi mdi-arrow-right-drop-circle"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+  <!-- Button List  -->
+				  <div style="float: left;">
+				  <button class="btn btn-info" onclick="location.href='/approval/add'">새 결재 진행</button>
+				 
+				</div>
+
+  </div>
 </body>
 </html>
