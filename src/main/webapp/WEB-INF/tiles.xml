@@ -143,4 +143,42 @@
 	</definition>
 	<!-- 성호 -->
 	
+	<!-- 호진 -->
+	<definition name="instrument/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/instrument/list.jsp"/>
+	</definition>
+	
+	<definition name="instrument/detail" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/instrument/detail.jsp"/>
+	</definition>
+	
+	<definition name="instrument/update" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/instrument/update.jsp"/>
+	</definition>
+	
+	<definition name="material/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/material/list.jsp"/>
+	</definition>
+	
+	<definition name="material/detail" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/material/detail.jsp"/>
+	</definition>
+	
+	<definition name="material/update" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/material/update.jsp"/>
+	</definition>
+	
+		<definition name="factory/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/factory/list.jsp"/>
+	</definition>
+	
+	<definition name="factory/detail" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/factory/detail.jsp"/>
+	</definition>
+	
+	<definition name="factory/update" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/factory/update.jsp"/>
+	</definition>
+	<!-- 호진 -->
+	
 </tiles-definitions>

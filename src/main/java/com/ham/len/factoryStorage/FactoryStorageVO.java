@@ -1,4 +1,4 @@
-package com.ham.len.VOs;
+package com.ham.len.factoryStorage;
 
 import com.ham.len.commons.CodeVO;
 
@@ -6,11 +6,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter
+@Setter
+@Getter
 @ToString
-public class FactoryStorageVO extends CodeVO {
-
-	private Long factoryStorageNo;
-	private String factoryStorageCd;
+public class FactoryStorageVO extends CodeVO{
 	
+	private Long factoryStorageNo;
+	private String employeeId;
+	private String factoryStorageCd;
+	private String factoryStorageUse;
+	
+
 }

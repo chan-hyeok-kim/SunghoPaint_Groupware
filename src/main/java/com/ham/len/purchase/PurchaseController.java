@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ham.len.VOs.ClientVO;
-import com.ham.len.VOs.EmployeeVO;
-import com.ham.len.VOs.FactoryStorageVO;
 import com.ham.len.admin.CodeService;
 import com.ham.len.commons.CodeVO;
 import com.ham.len.commons.Pager;
@@ -68,21 +65,21 @@ public class PurchaseController {
 		
 	}
 	
-	@PostMapping("update")
-	public String update(PurchaseVO purchaseVO, ClientVO clientName,EmployeeVO employeeId)throws Exception{
-		
-		purchaseVO.setClientVO(clientName);
-		purchaseVO.setEmployeeVO(employeeId);
-		
-		log.warn("*********purchaseVO : {}***********", purchaseVO);
-		
-		int result = purchaseService.setUpdate(purchaseVO);
-		
-		log.warn("========== result : {}==========", result);
-		
-//		return "redirect:./update?purchaseNo=" + purchaseVO.getPurchaseNo();
-		return "redirect:./list";
-	}
+	/*
+	 * @PostMapping("update") public String update(PurchaseVO purchaseVO, ClientVO
+	 * clientName,EmployeeVO employeeId)throws Exception{
+	 * 
+	 * purchaseVO.setClientVO(clientName); purchaseVO.setEmployeeVO(employeeId);
+	 * 
+	 * log.warn("*********purchaseVO : {}***********", purchaseVO);
+	 * 
+	 * int result = purchaseService.setUpdate(purchaseVO);
+	 * 
+	 * log.warn("========== result : {}==========", result);
+	 * 
+	 * // return "redirect:./update?purchaseNo=" + purchaseVO.getPurchaseNo();
+	 * return "redirect:./list"; }
+	 */
 	
 	@PostMapping("delete")
 	public String delete(PurchaseVO purchaseNo)throws Exception{

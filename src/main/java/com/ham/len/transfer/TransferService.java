@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ham.len.commons.CodeVO;
-import com.ham.len.humanresource.HumanResourceVO;
+import com.ham.len.humanResource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
 

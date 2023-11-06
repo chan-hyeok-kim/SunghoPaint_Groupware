@@ -2,11 +2,8 @@ package com.ham.len.purchase;
 
 import java.sql.Date;
 
-import com.ham.len.VOs.ClientVO;
 
-import com.ham.len.VOs.EmployeeVO;
-import com.ham.len.VOs.FactoryStorageVO;
-import com.ham.len.VOs.MaterialProductVO;
+import com.ham.len.materialProduct.MaterialProductVO;
 import com.ham.len.commons.CodeVO;
 
 import lombok.Getter;
@@ -25,9 +22,8 @@ public class PurchaseVO extends CodeVO {
 	private Date purchaseDate;
 	private Long totalPrice;
 	
-	private ClientVO clientVO;
-	private EmployeeVO employeeVO;
+
 	private MaterialProductVO materialProductVO;
-	private FactoryStorageVO factoryStorageVO;
+
 	
 }

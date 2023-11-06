@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ham.len.commons.CodeVO;
-import com.ham.len.humanresource.HumanResourceVO;
+import com.ham.len.humanResource.HumanResourceVO;
 
 @Mapper
 public interface TransferDAO {
