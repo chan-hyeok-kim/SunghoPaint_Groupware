@@ -11,6 +11,12 @@ const approvalBtn=document.getElementById('approval-btn');
 
 var checkOriginValue=check.value;
 //결재했는지 확인용
+var originContents=contents.innerHTML;
+//서명해서 내용바뀌었는지 확인용
+var signOriginCount=$('.mid-sign-tab img').length;
+//서명했는지 확인용
+
+
 
 //approval/detail 서명하기 버튼
 $('#form-mid-sign').click(function(){
@@ -21,11 +27,10 @@ $('#form-mid-sign').click(function(){
     	return;
 	}
 
-	
+	let midSign=document.getElementsByClassName('mid-sign-tab');
 	//검토 확인 코드
 	if(check.value=='R041'){
 	    check.value='R042';
-		let midSign=document.getElementsByClassName('mid-sign-tab');
 	    console.log('사인왜안됨')
 		//R042 1회 검토
 		//R043 2회 검토
@@ -89,22 +94,32 @@ rejectBtn.addEventListener("click",function(){
 //결재버튼 눌렀을 경우
 approvalBtn.addEventListener("click",function(){
     //서명했는지 체크해야됨.
-	if(check.value==checkOriginValue){
+	console.log($('.mid-sign-tab img').length)
+  
+	if((signOriginCount+1)!=$('.mid-sign-tab img').length){
 		swal('결재하려면 먼저 서명해주세요')
 		return;
 	}
 
 	Swal.fire({
 		title:'정말 결재하시겠습니까?',
-	    icon:'info',
+	 //   icon:'info',
 		showCancelButton:true,
+		iconHtml:'<i class="mdi mdi-bell-ring-outline"></i>',
 		confirmButtonColor: 'blue',
 		cancleButtonText:'취소',
 	    reverseButtons: true,
+		customClass: {
+			icon: 'no-border'
+		  }
 	}).then(function(result){
 		if(result.isConfirmed){
+		
+			if(contents.innerHTML!=originContents){
+				modContents.value=contents.innerHTML;
+				$('#app-check-frm').submit();
+			}
 			
-			$('#app-check-frm').submit();
 		}
 	})
 })

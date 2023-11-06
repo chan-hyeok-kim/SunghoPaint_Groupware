@@ -21,7 +21,7 @@ public class ApprovalTypeService {
 		return approvalTypeDAO.setAdd(approvalTypeVO);
 	}
 
-	public List<ApprovalTypeVO> getList(Pager pager) throws Exception {
+	public List<ApprovalTypeVO> getList(Pager pager) throws Exception {	
 		return approvalTypeDAO.getList(pager);
 	}
 
@@ -34,6 +34,10 @@ public class ApprovalTypeService {
 	}
 
 	public List<ApprovalTypeVO> getTotalList(Pager pager) throws Exception {
+		pager.makeRowNum();
+		Long total=approvalTypeDAO.getTotal();
+		pager.makePageNum(total);
+		
 		return approvalTypeDAO.getTotalList(pager);
 	}
 
@@ -61,5 +65,7 @@ public class ApprovalTypeService {
 	public ApprovalUpTypeVO getDetailByName(String codeName) throws Exception{
 		return approvalTypeDAO.getDetailByName(codeName);
 	}
+	
+	
 
 }

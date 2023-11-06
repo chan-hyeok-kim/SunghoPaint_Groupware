@@ -204,5 +204,14 @@ public class ApprovalTypeController {
     	model.addAttribute("result", result);
     	return "commons/ajaxResult";
     }
+    
+    @PostMapping("upCheck")
+    public String setUpCheck(CodeVO codeVO,Model model) throws Exception{
+    	
+    	
+    	
+    	return "commons/ajaxResult";
+    	
+    }
 	
 }

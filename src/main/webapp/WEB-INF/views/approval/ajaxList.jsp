@@ -26,7 +26,7 @@
 				        <c:forEach items="${list}" var="vo" varStatus="i">
 				           <tr>
 				             <td><input type="checkbox"></td>
-				             <td>${vo.approvalStartDate}</td>
+				             <td class="approval-start-date">${vo.approvalStartDate}</td>
 				             <td>${vo.approvalTitle}</td>
 				             <td>${vo.codeName}</td>
 				             <td>${vo.drafter}</td>
@@ -69,5 +69,7 @@
 				</div>
 
   </div>
+  <!-- 기안일자 변환 -->
+  <!-- <script src="/js/approval/approval-date.js"></script> -->
 </body>
 </html>

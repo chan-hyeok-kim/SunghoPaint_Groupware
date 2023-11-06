@@ -163,6 +163,11 @@
 		</association>
 	</resultMap>
 
+    <select id="getTotal" resultType="Long">
+        SELECT COUNT(*)
+          FROM APPROVAL_TYPE 
+    </select>
+
 	<select id="getDetailByName" resultType="ApprovalUpTypeVO"
 		parameterType="String">
 		SELECT *

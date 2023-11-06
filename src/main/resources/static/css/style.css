@@ -14687,6 +14687,13 @@ ul.nav-tabs {
 	height: 58px;
 }
 
+/* swal icon*/
+
+.no-border {
+  border: 0;
+  color:yellow;
+}
+
 /* custom 1.btn */
 .btn-gradient-custom-danger {
   background: -webkit-gradient(linear, left top, right top, from(#ffbf96), to(#fe7096));

@@ -32,4 +32,5 @@ public interface ApprovalTypeDAO {
 
     public ApprovalUpTypeVO getDetailByName(String codeName) throws Exception;
     
+    public Long getTotal() throws Exception;
 }
