@@ -23,10 +23,10 @@ import lombok.extern.slf4j.Slf4j;
 public class HumanResourceVO extends CodeVO implements UserDetails {
 	private String employeeID;
 	private String password;
-	private String joinDate;
+	private Date joinDate;
 	private Byte joinType;
 	private String name;
-	private String birth;
+	private Date birth;
 	private String departmentCd;
 	private String departmentCdName;
 	private String positionCd;
@@ -43,7 +43,7 @@ public class HumanResourceVO extends CodeVO implements UserDetails {
 	private String accountHolder;
 	private Byte approvalAuthority = 0;
 	private String signature;
-	private String quitDate;
+	private Date quitDate;
 	private String quitReason;
 	private String profile;
 	private List<RoleVO> roles = new ArrayList<>(); // NullPointerException 방지

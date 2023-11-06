@@ -41,6 +41,6 @@ public class CommonsVO {
 		this.regMenu = menu;
 		this.modId = id;
 		this.modDate = date;
-		this.modMenu = menu;		
+		this.modMenu = menu;
 	}
 }

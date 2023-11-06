@@ -55,7 +55,7 @@ $(function(){
 		$("body").append("<div id='searchWindow'>" +
 									"<div id='titleBar'>" +
 										"<p>" + title + " 리스트</p>" +
-										"<img id='close' src='/images/transfer/close-icon.png'>" +
+										"<img id='close' src='/images/commons/close-icon.png'>" +
 									"</div>" +
 									"<div id='list'>" +
 										"<table>" +
