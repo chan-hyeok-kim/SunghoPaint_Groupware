@@ -1,5 +1,6 @@
-package com.ham.len.humanResource;
+package com.ham.len.humanresource;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ham.len.admin.document.ApprovalTypeVO;
 import com.ham.len.commons.Pager;
-import com.ham.len.humanResource.HumanResourceVO;
+import com.ham.len.humanresource.HumanResourceVO;
 
 @Service
 public class ApprovalService {

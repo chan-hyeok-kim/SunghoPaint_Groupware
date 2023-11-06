@@ -1,4 +1,4 @@
-package com.ham.len.humanResource;
+package com.ham.len.humanresource;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
