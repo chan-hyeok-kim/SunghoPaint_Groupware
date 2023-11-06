@@ -18,8 +18,8 @@ import com.ham.len.admin.document.ApprovalTypeVO;
 import com.ham.len.admin.document.ApprovalUpTypeVO;
 import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
-import com.ham.len.humanresource.HumanResourceVO;
-import com.ham.len.humanresource.sign.SignatureService;
+import com.ham.len.humanResource.HumanResourceVO;
+import com.ham.len.humanResource.sign.SignatureService;
 import com.nimbusds.jose.JWSObjectJSON.Signature;
 
 import lombok.extern.slf4j.Slf4j;
