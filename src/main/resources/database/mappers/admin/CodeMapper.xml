@@ -54,9 +54,9 @@
 
 	<select id="getLastId" resultType="String"
 		parameterType="CodeVO">
-		SELECT CONCAT(LEFT(CODE,1),'0',(MAX(SUBSTRING(CODE,2))+1)) AS NEXT_CODE
+		SELECT CONCAT(UP_CODE,(MAX(SUBSTRING(CODE,4))+1)) AS NEXT_CODE
 		FROM CODE
-		WHERE LEFT(CODE,3)=#{code}
+		WHERE UP_CODE=#{upCode}
 	</select>
 	
 	<select id="getTotal" resultType="Long" parameterType="Pager">

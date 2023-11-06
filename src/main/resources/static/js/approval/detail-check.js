@@ -4,7 +4,13 @@
 const contents=document.getElementById('show-contents');
 const modContents=document.getElementById('mod-contents');
 const check=document.getElementById('check');
+const statusCdCheck=document.getElementById('status-cd-check');
 
+const rejectBtn=document.getElementById('app-reject-btn');
+const approvalBtn=document.getElementById('approval-btn');
+
+var checkOriginValue=check.value;
+//결재했는지 확인용
 
 //approval/detail 서명하기 버튼
 $('#form-mid-sign').click(function(){
@@ -21,21 +27,84 @@ $('#form-mid-sign').click(function(){
 	    check.value='R042';
 		let midSign=document.getElementsByClassName('mid-sign-tab');
 	    console.log('사인왜안됨')
-		for(let i in midSign){
-			midSign[0].innerHTML=imgTag;
-		}
+		//R042 1회 검토
+		//R043 2회 검토
+		//2회 검토부터 분기점이 생긴다
+
+		midSign[0].innerHTML=imgTag;
+		//첫째 칸에 서명
 
 	}else if(check.value=='R042'){
-		check.value='R043';
+		//여기서 addapprover가 있으면 3회점검으로 바꾸기
+		//없으면 바로 끝(cd를 승인으로 바꾸고 엔드날짜 추가하는 메서드로 쏴야됨)
+		appNullCheck=$('#add-app').text();
         
-
-	}else{
-		check.value='R044';
+		if(appNullCheck || appNullCheck!=''){
+			check.value='R043';
+		}else{
+            statusCdCheck.value='R033'
+		}
 		
+		midSign[1].innerHTML=imgTag;
+		//둘째 칸에 서명
+		
+	}else if(check.value=='R043'){
+		//2회 검토까지 온 경우는 무조건 3회로 바꾸면됨.
+		//최대 3회이기 때문에 여기서 끝남.
+		check.value='R044';
+		statusCdCheck.value='R033'
+		
+		midSign[2].innerHTML=imgTag;
+		//셋째 칸에 서명
+	}else{
+		return;
 	}
 
 
     
 
 
+})
+
+
+//반려버튼 눌렀을 경우
+rejectBtn.addEventListener("click",function(){
+	Swal.fire({
+		title:'정말 반려하시겠습니까?',
+		text:'한번 더 신중한 검토 부탁드립니다',
+	    icon:'question',
+		showCancelButton:true,
+		confirmButtonColor: 'blue',
+		cancleButtonText:'취소',
+	    reverseButtons: true,
+	}).then(function(result){
+		if(result.isConfirmed){
+			statusCdCheck.value='R034'
+			$('#app-check-frm').submit();
+		}
+	})
+	
+})
+
+//결재버튼 눌렀을 경우
+approvalBtn.addEventListener("click",function(){
+    //서명했는지 체크해야됨.
+	if(check.value==checkOriginValue){
+		swal('결재하려면 먼저 서명해주세요')
+		return;
+	}
+
+	Swal.fire({
+		title:'정말 결재하시겠습니까?',
+	    icon:'info',
+		showCancelButton:true,
+		confirmButtonColor: 'blue',
+		cancleButtonText:'취소',
+	    reverseButtons: true,
+	}).then(function(result){
+		if(result.isConfirmed){
+			
+			$('#app-check-frm').submit();
+		}
+	})
 })

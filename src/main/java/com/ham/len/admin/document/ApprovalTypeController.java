@@ -88,7 +88,7 @@ public class ApprovalTypeController {
 		//채워야될값: 코드, 업코드
 		//이제 해당 VO에는 코드가 담기지 않게 하는 거지.
 		CodeVO codeVO = new CodeVO();
-		codeVO.setCode(typeUpCd);
+		codeVO.setUpCode(typeUpCd);
 	    String code=codeService.getLastId(codeVO);
 	    log.warn("&&&&&&&{}&&&&&&&",code);
 	    //이 codeVO에는 코드만 있다. 최신 코드에 +1된 값

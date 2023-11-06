@@ -58,8 +58,8 @@
 }
 
 .content-wrapper {
-	padding-left: 300px;
-	padding-right: 300px;
+	padding-left: 50px;
+	padding-right: 50px;
 }
 </style>
 
@@ -111,7 +111,7 @@
 					</table>
 				</div>
 				
-				<form action="/approval/check" method="post">
+				<form action="/approval/check" method="post" id="app-check-frm">
 				<table class="table table-bordered">
 					<tr>
 						<td colspan="2">
@@ -120,7 +120,7 @@
 						 <input id="mod-contents" type="hidden" name="approvalContents">
 						 <input id="check" type="hidden" name="approvalCheckCd" value="${vo.approvalCheckCd}">						</td>
 					     <input type="hidden" name="approvalNo" value="${vo.approvalNo}">
-					     <input type="hidden" name="approvalStatusCd" value="${vo.approvalStatusCd}">
+					     <input type="hidden" id="status-cd-check" name="approvalStatusCd" value="${vo.approvalStatusCd}">
 					</tr>
 					<tr>
 <c:choose>
@@ -149,14 +149,16 @@
 
 <!-- bottom btn-list  -->
 				<div id="form-add-btn-box">
-					<button class="btn btn-info" type="button"
+					<button class="btn btn-info" type="button" id="app-reject-btn"
+					>반려</button>
+					<button class="btn btn-info" type="button" style="margin-left: 20px;"
 					onclick="location.href='/approval/update?approvalNo=${vo.approvalNo}'">수정</button>
 					<button type="button" class="btn btn-info" id="app-delete-btn"
 						style="margin-left: 20px;">삭제</button>
 					<button type="button" class="btn btn-info" id="form-mid-sign"
 					style="margin-left: 400px;"
 					>서명하기</button>
-					<button class="btn btn-info" style="margin-left: 20px;">결재</button>
+					<button type="button" id="approval-btn" class="btn btn-info" style="margin-left: 20px;">결재</button>
 				   </form>
 				</div>
 		</div>

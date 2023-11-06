@@ -216,7 +216,7 @@
 	<insert id="setAdd" parameterType="ApprovalVO">
 		INSERT INTO
 		APPROVAL(APPROVAL_NO,EMPLOYEE_ID,APPROVAL_TYPE_NO,
-		APPROVAL_TITLE,APPROVAL_CONTENTS,APPROVAL_STATUS_CD, APPROVAL_CHECK_CD
+		APPROVAL_TITLE,APPROVAL_CONTENTS,APPROVAL_STATUS_CD, APPROVAL_CHECK_CD,
 		APPROVAL_START_DATE,APPROVAL_END_DATE,DRAFTER,MID_APPROVER,
 		ADD_APPROVER,LAST_APPROVER,ADMONITION,REG_ID,REG_DATE,
 		REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
@@ -261,7 +261,7 @@
 	<!-- 결재 상세에서 검토 시 -->
 	<update id="setCheck" parameterType="ApprovalVO">
 	    UPDATE APPROVAL
-		SET APPROVAL_CHECK_CD=#{approvalCheckCd},
+		SET APPROVAL_STATUS_CD=#{approvalStatusCd},APPROVAL_CHECK_CD=#{approvalCheckCd},
 		ADMONITION=#{admonition}, APPROVAL_CONTENTS=#{approvalContents},
 		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
 		WHERE
@@ -282,7 +282,7 @@
 	<!-- 결재 상세에서 반려 시 -->
 	<update id="setReject" parameterType="ApprovalVO">
 	    UPDATE APPROVAL
-		SET APPROVAL_STATUS_CD=#{approvalStatusCd},
+		SET APPROVAL_STATUS_CD='R034',
 		ADMONITION=#{admonition}, APPROVAL_CONTENTS=#{approvalContents},
 		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
 		WHERE
