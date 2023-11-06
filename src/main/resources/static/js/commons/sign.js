@@ -16,7 +16,8 @@ var file;
     
     //이미지 source 가져오기
     newImage.src = URL.createObjectURL(file);   
-
+    console.log(newImage.src);
+    
     newImage.style.width = "70%";
     newImage.style.height = "70%";
       //버튼을 누르기 전까지는 이미지를 숨긴다

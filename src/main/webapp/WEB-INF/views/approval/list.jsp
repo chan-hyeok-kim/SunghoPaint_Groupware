@@ -89,7 +89,6 @@
 				             <th>선택</th>
 				             <th>기안일자</th>
 				             <th>제목</th>
-				             <th>구분</th>
 				             <th>기안자</th>
 				             <th>결재자</th>
 				             <th>진행상태</th>
@@ -102,7 +101,6 @@
 				             <td><input type="checkbox"></td>
 				             <td>${vo.approvalStartDate}</td>
 				             <td>${vo.approvalTitle}</td>
-				             <td>${vo.approvalContents}</td>
 				             <td>${vo.drafter}</td>
 				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
 				             <c:choose>
