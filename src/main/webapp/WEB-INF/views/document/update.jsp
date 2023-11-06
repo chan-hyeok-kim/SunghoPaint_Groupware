@@ -87,8 +87,13 @@
 	</div>
 
 
-<!-- approval-form에 html style적용 -->
-	<script src="/js/commons/approval-form.js"></script>
+    <!-- approval-form에 html style적용 -->
+	<script src="/js/approval/approval-form.js"></script>
+	 
+	<!-- update check  -->
     <script src="/js/document/update-check.js"></script>
+    
+
+    
 </body>
 </html>

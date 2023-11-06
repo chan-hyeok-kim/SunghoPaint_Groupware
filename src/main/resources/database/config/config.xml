@@ -7,10 +7,12 @@
 <configuration>
    <typeAliases>
    
-   <typeAlias type="java.lang.String" alias="String"/>
-   
+       <typeAlias type="java.lang.String" alias="String"/>
+       <typeAlias type="java.util.List" alias="List" />
+	   <typeAlias type="java.util.Map" alias="Map" />
+		
 
-	    <typeAlias type="com.ham.len.humanResource.HumanResourceVO" alias="HumanResourceVO"/>
+	   <typeAlias type="com.ham.len.humanresource.HumanResourceVO" alias="HumanResourceVO"/>
 	   <typeAlias type="com.ham.len.attendance.AttendanceVO" alias="AttendanceVO"/>
 	   <typeAlias type="com.ham.len.transfer.TransferVO" alias="TransferVO"/>
 	   <typeAlias type="com.ham.len.commons.CodeVO" alias="CodeVO"/>
@@ -21,6 +23,9 @@
 	     <typeAlias type="com.ham.len.factoryStorage.FactoryStorageVO" alias="FactoryStorageVO"/>
 	   
 	   <typeAlias type="com.ham.len.approval.ApprovalVO" alias="ApprovalVO"/>
+       <typeAlias type="com.ham.len.admin.document.ApprovalTypeVO" alias="ApprovalTypeVO"/>
+       <typeAlias type="com.ham.len.admin.document.ApprovalUpTypeVO" alias="ApprovalUpTypeVO"/>
+       <typeAlias type="com.ham.len.humanresource.sign.SignatureVO" alias="SignatureVO"/>
 
    
 
@@ -32,14 +37,15 @@
    <typeAlias type="com.ham.len.sales.CarListVO" alias="CarListVO"/>
    
    
-		<typeAlias type="java.util.List" alias="List" />
-		<typeAlias type="java.util.Map" alias="Map" />
-		
-		
-		  <typeAlias type="com.ham.len.order.OrderVO" alias="OrderVO"/>   
-   <typeAlias type="com.ham.len.purchase.PurchaseVO" alias="PurchaseVO"/>
-   <typeAlias type="com.ham.len.workorder.WorkOrderVO" alias="WorkOrderVO"/>
-   <typeAlias type="com.ham.len.productionReceipt.ProductionReceiptVO" alias="ProductionReceiptVO"/>
+   
+       <typeAlias type="com.ham.len.sales.CarReservationVO" alias="CarReservationVO"/>
+       <typeAlias type="com.ham.len.sales.CarListVO" alias="CarListVO"/>
+   
+   
+       <typeAlias type="com.ham.len.order.OrderVO" alias="OrderVO"/>   
+       <typeAlias type="com.ham.len.purchase.PurchaseVO" alias="PurchaseVO"/>
+       <typeAlias type="com.ham.len.workorder.WorkOrderVO" alias="WorkOrderVO"/>
+       <typeAlias type="com.ham.len.productionReceipt.ProductionReceiptVO" alias="ProductionReceiptVO"/>
    
    </typeAliases>
 </configuration>

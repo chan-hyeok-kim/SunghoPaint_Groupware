@@ -35,10 +35,10 @@ $('#text-delete-btn').click(function() {
 
 })
 
-
+var formHtml;
 /*버튼 누르면 내용 추가하고 모달 닫기*/
 $('#modal-confirm-btn').click(function() {
-	let formHtml=$('#form_list').html();
+	formHtml=$('#form_list').html();
     let formName=$('#form_list').attr('data-name');
     //비어있지 않으면 초기화
     if($('#approvalForm').val()!=''){
@@ -56,4 +56,15 @@ $('#modal-confirm-btn').click(function() {
 });
 
 
+
+// 서명하기 버튼
+$('#form-add-sign').click(function(){
+	const imgTag='<img width="70px" height="40px" src="'+formSign+'">'
+	 /* 결재선 내부에 이미지 추가*/
+	
+    oEditors.getById["approvalForm"].exec("PASTE_HTML", [imgTag]);
+    oEditors.getById["approvalForm"].exec("UPDATE_CONTENTS_FIELD", []);
+
+    //$('#form-sign-span').html('<img width="70px" height="40px" src="'+formSign+'">');
+})
 

@@ -6,13 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 <body>
 
 	<script type="text/javascript">
-		alert('${message}');
-		location.href="${url}";	
+		if('${result}'>0){
+	        icon='success';
+		}else{
+			icon='warning';	
+		}
+		resultSwal(icon);
+		
+		function resultSwal(icon){
+			swal({
+				text:'${message}',
+				icon:icon
+				}).then(function(){
+				location.href="${url}";		
+			})
+		}
+		
 	</script>
 
 </body>
