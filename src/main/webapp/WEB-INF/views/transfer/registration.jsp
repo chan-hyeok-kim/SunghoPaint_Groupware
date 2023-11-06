@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<script src="/js/commons/registration.js"></script>
 <script src="/js/transfer/registration.js"></script>
 <link rel="stylesheet" href="/css/commons.css">
 <link rel="stylesheet" href="/css/transfer/registration.css">

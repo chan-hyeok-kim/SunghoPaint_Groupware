@@ -51,7 +51,7 @@
 		</collection>
 	</resultMap>
 	
-	<insert id="setRegistration" parameterType="HumanResourceVO">
+	<insert id="setRegistration" parameterType="HumanResourceVO" useGeneratedKeys="true" keyProperty="employeeId">
 		INSERT INTO HUMAN_RESOURCE
 		(
 			EMPLOYEE_ID, PASSWORD, JOIN_DATE, JOIN_TYPE, NAME, BIRTH,
@@ -65,7 +65,7 @@
 			FN_EMPLOYEE_ID(), #{password}, #{joinDate}, #{joinType}, #{name}, #{birth},
 			#{departmentCd}, #{positionCd}, #{extensionNumber}, #{phone}, #{mainNumber},
 			#{email}, #{zipCode}, #{address}, #{addressDetail}, #{bank}, #{accountNumber}, #{accountHolder},
-			#{approvalAuthority}, #{signature}, <if test="quitDate != ''">#{quitDate}</if><if test="quitDate == ''">NULL</if>, #{quitReason}, #{profile},
+			#{approvalAuthority}, #{signature}, #{quitDate}, #{quitReason}, #{profile},
 			#{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu}
 		)
 	</insert>

@@ -35,9 +35,7 @@ public class HumanResourceVO extends CodeVO implements UserDetails {
 	private String phone;
 	private String mainNumber;
 	private String email;
-	private String zipCode = "테스트";
 	private String address;
-	private String addressDetail = "테스트";
 	private String bank;
 	private String accountNumber;
 	private String accountHolder;

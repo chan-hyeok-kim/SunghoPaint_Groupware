@@ -2,8 +2,6 @@ package com.ham.len.humanresource;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,7 +29,13 @@ public class HumanResourceService implements UserDetailsService {
 	public int setRegistration(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
 		humanResourceVO.setProfile(encodeImageToBase64(file));
 		humanResourceVO.setPassword(passwordEncoder.encode("1234"));
-		return humanResourceDAO.setRegistration(humanResourceVO);
+		log.info("before {}", humanResourceVO.getEmployeeID());
+		int result = humanResourceDAO.setRegistration(humanResourceVO);
+		log.info("after {}", humanResourceVO.getEmployeeID());
+		
+		// 사번 및 임시 비밀번호 이메일 발급 로직
+		
+		return result;
 	}
 	
 	private String encodeImageToBase64(MultipartFile file) throws Exception {

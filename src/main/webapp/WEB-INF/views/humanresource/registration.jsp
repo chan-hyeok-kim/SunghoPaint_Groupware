@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="/js/commons/registration.js"></script>
 <script src="/js/humanresource/registration.js"></script>
 <link rel="stylesheet" href="/css/commons.css">
 <link rel="stylesheet" href="/css/humanresource/registration.css">
@@ -17,7 +18,7 @@
 			<th>부서</th>
 			<td colspan="3">
 				<input type="hidden" name="departmentCd">
-				<input type="text" name="departmentCdName" readonly="readonly">
+				<input type="text" name="departmentCdName" readonly="readonly" data-search-type="department">
 			</td>
 		</tr>
 		<tr>
@@ -35,7 +36,10 @@
 		</tr>
 		<tr>
 			<th>직급</th>
-			<td><input type="text" name="positionCd"></td>
+			<td>
+				<input type="hidden" name="positionCd">
+				<input type="text" name="positionCdName" readonly="readonly" data-search-type="position">
+			</td>
 			<th>대표번호</th>
 			<td><input type="text" name="mainNumber"></td>
 		</tr>
@@ -51,7 +55,12 @@
 		</tr>
 		<tr>
 			<th>입사구분</th>
-			<td><input type="text" name="joinType"></td>
+			<td>
+				<select name="joinType">
+					<option value="0">신입</option>
+					<option value="1">경력</option>
+				</select>
+			</td>
 			<th>퇴사일</th>
 			<td><input type="date" name="quitDate"></td>
 			<th>예금주</th>

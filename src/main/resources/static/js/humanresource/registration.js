@@ -1,11 +1,12 @@
 let postcodePopup;
+let fullAddr;
 function daumPostcode(){
 	if(postcodePopup == undefined){
 		postcodePopup  = new daum.Postcode({
 	        oncomplete:function(data){
 	            let addr = "";
 	            let extraAddr = "";
-	            let fullAddr = "";
+				fullAddr = "";
 	            
 	            if(data.userSelectedType === "R"){ // 도로명(R)
 	            	addr = data.roadAddress;
@@ -30,6 +31,7 @@ function daumPostcode(){
 	            }
 	            
 	            fullAddr = "(" + data.zonecode + ")" + addr + fullAddr;
+				$("#message-text").val("");
 	            $("#addressDetailModal").modal("show");
 	        },
 	        onclose:function(state){
@@ -45,7 +47,8 @@ function daumPostcode(){
 
 $(function(){
 	$("#modal-submit").click(function(){
-		alert($("#message-text").html());
+		fullAddr = fullAddr + " " + $("#message-text").val();
+		$("input[name='address']").val(fullAddr);
 		$("#addressDetailModal").modal("hide");
 	});
 	
@@ -89,70 +92,26 @@ $(function(){
 
 
 $(function(){
-	$("input[name='departmentCdName']").click(function(){
-		if($("#searchWindow").length > 0) $("#searchWindow").remove();
+	$("input[readonly='readonly']").click(function(){
+		let searchType = $(this).attr("data-search-type");
+		createSearchWindow(searchType);
 		
-		$("body").append("<div id='searchWindow'>" +
-									"<div id='titleBar'>" +
-										"<p>부서 리스트</p>" +
-										"<img id='close' src='/images/commons/close-icon.png'>" +
-									"</div>" +
-									"<div id='list'>" +
-										"<table>" +
-											"<tr>" +
-												"<th></th>" +
-												"<th>부서 코드</th>" +
-												"<th>부서명</th>" +
-											"</tr>" +
-										"</table>" +
-									"</div>" +
-									"<div id='footer'>" +
-										"<button id='apply'>적용</button>" +
-									"</div>" +
-								"</div>");
-		
-		$.ajax({
-			url:"/transfer/getCodeList",
-			type:"GET",
-			data:{upCode:"D00"},
-			success:function(result){
-				list_json = JSON.parse(JSON.stringify(result));
-				$.each(list_json, function(index, element){
-					$("#searchWindow #list > table").append("<tr>" +
-																				"<td class='select'><input type='checkbox'></td>" +
-																				"<td>" + element.code + "</td>" +
-																				"<td>" + element.codeName + "</td>" +
-																			"</tr>");
-				});
-				
-				$(".select > input[type='checkbox']").change(function(){
-					if($(this).is(":checked")){
-						$(".select > input[type='checkbox']").not(this).prop("checked", false);
-					}
-				});
-			}
-		});
-		
-		$("#searchWindow").draggable({
-			handle:"#titleBar",
-			cancel:"#close",
-			containment:"document"
-		});
-		
-		$("#apply").click(function(){
+		$("#searchWindow #apply").click(function(){
 			let checked = $(".select > input[type='checkbox']:checked");
 			
 			if(checked.length == 0){
 				alert("항목을 선택해주세요.");
 			}else{
-				$("input[name='departmentCd']").val(checked.parent().siblings("td:nth-of-type(2)").html());
-				$("input[name='departmentCdName']").val(checked.parent().siblings("td:nth-of-type(3)").html());
+				if(searchType == "department"){
+					$("input[name='departmentCd']").val(checked.parent().siblings(".code").html());
+					$("input[name='departmentCdName']").val(checked.parent().siblings(".codeName").html());
+				}else if(searchType == "position"){
+					$("input[name='positionCd']").val(checked.parent().siblings(".code").html());
+					$("input[name='positionCdName']").val(checked.parent().siblings(".codeName").html());
+				}
+				
 				$("#searchWindow").remove();
 			}
-		});
-		
-		$("#close").click(function(){
-			$("#searchWindow").remove();
 		});
 	});
 });
