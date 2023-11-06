@@ -1,4 +1,4 @@
-package com.ham.len.humanresource;
+package com.ham.len.humanResource;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
