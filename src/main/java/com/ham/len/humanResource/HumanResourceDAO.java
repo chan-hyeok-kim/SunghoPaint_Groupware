@@ -1,4 +1,4 @@
-package com.ham.len.humanresource;
+package com.ham.len.humanResource;
 
 import org.apache.ibatis.annotations.Mapper;
 

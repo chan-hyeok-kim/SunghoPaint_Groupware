@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
+@Getter @Setter
 @ToString
 public class Pager{
 
@@ -35,6 +34,14 @@ public class Pager{
 	// 다음블럭 활성화
 	private boolean next; // false면 마지막블럭, true 마지막 블럭 아님
 
+	private Long perPage;
+	
+	public void makeRowNum() {
+		this.startRow=(this.getPage()-1)*this.getPerPage();
+		//this.lastRow=this.page*this.getPerPage();
+		//마리아디비는 lastRow 안건드려도됨
+	}
+	
 	public void makePageNum(Long total) {
 
 		// 1. 전체 갯수로 전체 페이지 수 구하기
@@ -87,7 +94,7 @@ public class Pager{
 
 	public Long getPage() {
 		if (this.page == null || this.page < 0) {
-			return 1L;
+			this.page=1L;
 		}
 		return this.page;
 	}
@@ -113,4 +120,10 @@ public class Pager{
 		return this.search;
 	}
 
+	public Long getPerPage() {
+		if (this.perPage == null || this.perPage < 0) {
+			return 10L;
+		}
+		return this.perPage;
+	}
 }

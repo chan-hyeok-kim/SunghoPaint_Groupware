@@ -1,4 +1,4 @@
-package com.ham.len.humanresource;
+package com.ham.len.humanResource;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,6 +46,7 @@ public class HumanResourceVO extends CodeVO implements UserDetails {
 	private String quitReason;
 	private String profile;
 	private List<RoleVO> roles = new ArrayList<>(); // NullPointerException 방지
+	private Date appDate;
 	
 	@Override
 	public String getUsername() {

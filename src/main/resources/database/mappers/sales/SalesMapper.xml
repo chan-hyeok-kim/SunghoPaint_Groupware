@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ham.len.sales.SalesDAO">
+
+	<!-- 배차 신청 -->
+   <insert id="setCarReservationAdd" parameterType="CarReservationVO">
+		INSERT INTO CAR_RESERVATION 
+		values(0, #{employeeId}, #{carNo}, #{rentalDate}, #{rentalReasonCd}, #{rentalLocation}, #{returnDate}, 'test', sysdate(), 'test', 'test', sysdate(), 'test');
+   </insert>
+   
+   <!-- 배차 신청시 CAR_STATUS_CD 업데이트 쿼리 -->
+   <update id="setCarListUpdateUnavailable" parameterType="CarListVO">
+   		UPDATE CAR_LIST SET CAR_STATUS_CD='C012'
+   		WHERE CAR_NO=#{carNo}
+   </update>
+
+   <!-- 배차 신청시 CAR_STATUS_CD 업데이트 쿼리2 -->
+   <update id="setCarListUpdateAvailable" parameterType="CarListVO">
+   		UPDATE CAR_LIST SET CAR_STATUS_CD='C011'
+   		WHERE CAR_NO=#{carNo}
+   </update>
+   
+   <!-- 배차 조회 -->
+   <select id="getReservationList" resultType="CarReservationVO">
+   		SELECT * FROM CAR_RESERVATION
+   </select>
+   
+   <!-- 배차 수정 -->
+	<update id="setReservationUpdate" parameterType="CarReservationVO">
+		UPDATE CAR_RESERVATION SET
+  		EMPLOYEE_ID=#{employeeId}, CAR_NO=#{carNo}, RENTAL_DATE=#{rentalDate}, RENTAL_REASON_CD=#{rentalReasonCd}, RENTAL_LOCATION=#{rentalLocation}, RETURN_DATE=#{returnDate}
+  		WHERE RENTAL_NO=#{rentalNo}
+	</update>
+
+	<!-- 배차 삭제 -->
+	<delete id="setReservationDelete" parameterType="CarReservationVO">
+			DELETE FROM CAR_RESERVATION
+			WHERE RENTAL_NO=#{rentalNo}
+	</delete>
+
+	<!-- 차량 항목 조회 -->
+	<select id="getCarList" resultType="CarListVO">
+   		SELECT * FROM CAR_LIST
+   </select>
+   
+   <!-- 업데이트 전 정보 조회 -->
+   <select id="getTargetCar" parameterType="CarReservationVO" resultType="CarReservationVO">
+   		SELECT * FROM CAR_RESERVATION WHERE RENTAL_NO=#{rentalNo}
+   </select>
+   
+   <!-- 전체 대여 현황 -->
+   <select id="getAllReservation" resultMap="AllReservationList">
+   		SELECT CL.CAR_MODEL_NAME, CR.RENTAL_DATE, CR.RETURN_DATE, CR.EMPLOYEE_ID, CL.CAR_STATUS_CD 
+   		FROM CAR_RESERVATION CR INNER JOIN CAR_LIST CL
+		ON CR.CAR_NO = CL.CAR_NO
+   </select>
+   
+   <resultMap id="AllReservationList" type="CarListVO">
+		<result property="carModelName" column="CAR_MODEL_NAME" />
+	    <result property="carStatusCd" column="CAR_STATUS_CD" />
+   
+   		<association javaType="CarReservationVO" property="carReservationVO">
+	        <result property="rentalDate" column="RENTAL_DATE" />
+	        <result property="returnDate" column="RETURN_DATE" />
+	        <result property="employeeId" column="EMPLOYEE_ID" />
+	    </association> 
+   </resultMap>
+   
+   <!-- 내 대여 현황 -->
+   <select id="getMyReservation" resultMap="MyReservationList">
+   		SELECT CL.CAR_MODEL_NAME, CR.RENTAL_DATE, CR.RETURN_DATE, CL.CAR_STATUS_CD, CR.CAR_NO, CR.RENTAL_NO
+   		FROM CAR_RESERVATION CR INNER JOIN CAR_LIST CL
+		ON CR.CAR_NO = CL.CAR_NO
+   </select>
+   
+   <resultMap id="MyReservationList" type="CarListVO">
+		<result property="carModelName" column="CAR_MODEL_NAME" />
+	    <result property="carStatusCd" column="CAR_STATUS_CD" />
+	    <result property="carNo" column="CAR_NO" />
+   
+   		<association javaType="CarReservationVO" property="carReservationVO">
+	        <result property="rentalDate" column="RENTAL_DATE" />
+	        <result property="returnDate" column="RETURN_DATE" />
+	        <result property="rentalNo" column="RENTAL_NO" />
+	    </association> 
+   </resultMap>
+   
+   
+   
+</mapper>

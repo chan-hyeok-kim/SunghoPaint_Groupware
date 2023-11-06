@@ -6,6 +6,14 @@
 
 <mapper namespace="com.ham.len.admin.CodeDAO">
 
+<sql id="searchCdName">
+<choose>
+  <when test="kind=='upCode'">UP_CODE</when>
+  <when test="kind=='code'">CODE</when>
+  <otherwise>CODE_NAME</otherwise>
+</choose>
+</sql>
+
 	<select id="getDetail" resultType="CodeVO"
 		parameterType="CodeVO">
 		SELECT *
@@ -16,6 +24,8 @@
 	<select id="getList" resultType="CodeVO" parameterType="Pager">
 		SELECT *
 		FROM CODE
+		WHERE <include refid="searchCdName"></include>
+	    LIKE CONCAT('%',#{search},'%')
 		ORDER BY CODE DESC
 		LIMIT #{startRow},#{lastRow}
 	</select>
@@ -33,7 +43,7 @@
 		CODE=#{code},UP_CODE=#{upCode},CODE_NAME=#{codeName}
 		,MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
 		WHERE
-		CODE=#{code}
+		CODE=#{originCode}
 	</update>
 
 	<delete id="setDelete" parameterType="CodeVO">
@@ -44,12 +54,23 @@
 
 	<select id="getLastId" resultType="String"
 		parameterType="CodeVO">
-		SELECT CONCAT(LEFT(CODE,1),'0',(MAX(SUBSTRING(CODE,2))+1)) AS NEXT_CODE
+		SELECT CONCAT(UP_CODE,(MAX(SUBSTRING(CODE,4))+1)) AS NEXT_CODE
 		FROM CODE
-		WHERE LEFT(CODE,3)=#{code};
+		WHERE UP_CODE=#{upCode}
 	</select>
 	
+	<select id="getTotal" resultType="Long" parameterType="Pager">
+	    SELECT COUNT(*)
+	      FROM CODE
+	      WHERE <include refid="searchCdName"></include>
+	    LIKE CONCAT('%',#{search},'%')
+	</select>
 	
+	<select id="getCodeCheck" resultType="Long" parameterType="CodeVO">
+         SELECT COUNT(*)
+           FROM CODE
+          WHERE CODE=#{code}
+    </select>
 
 
 </mapper>

@@ -1,4 +1,4 @@
-package com.ham.len.humanresource.sign;
+package com.ham.len.humanResource.sign;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ham.len.commons.ImgToBase64;
 import com.ham.len.commons.MakeColumn;
-import com.ham.len.humanresource.HumanResourceVO;
+import com.ham.len.humanResource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
 

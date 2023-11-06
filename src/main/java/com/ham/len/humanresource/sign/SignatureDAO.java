@@ -1,8 +1,8 @@
-package com.ham.len.humanresource.sign;
+package com.ham.len.humanResource.sign;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ham.len.humanresource.HumanResourceVO;
+import com.ham.len.humanResource.HumanResourceVO;
 
 @Mapper
 public interface SignatureDAO {

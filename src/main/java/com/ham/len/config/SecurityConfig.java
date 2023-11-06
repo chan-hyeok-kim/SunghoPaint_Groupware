@@ -10,13 +10,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.ham.len.humanresource.HumanResourceService;
+import com.ham.len.humanResource.HumanResourceService;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 	@Autowired
 	private HumanResourceService humanResourceService;
+	
+
 	
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() {
@@ -58,8 +61,13 @@ public class SecurityConfig {
 				.tokenValiditySeconds(604800) // 일주일
 				.key(UUID.randomUUID().toString())
 				.userDetailsService(humanResourceService)
-				.and();
+				.and()
+			.headers()
+			    .frameOptions()
+			    .sameOrigin();
 		
 		return httpSecurity.build();
 	}
+	
+	
 }

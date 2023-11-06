@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ham.len.factoryStorage.FactoryStorageDAO">
+<select id="getTotal" parameterType="Pager" resultType="Long">
+  		SELECT COUNT(FACTORY_STORAGE_NO) FROM FACTORY_STORAGE
+  	</select>
+
+	<select id="getList" resultType="FactoryStorageVO" parameterType="Pager">
+		SELECT F.*, C.* FROM 
+		FACTORY_STORAGE F LEFT OUTER JOIN CODE C 
+		ON F.FACTORY_STORAGE_CD = C.CODE 
+        LIMIT #{startRow},#{lastRow}
+	</select>
+   
+	<insert id="add" parameterType="FactoryStorageVO" useGeneratedKeys="true" keyProperty="factoryStorageNo">
+  		INSERT INTO FACTORY_STORAGE
+  		VALUES (NULL, #{employeeId}, #{factoryStorageCd},  #{factoryStorageUse}, 
+  		#{regId}, NOW() , #{regMenu}, #{modId}, NOW(), #{modMenu})  	
+	</insert>
+
+	<update id="setUpdate" parameterType="FactoryStorageVO">
+  		UPDATE FACTORY_STORAGE
+  		SET FACTORY_STORAGE_USE = #{factoryStorageUse}
+  		WHERE FACTORY_STORAGE_CD = #{factoryStorageCd}  	
+  	</update>
+  	
+
+  	<delete id="setDelete" parameterType="FactoryStorageVO">
+		DELETE FROM FACTORY_STORAGE
+		WHERE FACTORY_STORAGE_CD = #{factoryStorageCd} 
+	</delete>
+  	
+   	<select id="getDetail" parameterType="FactoryStorageVO" resultType="FactoryStorageVO">
+  		SELECT F.*, C.* FROM 
+		FACTORY_STORAGE F LEFT OUTER JOIN CODE C 
+		ON F.FACTORY_STORAGE_CD = C.CODE 
+		WHERE F.FACTORY_STORAGE_CD = #{factoryStorageCd}
+  	</select>
+
+
+
+
+</mapper>
