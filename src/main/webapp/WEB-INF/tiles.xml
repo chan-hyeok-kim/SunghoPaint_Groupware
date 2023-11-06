@@ -19,8 +19,15 @@
 	  <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
 	</definition>
 	
+	
+	
+	
 	<!-- 김민진 -->
 	<definition name="login" template="/WEB-INF/views/login.jsp">
+   </definition>
+   
+   <definition name="humanresource/registration" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/humanresource/registration.jsp"/>
    </definition>
    
    <definition name="attendance/status" extends="layout">
@@ -38,8 +45,8 @@
 
 
 
-    <!-- 김찬혁 -->
-    <definition name="approval/list" extends="layout">
+  <!-- 김찬혁 -->
+  <definition name="approval/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
 	</definition>
 
@@ -180,5 +187,4 @@
 	  <put-attribute name="body" value="/WEB-INF/views/factory/update.jsp"/>
 	</definition>
 	<!-- 호진 -->
-	
 </tiles-definitions>

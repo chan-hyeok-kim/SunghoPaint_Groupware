@@ -98,26 +98,45 @@ function hoursToTimeString(hours, format){
 }
 
 
+// 서버 Date 정보 가져오기
+function getServerDate(){
+	let serverDate;
+	$.ajax({
+		url:"./getServerDate",
+		type:"GET",
+		async:false,
+		success:function(result){
+			serverDate = result;
+		}
+	});
+	
+	return serverDate;
+}
+
+
 // 출퇴근 버튼
 function commute(url){
-	let param = new Object();
+	/*
+		let param = new Object();
 
-	let date = $("#cur_date").html();
-	date = date.substr(0, date.indexOf("("));
-	let time = $("#cur_time").html();
+		let date = $("#cur_date").html();
+		date = date.substr(0, date.indexOf("("));
+		let time = $("#cur_time").html();
 
-	if(url.indexOf("goWork") != -1){
-		param.start = date + " " + time;
-	}else if(url.indexOf("leaveWork") != -1){
-		param.end = date + " " + time;
-	}
-
+		if(url.indexOf("goWork") != -1){
+			param.start = date + " " + time;
+		}else if(url.indexOf("leaveWork") != -1){
+			param.end = date + " " + time;
+		}
+	*/
+	
 	$.ajax({
 		url:url,
 		type:"POST",
-		data:param,
+		// data:param,
 		success:function(result){
-			if(result > 0){
+			if(result){
+				let date = result.split("T")[0];
 				let year = date.split("-")[0];
 				let month = date.split("-")[1];
 				let day = date.split("-")[2];
@@ -131,7 +150,7 @@ function commute(url){
 				form.appendTo("body");
 				form.submit();
 			}else{
-				alert("이미 처리되었습니다.");
+				alert("잘못된 접근입니다.");
 			}
 		}
 	});

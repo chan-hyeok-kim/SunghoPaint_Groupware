@@ -13,6 +13,20 @@
 	]]>
 	</select>
 	
+	<select id="getAttendance" parameterType="Map" resultType="AttendanceVO">
+		SELECT *
+			FROM ATTENDANCE
+		WHERE
+			EMPLOYEE_ID = #{employeeId} AND
+			DATE_FORMAT(ATTENDANCE_DATE, '%Y-%m-%d') = DATE_FORMAT(#{date}, '%Y-%m-%d') 
+	</select>
+	
+	<select id="getLeaveWorkWhether" parameterType="String" resultType="int">
+		SELECT COUNT(ATTENDANCE_NO)
+			FROM ATTENDANCE
+		WHERE EMPLOYEE_ID = #{value} AND ATTENDANCE_END IS NULL
+	</select>
+	
 	<insert id="setGoWork" parameterType="AttendanceVO">
 		INSERT INTO ATTENDANCE
 		VALUES(NULL, #{employeeId}, #{attendanceDate}, #{attendanceStart}, NULL, #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu})
@@ -21,6 +35,6 @@
 	<update id="setLeaveWork" parameterType="AttendanceVO">
 		UPDATE ATTENDANCE SET
 		ATTENDANCE_END = #{attendanceEnd}, MOD_ID = #{modId}, MOD_DATE = #{modDate}, MOD_MENU = #{modMenu}
-		WHERE EMPLOYEE_ID = #{employeeId}
+		WHERE EMPLOYEE_ID = #{employeeId} AND ATTENDANCE_END IS NULL 
 	</update>
 </mapper>

@@ -1,8 +1,8 @@
 package com.ham.len.attendance;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,48 +30,47 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @RequestMapping("/attendance/*")
-public class AttendanceController {
+public class AttendanceController {	
 	@Autowired
 	private AttendanceService attendanceService;
 	
-	private Map<String, Boolean> getTodayCommuteWhether() {
-		Calendar cal = Calendar.getInstance(Locale.KOREA);
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH) + 1;
-		int day = cal.get(Calendar.DATE);
-		String date = year + "-" + month + "-" + day + " ";
+	@GetMapping("getServerDate")
+	@ResponseBody
+	public Date getServerDate() {
+		return new Date();
+	}
+	
+	private Map<String, Boolean> getCommuteWhether(String employeeId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("employeeId", employeeId);
+		params.put("date", new Date());
+		AttendanceVO attendanceVO = attendanceService.getAttendance(params);
 		
-		Map<String, String> params = new HashMap<>();
-		String start_date =  date + "00:00:00";
-		String end_date = date + "23:59:59";
-		
-		params.put("start_date", start_date);
-		params.put("end_date", end_date);
-		List<AttendanceVO> attendances = attendanceService.getStatus(params);
-		
-		Map<String, Boolean> todayCommuteWhether = new HashMap<>();
-		if(attendances.size() == 0) {
-			todayCommuteWhether.put("goWork", false);
-			todayCommuteWhether.put("leaveWork", false);
+		Map<String, Boolean> commuteWhether = new HashMap<>();
+		if(attendanceVO == null && attendanceService.getLeaveWorkWhether(employeeId) == 0) {
+			commuteWhether.put("goWork", false);
+			commuteWhether.put("leaveWork", true);
 		}else {
-			todayCommuteWhether.put("goWork", true);
-			
-			AttendanceVO attendanceVO = attendances.get(0);
-			todayCommuteWhether.put("leaveWork", (attendanceVO.getAttendanceEnd() != null) ? true : false);
+			commuteWhether.put("goWork", true);
+			if(attendanceVO != null) {
+				commuteWhether.put("leaveWork", (attendanceVO.getAttendanceEnd() != null));
+			}else {
+				commuteWhether.put("leaveWork", false);
+			}
 		}
 		
-		return todayCommuteWhether;
+		return commuteWhether;
 	}
 	
 	@PostMapping("status")
 	public String getStatus(@RequestParam(value = "year", defaultValue = "0")int year,
 									@RequestParam(value = "month", defaultValue = "0")int month,
 									@RequestParam(value = "day", required = false)Integer day,
-									Model model) {
+									@AuthenticationPrincipal HumanResourceVO humanResourceVO, Model model) {
 		
 		Calendar cal = Calendar.getInstance(Locale.KOREA);
 		int weekOfMonth = 0;
-		if(year == 0 && month == 0) {
+		if((year == 0 && month == 0) || (year == cal.get(Calendar.YEAR) && month - 1 == cal.get(Calendar.MONTH))) {
 			year = cal.get(Calendar.YEAR);
 			month = cal.get(Calendar.MONTH) + 1;
 			Map<String, Integer> currentWeekOfMonth = WeekOfMonthInfoCalculator.getCurrentWeekOfMonth(cal.getTime());
@@ -111,43 +111,47 @@ public class AttendanceController {
 		model.addAttribute("weeksOfMonthInfo", weeksOfMonthInfo);
 		model.addAttribute("weeksOfMonthInfo_json", gson.toJson(weeksOfMonthInfo));
 		model.addAttribute("attendances_json", gson.toJson(attendances));
-		model.addAttribute("todayCommuteWhether", getTodayCommuteWhether());
+		model.addAttribute("commuteWhether", getCommuteWhether(humanResourceVO.getEmployeeID()));
 		
 		return "attendance/status";
 	}
 	
 	@PostMapping("goWork")
 	@ResponseBody
-	public int setGoWork(@AuthenticationPrincipal HumanResourceVO humanResourceVO, @RequestParam(value = "start")String start, HttpServletRequest httpServletRequest) throws Exception {
-		if(getTodayCommuteWhether().get("goWork") == false) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	        Timestamp timestamp = new Timestamp(sdf.parse(start).getTime());
+	public Timestamp setGoWork(@AuthenticationPrincipal HumanResourceVO humanResourceVO, HttpServletRequest httpServletRequest) throws Exception {
+		String employeeID = humanResourceVO.getEmployeeID();
+		
+		if(getCommuteWhether(employeeID).get("goWork") == false) {
+			Timestamp goWorkDate = new Timestamp(new Date().getTime());
 			
 	        AttendanceVO attendanceVO = new AttendanceVO();
-			attendanceVO.setEmployeeId(humanResourceVO.getEmployeeID());
-			attendanceVO.setAttendanceDate(timestamp);
-			attendanceVO.setAttendanceStart(timestamp);
+			attendanceVO.setEmployeeId(employeeID);
+			attendanceVO.setAttendanceDate(goWorkDate);
+			attendanceVO.setAttendanceStart(goWorkDate);
 			
-			return attendanceService.setGoWork(attendanceVO);
+			attendanceService.setGoWork(attendanceVO);
+			return goWorkDate;
 		}
 		
-		return 0;
+		return null;
 	}
 	
 	@PostMapping("leaveWork")
 	@ResponseBody
-	public int setLeaveWork(@AuthenticationPrincipal HumanResourceVO humanResourceVO, @RequestParam(value = "end")String end, HttpServletRequest httpServletRequest) throws Exception {
-		if(getTodayCommuteWhether().get("leaveWork") == false) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	        Timestamp timestamp = new Timestamp(sdf.parse(end).getTime());
+	public Timestamp setLeaveWork(@AuthenticationPrincipal HumanResourceVO humanResourceVO, HttpServletRequest httpServletRequest) throws Exception {
+		String employeeID = humanResourceVO.getEmployeeID();
+		
+		if(getCommuteWhether(employeeID).get("leaveWork") == false) {
+			Timestamp leaveWorkDate = new Timestamp(new Date().getTime());
 	        
 	        AttendanceVO attendanceVO = new AttendanceVO();
-			attendanceVO.setEmployeeId(humanResourceVO.getEmployeeID());
-			attendanceVO.setAttendanceEnd(timestamp);
+			attendanceVO.setEmployeeId(employeeID);
+			attendanceVO.setAttendanceEnd(leaveWorkDate);
 			
-			return attendanceService.setLeaveWork(attendanceVO);
+			attendanceService.setLeaveWork(attendanceVO);
+			return leaveWorkDate;
 		}
 		
-		return 0;
+		return null;
 	}
 }

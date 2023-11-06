@@ -12,5 +12,6 @@ public interface TransferDAO {
 	public List<HumanResourceVO> getHumanResourceList();
 	public List<CodeVO> getCodeList(String upCode);
 	public int setTransfer(TransferVO transferVO);
-	public List<TransferVO> getTransferList();
+	public Long getTotal(TransferPager pager);
+	public List<TransferVO> getTransferList(TransferPager pager);
 }

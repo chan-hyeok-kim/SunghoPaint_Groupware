@@ -18,8 +18,8 @@
 		<id column="EMPLOYEE_ID" property="employeeID" />
 		<result column="PASSWORD" property="password" />
 		<result column="JOIN_DATE" property="joinDate" />
-		<result column="email" property="joinType" />
-		<result column="birth" property="name" />
+		<result column="JOIN_TYPE" property="joinType" />
+		<result column="NAME" property="name" />
 		<result column="BIRTH" property="birth" />
 		<result column="DEPARTMENT_CD" property="departmentCd" />
 		<result column="POSITION_CD" property="positionCd" />
@@ -33,9 +33,11 @@
 		<result column="BANK" property="bank" />
 		<result column="ACCOUNT_NUMBER" property="accountNumber" />
 		<result column="ACCOUNT_HOLDER" property="accountHolder" />
+		<result column="APPROVAL_AUTHORITY" property="approvalAuthority" />
 		<result column="SIGNATURE" property="signature" />
 		<result column="QUIT_DATE" property="quitDate" />
 		<result column="QUIT_REASON" property="quitReason" />
+		<result column="PROFILE" property="profile" />
 		<result column="REG_ID" property="regId" />
 		<result column="REG_DATE" property="regDate" />
 		<result column="REG_MENU" property="regMenu" />
@@ -48,4 +50,23 @@
 			<result column="CODE_NAME" property="roleName" />
 		</collection>
 	</resultMap>
+	
+	<insert id="setRegistration" parameterType="HumanResourceVO">
+		INSERT INTO HUMAN_RESOURCE
+		(
+			EMPLOYEE_ID, PASSWORD, JOIN_DATE, JOIN_TYPE, NAME, BIRTH,
+			DEPARTMENT_CD, POSITION_CD, EXTENSION_NUMBER, PHONE, MAIN_NUMBER,
+			EMAIL, ZIP_CODE, ADDRESS, ADDRESS_DETAIL, BANK, ACCOUNT_NUMBER, ACCOUNT_HOLDER,
+			APPROVAL_AUTHORITY, SIGNATURE, QUIT_DATE, QUIT_REASON, PROFILE,
+			REG_ID, REG_DATE, REG_MENU, MOD_ID, MOD_DATE, MOD_MENU
+		)
+		VALUES
+		(
+			FN_EMPLOYEE_ID(), #{password}, #{joinDate}, #{joinType}, #{name}, #{birth},
+			#{departmentCd}, #{positionCd}, #{extensionNumber}, #{phone}, #{mainNumber},
+			#{email}, #{zipCode}, #{address}, #{addressDetail}, #{bank}, #{accountNumber}, #{accountHolder},
+			#{approvalAuthority}, #{signature}, <if test="quitDate != ''">#{quitDate}</if><if test="quitDate == ''">NULL</if>, #{quitReason}, #{profile},
+			#{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu}
+		)
+	</insert>
 </mapper>

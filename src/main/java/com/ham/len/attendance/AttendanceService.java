@@ -18,6 +18,14 @@ public class AttendanceService {
 		return attendanceDAO.getStatus(params);
 	}
 	
+	public AttendanceVO getAttendance(Map<String, Object> params) {
+		return attendanceDAO.getAttendance(params);
+	}
+	
+	public int getLeaveWorkWhether(String employeeId) {
+		return attendanceDAO.getLeaveWorkWhether(employeeId);
+	}
+	
 	public int setGoWork(AttendanceVO attendanceVO) {
 		return attendanceDAO.setGoWork(attendanceVO);
 	}

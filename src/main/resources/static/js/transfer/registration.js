@@ -1,5 +1,5 @@
 $(function(){
-	$("#transferForm .search").click(function(){
+	$("#registrationForm .search").click(function(){
 		let id = $(this).attr("id");
 		let url;
 		let param = new Object();
@@ -137,7 +137,7 @@ $(function(){
 		});
 	});
 	
-	$("#transferForm input[type='text']").click(function(){
+	$("#registrationForm input[type='text']").click(function(){
 		let search_type = $(this).attr("data-search-type");
 		$("#search_" + search_type).trigger("click");
 	});
