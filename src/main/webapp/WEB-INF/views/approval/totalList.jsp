@@ -19,7 +19,7 @@
 
 					<div class="wrapper-toolbar">
 
-						<div style="float:left">내 결재 관리</div> 
+						<div style="float:left">결재 통합 관리</div> 
 						<div style="text-align: right;">
 							<form class="form-inline">
 
@@ -41,12 +41,12 @@
 					</div>
 
 					<ul class="nav-tabs">
-						<li onclick="location.href='./totalList'"><a class="link-tab">전체</a></li>
-						<li><a class="link-tab">기안중</a></li>
-						<li><a class="link-tab">진행중</a></li>
-						<li><a class="link-tab">반려</a></li>
-						<li><a class="link-tab">결재</a></li>
-					</ul>
+						<li onclick="location.href='./totalList'" class="active"><a class="link-tab">전체</a></li>
+						<li data-cd="R031"><a class="link-tab">기안중</a></li>
+						<li data-cd="R032"><a class="link-tab">진행중</a></li>
+						<li data-cd="R034"><a class="link-tab">반려</a></li>
+						<li data-cd="R033"><a class="link-tab">결재</a></li>
+					</ul>	
 
 
 					<div
@@ -68,7 +68,6 @@
 				             <th>선택</th>
 				             <th>기안일자</th>
 				             <th>제목</th>
-				             <th>구분</th>
 				             <th>기안자</th>
 				             <th>결재자</th>
 				             <th>진행상태</th>
@@ -81,10 +80,9 @@
 				             <td><input type="checkbox"></td>
 				             <td>${vo.approvalStartDate}</td>
 				             <td>${vo.approvalTitle}</td>
-				             <td>${vo.codeName}</td>
 				             <td>${vo.drafter}</td>
 				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
-				             <td></td>
+				             <td>${vo.codeName}</td>
 				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
 				           </tr>
 				         </c:forEach>
@@ -92,23 +90,25 @@
 				      
 				    </table>
 				  </div>
-				  </div>
 				  
 				  
-				  <!-- pagination -->
+				  
+				   <!-- pagination -->
 				  <div style="text-align: center; margin: 20px 20px">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
   <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
+    <li class="page-item ${pager.pre?'':'disabled'}">
+      <a class="page-link" href="/approval/list?page=${startNum-1}" aria-label="Previous">
         <i class="mdi mdi-arrow-left-drop-circle"></i>
       </a>
     </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
+    
+    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+    <li class="page-item"><a class="page-link" href="/approval/list?page=${i}">${i}</a></li>
+    </c:forEach>
+    
+    <li class="page-item ${pager.next?'':'disabled'}">
+      <a class="page-link" href="/approval/list?page=${lastNum+1}" aria-label="Next">
         <i class="mdi mdi-arrow-right-drop-circle"></i>
       </a>
     </li>
@@ -121,13 +121,8 @@
 				 
 				</div>
 			
-				  
-				  
-				 
-
-
   </div>
-
+</div>
 
 <!-- Sign -->
 <div style="float:left">
