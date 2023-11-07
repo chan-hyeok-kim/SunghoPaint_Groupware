@@ -26,7 +26,7 @@ public class CommonsVO {
 	
 	public CommonsVO() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String id = null;
+		String id = "";
 		if(authentication != null) id = authentication.getName(); // NullPointerException 방지(로그인 시에는 Authentication이 존재하지 않음)
 		
 		Date date = new Date();
@@ -41,6 +41,6 @@ public class CommonsVO {
 		this.regMenu = menu;
 		this.modId = id;
 		this.modDate = date;
-		this.modMenu = menu;		
+		this.modMenu = menu;
 	}
 }

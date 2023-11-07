@@ -51,12 +51,12 @@
 		</collection>
 	</resultMap>
 	
-	<insert id="setRegistration" parameterType="HumanResourceVO">
+	<insert id="setRegistration" parameterType="HumanResourceVO" useGeneratedKeys="true" keyProperty="employeeID">
 		INSERT INTO HUMAN_RESOURCE
 		(
 			EMPLOYEE_ID, PASSWORD, JOIN_DATE, JOIN_TYPE, NAME, BIRTH,
 			DEPARTMENT_CD, POSITION_CD, EXTENSION_NUMBER, PHONE, MAIN_NUMBER,
-			EMAIL, ZIP_CODE, ADDRESS, ADDRESS_DETAIL, BANK, ACCOUNT_NUMBER, ACCOUNT_HOLDER,
+			EMAIL, ADDRESS, BANK, ACCOUNT_NUMBER, ACCOUNT_HOLDER,
 			APPROVAL_AUTHORITY, SIGNATURE, QUIT_DATE, QUIT_REASON, PROFILE,
 			REG_ID, REG_DATE, REG_MENU, MOD_ID, MOD_DATE, MOD_MENU
 		)
@@ -64,9 +64,13 @@
 		(
 			FN_EMPLOYEE_ID(), #{password}, #{joinDate}, #{joinType}, #{name}, #{birth},
 			#{departmentCd}, #{positionCd}, #{extensionNumber}, #{phone}, #{mainNumber},
-			#{email}, #{zipCode}, #{address}, #{addressDetail}, #{bank}, #{accountNumber}, #{accountHolder},
-			#{approvalAuthority}, #{signature}, <if test="quitDate != ''">#{quitDate}</if><if test="quitDate == ''">NULL</if>, #{quitReason}, #{profile},
+			#{email}, #{address}, #{bank}, #{accountNumber}, #{accountHolder},
+			#{approvalAuthority}, #{signature}, #{quitDate}, #{quitReason}, #{profile},
 			#{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu}
 		)
 	</insert>
+	
+	<select id="getLatestEmployeeID" parameterType="String">
+		SELECT MAX(EMPLOYEE_ID) FROM HUMAN_RESOURCE
+	</select>
 </mapper>

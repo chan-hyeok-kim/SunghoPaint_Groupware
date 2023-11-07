@@ -12,11 +12,19 @@ th, td{
 	font-size:14px;
 }
 
-form input{
+form input,
+form select{
     width:100%; height:100%;
     padding:5px;
     text-align:center;
     border:none;
+}
+
+form select{
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	appearance:none;
+	background:white url("/images/humanResource/down_arrow.png") no-repeat 97% center / 13px 13px;
 }
 
 
@@ -58,7 +66,7 @@ form > #buttons{
     cursor:pointer;
 }
 
-#buttons > button[type="button"]{
+#buttons > #cancel{
     margin-left:10px;
-    background-color:#D09BE3;
+    background-color:#707070;
 }
