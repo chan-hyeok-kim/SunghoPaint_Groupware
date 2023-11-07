@@ -1,4 +1,4 @@
-package com.ham.len.productionReceipt;
+package com.ham.len.productionreceipt;
 
 import java.util.List;
 
@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import com.ham.len.commons.Pager;
 
 @Service
-public class ProductionReceiptService {
+public class ProductionreceiptService {
 	
 	@Autowired
-	private ProductionReceiptDAO productionReceiptDAO;
+	private ProductionreceiptDAO productionReceiptDAO;
 	
-	public List<ProductionReceiptVO> getList(Pager pager)throws Exception{
+	public List<ProductionreceiptVO> getList(Pager pager)throws Exception{
 		pager.makePageNum(1L);
 		return productionReceiptDAO.getList(pager);
 	}

@@ -1,4 +1,4 @@
-package com.ham.len.productionReceipt;
+package com.ham.len.productionreceipt;
 
 import java.util.List;
 
@@ -15,14 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @RequestMapping("/productionreceipt/*")
-public class ProductionReceiptController {
+public class ProductionreceiptController {
 	
 	@Autowired
-	private ProductionReceiptService productionReceiptService;
+	private ProductionreceiptService productionReceiptService;
 	
 	@GetMapping("list")
 	public String getList(Pager pager, Model model)throws Exception{
-		List<ProductionReceiptVO> ar = productionReceiptService.getList(pager);
+		List<ProductionreceiptVO> ar = productionReceiptService.getList(pager);
 		model.addAttribute("list", ar);
 		return "productionreceipt/list";
 	}

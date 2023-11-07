@@ -1,4 +1,4 @@
-package com.ham.len.productionReceipt;
+package com.ham.len.productionreceipt;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ham.len.commons.Pager;
 
 @Mapper
-public interface ProductionReceiptDAO {
+public interface ProductionreceiptDAO {
 	
-	public List<ProductionReceiptVO> getList(Pager pager)throws Exception;
+	public List<ProductionreceiptVO> getList(Pager pager)throws Exception;
 
 }

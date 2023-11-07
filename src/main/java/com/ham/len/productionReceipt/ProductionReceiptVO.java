@@ -1,4 +1,4 @@
-package com.ham.len.productionReceipt;
+package com.ham.len.productionreceipt;
 
 import java.sql.Date;
 
@@ -10,7 +10,7 @@ import lombok.ToString;
 
 @Getter @Setter
 @ToString
-public class ProductionReceiptVO extends CodeVO {
+public class ProductionreceiptVO extends CodeVO {
 	
 	private Long productNo;
 	private Long materialProductNo;
