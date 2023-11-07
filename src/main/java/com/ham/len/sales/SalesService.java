@@ -62,4 +62,41 @@ public class SalesService {
 	public List<CarListVO> getMyReservation(CarListVO carListVO) throws Exception{
 		return salesDAO.getMyReservation(carListVO);
 	}
+	
+	public List<CarListVO> getCarSort() throws Exception{
+		return salesDAO.getCarSort();
+	}
+	
+	public int setCarAdd(CarListVO carListVO) throws Exception{
+		return salesDAO.setCarAdd(carListVO);
+	}
+	
+	public CarListVO getCarDetail(CarListVO carListVO) throws Exception{
+		return salesDAO.getCarDetail(carListVO);
+	}
+	
+	public int setCarUpdate(CarListVO carListVO) throws Exception{
+		return salesDAO.setCarUpdate(carListVO);
+	}
+	
+	public int setCarDelete(CarListVO carListVO) throws Exception{
+		return salesDAO.setCarDelete(carListVO);
+	}
+	
+	public List<SalesClientVO> getClientList() throws Exception{
+		return salesDAO.getClientList();
+	}
+	
+	public List<SalesClientVO> getClientDivision() throws Exception{
+		return salesDAO.getClientDivision();
+	}
+	
+
+	public int setAddClient(SalesClientVO salesClientVO) throws Exception{
+		return salesDAO.setAddClient(salesClientVO);
+	}
+	
+	public SalesClientVO getClientDetail(SalesClientVO salesClientVO) throws Exception{
+		return salesDAO.getClientDetail(salesClientVO);
+	}
 }

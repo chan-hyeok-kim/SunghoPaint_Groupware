@@ -70,18 +70,32 @@
    
    
     <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages-1" aria-expanded="false" aria-controls="general-pages">
         <span class="menu-title">예약</span>
         <i class="menu-arrow"></i>
         <i class="mdi mdi-medical-bag menu-icon"></i>
       </a>
-      <div class="collapse" id="general-pages">
+      <div class="collapse" id="general-pages-1">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="/sales/carReservation"> 차량예약 </a></li>
           <li class="nav-item"> <a class="nav-link" href="/sales/calendarReservation"> 차량예약 현황 </a></li>
           <li class="nav-item"> <a class="nav-link" href="/sales/reservationStatus"> 대여 현황/내 예약 </a></li>
           <li class="nav-item"> <a class="nav-link" href="/sales/assetManagement"> 자산관리 </a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+        </ul>
+      </div>
+    </li>
+    
+     <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages-2" aria-expanded="false" aria-controls="general-pages">
+        <span class="menu-title">영업관리</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-medical-bag menu-icon"></i>
+      </a>
+      <div class="collapse" id="general-pages-2">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/sales/clientList"> 거래처 관리 </a></li>
+          <li class="nav-item"> <a class="nav-link" href="/sales/dealList"> 거래내역 조회 </a></li>
+
         </ul>
       </div>
     </li>

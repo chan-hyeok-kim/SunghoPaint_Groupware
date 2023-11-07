@@ -29,9 +29,11 @@ public class SalesController {
 	private SalesService salesService;
 	
 	@GetMapping("calendarReservation")
-	public String getList() throws Exception{
-		 
-		 return "sales/calendarReservation";
+	public String getList(CarListVO carListVO, Model model) throws Exception{
+		List<CarListVO> arr = salesService.getCarList(carListVO);
+		model.addAttribute("carList", arr);
+		
+		return "sales/calendarReservation";
 	}
 	
 	@PostMapping("add")
@@ -148,5 +150,70 @@ public class SalesController {
 		log.info("========={}=======", carReservationVO.getRentalNo());
 		int result = salesService.setReservationDelete(carReservationVO);
 		return "sales/reservationStatus";
+	}
+	
+	@GetMapping("assetManagement")
+	public String assetManagement(CarListVO carListVO, Model model) throws Exception{
+		List<CarListVO> arr = salesService.getCarList(carListVO);
+		model.addAttribute("carList", arr);
+		
+		List<CarListVO> carSort = salesService.getCarSort();
+		model.addAttribute("carSort", carSort);
+		return "sales/assetManagement";
+	}
+	
+	@PostMapping("addCarList")
+	public String setCarAdd(CarListVO carListVO) throws Exception{
+		int result = salesService.setCarAdd(carListVO);
+		
+		return "redirect:./assetManagement";
+	}
+	
+	@GetMapping("assetManagementDetail")
+	public String assetManagementDetail(CarListVO carListVO, Model model) throws Exception{
+		carListVO = salesService.getCarDetail(carListVO);
+		model.addAttribute("detail", carListVO);
+		return "sales/assetManagementDetail";
+	}
+	
+	@PostMapping("carUpdate")
+	public String setCarUpdate(CarListVO carListVO) throws Exception{
+		int result = salesService.setCarUpdate(carListVO);
+		log.info("--------------{}--------zz", result);
+		return "redirect:assetManagement";
+	}
+	
+	@PostMapping("carDelete")
+	public String setCarDelete(CarListVO carListVO) throws Exception{
+		int result = salesService.setCarDelete(carListVO);
+		
+		return "redirect:assetManagement";
+	}
+
+	/*======== 영업 관리 ========*/
+	
+	@GetMapping("clientList")
+	public String getAccountList(Model model) throws Exception{
+		List<SalesClientVO> arr = salesService.getClientList();
+		model.addAttribute("getClientList", arr);
+		
+		List<SalesClientVO> arr2 = salesService.getClientDivision();
+		model.addAttribute("getDivision", arr2);
+		
+		return "sales/clientList";
+	}
+	
+	@PostMapping("addClient")
+	public String addClient(SalesClientVO salesClientVO) throws Exception{
+		int result = salesService.setAddClient(salesClientVO);
+		
+		return "redirect:clientList";
+	}
+	
+	@GetMapping("clientDetail")
+	public String getClientDetail(SalesClientVO salesClientVO, Model model) throws Exception{
+		salesClientVO = salesService.getClientDetail(salesClientVO);
+		model.addAttribute("getClientDetail", salesClientVO);
+		return "sales/clientDetail";
 	}
 }

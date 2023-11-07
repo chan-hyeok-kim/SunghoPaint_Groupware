@@ -71,11 +71,9 @@
                     	
                         <select class="form-select form-select-sm" aria-label="Small select example" id="carList" name="carNo">
 						  <option selected>항목을 선택하세요</option>
-						  <option value="9">모닝 (151허 5155)</option>
-						  <option value="10">G80 (301하 5148)</option>
-						  <option value="11">싼타페 (143호 1234)</option>
-						  <option value="12">포터 (871허 1234)</option>
-						  <option value="13">윙바디 (678허 9876)</option>
+						  <c:forEach items="${carList}" var="car">
+					        <option value="${car.carNo}">${car.carModelName}</option>
+					    </c:forEach>
 						</select>
 						
                         <label for="taskId" class="col-form-label">대여일</label>
@@ -135,11 +133,9 @@
                     	<label for="taskId" class="col-form-label">항목 선택</label>
                         <select class="form-select form-select-sm" aria-label="Small select example" id="car_update" name="carNo">
 						  <option selected>항목을 선택하세요</option>
-							  <option value="9">모닝 (151허 5155)</option>
-							  <option value="10">G80 (301하 5148)</option>
-							  <option value="11">싼타페 (143호 1234)</option>
-							  <option value="12">포터 (871허 1234)</option>
-							  <option value="13">윙바디 (678허 9876)</option>
+							  <c:forEach items="${carList}" var="car">
+					        	<option value="${car.carNo}">${car.carModelName}</option>
+					    	</c:forEach>
 						</select>
 						
                         <label for="taskId" class="col-form-label">대여일</label>

@@ -28,4 +28,22 @@ public interface SalesDAO {
 	public List<CarListVO> getAllReservation(CarListVO carListVO) throws Exception;
 	
 	public List<CarListVO> getMyReservation(CarListVO carListVO) throws Exception;
+	
+	public List<CarListVO> getCarSort() throws Exception;
+	
+	public int setCarAdd(CarListVO carListVO) throws Exception;
+	
+	public CarListVO getCarDetail(CarListVO carListVO) throws Exception;
+	
+	public int setCarUpdate(CarListVO carListVO) throws Exception;
+	
+	public int setCarDelete(CarListVO carListVO) throws Exception;
+	
+	public List<SalesClientVO> getClientList() throws Exception;
+	
+	public List<SalesClientVO> getClientDivision() throws Exception;
+	
+	public int setAddClient(SalesClientVO salesClientVO) throws Exception;
+	
+	public SalesClientVO getClientDetail(SalesClientVO salesClientVO) throws Exception;
 }

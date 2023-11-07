@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
-<table class="table-bordered mt-2" id="approval-table">
+<table class="table">
 				        <thead>
 				           <tr>
 				             <th>번호</th>
@@ -26,6 +26,7 @@
 				      
 				    </table>
 				    
+
 				    
 <script type="text/javascript">
 $(document).ready(function() {
@@ -34,7 +35,7 @@ $(document).ready(function() {
 
     // 만약 행이 없다면 메시지를 추가
     if (rowCount === 0) {
-        $('#approval-table tbody').append('<tr><td colspan="4">예약 목록이 없습니다.</td></tr>');
+        $('#approval-table tbody').append('<tr><td colspan="5">예약 목록이 없습니다.</td></tr>');
     }
     
 });

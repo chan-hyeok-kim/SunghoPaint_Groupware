@@ -88,10 +88,10 @@
 				                    <a href="#calendarAddModal" data-toggle="modal" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; font-weight:bold;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">${vo.carModelName}</span></a>
 				                </c:when>
 				                <c:when test="${vo.carStatusCd eq 'C012'}">
-				                    <a href="#calendarViewModal" data-toggle="modal"  data-num="${vo.carNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; font-weight:bold; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">${vo.carModelName}</span></a>
+				                    <a href="#calendarViewModal" data-toggle="modal" data-num="${vo.carNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; font-weight:bold; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">${vo.carModelName}</span></a>
 				                </c:when>
 				                <c:when test="${vo.carStatusCd eq 'C013'}">
-				                    <a href="./asdd" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; font-weight:bold;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">${vo.carModelName}</span></a>
+				                    <a class="sweet" data-num="${vo.carNo}"  data-reason="${vo.carReason}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; font-weight:bold; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">${vo.carModelName}</span></a>
 				                </c:when>
 				                
 				            </c:choose></td>
@@ -101,14 +101,14 @@
 				             <td><a href="#calendarAddModal" data-toggle="modal" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">대여 가능</span></a></td>
 				             </c:when>
 				             <c:when test="${vo.carStatusCd eq 'C012'}">
-				             <td><a href="#calendarViewModal" data-toggle="modal" data-num="${vo.carNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">대여 불가</span></a></td>
+				             <td><a href="#calendarViewModal" data-toggle="modal" data-num="${vo.carNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">대여 중</span></a></td>
 				             </c:when>
 				             <c:when test="${vo.carStatusCd eq 'C013'}">
-				             <td><a href="./asdd" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">반납</span></a></td>
+				             <td><a class="sweet" data-num="${vo.carNo}" data-reason="${vo.carReason}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">대여 불가</span></a></td>
 				             </c:when>
 				             
 				             </c:choose>
-				             
+				            
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -160,11 +160,9 @@
                     	
                         <select class="form-select form-select-sm" aria-label="Small select example" id="carList" name="carNo">
 						  <option selected>항목을 선택하세요</option>
-						  <option value="9">모닝 (151허 5155)</option>
-						  <option value="10">G80 (301하 5148)</option>
-						  <option value="11">싼타페 (143호 1234)</option>
-						  <option value="12">포터 (871허 1234)</option>
-						  <option value="13">윙바디 (678허 9876)</option>
+						  <c:forEach items="${list}" var="car">
+					        <option value="${car.carNo}">${car.carModelName}</option>
+					    </c:forEach>
 						</select>
 						
 						
@@ -259,6 +257,12 @@ function timeFormat(time){
       return String(time).padStart(2, "0");
    }
 
+$('.sweet').click(function(){
+let carReason = $(this).attr("data-reason");
+	console.log(carReason);
+	swal("사유", carReason);
+});
+
 $.ajax({
 	  type: "GET", 
 	  url: "/sales/getList",
@@ -307,7 +311,6 @@ $.ajax({
 	  },
 	});
 	
-	console.log('z');
 	
 	$.ajax({
 		  type: "GET", 
@@ -436,6 +439,8 @@ for (var hour = 0; hour < 24; hour++) {
         
     }
 }
+
+
 </script>
 </body>
 </html>
