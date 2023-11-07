@@ -150,7 +150,9 @@
 
 <!-- bottom btn-list  -->
 				<div id="form-add-btn-box">
-					<button class="btn btn-info" type="button" id="app-reject-btn"
+					<button class="btn btn-info" type="button" id="app-pdf-btn"
+					>PDF로 다운로드</button>
+					<button class="btn btn-info" type="button" style="margin-left: 20px;" id="app-reject-btn"
 					>반려</button>
 					<button class="btn btn-info" type="button" style="margin-left: 20px;"
 					onclick="location.href='/approval/update?approvalNo=${vo.approvalNo}'">수정</button>

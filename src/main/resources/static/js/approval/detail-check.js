@@ -123,3 +123,23 @@ approvalBtn.addEventListener("click",function(){
 		}
 	})
 })
+
+
+//pdf다운 클릭
+$('#app-pdf-btn').click(function(){
+	let pdfHtml=contents.innerHTML;
+
+	if(!pdfHtml || pdfHtml.trim()==''){
+		return;
+	}
+	
+	$.ajax({
+		type:"post",
+		 url:"/pdf/download",
+		 data:{
+			approvalContents:pdfHtml
+		 },success:function(){
+			console.log('다운 성공')
+		 }
+	})
+})
