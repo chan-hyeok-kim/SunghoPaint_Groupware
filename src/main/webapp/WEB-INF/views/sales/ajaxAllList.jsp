@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
-<table class="table-bordered mt-2" id="approval-table">
+<table class="table">
 				        <thead>
 				           <tr>
 				             <th>번호</th>
@@ -26,6 +26,7 @@
 				      
 				    </table>
 				    
+
 				    
 <script type="text/javascript">
 $(document).ready(function() {

@@ -2,33 +2,32 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
-<table class="table-bordered mt-2" id="approval-table">
-				        <thead>
-				           <tr>
-				             <th>번호</th>
-				             <th>차종</th>
-				             <th>예약 시간</th>
-				             <th>반납 시간</th>
-				             <th>취소/반납</th>
-				           </tr>
-				        </thead>
-				        <tbody>
-				        <c:forEach items="${list}" var="vo" varStatus="i">
-				           <tr>
-				           	 <td>${i.index + 1}</td>
-				             <td>${vo.carModelName}</td>
-				             <td>${vo.carReservationVO.rentalDate}</td>
-				             <td>${vo.carReservationVO.returnDate}</td>
-				             <c:choose>
-				             <c:when test="${vo.carStatusCd eq 'C012'}">
-				             <td><a class="sweet" data-num="${vo.carReservationVO.rentalNo}" data-num-no="${vo.carNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">반납</span></a></td>
-				             </c:when>
-				             </c:choose>
-				           </tr>
-				         </c:forEach>
-				        </tbody>
-				      
-				    </table>
+<table class="table">
+							  <thead>
+							    <tr>
+							      <th scope="col" style="font-weight:bold;">번호</th>
+							      <th scope="col" style="font-weight:bold;">차종</th>
+							      <th scope="col" style="font-weight:bold;">예약 시간</th>
+							      <th scope="col" style="font-weight:bold;">반납 시간</th>
+							      <th scope="col" style="font-weight:bold;">취소/반납</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+									   <c:forEach items="${list}" var="vo" varStatus="i">
+						           <tr>
+						           	 <td>${i.index + 1}</td>
+						             <td>${vo.carModelName}</td>
+						             <td>${vo.carReservationVO.rentalDate}</td>
+						             <td>${vo.carReservationVO.returnDate}</td>
+						             <c:choose>
+						             <c:when test="${vo.carStatusCd eq 'C012'}">
+						             <td><a class="sweet" data-num="${vo.carReservationVO.rentalNo}" data-num-no="${vo.carNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">반납</span></a></td>
+						             </c:when>
+						             </c:choose>
+						           </tr>
+						         </c:forEach>
+							  </tbody>
+							</table>				
 				
 <script type="text/javascript">
 

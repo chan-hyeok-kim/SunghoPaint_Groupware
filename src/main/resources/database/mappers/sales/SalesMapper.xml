@@ -89,7 +89,7 @@
 	    </association> 
    </resultMap>
    
-   <!-- 자산 추가 관련 -->
+   <!-- 자산 추가(차량) -->
    <select id="getCarSort" resultType="CarListVO">
    		SELECT * FROM CODE WHERE UP_CODE='C00'
    </select>
@@ -97,7 +97,7 @@
    <!-- 자산 추가 관련 -->
    <insert id="setCarAdd" parameterType="CarListVO">
    		INSERT INTO CAR_LIST 
-		values(0, #{carModelCd}, #{carModelName}, 'C011', '', sysdate(), '', '', sysdate(), '')
+		values(0, #{carModelCd}, #{carModelName}, 'C011', '', sysdate(), '', '', sysdate(), '', '')
    </insert>
    
    <!-- 자산 상세 정보 -->
@@ -108,7 +108,7 @@
    <!-- 자산 상세 수정 -->
    <update id="setCarUpdate" parameterType="CarListVO">
 		UPDATE CAR_LIST SET
-  		CAR_MODEL_CD=#{carModelCd}, CAR_MODEL_NAME=#{carModelName}, CAR_STATUS_CD=#{carStatusCd}
+  		CAR_MODEL_CD=#{carModelCd}, CAR_MODEL_NAME=#{carModelName}, CAR_STATUS_CD=#{carStatusCd}, CAR_REASON=#{carReason}
   		WHERE CAR_NO=#{carNo}
 	</update>
 	
@@ -118,4 +118,32 @@
 			WHERE CAR_NO=#{carNo}
 	</delete>
 	
+	
+	
+
+	<!-- 영업관리 -->
+	
+	<!-- 거래처 조회 -->
+	<select id="getClientList" resultType="SalesClientVO">
+		SELECT * FROM CLIENT_LIST 
+	</select>
+	
+	<!-- 거래처 추가(구분)  -->
+   <select id="getClientDivision" resultType="SalesClientVO">
+   		SELECT * FROM CODE WHERE UP_CODE='C02'
+   </select>
+   
+   <!-- 거래처 추가 -->
+   <insert id="setAddClient" parameterType="SalesClientVO">
+   		INSERT INTO CLIENT_LIST 
+   		VALUES(0, #{clientName}, #{clientTypeCd}, #{clientRepresent}, #{clientNumber}, 
+   		#{clientAddress}, #{clientZipCode}, #{clientRefAddress}, #{clientDetailAddress}, 
+   		#{clientDate}, 2023001, '', sysdate(), '', '', sysdate(), '', #{clientIndustry}, 
+   		#{clientManager}, #{clientPhone}, #{clientBank}, #{clientAccountNo}, #{clientBankName})
+   </insert>
+   
+   <!-- 거래처 상세 정보 -->
+   <select id="getClientDetail" resultType="SalesClientVO">
+   		SELECT * FROM CLIENT_LIST WHERE CLIENT_NO=#{clientNo}
+   </select>
 </mapper>

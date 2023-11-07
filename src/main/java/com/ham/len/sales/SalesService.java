@@ -83,4 +83,20 @@ public class SalesService {
 		return salesDAO.setCarDelete(carListVO);
 	}
 	
+	public List<SalesClientVO> getClientList() throws Exception{
+		return salesDAO.getClientList();
+	}
+	
+	public List<SalesClientVO> getClientDivision() throws Exception{
+		return salesDAO.getClientDivision();
+	}
+	
+
+	public int setAddClient(SalesClientVO salesClientVO) throws Exception{
+		return salesDAO.setAddClient(salesClientVO);
+	}
+	
+	public SalesClientVO getClientDetail(SalesClientVO salesClientVO) throws Exception{
+		return salesDAO.getClientDetail(salesClientVO);
+	}
 }

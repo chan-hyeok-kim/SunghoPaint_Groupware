@@ -193,6 +193,11 @@ ul.nav-tabs {
 							</c:choose>
 								</select>
 								
+							<br>
+							<label for="carReason" class="form-label">사유</label>
+							<input type="text" class="form-control form-control-short" id="carReason" name="carReason" value="${detail.carReason}">
+								
+								
 							<br><br>
 							<ul class="nav-tabs">
 							</ul>
@@ -204,6 +209,7 @@ ul.nav-tabs {
 									<input type="hidden" name="carModelCd" value="${detail.carModelCd}"/>
 									<input type="hidden" name="carModelName" value="${detail.carModelName}"/>
 									<input type="hidden" name="carStatusCd" value="${detail.carStatusCd}"/>
+									<input type="hidden" name="carReason" value="${detail.carReason}"/>
 							        <button type="button" class="btn btn-primary" id="updateBtn" onclick="submitForm()">수정</button>
 						        </form>
 						        
@@ -251,6 +257,11 @@ function submitForm() {
     carStatusCdInput.type = 'hidden';
     carStatusCdInput.name = 'carStatusCd';
     carStatusCdInput.value = carSortStatus.value;
+    
+    var carReasonInput = document.createElement('input');
+    carReasonInput.type = 'hidden';
+    carReasonInput.name = 'carReason';
+    carReasonInput.value = carReason.value;
 
     var form = document.createElement('form');
     form.action = './carUpdate';
@@ -261,7 +272,8 @@ function submitForm() {
     form.appendChild(carModelCdInput);
     form.appendChild(carModelNameInput);
     form.appendChild(carStatusCdInput);
-
+    form.appendChild(carReasonInput);
+    
     document.body.appendChild(form);
     form.submit();
 }
@@ -271,7 +283,18 @@ function deleteCar() {
     var carStatusCd = "${detail.carStatusCd}";
 
     if (carStatusCd !== 'C012') {
-        document.getElementById('delForm').submit();
+    	 swal({
+             title: "삭제 확인",
+             text: "삭제된 자산은 복구할 수 없습니다. 정말 삭제하시겠습니까?",
+             icon: "warning",
+             buttons: ["취소", "삭제"],
+             dangerMode: true,
+         })
+         .then((willDelete) => {
+             if (willDelete) {
+                 document.getElementById('delForm').submit();
+             }
+         });
     } else {
         alert('대여 중인 차량은 삭제할 수 없습니다.');
     }

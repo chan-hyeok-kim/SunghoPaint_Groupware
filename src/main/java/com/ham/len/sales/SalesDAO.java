@@ -39,4 +39,11 @@ public interface SalesDAO {
 	
 	public int setCarDelete(CarListVO carListVO) throws Exception;
 	
+	public List<SalesClientVO> getClientList() throws Exception;
+	
+	public List<SalesClientVO> getClientDivision() throws Exception;
+	
+	public int setAddClient(SalesClientVO salesClientVO) throws Exception;
+	
+	public SalesClientVO getClientDetail(SalesClientVO salesClientVO) throws Exception;
 }

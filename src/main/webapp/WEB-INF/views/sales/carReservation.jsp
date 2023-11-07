@@ -91,7 +91,7 @@
 				                    <a href="#calendarViewModal" data-toggle="modal" data-num="${vo.carNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; font-weight:bold; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">${vo.carModelName}</span></a>
 				                </c:when>
 				                <c:when test="${vo.carStatusCd eq 'C013'}">
-				                    <a class="sweet" data-num="${vo.carNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; font-weight:bold; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">${vo.carModelName}</span></a>
+				                    <a class="sweet" data-num="${vo.carNo}"  data-reason="${vo.carReason}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; font-weight:bold; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">${vo.carModelName}</span></a>
 				                </c:when>
 				                
 				            </c:choose></td>
@@ -104,11 +104,11 @@
 				             <td><a href="#calendarViewModal" data-toggle="modal" data-num="${vo.carNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">대여 중</span></a></td>
 				             </c:when>
 				             <c:when test="${vo.carStatusCd eq 'C013'}">
-				             <td><a class="sweet" data-num="${vo.carNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">대여 불가</span></a></td>
+				             <td><a class="sweet" data-num="${vo.carNo}" data-reason="${vo.carReason}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">대여 불가</span></a></td>
 				             </c:when>
 				             
 				             </c:choose>
-				             
+				            
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -258,7 +258,9 @@ function timeFormat(time){
    }
 
 $('.sweet').click(function(){
-	swal("사유", "...and here's the text!");
+let carReason = $(this).attr("data-reason");
+	console.log(carReason);
+	swal("사유", carReason);
 });
 
 $.ajax({

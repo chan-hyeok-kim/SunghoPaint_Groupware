@@ -189,4 +189,31 @@ public class SalesController {
 		
 		return "redirect:assetManagement";
 	}
+
+	/*======== 영업 관리 ========*/
+	
+	@GetMapping("clientList")
+	public String getAccountList(Model model) throws Exception{
+		List<SalesClientVO> arr = salesService.getClientList();
+		model.addAttribute("getClientList", arr);
+		
+		List<SalesClientVO> arr2 = salesService.getClientDivision();
+		model.addAttribute("getDivision", arr2);
+		
+		return "sales/clientList";
+	}
+	
+	@PostMapping("addClient")
+	public String addClient(SalesClientVO salesClientVO) throws Exception{
+		int result = salesService.setAddClient(salesClientVO);
+		
+		return "redirect:clientList";
+	}
+	
+	@GetMapping("clientDetail")
+	public String getClientDetail(SalesClientVO salesClientVO, Model model) throws Exception{
+		salesClientVO = salesService.getClientDetail(salesClientVO);
+		model.addAttribute("getClientDetail", salesClientVO);
+		return "sales/clientDetail";
+	}
 }

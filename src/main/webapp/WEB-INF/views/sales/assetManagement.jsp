@@ -142,9 +142,8 @@ ul.nav-tabs {
 
 								<!-- 검색 설정 -->
 								<select class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected">제목</option>
-									<option>구분</option>
-									<option>결재자</option>
+									<option selected="selected">구분</option>
+									<option>이름</option>
 								</select> 
 								
 								
