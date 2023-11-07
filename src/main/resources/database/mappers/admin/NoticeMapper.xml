@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ham.len.admin.notice.NoticeDAO">
+
+  <select id="getList" parameterType="Pager" resultType="NoticeVO">
+     SELECT *,FN_CODE_NM(LEFT(NOTICE_PRIORITY_CD,3),NOTICE_PRIORITY_CD),
+     FN_CODE_NM(LEFT(NOTICE_CATEGORY_CD,3),NOTICE_CATEGORY_CD)
+     FROM NOTICE N INNER JOIN HUMAN_RESOURCE HR
+       ON N.EMPLOYEE_ID=HR.EMPLOYEE_ID
+  </select>
+
+  <select id="getDetail" parameterType="NoticeVO">
+     SELECT *,FN_CODE_NM(LEFT(NOTICE_PRIORITY_CD,3),NOTICE_PRIORITY_CD),
+     FN_CODE_NM(LEFT(NOTICE_CATEGORY_CD,3),NOTICE_CATEGORY_CD)
+     FROM NOTICE N INNER JOIN HUMAN_RESOURCE HR
+       ON N.EMPLOYEE_ID=HR.EMPLOYEE_ID
+     WHERE N.NOTICE_NO=#{noticeNo}
+  </select>
+  
+  <insert id="setAdd" parameterType="NoticeVO">
+     INSERT INTO NOTICE(NOTICE_NO,EMPLOYEE_ID,NOTICE_TITLE,NOTICE_CONTENTS,NOTICE_HIT,NOTICE_PRIORITY_CD,NOTICE_CATEGORY_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+     VALUES (#{noticeNo},#{employeeID},#{noticeTitle},#{noticeContents},#{noticeHit},#{noticePriorityCd},#{noticeCategoryCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu}) 
+  </insert>
+  
+  <update id="setUpdate" parameterType="NoticeVO">
+     UPDATE NOTICE
+        SET EMPLOYEE_ID=#{employeeID},NOTICE_TITLE=#{noticeTitle},
+        NOTICE_CONTENTS=#{noticeContents},NOTICE_CATEGORY_CD=#{noticeCategoryCd}
+        NOTICE_PRIORITY_CD=#{noticePriorityCd}
+        ,MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+		WHERE NOTICE_NO=#{noticeNo}
+  </update>
+
+  <delete id="setDelete" parameterType="NoticeVO"> 
+     DELETE FROM NOTICE
+      WHERE NOTICE_NO=#{noticeNo}
+  </delete>
+ 
+
+
+</mapper>

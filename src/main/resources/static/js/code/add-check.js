@@ -68,7 +68,7 @@ codeAddBtn.addEventListener("click",function(){
        checkResult[0]=false;
        swal('무조건 코드의 첫 글자는 알파벳으로 시작해야 합니다');
     }
-
+    console.log(result)
     if(!result){
         return;
     }
@@ -83,7 +83,8 @@ function nullCheck(val,i){
        swal('빈 내용을 채워주세요')
        checkResult[i]=false;
        return false;
-    }
+    }else{
     checkResult[i]=true;
     return true;
+    }
 }

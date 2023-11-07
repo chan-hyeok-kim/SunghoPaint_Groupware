@@ -86,6 +86,22 @@
 	  <put-attribute name="body" value="/WEB-INF/views/code/list.jsp"/>
 	</definition>
 	
+	<definition name="notice/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/notice/list.jsp"/>
+	</definition>
+	
+	<definition name="notice/add" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/notice/add.jsp"/>
+	</definition>
+	
+	<definition name="notice/update" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/notice/update.jsp"/>
+	</definition>
+	
+	<definition name="notice/detail" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/notice/detail.jsp"/>
+	</definition>
+	
     <definition name="commons/ajaxResult" template="/WEB-INF/views/commons/ajaxResult.jsp">
 	  
 	</definition>
