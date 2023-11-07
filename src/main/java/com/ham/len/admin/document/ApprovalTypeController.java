@@ -206,10 +206,10 @@ public class ApprovalTypeController {
     }
     
     @PostMapping("upCheck")
-    public String setUpCheck(CodeVO codeVO,Model model) throws Exception{
+    public String setUpCheck(String approvalUpTypeCd,Model model) throws Exception{
+    	Long result=approvalTypeService.checkByCd(approvalUpTypeCd);
     	
-    	
-    	
+    	model.addAttribute("result", result);
     	return "commons/ajaxResult";
     	
     }

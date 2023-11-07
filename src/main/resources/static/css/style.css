@@ -14464,6 +14464,12 @@ dl {
 	
 }
 
+#text-delete-btn-list{
+  padding: 10px 0 0 10px;
+  display: block; 
+  float: left;
+}
+
 #btn-box button{
 	margin: 20px 0 0 0;
 }

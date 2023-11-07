@@ -66,6 +66,10 @@ public class ApprovalTypeService {
 		return approvalTypeDAO.getDetailByName(codeName);
 	}
 	
+	public Long checkByCd(String Cd) throws Exception{
+		return approvalTypeDAO.checkByCd(Cd);
+	}
+	
 	
 
 }

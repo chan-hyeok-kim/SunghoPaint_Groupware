@@ -16,6 +16,10 @@ public interface ApprovalDAO {
 	
 	public Long getTotal() throws Exception;
 	
+	public List<ApprovalVO> getMyList(Map<String, Object> map) throws Exception;
+	
+	public Long getMyTotal(HumanResourceVO humanResourceVO) throws Exception;
+	
 	public List<ApprovalVO> getStatusList(Map<String, Object> map) throws Exception;
 	
 	public Long getStatusTotal(ApprovalVO approvalVO) throws Exception;

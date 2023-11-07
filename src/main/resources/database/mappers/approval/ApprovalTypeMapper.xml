@@ -177,5 +177,11 @@
 		FROM APPROVAL_UP_TYPE) A
 		WHERE A.CODE_NAME=#{codeName}
 	</select>
+	
+	<select id="checkByCd" resultType="Long" parameterType="String">
+	    SELECT COUNT(*)
+	      FROM APPROVAL_UP_TYPE
+	     WHERE APPROVAL_UP_TYPE_CD=#{approvalUpTypeCd}
+	</select>
 
 </mapper>

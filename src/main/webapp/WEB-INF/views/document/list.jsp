@@ -145,7 +145,7 @@
 					</div>
 
 					 <!-- pagination -->
-				  <div style="text-align: center; margin: 20px 20px">
+				  <div style="text-align:center; margin: 20px 20px;">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
   <ul class="pagination">
     <li class="page-item ${pager.pre?'':'disabled'}">
@@ -163,22 +163,24 @@
         <i class="mdi mdi-arrow-right-drop-circle"></i>
       </a>
     </li>
+    
   </ul>
 </nav>
-								
-								<!-- Button List -->
-								
-								<button style="display: flex; justify-content: right;" id="delete-btn" class="btn btn-inverse-dark">삭제하기
+							
+							<!-- Button List -->
+							
+								<div style="float:right;">
+								<!-- <div style="margin-left:35%; display: inline-block;"> -->
+								<button id="delete-btn" class="btn btn-inverse-dark">삭제하기
 								</button>
-								
-								<!-- Button List End -->
-								
+								</div>
+								<!-- Button List End -->	
+										
+</div>
+
+
+
 					
-
-
-
-
-					</div>
 				</div>
 			</div>
 

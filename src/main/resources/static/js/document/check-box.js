@@ -1,19 +1,3 @@
-/**
- * 
- */
-
-$('#approval-add-btn').click(function() {
-	let upCheck = $('#up-type-no').val();
-	console.log(upCheck)
-	
-	if(upCheck){
-		location.href = "/document/add?approvalUpTypeNo="+upCheck;
-	}
-})
-
-
-
-
 
 
 /* 
@@ -72,6 +56,7 @@ upCheckResult=[false, false];
 
 const upTypeCheck=document.getElementById('approval-up-add-btn');
 const upForm=document.getElementById('up-frm');
+const upTypeCd=document.getElementById('up-type-cd');
 
 $('#up-type-cd').blur(function(){
 	let cdVal=$('#up-type-cd').val();
@@ -92,7 +77,7 @@ $('#up-type-cd').blur(function(){
     }
      
 	$.ajax({
-		type:'GET',
+		type:'POST',
 		url:'/document/upCheck',
 		data:{
 			approvalUpTypeCd:cdVal
@@ -100,7 +85,6 @@ $('#up-type-cd').blur(function(){
             if(result.trim()>0){
 				swal('중복된 코드입니다. 확인 후 다른 값을 입력해주세요')
 				upCheckResult[0]=false;
-				swal('사용 가능한 코드입니다')
 			}else{
 				swal('사용 가능한 코드입니다')
 			}
@@ -138,4 +122,23 @@ upTypeCheck.addEventListener("click",function(){
 	  console.log('전송 체크')
    }
 
+})
+
+
+
+/**
+ *  신규 양식 등록 버튼 눌렀을 때 검증
+ */
+
+$('#approval-add-btn').click(function() {
+	let upCheck = $('#up-type-no').val();
+	console.log(upCheck)
+	
+    if(!upTypeCd.value || upTypeCd.value=='' || !upCheck || upCheck==''){
+       swal('새로운 양식을 추가할 상위폴더에 체크해주세요')
+	   return;
+	}else{
+
+	location.href = "/document/add?approvalUpTypeNo="+upCheck;
+	}
 })

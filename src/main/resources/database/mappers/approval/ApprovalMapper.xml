@@ -6,6 +6,16 @@
 
 <mapper namespace="com.ham.len.approval.ApprovalDAO">
 
+<sql id="searchApp">
+<choose>
+ <when test="kind=='drafter'">DRAFTER</when>
+ <when test="kind=='lastApprover'">LAST_APPROVER</when>
+ <otherwise>APPROVAL_TITLE</otherwise>
+</choose>
+
+</sql>
+    
+
 	<select id="getList" resultMap="getListResult"
 		parameterType="Pager">
 		SELECT *,A.APPROVAL_TYPE_NO AS A_APPROVAL_TYPE_NO,
@@ -18,6 +28,8 @@
 		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
 		ON
 		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
+		WHERE <include refid="searchApp"></include>
+		LIKE CONCAT('%',#{search},'%')
 		ORDER BY APPROVAL_NO DESC
 		LIMIT
 		#{startRow},#{lastRow}
@@ -59,9 +71,39 @@
 	<select id="getTotal" resultType="Long">
 	  SELECT COUNT(*)
 	    FROM APPROVAL
+	   WHERE <include refid="searchApp"></include>
+		LIKE CONCAT('%',#{search},'%')
 	</select>
 
-<!-- 파라미터를 map으로변경해야됨 -->
+    
+    <select id="getMyList" resultType="approvalVO" parameterType="Map">
+        SELECT *,APT.APPROVAL_TYPE_NO AS
+		APT_APPROVAL_TYPE_NO,
+		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
+		A_CODE_NAME,
+		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS
+		APT_CODE_NAME
+		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
+		ON A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
+		WHERE A.EMPLOYEE_ID=#{vo.employeeID} 
+		OR MID_APPROVER=#{vo.positionCdName}+' '+#{vo.employeeID}
+		OR ADD_APPROVER=#{vo.positionCdName}+' '+#{vo.employeeID}
+		OR LAST_APPROVER=#{vo.positionCdName}+' '+#{vo.employeeID}
+		ORDER BY APPROVAL_NO DESC
+		LIMIT
+		#{pager.startRow},#{pager.lastRow} 
+    </select>
+    
+    <select id="getMyTotal" resultType="Long" parameterType="HumanResourceVO">
+	  SELECT COUNT(*)
+	    FROM APPROVAL
+	   WHERE EMPLOYEE_ID=#{employeeID} 
+		OR MID_APPROVER=#{positionCdName}+' '+#{employeeID}
+		OR ADD_APPROVER=#{positionCdName}+' '+#{employeeID}
+		OR LAST_APPROVER=#{positionCdName}+' '+#{employeeID}
+	</select>
+    
+
 <select id="getStatusList" resultMap="getSaveList"
 		parameterType="Map">
 		SELECT *,A.APPROVAL_TYPE_NO AS A_APPROVAL_TYPE_NO,

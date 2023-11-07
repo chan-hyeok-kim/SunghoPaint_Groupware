@@ -21,19 +21,19 @@
 
 						<div style="float:left">결재 통합 관리</div> 
 						<div style="text-align: right;">
-							<form class="form-inline">
+							<form action="./totalList" method="get" class="form-inline">
 
 								<!-- 검색 설정 -->
-								<select class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected">제목</option>
-									<option>구분</option>
-									<option>결재자</option>
+								<select name="kind" class="btn btn-gradient-light" id="top-search-select">
+									<option selected="selected" value="approvalTitle">제목</option>
+									<option value="drafter">기안자</option>
+									<option value="lastApprover">결재자</option>
 								</select> 
 								
 								
 								<input style="display: inline-block;" id="top-search-bar"
 									class="form-control" type="search" placeholder="입력 후 [Enter]"
-									aria-label="Search">
+									name="search" aria-label="Search">
 								<button id="top-search-btn" class="btn btn-info" type="submit">검색</button>
 
 							</form>
@@ -116,7 +116,7 @@
 </nav>
 
   <!-- Button List  -->
-				  <div style="float: left;">
+				  <div style="float: right;">
 				  <button class="btn btn-info" onclick="location.href='/approval/add'">새 결재 진행</button>
 				 
 				</div>

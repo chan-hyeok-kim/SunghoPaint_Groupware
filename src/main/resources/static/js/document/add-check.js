@@ -16,19 +16,19 @@ $("#document-add-btn").mouseover(function(){
 
 $("#document-add-btn").click(function() {
 	//id가 smarteditor인 textarea에 에디터에서 대입
-	console.log($('#approvalForm').val())
 
 	oEditors.getById["approvalForm"].exec("UPDATE_CONTENTS_FIELD", []);
     
   
-
-
+    let formVal=$('#approvalForm').val();
+  
 	// 이부분에 에디터 validation 검증
-	if ($('#approvalForm').val() != '') {
+	if (formVal.trim() != '' && formVal) {
 		checkResult[1]=true;
 	}
-	console.log($('#approvalForm').val())
-	console.log(checkResult)
+
+
+	
 	//폼 submit
 	/*$("#frm").submit();*/
 	if (!checkResult.includes(false)) {

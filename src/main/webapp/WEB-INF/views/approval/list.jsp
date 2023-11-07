@@ -137,7 +137,7 @@
 </nav>
 
   <!-- Button List  -->
-				  <div style="float: left;">
+				  <div style="float: right;">
 				  <button class="btn btn-info" onclick="location.href='/approval/add'">새 결재 진행</button>
 				 
 				</div>
