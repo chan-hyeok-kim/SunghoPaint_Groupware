@@ -135,7 +135,7 @@ $('#app-pdf-btn').click(function(){
 	
 	$.ajax({
 		type:"post",
-		 url:"/pdf/download",
+		 url:"/pdf/down",
 		 data:{
 			approvalContents:pdfHtml
 		 },success:function(){

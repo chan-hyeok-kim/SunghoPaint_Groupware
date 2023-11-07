@@ -1,8 +1,6 @@
 package com.ham.len.approval.pdf;
 
 
-
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
@@ -24,6 +22,7 @@ import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /*
@@ -142,7 +141,8 @@ public class HtmlToPdf {
             // ========================================================================================
             // XMLWorker
             XMLWorker xmlWorker = new XMLWorker(cssResolverPipeline, true);
-            XMLParser xmlParser = new XMLParser(true, xmlWorker, StandardCharsets.UTF_8);
+          //  XMLParser xmlParser = new XMLParser(true, xmlWorker, StandardCharsets.UTF_8);
+            XMLParser xmlParser = new XMLParser(xmlWorker, Charset.forName("UTF-8"));
             // ========================================================================================
 
 
@@ -189,7 +189,10 @@ public class HtmlToPdf {
     // 사용할 html 코드를 가져오는 메소드
     public String getHtml(String code) {
 
-        String return_html = "<html><body>테스트입니다</body></html>";
+        String return_html = "<html><head><body style='font-family: MalgunGothic;'>"
+                + "<p>PDF 안에 들어갈 내용입니다.</p>"
+                + "<h3>한글, English, 漢字.</h3>"
+            + "</body></head></html>";
 
  
 
