@@ -47,6 +47,14 @@ public class HumanResourceVO extends CodeVO implements UserDetails {
 	private List<RoleVO> roles = new ArrayList<>(); // NullPointerException 방지
 	private Date appDate;
 	
+	public Date getQuitDate() {
+		if(Date.valueOf("1995-07-28").equals(quitDate)) {
+			return null;
+		}
+		
+		return quitDate;
+	}
+	
 	@Override
 	public String getUsername() {
 		return employeeID;

@@ -77,8 +77,8 @@
 	</table>
 
 	<div id="buttons">
-		<button type="submit">등록</button>
-		<button type="button" onclick="location.href='../'">취소</button>
+		<button type="button" id="regist">등록</button>
+		<button type="button" id="cancel" onclick="location.href='../'">취소</button>
 	</div>
 	
 	

@@ -66,7 +66,7 @@ form > #buttons{
     cursor:pointer;
 }
 
-#buttons > button[type="button"]{
+#buttons > #cancel{
     margin-left:10px;
     background-color:#707070;
 }

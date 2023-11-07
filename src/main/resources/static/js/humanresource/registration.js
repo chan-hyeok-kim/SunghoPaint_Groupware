@@ -92,7 +92,7 @@ $(function(){
 
 
 $(function(){
-	$("input[readonly='readonly']").click(function(){
+	$("input[data-search-type]").click(function(){
 		let searchType = $(this).attr("data-search-type");
 		createSearchWindow(searchType);
 		
@@ -113,5 +113,20 @@ $(function(){
 				$("#searchWindow").remove();
 			}
 		});
+	});
+});
+
+
+
+
+
+$(function(){
+	$("#regist").click(function(){
+		let quitDate = $("[name='quitDate']");
+		if(quitDate.val() == ""){
+			quitDate.val("1995-07-28"); // 1995-07-28 == NULL
+		}
+		
+		$("#registrationForm").submit();
 	});
 });
