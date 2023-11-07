@@ -38,7 +38,7 @@ public class HumanResourceService implements UserDetailsService {
 		humanResourceVO.setEmployeeID(humanResourceDAO.getLatestEmployeeID());
 		humanResourceVO.setPassword(temporaryPassword);
 		
-		new SMTP().welcomeMailSend();
+		new SMTP().send_mail(humanResourceVO);;
 		
 		return result;
 	}

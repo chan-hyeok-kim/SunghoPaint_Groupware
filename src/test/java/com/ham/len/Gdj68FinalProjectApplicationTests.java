@@ -28,9 +28,9 @@ class Gdj68FinalProjectApplicationTests {
 	@Autowired
 	HumanResourceDAO humanResourceDAO;
 	
-	@Test
+	// @Test
 	void contextLoads() {
-		new SMTP().welcomeMailSend();
+		
 	}
 	
 	// @Test
@@ -55,7 +55,7 @@ class Gdj68FinalProjectApplicationTests {
 		}
 	}
 	
-	// @Test
+	@Test
 	void setRegistrationHumanresource() {
 		HumanResourceVO humanResourceVO = new HumanResourceVO();
 		humanResourceVO.setPassword("1234");
@@ -66,7 +66,7 @@ class Gdj68FinalProjectApplicationTests {
 		humanResourceVO.setDepartmentCd("D001");
 		humanResourceVO.setPositionCd("U001");
 		humanResourceVO.setPhone("010-0000-0000");
-		humanResourceVO.setEmail("abc@naver.com");
+		humanResourceVO.setEmail("dngu_icdi@naver.com");
 		humanResourceVO.setAddress("가나다라마바사");
 		humanResourceVO.setBank("신한");
 		humanResourceVO.setAccountNumber("123456789");
@@ -76,6 +76,8 @@ class Gdj68FinalProjectApplicationTests {
 		int result = humanResourceDAO.setRegistration(humanResourceVO);
 		humanResourceVO.setEmployeeID(humanResourceDAO.getLatestEmployeeID());
 		log.info("after : {}", humanResourceVO.getEmployeeID());
+		
+		new SMTP().send_mail(humanResourceVO);
 		
 		assertTrue(result > 0);
 	}
