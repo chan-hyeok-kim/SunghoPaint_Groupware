@@ -11,3 +11,8 @@ p{
 i{
 	font-style:unset;
 }
+
+#title{
+	margin-bottom:20px;
+	font-size:22px; font-weight:bold;
+}

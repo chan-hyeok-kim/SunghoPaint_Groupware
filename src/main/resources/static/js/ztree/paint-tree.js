@@ -1,4 +1,4 @@
-var zTreeObj;
+var zTreeObj1;
 // zTree configuration information, refer to API documentation (setting details)
 var humanSetting = {
 	check: {
@@ -65,7 +65,7 @@ function myOnCheck(event, treeId, treeNode) {
 	for (i of childArr) {
 		if (treeNode.name != i.name) {
 			i.checked = false;
-			zTreeObj.updateNode(i)
+			zTreeObj1.updateNode(i)
 		}
 		
 
@@ -136,7 +136,7 @@ function myOnCheck(event, treeId, treeNode) {
 
 
 
-			zTreeObj = $.fn.zTree.init($("#tree_list"), settingList, zNodesList);
+			zTreeObj1 = $.fn.zTree.init($("#tree_list"), settingList, zNodesList);
 
 		}
 	})
@@ -159,7 +159,7 @@ var humanNodes = [
 	
 ];
 $(document).ready(function() {
-	zTreeObj = $.fn.zTree.init($("#tree"), humanSetting, humanNodes);
+	zTreeObj1 = $.fn.zTree.init($("#tree"), humanSetting, humanNodes);
 });
 
 

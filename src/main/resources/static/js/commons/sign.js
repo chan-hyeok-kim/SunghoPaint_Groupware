@@ -16,7 +16,8 @@ var file;
     
     //이미지 source 가져오기
     newImage.src = URL.createObjectURL(file);   
-
+    console.log(newImage.src);
+    
     newImage.style.width = "70%";
     newImage.style.height = "70%";
       //버튼을 누르기 전까지는 이미지를 숨긴다
@@ -78,7 +79,7 @@ const clearButton = wrapper.querySelector("[data-action=clear]");
 const undoButton = wrapper.querySelector("[data-action=undo]");
 const savePNGButton = wrapper.querySelector("[data-action=save-png]");
 const saveJPGButton = wrapper.querySelector("[data-action=save-jpg]");
-const saveSVGButton = wrapper.querySelector("[data-action=save-svg]");
+// const saveSVGButton = wrapper.querySelector("[data-action=save-svg]");
 
 clearButton.addEventListener("click", () => {
   signaturePad.clear();
@@ -111,14 +112,14 @@ saveJPGButton.addEventListener("click", () => {
   }
 });
 
-saveSVGButton.addEventListener("click", () => {
-  if (signaturePad.isEmpty()) {
-    alert("먼저 서명해주세요");
-  } else {
-    const dataURL = signaturePad.toDataURL('image/svg+xml');
-    download(dataURL, "signature.svg");
-  }
-});
+// saveSVGButton.addEventListener("click", () => {
+//   if (signaturePad.isEmpty()) {
+//     alert("먼저 서명해주세요");
+//   } else {
+//     const dataURL = signaturePad.toDataURL('image/svg+xml');
+//     download(dataURL, "signature.svg");
+//   }
+// });
 
 /**서명 설정 */
 
@@ -183,11 +184,12 @@ $('#sign-submit-btn').click(function(){
 		 processData: false
 		 ,success:function(result){
 			if(result.trim()>0){
-				console.log('성공')
-				
+				swal('서명이 성공적으로 등록되었습니다')
 			}
 		 },error:function(){
-			console.log('실패')
+      swal('서명 등록 실패',{
+        dangerMode:true
+      })
 		 }
 		 
 	})

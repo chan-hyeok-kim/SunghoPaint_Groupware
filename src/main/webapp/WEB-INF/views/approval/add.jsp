@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,7 +85,7 @@
 					<table class="table table-bordered">
 						<tr>
 							<td>기안일자</td>
-							<td colspan="2"><input
+							<td colspan="2"><input id="currentDate" readonly="readonly"
 								style="display: inline-block; margin-left: 4px"
 								class="form-control approval-line-search" type="date"
 								name="approvalStartDate"></td>
@@ -129,7 +131,7 @@
 						</tr>
 						<tr>
 							<td>구분(결재양식)</td>
-							<td colspan="2"><input id="form-add-name"
+							<td colspan="2"><input id="form-add-name" readonly
 								style="display: inline-block; margin-left: 4px"
 								class="form-control approval-line-search" type="search"
 								placeholder="" aria-label="Search">
@@ -156,7 +158,10 @@
 				<!-- add button -->
 				<div id="form-add-btn-box">
 					<button type="button" class="btn btn-info">임시저장</button>
-					<button type="button" class="btn btn-info" id="text-delete-btn">지우기</button>
+					<button type="button" class="btn btn-info" id="text-delete-btn"
+					style="margin-left: 20px;">지우기</button>
+					<button type="button" class="btn btn-info" id="form-add-sign"
+					style="margin-left: 20px;">서명하기</button>
 					<button class="btn btn-info" style="margin-left: 400px;">결재</button>
 				</div>
 		</div>
@@ -164,6 +169,8 @@
 		</form>
 
 	</div>
+
+
 
 
 	<!-- Modal -->
@@ -337,8 +344,14 @@
   </script>
 
 
+<script type="text/javascript">
+console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.username}')
+const formSign='${sign}';
+</script>
+
 	<!-- approval-form에 html style적용 -->
-	<script src="/js/commons/approval-form.js"></script>
+	<script src="/js/approval/approval-form.js"></script>
+	<script src="/js/approval/approval-date.js"></script>
 
 	<!-- tree -->
 	<script src="/js/ztree/paint-tree.js"></script>

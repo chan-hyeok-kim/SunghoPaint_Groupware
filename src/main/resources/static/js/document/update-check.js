@@ -45,4 +45,15 @@ $("#document-update-btn").click(function() {
 
 
 
+let upTypeCdName=$('#check-cd').attr('data-cd-name');
+
+$('#select-form').val(upTypeCdName).prop("selected",true);
+//해당 밸류를 가진 옵션 셀렉티드
+
+
+
+
+
+
+
 

@@ -5,11 +5,38 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.transfer.TransferDAO">
+	<sql id="searchSQL">
+		<if test="startDate != '' or endDate != ''">
+			WHERE
+			<choose>
+				<when test="startDate != '' and endDate != ''">
+					TRANSFER_DATE BETWEEN #{startDate} AND #{endDate}
+				</when>
+				<when test="startDate != '' and endDate == ''">
+					<![CDATA[TRANSFER_DATE >= #{startDate}]]>
+				</when>
+				<when test="startDate == '' and endDate != ''">
+					<![CDATA[TRANSFER_DATE <= #{endDate}]]>
+				</when>
+			</choose>
+		</if>
+		<if test="keyword != ''">
+			<if test="startDate == '' and endDate == ''">WHERE</if>
+			<if test="startDate != '' or endDate != ''">AND</if>
+			<choose>
+				<when test="kind == 'employeeID'">
+					EMPLOYEE_ID LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+				<when test="kind == 'name'">
+					NAME LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+			</choose>
+		</if>
+	</sql>
+	
 	<select id="getHumanResourceList" resultType="HumanResourceVO">
 		SELECT *,
-		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD,
 		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD_NAME,
-		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD,
 		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME 
 			FROM HUMAN_RESOURCE
 	</select>
@@ -29,14 +56,22 @@
 		)
 	</insert>
 	
-	<select id="getTransferList" resultType="TransferVO">
-		SELECT *,
-		FN_CODE_NM(LEFT(TRANSFER_TYPE_CD, 3), TRANSFER_TYPE_CD) AS TRANSFER_TYPE_CD_NAME,
-		FN_CODE_NM(LEFT(BEFORE_POSITION_CD, 3), BEFORE_POSITION_CD) AS BEFORE_POSITION_CD_NAME,
-		FN_CODE_NM(LEFT(TRANSFER_POSITION_CD, 3), TRANSFER_POSITION_CD) AS TRANSFER_POSITION_CD_NAME,
-		FN_CODE_NM(LEFT(BEFORE_DEPARTMENT_CD, 3), BEFORE_DEPARTMENT_CD) AS BEFORE_DEPARTMENT_CD_NAME,
-		FN_CODE_NM(LEFT(TRANSFER_DEPARTMENT_CD, 3), TRANSFER_DEPARTMENT_CD) AS TRANSFER_DEPARTMENT_CD_NAME
+	<select id="getTotal" resultType="Long">
+		SELECT COUNT(*)
 			FROM TRANSFER
-		ORDER BY TRANSFER_DATE DESC;
+		<include refid="searchSQL" />
+	</select>
+	
+	<select id="getTransferList" parameterType="TransferPager" resultType="TransferVO">
+		SELECT *,
+				   FN_CODE_NM(LEFT(TRANSFER_TYPE_CD, 3), TRANSFER_TYPE_CD) AS TRANSFER_TYPE_CD_NAME,
+				   FN_CODE_NM(LEFT(BEFORE_POSITION_CD, 3), BEFORE_POSITION_CD) AS BEFORE_POSITION_CD_NAME,
+				   FN_CODE_NM(LEFT(TRANSFER_POSITION_CD, 3), TRANSFER_POSITION_CD) AS TRANSFER_POSITION_CD_NAME,
+				   FN_CODE_NM(LEFT(BEFORE_DEPARTMENT_CD, 3), BEFORE_DEPARTMENT_CD) AS BEFORE_DEPARTMENT_CD_NAME,
+				   FN_CODE_NM(LEFT(TRANSFER_DEPARTMENT_CD, 3), TRANSFER_DEPARTMENT_CD) AS TRANSFER_DEPARTMENT_CD_NAME
+			FROM TRANSFER
+		<include refid="searchSQL" />
+		ORDER BY TRANSFER_DATE DESC
+		LIMIT #{startRow}, 10
 	</select>
 </mapper>

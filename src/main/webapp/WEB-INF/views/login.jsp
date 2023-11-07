@@ -5,12 +5,12 @@
 <html>
 <head>
 	<title>로그인</title>
-	<link rel="stylesheet" href="/css/humanResource/login.css" />
+	<link rel="stylesheet" href="/css/humanresource/login.css" />
 </head>
 <body>
 	<div id="container">
 		<div id="logo">
-			<img src="/images/humanResource/logo-clear.png">
+			<img src="/images/humanresource/logo-clear.png">
 		</div>
 		<form:form modelAttribute="humanResourceVO" action="./login" method="POST">
 			<form:input path="employeeID" placeholder="사번" />

@@ -28,7 +28,9 @@ public class TransferService {
 		return transferDAO.setTransfer(transferVO);
 	}
 	
-	public List<TransferVO> getTransferList(){
-		return transferDAO.getTransferList();
+	public List<TransferVO> getTransferList(TransferPager pager){
+		pager.makeRowNum();
+		pager.makePageNum(transferDAO.getTotal(pager));
+		return transferDAO.getTransferList(pager);
 	}
 }

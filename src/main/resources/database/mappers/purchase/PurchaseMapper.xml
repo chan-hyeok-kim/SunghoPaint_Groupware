@@ -5,8 +5,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.purchase.PurchaseDAO">
-	
-	<!-- <sql id="forPager">
+	<!-- 
+	 <sql id="forPager">
 		<choose>
 			<when test="kind=='1'">
 				clientName
@@ -20,11 +20,11 @@
 				name
 			</otherwise>
 		</choose>
-	</sql> -->
+	</sql> 
 	
 
 	<select id="getList" resultMap="PurchaseList" parameterType="Pager">
-         <!-- SELECT * FROM PURCHASE_MANAGEMENT ORDER BY PURCHASE_NO DESC -->
+         SELECT * FROM PURCHASE_MANAGEMENT ORDER BY PURCHASE_NO DESC
         
         SELECT * 
           FROM PURCHASE_MANAGEMENT P 
@@ -157,11 +157,11 @@
 	      	ON P.EMPLOYEE_ID = H.EMPLOYEE_ID
 	INNER JOIN CLIENT_LIST C
 	    	ON P.CLIENT_NO = C.CLIENT_NO
-	<!-- INNER JOIN FACTORY_STORAGE F
-	    	ON P.FACTORY_STORAGE_NO = F.FACTORY_STORAGE_NO -->
+	INNER JOIN FACTORY_STORAGE F
+	    	ON P.FACTORY_STORAGE_NO = F.FACTORY_STORAGE_NO
 	     WHERE P.PURCHASE_NO=#{purchaseNo}
   	
   	</delete> 
-  	
+  	 -->
 
 </mapper>

@@ -58,7 +58,11 @@
                             
 <div id="test"></div>
 							<div id="document-add-btn-list">
-								<button type="button" class="btn btn-info"
+							<button type="button" class="btn btn-info" id="text-delete-btn"
+					        style="margin-left: 20px;">지우기</button>
+							<button type="button" class="btn btn-info" id="se2-line-add-btn"
+					        style="margin-left: 20px;">결재선 추가</button>
+								<button type="button" class="btn btn-info" style="margin-left: 50%;"
 									onclick="location.href='/document/list'">취소</button>
 								<button type="button" class="btn btn-info" id="document-add-btn">등록</button>
 							</div>
@@ -77,7 +81,13 @@
 
 
 <!-- approval-form에 html style적용 -->
-	<script src="/js/commons/approval-form.js"></script>
+	<script src="/js/approval/approval-form.js"></script>
+    
+    <!-- 유효성 검증 -->
     <script src="/js/document/add-check.js"></script>
+    <!-- 결재선 추가 -->
+    <script src="/js/document/line-add.js"></script>
+    
+    
 </body>
 </html>

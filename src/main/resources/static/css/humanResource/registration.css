@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+table{
+	width:100%;
+}
+
+th, td{
+	width:16.7%; height:40px;
+	text-align:center;
+    border-collapse:collapse;
+	border:1px solid #CDCDCD;
+	font-size:14px;
+}
+
+form input{
+    width:100%; height:100%;
+    padding:5px;
+    text-align:center;
+    border:none;
+}
+
+
+
+#basicInfo{
+    margin-top:50px;
+    margin-bottom:30px;
+}
+
+#basicInfo #profile{
+    position:relative;
+    background-color:white;
+}
+
+#profile > img{
+    width:150px;
+}
+
+#profile > input[type="file"]{
+    position:absolute;
+    cursor:pointer;
+    top:0; left:0;
+    opacity:0;
+}
+
+
+
+form > #buttons{
+    margin-top:30px;
+    text-align:center;
+}
+
+#buttons > button{
+    width:5%; height:40px;
+    border:none;
+    background-color:#A65FFF;
+    font-weight:600;
+    color:white;
+    cursor:pointer;
+}
+
+#buttons > button[type="button"]{
+    margin-left:10px;
+    background-color:#D09BE3;
+}
