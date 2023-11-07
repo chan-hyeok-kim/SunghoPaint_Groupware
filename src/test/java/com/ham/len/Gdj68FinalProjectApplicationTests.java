@@ -15,6 +15,7 @@ import com.ham.len.humanresource.HumanResourceDAO;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.transfer.TransferDAO;
 import com.ham.len.transfer.TransferVO;
+import com.ham.len.util.SMTP;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,8 +28,9 @@ class Gdj68FinalProjectApplicationTests {
 	@Autowired
 	HumanResourceDAO humanResourceDAO;
 	
-	// @Test
+	@Test
 	void contextLoads() {
+		new SMTP().welcomeMailSend();
 	}
 	
 	// @Test
@@ -78,7 +80,7 @@ class Gdj68FinalProjectApplicationTests {
 		assertTrue(result > 0);
 	}
 	
-	@Test
+	// @Test
 	void generateTemporaryPassword() {
 		String temporaryPassword = "";
 		
