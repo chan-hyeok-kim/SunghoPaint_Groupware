@@ -21,19 +21,28 @@ const topTab = '<td style="height:5.5872802734375pt; border-left:solid #000000 1
 const midTab = '<td class="mid-sign-tab" style="height:62.25pt; width:82px; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
 const botTab = '<td style="height:0pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
 
-$('#top-tap').append(appTab);
 
-if ($('#add-app').text()=='') {
-	//$('#app-test-tbl').append(approvalLine3)
-	tabCount = 2;
-    console.log(tabCount)
-	for (let i=0; i < tabCount; i++) {
-		$('#top-tap').append(topTab);
-		$('#mid-tap').append(midTab);
-		$('#bot-tap').append(botTab);
-	}
+if(!$('.mid-sign-tab')){
+    $('#top-tap').append(appTab);
+    if ($('#add-app').text()=='') {
+        //추가 검토자가 없을때 둘만 필요
+        //$('#app-test-tbl').append(approvalLine3)
+        tabCount = 2;
+           console.log(tabCount)
+        for (let i=0; i < tabCount; i++) {
+        $('#top-tap').append(topTab);
+        $('#mid-tap').append(midTab);
+        $('#bot-tap').append(botTab);
+	       }
+    }else{
+        for (let i=0; i < 3; i++) {
+        $('#top-tap').append(topTab);
+        $('#mid-tap').append(midTab);
+        $('#bot-tap').append(botTab);
+        }
+
+    }
 }
-
 
 
 

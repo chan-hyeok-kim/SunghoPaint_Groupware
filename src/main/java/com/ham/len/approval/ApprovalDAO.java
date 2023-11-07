@@ -14,7 +14,11 @@ public interface ApprovalDAO {
 
 	public List<ApprovalVO> getList(Pager pager) throws Exception;
 	
-	public Long getTotal() throws Exception;
+	public Long getTotal(Pager pager) throws Exception;
+	
+	public List<ApprovalVO> getMyList(Map<String, Object> map) throws Exception;
+	
+	public Long getMyTotal(HumanResourceVO humanResourceVO) throws Exception;
 	
 	public List<ApprovalVO> getStatusList(Map<String, Object> map) throws Exception;
 	

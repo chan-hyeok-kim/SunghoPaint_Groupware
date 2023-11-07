@@ -14464,6 +14464,12 @@ dl {
 	
 }
 
+#text-delete-btn-list{
+  padding: 10px 0 0 10px;
+  display: block; 
+  float: left;
+}
+
 #btn-box button{
 	margin: 20px 0 0 0;
 }
@@ -14685,6 +14691,13 @@ ul.nav-tabs {
 	float:left;
 	width: 30%; 
 	height: 58px;
+}
+
+/* swal icon*/
+
+.no-border {
+  border: 0;
+  color:yellow;
 }
 
 /* custom 1.btn */

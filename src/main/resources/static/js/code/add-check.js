@@ -66,7 +66,7 @@ codeAddBtn.addEventListener("click",function(){
        checkResult[0]=true;
     }else{
        checkResult[0]=false;
-       swal('무조건 코드의 첫자는 알파벳이어야 합니다');
+       swal('무조건 코드의 첫 글자는 알파벳으로 시작해야 합니다');
     }
 
     if(!result){

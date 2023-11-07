@@ -49,7 +49,7 @@ public class ApprovalController {
 
 	@GetMapping("list")
 	public String getList(Pager pager, Model model) throws Exception {
-		List<ApprovalVO> ar = approvalService.getList(pager);
+		List<ApprovalVO> ar = approvalService.getMyList(pager);
 		model.addAttribute("list", ar);
 
 		log.warn("========{}========", ar);

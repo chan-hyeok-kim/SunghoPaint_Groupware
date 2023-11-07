@@ -115,12 +115,13 @@
 				<table class="table table-bordered">
 					<tr>
 						<td colspan="2">
-							<div id="show-contents" style="display: flex; justify-content: center;">
-								${vo.approvalContents}</div>
+							<div id="show-contents" style="display: flex; 
+							justify-content: center;">${vo.approvalContents}</div>
 						 <input id="mod-contents" type="hidden" name="approvalContents">
-						 <input id="check" type="hidden" name="approvalCheckCd" value="${vo.approvalCheckCd}">						</td>
+						 <input id="check" type="hidden" name="approvalCheckCd" value="${vo.approvalCheckCd}"></td>
 					     <input type="hidden" name="approvalNo" value="${vo.approvalNo}">
 					     <input type="hidden" id="status-cd-check" name="approvalStatusCd" value="${vo.approvalStatusCd}">
+					     
 					</tr>
 					<tr>
 <c:choose>
@@ -149,7 +150,9 @@
 
 <!-- bottom btn-list  -->
 				<div id="form-add-btn-box">
-					<button class="btn btn-info" type="button" id="app-reject-btn"
+					<button class="btn btn-info" type="button" id="app-pdf-btn"
+					>PDF로 다운로드</button>
+					<button class="btn btn-info" type="button" style="margin-left: 20px;" id="app-reject-btn"
 					>반려</button>
 					<button class="btn btn-info" type="button" style="margin-left: 20px;"
 					onclick="location.href='/approval/update?approvalNo=${vo.approvalNo}'">수정</button>

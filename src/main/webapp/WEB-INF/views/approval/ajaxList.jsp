@@ -26,13 +26,13 @@
 				        <c:forEach items="${list}" var="vo" varStatus="i">
 				           <tr>
 				             <td><input type="checkbox"></td>
-				             <td>${vo.approvalStartDate}</td>
+				             <td class="approval-start-date">${vo.approvalStartDate}</td>
 				             <td>${vo.approvalTitle}</td>
 				             <td>${vo.codeName}</td>
 				             <td>${vo.drafter}</td>
 				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
 				           
-				             <td><a>기안서 확인</a></td>
+				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -63,11 +63,13 @@
 </nav>
 
   <!-- Button List  -->
-				  <div style="float: left;">
+				  <div style="float: right;">
 				  <button class="btn btn-info" onclick="location.href='/approval/add'">새 결재 진행</button>
 				 
 				</div>
 
   </div>
+  <!-- 기안일자 변환 -->
+  <!-- <script src="/js/approval/approval-date.js"></script> -->
 </body>
 </html>
