@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ham.len.approval.ApprovalVO;
@@ -28,4 +29,20 @@ public class OrderController {
 		 model.addAttribute("list", ar);
 		 return "order/list";
 	}
+	
+	@GetMapping("add")
+	public String add()throws Exception{
+		
+		return "order/add";
+	}
+	
+	@PostMapping("add")
+	public String add(OrderVO orderVO)throws Exception{
+		
+		int result = orderService.setAdd(orderVO);
+		
+		return "redirect:./list";
+	}
+	
+	
 }

@@ -1,6 +1,5 @@
 package com.ham.len.purchase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +8,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.sym.Name;
 import com.ham.len.VOs.ClientVO;
-import com.ham.len.VOs.EmployeeVO;
 import com.ham.len.VOs.FactoryStorageVO;
+import com.ham.len.VOs.MaterialProductVO;
 import com.ham.len.admin.CodeService;
 import com.ham.len.commons.CodeVO;
 import com.ham.len.commons.Pager;
+import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,7 +47,33 @@ public class PurchaseController {
 	}
 	
 	@PostMapping("add")
-	public String add(PurchaseVO purchaseVO)throws Exception{
+	public String add(PurchaseVO purchaseVO, String fcode)throws Exception{
+		
+		CodeVO codeVO = new CodeVO();
+		codeVO.setCodeName(fcode);
+		System.out.println(purchaseVO);
+		System.out.println(fcode);
+		FactoryStorageVO factoryStorageVO = purchaseService.factorySearch(codeVO);
+//		공장VO형의 공장변수 = 구매서비스에 공장검색메소드(코드VO)
+		purchaseVO.setFactoryStorageNo(factoryStorageVO.getFactoryStorageNo());
+//		구매VO에 넣는공장번호(공장VO에 꺼낸공장번호)
+
+//		제품번호 검색기능
+		MaterialProductVO materialProductVO = purchaseService.productSearch(codeVO);
+		purchaseVO.setMaterialProductNo(materialProductVO.getMaterialProductNo());
+		
+//		담당자 검색기능
+		HumanResourceVO humanResourceVO = purchaseService.humanSearch(codeVO);
+		purchaseVO.setEmployeeID(humanResourceVO.getEmployeeID());
+		
+//		거래처 검색기능
+		ClientVO clientVO = purchaseService.clientSearch(codeVO);
+		purchaseVO.setClientNo(clientVO.getClientNo());
+		
+		int result=purchaseService.setAdd(purchaseVO);
+		
+		log.warn("=-=-=-=-=-=-=-=-=-=result : {}=-=-=-=-=-=-=-=-=-=-=-=", result);
+//		결과값 = 구매서비스에 넣은더하기값(구매VO)
 		
 		return "redirect:./list";
 	}
@@ -69,10 +97,10 @@ public class PurchaseController {
 	}
 	
 	@PostMapping("update")
-	public String update(PurchaseVO purchaseVO, ClientVO clientName,EmployeeVO employeeId)throws Exception{
+	public String update(PurchaseVO purchaseVO, ClientVO clientName,HumanResourceVO name)throws Exception{
 		
 		purchaseVO.setClientVO(clientName);
-		purchaseVO.setEmployeeVO(employeeId);
+		purchaseVO.setHumanResourceVO(name);
 		
 		log.warn("*********purchaseVO : {}***********", purchaseVO);
 		
@@ -85,13 +113,18 @@ public class PurchaseController {
 	}
 	
 	@PostMapping("delete")
-	public String delete(PurchaseVO purchaseNo)throws Exception{
-		int result = purchaseService.setDelete(purchaseNo);
-		log.warn("++++++++++++++ pruchaseNo : {}++++++++++++++++", result);
+	public String delete(@RequestParam(value = "purchaseNo[]", required = false) List<Long> purchaseNo)throws Exception{
 		
-		return "redirect:./list";
+		if(purchaseNo!=null) {
+			for(Long p : purchaseNo) {
+				PurchaseVO purchaseVO = new PurchaseVO();
+				purchaseVO.setPurchaseNo(p);
+		
+				int result = purchaseService.setDelete(purchaseVO);
+			}
+		}
+		
+		return "commons/ajaxResult";
 	}
 	 
 }
-
-

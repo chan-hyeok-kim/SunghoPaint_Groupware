@@ -13,8 +13,31 @@
          LIMIT #{startRow},#{lastRow}
    </select>
    
-   
-   
-   
-
+	<insert id="setAdd" parameterType="OrderVO">
+		INSERT INTO ORDER_MANAGEMENT
+			(CLIENT_NO, MATERIAL_PRODUCT_NO, TOTAL_PRICE, FACTORY_STORAGE_NO, WORK_STATUS_CD, <!-- MOD_MENU, MOD_ID, MOD_DATE, REG_MENU, REG_ID, REG_DATE -->)
+		VALUES 
+			(#{clientNo},#{materialProductNo},#{totalPrice},#{factoryStorageNo},#{workStatusCd}<!-- ,#{},#{},#{},#{},#{},#{},#{},#{},#{}, -->)
+	</insert>
+	
+	<select id="factorySearch" resultType="FactoryStorageVO" parameterType="CodeVO">
+		SELECT *
+    	  FROM FACTORY_STORAGE
+    	 WHERE FACTORY_STORAGE_NO = (SELECT CODE
+    	 				  			   FROM CODE
+    	  				  			  WHERE CODE_NAME = #{codeName})
+	</select>
+	
+	<select id="clientSearch" resultType="Long" parameterType="Pager">
+		SELECT *
+		  FROM CLIENT_LIST
+		 WHERE CLIENT_NAME LIKE '%'||#{search}||'%'
+	</select>
+	
+	<select id="humanSearch" resultType="humanResourceVO" parameterType="HumanResourceVO">
+    	SELECT *
+    	  FROM HUMAN_RESOURCE
+    	 WHERE NAME=#{name}
+    </select>
+	
 </mapper>

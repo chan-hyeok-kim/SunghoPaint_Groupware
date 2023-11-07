@@ -187,6 +187,7 @@ ul.nav-tabs {
 										<th>품목명</th>
 										<th>금액 합계</th>
 										<th>담당자</th>
+										<th>입고 창고</th>
 										<th>발주 현황</th>
 									</tr>
 								</thead>
@@ -195,20 +196,15 @@ ul.nav-tabs {
 				           <tr>
 				             <td><input type="checkbox" value="${vo.purchaseNo}"></td>
 				             <td>${vo.purchaseDate}</td>
-				             <td style="cursor: pointer;" onclick="location.href='/purchase/update?purchaseNo=${vo.purchaseNo}'">${vo.clientVO.clientName}</td>
+				             <td style="cursor: pointer;" onclick="location.href='/purchase/update?purchaseNo=${vo.purchaseNo}'">${vo.PurchaseVO.clientVO.clientName}</td>
 				             <td>${vo.materialProductVO.materialProductCategory}</td>
 				             <td>${vo.totalPrice}</td>
-				             <td>${vo.employeeVO.name}</td>
+				             <td>${vo.humanResourceVO.name}</td>
+				             <td>${vo.factoryStorageVO.codeName}</td>
 				             
-				             <%-- <td>${vo.purchaseNo}</td>
-				             <td id="check" data-check="${vo.purchaseCd}">${vo.purchaseNo}</td>
-				             <c:choose>
-				             <c:when test="${vo.purchaseCd eq 'P011'}">
-				             <td>결재중</td>
-				             </c:when>
-				             </c:choose> --%>
 				             
-				             <td><a>발주서 확인</a></td>
+				             
+				             <td><a href="#">발주서 확인</a></td>
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -248,28 +244,10 @@ ul.nav-tabs {
 
 			</ul>
 		</nav>
-					
-							
-					<!-- <div style="text-align: center; margin: 20px 20px">
-						<nav aria-label="Page navigation example"
-							style="display: inline-block;">
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous"> <i
-										class="mdi mdi-arrow-left-drop-circle"></i>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"									aria-label="Next"> <i
-										class="mdi mdi-arrow-right-drop-circle"></i>
-								</a></li>
-							</ul>
-						</nav> -->
-						
-						<!-- Button List  -->
+
 						
 						<div style="float: right;">
+							<button class="btn btn-danger" id="delete-btn">삭제</button>
 							<button class="btn btn-info" onclick="location.href='/purchase/add'">신규 구매 추가</button>
 						</div>
 					</div>
@@ -277,5 +255,36 @@ ul.nav-tabs {
 			</div>
 		</div>
 		<script src="/js/commons/list-date.js"></script>
+		<!-- <form action="add" method="post">
+			<input name="vo.멤버변수">
+		</form>
+			
+			1. 요청url
+			2. method 방식
+			3. 매개변수.멤버변수 -->
+		
+		<script type="text/javascript">
+			
+			
+			$('#delete-btn').click(function(){
+				$('input:checked').each(function(){
+					const check = new Array();
+					check.push($(this).val());
+				})
+				
+				$.ajax({
+					url:'delete',
+					type:'POST',
+					data:{
+						purchaseNo : check
+					}, success: function(result){
+						location.replace('/purchase/list');
+					}
+				})	
+				
+			})
+			
+			
+		</script>
 </body>
 </html>

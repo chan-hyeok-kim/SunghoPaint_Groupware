@@ -1,8 +1,10 @@
 package com.ham.len.humanresource;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface HumanResourceDAO {
-	public HumanResourceVO getHumanResource(String employeeID);
+	public List<HumanResourceVO> getHumanResource(String employeeID);
 }

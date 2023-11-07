@@ -10,5 +10,7 @@ import com.ham.len.commons.Pager;
 public interface OrderDAO {
 	
 	public List<OrderVO> getList(Pager pager) throws Exception;
+	
+	public int setAdd(OrderVO orderVO)throws Exception;
 
 }

@@ -71,6 +71,7 @@
 			<table class="table table-bordered">
 				<form action="update" method="post">
 					<input type="hidden" name="purchaseNo" value="${kvo.purchaseNo}">
+				
 					    <tr>
 					        <td	>일자</td>
 					        <td><input type="date" class="form-control" name="purchaseDate" value="${kvo.purchaseDate}"></td>
@@ -88,13 +89,13 @@
 					        <td><input type="date" class="form-control" name="purchaseInDate" value="${kvo.purchaseInDate}"></td>
 					        <td>입고창고</td>
 					        <td>
+					        <%-- <input type="hidden" name="factoryStorageNo" value="${kvo.factoryStorageNo}"> --%>
 				        	<select class="form-select" name="fcode">
 				        		<option value="원료창고">원료창고</option>
 				        		<option value="제품창고">제품창고</option>
 				        	</select>
 							</td>
 					    </tr>
-				</form>
 			</table>
 			<br><br><br><br><br>
 					<div style="float: right;">

@@ -114,6 +114,21 @@
       </div>
     </li>  
     
+    
+        <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#workorder-general-pages" aria-expanded="false" aria-controls="general-pages">
+        <span class="menu-title">작업지시서 리스트</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-factory menu-icon"></i>
+      </a>
+      <div class="collapse" id="workorder-general-pages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/order/list">작업지시서 조회</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/order/add">작업지시서 작성</a></li>
+        </ul>
+      </div>
+    </li>  
+    
        
         <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#approval-admin-pages" aria-expanded="false" aria-controls="admin-pages">

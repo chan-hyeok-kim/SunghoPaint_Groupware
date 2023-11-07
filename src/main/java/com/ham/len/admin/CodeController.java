@@ -24,7 +24,7 @@ public class CodeController {
 
 	@GetMapping("list")
 	public void getList(Pager pager,Model model) throws Exception{
-		List ar=codeService.getList(pager);
+		List ar = codeService.getList(pager);
 		model.addAttribute("list", ar);
 		
 	}
@@ -36,7 +36,7 @@ public class CodeController {
 	
 	@PostMapping("add")
     public void setAdd(CodeVO codeVO) throws Exception{
-    	 int result=codeService.setAdd(codeVO);
+    	 int result = codeService.setAdd(codeVO);
     }
 	
 	@GetMapping("update")
@@ -46,14 +46,12 @@ public class CodeController {
 	
 	@PostMapping("update")
 	public void setUpdate(CodeVO codeVO) throws Exception{
-		 int result=codeService.setUpdate(codeVO);
+		 int result = codeService.setUpdate(codeVO);
 	}
 	
 	@PostMapping("delete")
 	public void setDelete(CodeVO codeVO) throws Exception{
-		int result=codeService.setDelete(codeVO);
+		int result = codeService.setDelete(codeVO);
 	}
-	
-	
 	
 }

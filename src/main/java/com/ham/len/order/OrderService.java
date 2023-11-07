@@ -17,5 +17,12 @@ public class OrderService {
 		pager.makePageNum(1L);
 		return orderDAO.getList(pager);
 	}
+	
+	public int setAdd(OrderVO orderVO)throws Exception{
+		
+		int result = orderDAO.setAdd(orderVO);
+		
+		return result;
+	}
 
 }

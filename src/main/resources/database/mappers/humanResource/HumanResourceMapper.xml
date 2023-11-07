@@ -5,7 +5,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.humanresource.HumanResourceDAO">
-	<select id="getHumanResource" parameterType="String" resultMap="getHumanResourceResult">
+	<select id="getHumanResource" parameterType="String" resultType="HumanResourceVO">
 		SELECT *
 			FROM HUMAN_RESOURCE HR INNER JOIN ACCOUNT_ROLE AR
 				ON HR.EMPLOYEE_ID = AR.EMPLOYEE_ID INNER JOIN ROLE R
@@ -14,11 +14,11 @@
 		WHERE HR.EMPLOYEE_ID = #{value}
 	</select>
 	
-	<resultMap id="getHumanResourceResult" type="HumanResourceVO">
+	<!-- <resultMap id="getHumanResourceResult" type="HumanResourceVO">
 		<id column="EMPLOYEE_ID" property="employeeID" />
 		<result column="PASSWORD" property="password" />
 		<result column="JOIN_DATE" property="joinDate" />
-		<result column="email" property="joinType" />
+		<result column="JOIN_TYPE" property="joinType" />
 		<result column="birth" property="name" />
 		<result column="BIRTH" property="birth" />
 		<result column="DEPARTMENT_CD" property="departmentCd" />
@@ -47,5 +47,5 @@
 			<id column="ROLE_NUM" property="roleNum" />
 			<result column="CODE_NAME" property="roleName" />
 		</collection>
-	</resultMap>
+	</resultMap> -->
 </mapper>

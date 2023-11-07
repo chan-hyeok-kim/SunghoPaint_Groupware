@@ -150,9 +150,6 @@ ul.nav-tabs {
 									<option selected="selected">전체</option>
 									<option>거래처</option>
 									<option>발주번호</option>
-									<option>발주번호</option>
-									<option>발주번호</option>
-									<option>발주번호</option>
 								</select> 
 								
 								
