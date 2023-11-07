@@ -68,7 +68,7 @@
 
 	</resultMap>
 	
-	<select id="getTotal" resultType="Long">
+	<select id="getTotal" resultType="Long" parameterType="Pager">
 	  SELECT COUNT(*)
 	    FROM APPROVAL
 	   WHERE <include refid="searchApp"></include>

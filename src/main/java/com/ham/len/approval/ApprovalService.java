@@ -23,7 +23,7 @@ public class ApprovalService {
 
 	public List<ApprovalVO> getList(Pager pager) throws Exception{
 		pager.makeRowNum();
-		Long total=approvalDAO.getTotal();
+		Long total=approvalDAO.getTotal(pager);
 		pager.makePageNum(total);
 		return approvalDAO.getList(pager);
 	}
