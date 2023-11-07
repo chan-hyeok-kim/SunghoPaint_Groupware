@@ -21,8 +21,8 @@ const topTab = '<td style="height:5.5872802734375pt; border-left:solid #000000 1
 const midTab = '<td class="mid-sign-tab" style="height:62.25pt; width:82px; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
 const botTab = '<td style="height:0pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
 
-
-if(!$('.mid-sign-tab')){
+console.log($('.mid-sign-tab'))
+if(!$('.mid-sign-tab') || $('.mid-sign-tab').length==0){
     $('#top-tap').append(appTab);
     if ($('#add-app').text()=='') {
         //추가 검토자가 없을때 둘만 필요
