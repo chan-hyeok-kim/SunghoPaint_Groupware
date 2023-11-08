@@ -180,7 +180,7 @@ ul.nav-tabs {
 							<table class="table-bordered mt-2" id="approval-table">
 								<thead>
 									<tr>
-										<th>NO.</th>
+										<th>선택</th>
 										<th>공장, 창고 코드</th>
 										<th>공장, 창고 이름</th>
 										<th>사용여부</th>

@@ -187,7 +187,7 @@ ul.nav-tabs {
 							<table class="table-bordered mt-2" id="approval-table">
 								<thead>
 									<tr>
-										<th>NO.</th>
+										<th>선택</th>
 										<th>기기코드</th>
 										<th>기기이름</th>
 										<th>기기상태</th>
