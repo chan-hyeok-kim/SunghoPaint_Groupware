@@ -4,7 +4,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.ham.len.productionReceipt.ProductionReceiptDAO">
+<mapper namespace="com.ham.len.productionreceipt.ProductionReceiptDAO">
 
    <select id="getList" resultType="ProductionReceiptVO" parameterType="Pager">
         SELECT * 

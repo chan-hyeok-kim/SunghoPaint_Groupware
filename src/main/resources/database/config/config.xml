@@ -34,7 +34,7 @@
 		  <typeAlias type="com.ham.len.order.OrderVO" alias="OrderVO"/>   
    <typeAlias type="com.ham.len.purchase.PurchaseVO" alias="PurchaseVO"/>
    <typeAlias type="com.ham.len.workorder.WorkOrderVO" alias="WorkOrderVO"/>
-   <typeAlias type="com.ham.len.productionReceipt.ProductionReceiptVO" alias="ProductionReceiptVO"/>
+   <typeAlias type="com.ham.len.productionreceipt.ProductionReceiptVO" alias="ProductionReceiptVO"/>
    
    </typeAliases>
 </configuration>
