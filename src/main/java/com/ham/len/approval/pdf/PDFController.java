@@ -135,7 +135,7 @@ public class PDFController {
     	     
     	// CSS
     	CSSResolver cssResolver = new StyleAttrCSSResolver();
-    	CssFile cssFile = helper.getCSS(new FileInputStream("D:\\local store\\Java_basic\\FinalProject\\pdf.css"));
+    	CssFile cssFile = helper.getCSS(new FileInputStream("D:\\note\\cording-study\\FinalProject\\pdf.css"));
     	cssResolver.addCss(cssFile);
     	     
     	// HTML, 폰트 설정

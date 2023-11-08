@@ -27,9 +27,7 @@
 		<result column="PHONE" property="phone" />
 		<result column="MAIN_NUMBER" property="mainNumber" />
 		<result column="EMAIL" property="email" />
-		<result column="ZIP_CODE" property="zipCode" />
 		<result column="ADDRESS" property="address" />
-		<result column="ADDRESS_DETAIL" property="addressDetail" />
 		<result column="BANK" property="bank" />
 		<result column="ACCOUNT_NUMBER" property="accountNumber" />
 		<result column="ACCOUNT_HOLDER" property="accountHolder" />

@@ -90,9 +90,7 @@
 								style="display: inline-block; margin-left: 4px"
 								class="form-control approval-line-search" type="date"
 								name="approvalStartDate"></td>
-								<script>
-								console.log(${vo.approvalStartDate})
-								</script>
+							
 						</tr>
 						<tr>
 							<td>제목</td>
@@ -117,14 +115,14 @@
 						<tr>
 							<td>검토자</td>
 							<td><input 
-							value="${vo.midApprover}"
+							value="${vo.midApproverName}"
 							id="mid-approver" style="display: inline-block;"
 								class="form-control approval-line-search" type="search"
 								name="midApprover" placeholder="" aria-label="Search"></td>
 						</tr>
 						<tr>
 							<td>추가검토자</td>
-							<td><input value="${vo.addApprover}"
+							<td><input value="${vo.addApproverName}"
 							style="display: inline-block; margin-left: 4px"
 								id="add-approver" class="form-control approval-line-search"
 								type="search" placeholder="" aria-label="Search"
@@ -132,10 +130,13 @@
 						</tr>
 						<tr>
 							<td>결재자</td>
-							<td><input id="last-approver" value="${vo.lastApprover}"
+							<td><input id="last-approver" value="${vo.lastApproverName}"
 								style="display: inline-block; margin-left: 4px"
 								class="form-control approval-line-search" type="search"
 								placeholder="" aria-label="Search" name="lastApprover"></td>
+								<input type="hidden" value="${lastApprover}" name="lastApprover" id="last-data-id">
+								<input type="hidden" value="${midApprover}" name="midApprover" id="mid-data-id">
+								<input type="hidden" value="${addApprover}" name="addApprover" id="add-data-id">
 						</tr>
 						<tr>
 							<td>구분(결재양식)</td>

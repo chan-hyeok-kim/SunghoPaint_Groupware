@@ -44,6 +44,7 @@ var employeeNum;
 var employeeName = '';
 var rank;
 var dept;
+var empId;
 
 var zNodesList;
 function myOnCheck(event, treeId, treeNode) {
@@ -100,14 +101,16 @@ function myOnCheck(event, treeId, treeNode) {
 			if (result=='' || result==undefined || result.length<=0) {
 				zNodesList = null;
 			}
+			
 			var resultArr=new Array();
-		
 			for (r of result) {
+				
 				let emp=new Array();
 				emp.who=r.name
 				emp.name=r.positionCd+' '+r.name;
 				emp.dept=r.departmentCd;
                 emp.rank=r.positionCd;
+				emp.empId=r.employeeID;
 				/*		delete r.employeeName;
 						delete r.deptCode;*/
                 console.log(emp);
@@ -130,6 +133,7 @@ function myOnCheck(event, treeId, treeNode) {
 				dept=treeNode.dept;
 				rank=treeNode.rank;
 				employeeName = treeNode.name;
+				empId=treeNode.empId
 			}
 
 
@@ -170,6 +174,7 @@ $('#tree-last-app').click(function() {
 	console.log(employeeName)
 	if (employeeName != '') {
 		$('#last-app').text(employeeName);
+		$('#last-app').attr("data-id",empId);
 	}
 })
 
@@ -178,6 +183,7 @@ $('#tree-mid-app').click(function() {
 	console.log(employeeName)
 	if (employeeName != '') {
 		$('#mid-app').text(employeeName);
+		$('#mid-app').attr("data-id",empId);
 	}
 })
 
@@ -185,6 +191,7 @@ $('#tree-add-app').click(function() {
 	console.log(employeeName)
 	if (employeeName != '') {
 		$('#add-app').text(employeeName);
+		$('#add-app').attr("data-id",empId);
 	}
 })
 
@@ -196,6 +203,10 @@ $('#tree-line-btn').click(function() {
 	const last = $('#last-app').text();
 	const mid = $('#mid-app').text();
 	const add = $('#add-app').text();
+
+    const lastId = $('#last-app').attr("data-id"); 
+	const midId = $('#mid-app').attr("data-id"); 
+	const addId = $('#add-app').attr("data-id"); 
 
 	console.log(last)
 	console.log(mid)
@@ -215,6 +226,10 @@ $('#tree-line-btn').click(function() {
 	$('#mid-approver').val(mid);
 	$('#add-approver').val(add);	
 		
+	$('#last-data-id').val(lastId);
+	$('#mid-data-id').val(midId);
+	$('#add-data-id').val(addId);
+
 	employeeName = '';
 	$('#last-app').text('');
 	$('#mid-app').text('');

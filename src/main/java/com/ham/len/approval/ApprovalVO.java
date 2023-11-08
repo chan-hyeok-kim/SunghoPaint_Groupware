@@ -37,4 +37,8 @@ public class ApprovalVO extends CodeVO{
     private String aptCodeName;
     private Long aptApprovalTypeNo;
     
+    private String midApproverName;
+    private String addApproverName;
+    private String lastApproverName;
+    
 }

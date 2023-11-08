@@ -91,15 +91,15 @@
 						<tr>
 							<th rowspan="4">결재라인</th>
 							<th>중간검토자</th>
-							<td>${vo.midApprover}</td>
+							<td>${vo.midApproverName}</td>
 						</tr>
 						<tr>
 							<th>추가검토자</th>
-							<td id="add-app" data-no="${vo.approvalNo}">${vo.addApprover}</td>
+							<td id="add-app" data-no="${vo.approvalNo}">${vo.addApproverName}</td>
 						</tr>
 						<tr>
 							<th>결재자</th>
-							<td>${vo.lastApprover}</td>
+							<td>${vo.lastApproverName}</td>
 						</tr>
 						<tr>
 							<th>구분(결재양식)</th>
