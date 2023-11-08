@@ -77,11 +77,10 @@
 				        <c:forEach items="${list}" var="vo" varStatus="i">
 				           <tr>
 				             <td><input type="checkbox"></td>
-				             <td class="approval-start-date">${vo.RegDate}</td>
-				             <td><a href="/notice/detail?approvalNo=${vo.approvalNo}">${vo.noticeTitle}</a></td>
+				             <td class="approval-start-date">${vo.regDate}</td>
+				             <td><a href="/notice/detail?noticeNo=${vo.noticeNo}">${vo.noticeTitle}</a></td>
 				             <td>${vo.humanResourceVO.name}</td>
 				             <td>${vo.noticeHit}</td>
-				             <td><a href="/notice/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -114,8 +113,14 @@
 </nav>
 
   <!-- Button List  -->
+				 <div style="float:left;">
+				  <button class="btn btn-info" onclick="location.href='/notice/update'">수정</button>
+				  <button class="btn btn-info" id="notice-delete-btn">삭제</button>
+				 </div>
+				 
 				  <div style="float: right;">
 				  <button class="btn btn-info" onclick="location.href='/notice/add'">글 작성</button>
+				 
 				 
 				</div>
 

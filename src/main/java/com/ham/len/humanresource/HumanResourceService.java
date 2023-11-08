@@ -1,5 +1,6 @@
 package com.ham.len.humanresource;
 
+import java.io.Console;
 import java.util.Random;
 
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -33,7 +34,8 @@ public class HumanResourceService implements UserDetailsService {
 	public int setRegistration(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
 		humanResourceVO.setProfile(encodeImageToBase64(file));
 		String temporaryPassword = generateTemporaryPassword();
-		humanResourceVO.setPassword(passwordEncoder.encode(temporaryPassword));
+		humanResourceVO.setPassword(passwordEncoder.encode("1234"));
+		
 		int result = humanResourceDAO.setRegistration(humanResourceVO);
 		humanResourceVO.setEmployeeID(humanResourceDAO.getLatestEmployeeID());
 		humanResourceVO.setPassword(temporaryPassword);

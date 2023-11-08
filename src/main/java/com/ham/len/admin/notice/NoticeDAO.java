@@ -11,6 +11,8 @@ public interface NoticeDAO {
 
 	public NoticeVO getDetail(NoticeVO noticeVO) throws Exception;
 	
+	public Long getTotal(Pager pager) throws Exception;
+	
 	public List<NoticeVO> getList(Pager pager) throws Exception;
 	
 	public int setAdd(NoticeVO noticeVO) throws Exception;

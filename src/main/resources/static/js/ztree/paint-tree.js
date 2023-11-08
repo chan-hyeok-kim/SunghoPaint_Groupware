@@ -101,9 +101,9 @@ function myOnCheck(event, treeId, treeNode) {
 				zNodesList = null;
 			}
 			var resultArr=new Array();
-			let emp=new Array();
+		
 			for (r of result) {
-				
+				let emp=new Array();
 				emp.who=r.name
 				emp.name=r.positionCd+' '+r.name;
 				emp.dept=r.departmentCd;

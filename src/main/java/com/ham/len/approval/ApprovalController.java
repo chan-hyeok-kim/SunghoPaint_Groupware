@@ -120,14 +120,27 @@ public class ApprovalController {
 		approvalVO = approvalService.getDetail(approvalVO);
 		model.addAttribute("vo", approvalVO);
 
-		// 사인 값 들고오기
 		SecurityContext context = SecurityContextHolder.getContext();
 		if (!(context.getAuthentication().getPrincipal() instanceof String)) {
 			HumanResourceVO humanResourceVO = (HumanResourceVO) context.getAuthentication().getPrincipal();
 
 			humanResourceVO = signatureService.getDetail(humanResourceVO);
 			model.addAttribute("sign", humanResourceVO.getSignature());
+			// 사인 값 들고오기
+			
+//			String empId1=approvalVO.getEmployeeID();
+//			String empId2=humanResourceVO.getEmployeeID();
+//			if(empId1.equals(empId2)) {
+//				
+//			}
+//			
+//			//서명하기 체크. 사원아이디를 비교해야됨
 		}
+		
+		
+		
+		
+		
 
 	}
 
