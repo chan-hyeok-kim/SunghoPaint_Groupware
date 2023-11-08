@@ -147,7 +147,7 @@ ul.nav-tabs {
 
 					<div class="wrapper-toolbar">
 
-						기기 정보 <span
+						공장, 창고 정보 <span
 							style="margin-left: 700px; text-align: right; width: 700px;">
 							
 						</span>
@@ -156,8 +156,7 @@ ul.nav-tabs {
 					
 
 					<div
-						style="text-align: right; padding-top: 20px; padding-right: 10px">
-						<div id="grid-top-date"></div>
+						style="text-align: right; padding-top: 20px; padding-right: 10px">					
 					</div>
 					<div id="content">
 
@@ -170,33 +169,46 @@ ul.nav-tabs {
 							<table class="table-bordered mt-2" id="approval-table">
 								<tbody>
 									<tr>
-										<td>기기 코드</td>
-										<td><input type="text" name="instrumentCd" value="${dto.instrumentCd}" readonly></td>
+										<td>공장, 창고 코드</td>
+										<td><input type="text" name="factoryStorageCd" value="${dto.factoryStorageCd}" readonly></td>
 									</tr>
 									<tr>
-										<td>기기 이름</td>
+										<td>공장, 창고 이름</td>
 										<td><input type="text" name="codeName" value="${dto.codeName}" readonly></td>
 									</tr>
 									<tr>
-										<td>구매 가격</td>
-										<td><input type="text" name="instrumentPrice" value="${dto.instrumentPrice}"></td>
-									</tr>
-									<tr>
-										<td>제조사</td>
-										<td><input type="text" name="instrumentMaker" value="${dto.instrumentMaker}"></td>
-									</tr>	
-									<tr>
-										<td>기기 상태</td>
-										<td><input type="text" id="myInput" name="instrumentCondition" value="${dto.instrumentCondition}"> <button class="btn btn-info" onclick="changeInputValue()">고장등록</button></td>
-									</tr>
-
-									
-																		
-		
+										<td>사용여부</td>
+										<td>
+												<c:choose>
+												<c:when test="${dto.factoryStorageUse eq 'Yes'}">
+												
+												
+												  <input type="radio" name="factoryStorageUse" value="Yes" id="Yes" checked>
+												  <label for="Yes">Yes</label>
+												
+												  <input type="radio" name="factoryStorageUse" value="No" id="No">
+												  <label for="No">No</label>
+																				  
+												</c:when>
+												
+												<c:otherwise>
+												
+								
+												  <input type="radio" name="factoryStorageUse" value="Yes" id="Yes">
+												  <label for="Yes">Yes</label>
+												
+												  <input type="radio" name="factoryStorageUse" value="No" id="No" checked>
+												  <label for="No">No</label>
+													
+												  </c:otherwise>
+												  </c:choose>
+										</td>
+									</tr>							
 								</tbody>
 		
 							</table>
 							<br>
+							<div style="margin-left:1345px;">
 							<button type="submit" class="btn btn-info">수정</button>
 						</form>
 						</div>
@@ -225,14 +237,6 @@ ul.nav-tabs {
 
 		<script src="/js/commons/list-date.js"></script>
 
-		<script>
-			function changeInputValue() {
-			// 입력 필드의 값을 변경
-			document.getElementById("myInput").value = "고장";
-			}
-
-
-		</script>
 		
 </body>
 </html>

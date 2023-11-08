@@ -189,7 +189,7 @@ ul.nav-tabs {
 								<tbody>
 									<c:forEach items="${list}" var="vo" varStatus="i">
 										<tr>
-											<td><input type="checkbox" ></td>
+											<td><input type="checkbox" name="checkList" value="${vo.factoryStorageCd}"></td>
 										    <td><a href="./detail?factoryStorageCd=${vo.factoryStorageCd}">${vo.factoryStorageCd}</a></td>
 								            <td>${vo.codeName}</td>
 											<td>${vo.factoryStorageUse}</td>													
@@ -251,7 +251,7 @@ ul.nav-tabs {
 						<tbody>
 							<tr>
 								<td>공장, 창고 코드</td>
-								<td><input type="text" name="factoryStorageCd" class="form-control" id="code" placeholder="공장코드를 입력하세요"></td>
+								<td width="200"><input type="text" name="factoryStorageCd" class="form-control" id="code" placeholder="공장코드를 입력하세요"></td>
 							</tr>
 							<tr>
 								<td>사용여부</td>
@@ -328,7 +328,7 @@ ul.nav-tabs {
 
 		}
 	</script>
-
+	<script src="/js/general/factory/delete-check.js"></script>
 
 </body>
 </html>

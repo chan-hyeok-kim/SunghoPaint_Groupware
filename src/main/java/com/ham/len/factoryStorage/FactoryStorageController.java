@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ham.len.commons.MakeColumn;
@@ -79,8 +80,17 @@ public class FactoryStorageController {
 	}
 	
 	@PostMapping(value = "delete")
-	public String setDelete(FactoryStorageVO factoryStorageVO) throws Exception {
-		factoryStorageService.setDelete(factoryStorageVO);
-		return "redirect:./list";
+	public String setDelete(@RequestParam(value = "deleteCdArr[]") List<String> deleteCdArr,Model model) throws Exception {
+		int result=0;
+		if(deleteCdArr!=null) {
+	    	for(String d: deleteCdArr) {
+	    		FactoryStorageVO factoryStorageVO = new FactoryStorageVO();
+	    		factoryStorageVO.setFactoryStorageCd(d);
+	    	    
+	    	    result = factoryStorageService.setDelete(factoryStorageVO);
+	    	    }
+	    	}
+	    	model.addAttribute("result", result);
+	    	return "commons/ajaxResult";
 	}
 }

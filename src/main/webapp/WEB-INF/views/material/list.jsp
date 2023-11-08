@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -190,7 +191,7 @@ ul.nav-tabs {
 										<th>제품, 원료 이름</th>
 										<th>입고가</th>
 										<th>출고가</th>
-										<th>재고수</th>
+										<th>재고</th>
 										<th>품목구분</th>
 										<th>보관장소</th>
 										<th>사용여부</th>
@@ -202,9 +203,18 @@ ul.nav-tabs {
 											<td><input type="checkbox" name="checkList" value="${vo.materialProductCd}"></td>
 										    <td><a href="./detail?materialProductCd=${vo.materialProductCd}">${vo.materialProductCd}</a></td>
 								            <td>${vo.codeName}</td>
-											<td><c:if test="${vo.materialProductCategory == '원료'}">${vo.materialProductPrice}</c:if></td>
-											<td><c:if test="${vo.materialProductCategory == '제품'}">${vo.materialProductPrice}</c:if></td>
-											<td>${vo.materialProductStock}</td>
+											<td><c:if test="${vo.materialProductCategory == '원료'}">
+											<fmt:formatNumber value="${vo.materialProductPrice}" pattern="###,###,###" />원
+											</c:if></td>
+											<td><c:if test="${vo.materialProductCategory == '제품'}">
+											<fmt:formatNumber value="${vo.materialProductPrice}" pattern="###,###,###" />원
+											</c:if></td>
+											<td><c:if test="${vo.materialProductCategory == '원료'}">
+											<fmt:formatNumber value="${vo.materialProductStock}" pattern="###,###,###" />kg
+											</c:if>
+											<c:if test="${vo.materialProductCategory == '제품'}">
+											<fmt:formatNumber value="${vo.materialProductStock}" pattern="###,###,###" />EA
+											</c:if></td>																		
 								            <td>${vo.materialProductCategory}</td>
 								            <td><c:if test="${vo.materialProductCategory == '원료'}">원료 창고</c:if>
 											<c:if test="${vo.materialProductCategory == '제품'}">제품 창고</c:if></td>
@@ -226,21 +236,21 @@ ul.nav-tabs {
 
   <nav aria-label="Page navigation example">
 	<ul class="pagination justify-content-center">
-		<li class="page-item ${pager.pre?'':'disabled'}">
-			<a class="page-link" href="./list?page=${pager.startNum - 1}" aria-label="Previous">
-				<span aria-hidden="true"><i class="mdi mdi-arrow-left-drop-circle"></i></span>
-			</a>
-		</li>
-		<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-			<li class="page-item"><a class="page-link" href="./list?page=${i}">${i}</a></li>
-		</c:forEach>
-		 
-			<li class="page-item ${pager.next?'':'disabled'}">
-				<a class="page-link" href="./list?page=${pager.lastNum + 1}" aria-label="Next">
-					<span aria-hidden="true"><i class="mdi mdi-arrow-right-drop-circle"></i></span>
-				</a>
-			</li>
-		
+		 <li class="page-item ${pager.pre?'':'disabled'}">
+      <a class="page-link" href="/material/list?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
+        <i class="mdi mdi-arrow-left-drop-circle"></i>
+      </a>
+    </li>
+    
+    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+    <li class="page-item"><a class="page-link" href="/material/list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+    </c:forEach>
+    
+    <li class="page-item ${pager.next?'':'disabled'}">
+      <a class="page-link" href="/material/list?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}" aria-label="Next">
+        <i class="mdi mdi-arrow-right-drop-circle"></i>
+      </a>
+    </li>
 	</ul>
 </nav>
 
@@ -268,11 +278,11 @@ ul.nav-tabs {
 						<tbody>
 							<tr>
 								<td width="200">제품, 원료 코드</td>
-								<td width="400"><input type="text" name="materialProductCd" class="form-control" id="code" placeholder="기기코드를 입력하세요"></td>
+								<td width="400"><input type="text" name="materialProductCd" class="form-control" id="code" placeholder="제품, 원료 코드를 입력하세요"></td>
 							</tr>
 							<tr>
 								<td>제품, 원료 가격</td>
-								<td><input type="number" name="materialProductPrice" class="form-control" id="price" placeholder="구매가격을 입력하세요"></td>
+								<td><input type="number" name="materialProductPrice" class="form-control" id="price" placeholder="제품, 원료 가격을 입력하세요"></td>
 							</tr>
 							<tr>
 								<td>제품, 원료 사용여부</td>
@@ -286,7 +296,7 @@ ul.nav-tabs {
 							</tr>
 							<tr>
 								<td>제품, 원료 재고</td>
-								<td><input type="number" name="materialProductStock" class="form-control" id="stock" placeholder="제조사를 입력하세요"></td>
+								<td><input type="number" name="materialProductStock" class="form-control" id="stock" placeholder="재고를 입력하세요"></td>
 							</tr>
 							<tr>
 								<td>제품, 원료 범주</td>

@@ -30,12 +30,10 @@ public class MaterialProductController {
 	private MakeColumn makeColumn;
 	
 	@GetMapping("list")
-	public String getList(Pager pager,Model model) throws Exception{
-		List<MaterialProductVO> ar = materialService.getList(pager);	
+	public void getList(Pager pager,Model model) throws Exception{
+		List ar = materialService.getList(pager);	
 		model.addAttribute("list", ar);
-	 	model.addAttribute("pager", pager);
-		 
-		return "material/list";
+		
 	}
 	
 	

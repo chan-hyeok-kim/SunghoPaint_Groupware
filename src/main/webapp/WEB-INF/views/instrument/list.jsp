@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -203,7 +204,8 @@ ul.nav-tabs {
 										    <td><a href="./detail?instrumentCd=${vo.instrumentCd}">${vo.instrumentCd}</a></td>
 								            <td>${vo.codeName}</td>
 											<td>${vo.instrumentCondition}</td>
-								            <td>${vo.instrumentPrice}</td>
+											<td><fmt:formatNumber value="${vo.instrumentPrice}" pattern="###,###,###" />원</td>
+								          <%--   <td>${vo.instrumentPrice}</td> --%>
 								            <td>${vo.instrumentMaker}</td>	
 								            <td class="approval-start-date">${vo.instrumentBuyYear}</td>
 								          														
@@ -223,20 +225,21 @@ ul.nav-tabs {
 
   <nav aria-label="Page navigation example">
 	<ul class="pagination justify-content-center">
-		<li class="page-item ${pager.pre?'':'disabled'}">
-			<a class="page-link" href="./list?page=${pager.startNum - 1}" aria-label="Previous">
-				<span aria-hidden="true"><i class="mdi mdi-arrow-left-drop-circle"></i></span>
-			</a>
-		</li>
-		<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-			<li class="page-item"><a class="page-link" href="./list?page=${i}">${i}</a></li>
-		</c:forEach>
-		 
-			<li class="page-item ${pager.next?'':'disabled'}">
-				<a class="page-link" href="./list?page=${pager.lastNum + 1}" aria-label="Next">
-					<span aria-hidden="true"><i class="mdi mdi-arrow-right-drop-circle"></i></span>
-				</a>
-			</li>
+		 <li class="page-item ${pager.pre?'':'disabled'}">
+      <a class="page-link" href="/instrument/list?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
+        <i class="mdi mdi-arrow-left-drop-circle"></i>
+      </a>
+    </li>
+    
+    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+    <li class="page-item"><a class="page-link" href="/instrument/list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+    </c:forEach>
+    
+    <li class="page-item ${pager.next?'':'disabled'}">
+      <a class="page-link" href="/instrument/list?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}" aria-label="Next">
+        <i class="mdi mdi-arrow-right-drop-circle"></i>
+      </a>
+    </li>
 		
 	</ul>
 </nav>

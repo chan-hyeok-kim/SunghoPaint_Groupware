@@ -19,5 +19,5 @@ public interface FactoryStorageDAO {
 	
 	public int setUpdate(FactoryStorageVO factoryStorageVO) throws Exception;
 	
-	public void setDelete(FactoryStorageVO factoryStorageVO) throws Exception;
+	public int setDelete(FactoryStorageVO factoryStorageVO) throws Exception;
 }

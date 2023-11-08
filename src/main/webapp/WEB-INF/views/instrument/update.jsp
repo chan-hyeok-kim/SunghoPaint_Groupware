@@ -227,31 +227,13 @@ ul.nav-tabs {
 							</div>
 						</form>
 						</div>
-					
-
 						<br>
-			
-
 					</div>
-
-
-
-
-
-
-
-
-
-
 				</div>
 			</div>
 		</div>
 
-
-
-
 		<script src="/js/commons/list-date.js"></script>
 
-		
 </body>
 </html>

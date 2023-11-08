@@ -14,7 +14,7 @@ public class FactoryStorageService {
 	private FactoryStorageDAO factoryStorageDAO;
 	
 	public List<FactoryStorageVO> getList(Pager pager) throws Exception{
-		//pager.makePageNum(1L);
+		pager.makeRowNum();
 		pager.makePageNum(factoryStorageDAO.getTotal(pager));
 		return factoryStorageDAO.getList(pager);
 	}
@@ -35,8 +35,8 @@ public class FactoryStorageService {
 		return factoryStorageDAO.setUpdate(factoryStorageVO);
 	}
 	
-	public void setDelete(FactoryStorageVO factoryStorageVO) throws Exception{
+	public int setDelete(FactoryStorageVO factoryStorageVO) throws Exception{
 		
-		factoryStorageDAO.setDelete(factoryStorageVO);
+		return factoryStorageDAO.setDelete(factoryStorageVO);
 	}
 }

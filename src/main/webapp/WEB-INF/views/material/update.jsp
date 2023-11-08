@@ -147,7 +147,7 @@ ul.nav-tabs {
 
 					<div class="wrapper-toolbar">
 
-						기기 정보 <span
+						제품, 원료 정보 <span
 							style="margin-left: 700px; text-align: right; width: 700px;">
 							
 						</span>
@@ -186,24 +186,24 @@ ul.nav-tabs {
 												<c:choose>
 												<c:when test="${dto.materialProductUse eq 'Yes'}">
 												
-												<form>
+												
 												  <input type="radio" name="materialProductUse" value="Yes" id="Yes" checked>
 												  <label for="Yes">Yes</label>
 												
 												  <input type="radio" name="materialProductUse" value="No" id="No">
 												  <label for="No">No</label>
-												</form>											  
+																					  
 												</c:when>
 												
 												<c:otherwise>
 												
-												<form>
+											
 												  <input type="radio" name="materialProductUse" value="Yes" id="Yes">
 												  <label for="Yes">Yes</label>
 												
 												  <input type="radio" name="materialProductUse" value="No" id="No" checked>
 												  <label for="No">No</label>
-												</form>		
+												
 												  </c:otherwise>
 												  </c:choose>
 										</td>

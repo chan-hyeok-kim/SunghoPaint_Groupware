@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -179,12 +180,17 @@ ul.nav-tabs {
 									</tr>
 									<tr>
 										<td>가격</td>
-										<td>${dto.materialProductPrice}</td>
+										<td><fmt:formatNumber value="${dto.materialProductPrice}" pattern="###,###,###" />원</td>
 									</tr>
 									<tr>
 										<td>재고</td>
-										<td>${dto.materialProductStock}</td>
-									</tr>
+										<td><c:if test="${dto.materialProductCategory eq '제품'}">
+										<fmt:formatNumber value="${dto.materialProductStock}" pattern="###,###,###" />EA
+										</c:if>
+										<c:if test="${dto.materialProductCategory eq '원료'}">
+										<fmt:formatNumber value="${dto.materialProductStock}" pattern="###,###,###" />kg
+										</c:if></td>
+										</tr>
 									<tr>
 										<td>품목구분</td>
 										<td>${dto.materialProductCategory}</td>

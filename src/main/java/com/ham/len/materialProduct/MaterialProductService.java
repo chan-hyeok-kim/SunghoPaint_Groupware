@@ -14,7 +14,7 @@ public class MaterialProductService {
 	private MaterialProductDAO materialDAO; 
 	
 	public List<MaterialProductVO> getList(Pager pager) throws Exception{
-		
+		pager.makeRowNum();
 		pager.makePageNum(materialDAO.getTotal(pager));
 		return materialDAO.getList(pager);
 	}
