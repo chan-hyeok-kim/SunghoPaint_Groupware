@@ -147,7 +147,7 @@ ul.nav-tabs {
 
 					<div class="wrapper-toolbar">
 
-						기기 정보 <span
+						제품, 원료 정보 <span
 							style="margin-left: 700px; text-align: right; width: 700px;">
 							
 						</span>
@@ -157,7 +157,7 @@ ul.nav-tabs {
 
 					<div
 						style="text-align: right; padding-top: 20px; padding-right: 10px">
-						<div id="grid-top-date"></div>
+						
 					</div>
 					<div id="content">
 
@@ -170,8 +170,8 @@ ul.nav-tabs {
 							<table class="table-bordered mt-2" id="approval-table">
 								<tbody>
 									<tr>
-										<td>제품, 원료 코드</td>
-										<td>${dto.materialProductCd}</td>
+										<td width="200">제품, 원료 코드</td>
+										<td width="400">${dto.materialProductCd}</td>
 									</tr>
 									<tr>
 										<td>제품, 원료 이름</td>
@@ -181,6 +181,19 @@ ul.nav-tabs {
 										<td>가격</td>
 										<td>${dto.materialProductPrice}</td>
 									</tr>
+									<tr>
+										<td>재고</td>
+										<td>${dto.materialProductStock}</td>
+									</tr>
+									<tr>
+										<td>품목구분</td>
+										<td>${dto.materialProductCategory}</td>
+									</tr>
+									<tr>
+										<td>사용여부</td>
+										<td>${dto.materialProductUse}</td>
+									</tr>
+									
 									<tr>
 										<td>보관창고</td>
 										<td>
@@ -200,7 +213,7 @@ ul.nav-tabs {
 						<br>
 			
 						<!-- Button List  -->
-						<div style="float: left;">
+						 <div style="margin-left:1250px;">
 							<a href="./update?materialProductCd=${dto.materialProductCd}" class="btn btn-info">제품, 원료 정보 수정</a>
 
 						

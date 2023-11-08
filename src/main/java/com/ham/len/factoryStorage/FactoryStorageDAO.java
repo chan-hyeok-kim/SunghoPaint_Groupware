@@ -2,8 +2,11 @@ package com.ham.len.factoryStorage;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.ham.len.commons.Pager;
 
+@Mapper
 public interface FactoryStorageDAO {
 
 	public List<FactoryStorageVO> getList(Pager pager) throws Exception;

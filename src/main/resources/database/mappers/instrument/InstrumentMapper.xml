@@ -6,14 +6,29 @@
   
 <mapper namespace="com.ham.len.instrument.InstrumentDAO">
 	
+	<sql id="searchInst">
+		<choose>
+		  <when test="kind=='code'">I.INSTRUMENT_CD</when>
+		  <when test="kind=='name'">C.CODE_NAME</when>
+		  <otherwise>INSTRUMENT_CONDITION</otherwise>
+		</choose>
+	</sql>
+
 	 <select id="getTotal" parameterType="Pager" resultType="Long">
-  		SELECT COUNT(INSTRUMENT_NO) FROM INSTRUMENT
+  		SELECT COUNT(I.INSTRUMENT_NO) FROM   		
+  		INSTRUMENT I LEFT OUTER JOIN CODE C 
+		ON I.INSTRUMENT_CD = C.CODE 
+  		WHERE <include refid="searchInst"></include>
+	    LIKE CONCAT('%',#{search},'%')
   	</select>
 
 	<select id="getList" resultType="InstrumentVO" parameterType="Pager">
 		SELECT I.*, C.* FROM 
 		INSTRUMENT I LEFT OUTER JOIN CODE C 
 		ON I.INSTRUMENT_CD = C.CODE 
+		WHERE <include refid="searchInst"></include>
+	    LIKE CONCAT('%',#{search},'%')
+		ORDER BY CODE DESC
         LIMIT #{startRow},#{lastRow}
 	</select>
    
@@ -27,7 +42,8 @@
   		UPDATE INSTRUMENT
   		SET INSTRUMENT_CONDITION = #{instrumentCondition},
   		INSTRUMENT_PRICE = #{instrumentPrice},
-  		INSTRUMENT_MAKER = #{instrumentMaker}
+  		INSTRUMENT_MAKER = #{instrumentMaker},
+  		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
   		WHERE INSTRUMENT_CD = #{instrumentCd}  	
   	</update>
   	

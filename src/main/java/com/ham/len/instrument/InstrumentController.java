@@ -2,6 +2,7 @@ package com.ham.len.instrument;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ham.len.commons.CodeVO;
+import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +27,9 @@ public class InstrumentController {
 
 	@Autowired
 	private InstrumentService instrumentService;
+	
+	@Autowired
+	private MakeColumn makeColumn;
 	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
@@ -37,14 +44,20 @@ public class InstrumentController {
 	
 	
 	@PostMapping(value = "add")
-	public String setAdd(InstrumentVO instrumentVO, HttpSession session, Model model)throws Exception{
-//		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-//		instrumentVO.setEmployeeId(memberDTO.getId());
-		int result = instrumentService.setAdd(instrumentVO);
-				
-		model.addAttribute("result", result);
-		return "commons/ajaxResult";	
-		
+	public String setAdd(InstrumentVO instrumentVO, HttpServletRequest request, Model model)throws Exception{
+	
+		String id = "2023002";
+		String path=request.getRequestURI();
+		//나중에 세션에서 조회
+		instrumentVO.setEmployeeId(id);
+		instrumentVO = (InstrumentVO)makeColumn.getColumn(instrumentVO, path, id);
+		log.warn("====================================기기입력 체크{}",instrumentVO);
+		int result=instrumentService.setAdd(instrumentVO);
+
+    	model.addAttribute("result", result);
+    	model.addAttribute("url", "/instrument/list");
+    	return "commons/result";
+    			
 	}
 	
 	@RequestMapping(value = "detail")
@@ -63,15 +76,29 @@ public class InstrumentController {
 	}
 	
 	@PostMapping(value = "update")
-	public String setUpdate(InstrumentVO instrumentVO) throws Exception {
+	public String setUpdate(InstrumentVO instrumentVO, HttpServletRequest request) throws Exception {
+		String id = "2023002";
+		String path=request.getRequestURI();
+		instrumentVO=(InstrumentVO)makeColumn.getModColumn(instrumentVO, path, id);
 		instrumentService.setUpdate(instrumentVO);
-		return "redirect:./detail?instrumentCd=" + instrumentVO.getInstrumentCd();
+		return "redirect:/instrument/list";
+		
+
 	}
 	
 	@PostMapping(value = "delete")
-	public String setDelete(InstrumentVO instrumentVO) throws Exception {
-		instrumentService.setDelete(instrumentVO);
-		return "redirect:./list";
+	public String setDelete(@RequestParam(value = "deleteCdArr[]") List<String> deleteCdArr,Model model) throws Exception {
+		int result=0;
+		if(deleteCdArr!=null) {
+	    	for(String d: deleteCdArr) {
+	    	    InstrumentVO instrumentVO = new InstrumentVO();
+	    	    instrumentVO.setInstrumentCd(d);
+	    	    
+	    	    result = instrumentService.setDelete(instrumentVO);
+	    	    }
+	    	}
+	    	model.addAttribute("result", result);
+	    	return "commons/ajaxResult";
 	}
 	
 

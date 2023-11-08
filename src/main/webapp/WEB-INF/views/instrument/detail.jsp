@@ -156,8 +156,7 @@ ul.nav-tabs {
 					
 
 					<div
-						style="text-align: right; padding-top: 20px; padding-right: 10px">
-						<div id="grid-top-date"></div>
+						style="text-align: right; padding-top: 20px; padding-right: 10px">						
 					</div>
 					<div id="content">
 
@@ -170,8 +169,8 @@ ul.nav-tabs {
 							<table class="table-bordered mt-2" id="approval-table">
 								<tbody>
 									<tr>
-										<td>기기 코드</td>
-										<td>${dto.instrumentCd}</td>
+										<td width="200">기기 코드</td>
+										<td width="400">${dto.instrumentCd}</td>
 									</tr>
 									<tr>
 										<td>기기 이름</td>
@@ -186,8 +185,8 @@ ul.nav-tabs {
 										<td>${dto.instrumentMaker}</td>
 									</tr>								
 									<tr>
-										<td>기기 구매 연도</td>
-										<td>${dto.instrumentBuyYear}</td>
+										<td>기기 구매 날짜</td>
+										<td class="approval-start-date">${dto.instrumentBuyYear}</td>
 									</tr>
 									<tr>
 										<td>기기 상태</td>
@@ -204,12 +203,12 @@ ul.nav-tabs {
 						<br>
 			
 						<!-- Button List  -->
-						<div style="float: left;">
+						 <div style="margin-left:1150px;">
 							<a href="./update?instrumentCd=${dto.instrumentCd}" class="btn btn-info">기기 정보 수정</a>
 
 						
 						<c:if test="${dto.instrumentCondition == '고장'}">
-							<a href=# class="btn btn-info">수리 요청</a>
+							<a href="../approval/add" class="btn btn-info">수리 요청</a>
 						</c:if>
 						</div>
 					</div>
@@ -231,7 +230,7 @@ ul.nav-tabs {
 
 
 		<script src="/js/commons/list-date.js"></script>
-
+		<script src="/js/approval/approval-date.js"></script>
 
 		
 </body>

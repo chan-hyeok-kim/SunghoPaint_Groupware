@@ -156,8 +156,7 @@ ul.nav-tabs {
 					
 
 					<div
-						style="text-align: right; padding-top: 20px; padding-right: 10px">
-						<div id="grid-top-date"></div>
+						style="text-align: right; padding-top: 20px; padding-right: 10px">					
 					</div>
 					<div id="content">
 
@@ -183,7 +182,31 @@ ul.nav-tabs {
 									</tr>
 									<tr>
 										<td>사용여부</td>
-										<td><input type="text" name="materialProductUse" value="${dto.materialProductUse}"></td>
+										<td>
+												<c:choose>
+												<c:when test="${dto.materialProductUse eq 'Yes'}">
+												
+												<form>
+												  <input type="radio" name="materialProductUse" value="Yes" id="Yes" checked>
+												  <label for="Yes">Yes</label>
+												
+												  <input type="radio" name="materialProductUse" value="No" id="No">
+												  <label for="No">No</label>
+												</form>											  
+												</c:when>
+												
+												<c:otherwise>
+												
+												<form>
+												  <input type="radio" name="materialProductUse" value="Yes" id="Yes">
+												  <label for="Yes">Yes</label>
+												
+												  <input type="radio" name="materialProductUse" value="No" id="No" checked>
+												  <label for="No">No</label>
+												</form>		
+												  </c:otherwise>
+												  </c:choose>
+										</td>
 									</tr>	
 									<tr>
 										<td>재고</td>
@@ -191,17 +214,38 @@ ul.nav-tabs {
 									</tr>	
 									<tr>
 										<td>범주</td>
-										<td><input type="text" name="materialProductCategory" value="${dto.materialProductCategory}"></td>
-									</tr>	
-	
-
+										<td>
+												<c:choose>
+												<c:when test="${dto.materialProductCategory eq '제품'}">
+												
+											
+												  <input type="radio" name="materialProductCategory" value="제품" id="제품" checked>
+												  <label for="제품">제품</label>
+												
+												  <input type="radio" name="materialProductCategory" value="원료" id="원료">
+												  <label for="원료">원료</label>
+																							  
+												</c:when>
+												
+												<c:otherwise>
+												
+												
+												  <input type="radio" name="materialProductCategory" value="제품" id="제품">
+												  <label for="제품">제품</label>
+												
+												  <input type="radio" name="materialProductCategory" value="원료" id="원료" checked>
+												  <label for="원료">원료</label>
 									
-																		
+												  </c:otherwise>
+												  </c:choose>
+										</td>
+										</tr>					
 		
 								</tbody>
 		
 							</table>
 							<br>
+							<div style="margin-left:1345px;">
 							<button type="submit" class="btn btn-info">수정</button>
 						</form>
 						</div>

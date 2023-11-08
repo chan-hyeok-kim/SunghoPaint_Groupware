@@ -157,7 +157,7 @@ ul.nav-tabs {
 
 					<div
 						style="text-align: right; padding-top: 20px; padding-right: 10px">
-						<div id="grid-top-date"></div>
+						
 					</div>
 					<div id="content">
 

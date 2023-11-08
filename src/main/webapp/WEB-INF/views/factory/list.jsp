@@ -141,40 +141,33 @@ ul.nav-tabs {
 
 					<div class="wrapper-toolbar">
 
-						기기 리스트 <span
+						공장 리스트 <span
 							style="margin-left: 700px; text-align: right; width: 700px;">
 							<form class="form-inline"
 								style="width: 700px; display: inline-block;">
 
 								<!-- 검색 설정 -->
-								<select class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected">제목</option>
-									<option>구분</option>
-									<option>결재자</option>
-								</select> 
-								
-								
-								<input style="display: inline-block;" id="top-search-bar"
+								<select name="kind" class="btn btn-gradient-light" id="top-search-select">
+									<option selected="selected" value="code">공장코드</option>
+									<option value="name">공장이름</option>
+								</select> 							
+													
+								<input style="display: inline-block;" id="top-search-bar" name="search"
 									class="form-control" type="search" placeholder="입력 후 [Enter]"
 									aria-label="Search">
 								<button id="top-search-btn" class="btn btn-info" type="submit">검색</button>
-
 							</form>
 						</span>
 					</div>
 
 					<ul class="nav-tabs">
-						<li><a class="link-tab">전체</a></li>
-						<li><a class="link-tab">기안중</a></li>
-						<li><a class="link-tab">진행중</a></li>
-						<li><a class="link-tab">반려</a></li>
-						<li><a class="link-tab">결재</a></li>
+						
 					</ul>
 
 
 					<div
 						style="text-align: right; padding-top: 20px; padding-right: 10px">
-						<div id="grid-top-date"></div>
+						
 					</div>
 					<div id="content">
 
@@ -210,7 +203,7 @@ ul.nav-tabs {
 
 
 					<!-- pagination -->
-				<div style="text-align: center">
+<div style="text-align: center; margin: 20px 20px;">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
 
 
@@ -237,13 +230,13 @@ ul.nav-tabs {
 </nav>
 				</div>
 						<!-- Button List  -->
-						<div style="float: left;">
-							<button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#instrumentaddModal">신규 공장, 창고등록</button>
-							
-						</div>
+						<div style="margin-left:1200px;">
+						      <button type="button" class="btn  btn-inverse-dark" id="delete-btn">선택 삭제</button>
+						      <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#factoryAddModal">신규 등록</button>
+						  </div>
 
 	<!-- Modal -->
-	<div class="modal fade" id="instrumentaddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="factoryAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -262,42 +255,16 @@ ul.nav-tabs {
 							</tr>
 							<tr>
 								<td>사용여부</td>
-								<td>
-								<div class="form-check">
-								  <input type="radio" id="yesOption" name="factoryStorageUse" value="Yes" class="form-check-input">
-								  <label for="yesOption" class="form-check-label">Yes</label>
-								</div>
+								<td> <div class="btn-group use" role="group" aria-label="Basic radio toggle button group">
+								  <input type="radio" class="btn-check" name="factoryStorageUse" value="Yes" id="btnradio1" autocomplete="off" >
+								  <label class="btn btn-outline-primary" for="btnradio1">Yes</label>
 								
-								<div class="form-check">
-								  <input type="radio" id="noOption" name="factoryStorageUse" value="No" class="form-check-input">
-								  <label for="noOption" class="form-check-label">No</label>
-								</div>								
-								</td>
+								  <input type="radio" class="btn-check" name="factoryStorageUse" value="No" id="btnradio2" autocomplete="off">
+								  <label class="btn btn-outline-primary" for="btnradio2">No</label>
+							</div></td>
 							</tr>
-
-
-						
-							<tr>
-								<td>employeeId</td>
-								<td><input type="text" name="employeeId" class="form-control" id="employeeId" placeholder="id"></td>
-							</tr>
-							<tr>
-								<td>regId</td>
-								<td><input type="text" name="regId" class="form-control" id="regId" placeholder="regId"></td>
-							</tr>
-							<tr>
-								<td>regMenu</td>
-								<td><input type="text" name="regMenu" class="form-control" id="regMenu" placeholder="regMenu"></td>
-							</tr>
-							<tr>
-								<td>modId</td>
-								<td><input type="text" name="modId" class="form-control" id="modId" placeholder="modId"></td>
-							</tr>
-							<tr>
-								<td>modMenu</td>
-								<td><input type="text" name="modMenu" class="form-control" id="modMenu" placeholder="modMenu"></td>
-							</tr>
-							
+			
+														
 
 						</tbody>
 
@@ -335,33 +302,23 @@ ul.nav-tabs {
 		<script type="text/javascript">
 		$("#add").click(function(){
 			let code=$("#code").val();
-			let price=$("#use").val();
-			let employeeId=$("#employeeId").val();
-			let regId=$("#regId").val();
-			let regMenu=$("#regMenu").val();
-			let modId=$("#modId").val();
-			let modMenu=$("#modMenu").val();
-			ajax3(code, use, employeeId, regId, regMenu, modId, modMenu);
+			let use=$("input[name='factoryStorageUse']:checked").val();
+			ajax3(code, use);
 		});
 
-		function ajax3(code, use, employeeId, regId, regMenu, modId, modMenu){
+		function ajax3(code, use){
 			$.ajax({
 				type:'POST',
 				url:'add',
 				data:{
 					factoryStorageCd:code,
-					factoryStorageUse:use,
-					employeeId:employeeId,
-					regId:regId,
-					regMenu:regMenu,
-					modId:modId,
-					modMenu:modMenu
+					factoryStorageUse:use
 				},
 				success:function(response){
 					if(response.trim()>0){
-						alert("등록 성공");
-					}else {
 						alert("등록 실패");
+					}else {
+						alert("등록 성공");
 					}
 				},
 				error:function(){

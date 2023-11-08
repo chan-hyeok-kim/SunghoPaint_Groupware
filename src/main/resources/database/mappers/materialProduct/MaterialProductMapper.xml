@@ -6,14 +6,29 @@
   
 <mapper namespace="com.ham.len.materialProduct.MaterialProductDAO">
 	
+	<sql id="searchMat">
+		<choose>
+		  <when test="kind=='code'">M.MATERIAL_PRODUCT_CD</when>
+		  <when test="kind=='name'">C.CODE_NAME</when>
+		  <otherwise>MATERIAL_PRODUCT_CATEGORY</otherwise>
+		</choose>
+	</sql>
+	
 	 <select id="getTotal" parameterType="Pager" resultType="Long">
-  		SELECT COUNT(MATERIAL_PRODUCT_NO) FROM MATERIAL_PRODUCT
+  		SELECT COUNT(MATERIAL_PRODUCT_NO) FROM 
+  		MATERIAL_PRODUCT M LEFT OUTER JOIN CODE C
+  		ON M.MATERIAL_PRODUCT_CD = C.CODE
+  		WHERE <include refid="searchMat"></include>
+  		LIKE CONCAT('%',#{search},'%')
   	</select>
 
 	<select id="getList" resultType="MaterialProductVO" parameterType="Pager">
 		SELECT M.*, C.* FROM 
 		MATERIAL_PRODUCT M LEFT OUTER JOIN CODE C 
 		ON M.MATERIAL_PRODUCT_CD = C.CODE 
+		WHERE <include refid="searchMat"></include>
+		LIKE CONCAT('%',#{search},'%')
+		ORDER BY CODE DESC		
         LIMIT #{startRow},#{lastRow}
 	</select>
    
@@ -28,7 +43,8 @@
   		SET MATERIAL_PRODUCT_PRICE = #{materialProductPrice},
   		MATERIAL_PRODUCT_USE = #{materialProductUse},
   		MATERIAL_PRODUCT_STOCK = #{materialProductStock},
-  		MATERIAL_PRODUCT_CATEGORY =  #{materialProductCategory}
+  		MATERIAL_PRODUCT_CATEGORY =  #{materialProductCategory},
+  		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
   		WHERE MATERIAL_PRODUCT_CD = #{materialProductCd}  	
   	</update>
   	

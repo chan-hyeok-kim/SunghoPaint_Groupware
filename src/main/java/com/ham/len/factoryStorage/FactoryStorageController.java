@@ -2,6 +2,7 @@ package com.ham.len.factoryStorage;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
+import com.ham.len.instrument.InstrumentVO;
 
 @Controller
 @RequestMapping("/factory/*")
@@ -20,6 +23,9 @@ public class FactoryStorageController {
 
 	@Autowired
 	private FactoryStorageService factoryStorageService;
+	
+	@Autowired
+	private MakeColumn makeColumn;
 	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
@@ -32,14 +38,18 @@ public class FactoryStorageController {
 	
 	
 	@PostMapping(value = "add")
-	public String setAdd(FactoryStorageVO factoryStorageVO, HttpSession session, Model model)throws Exception{
-//		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-//		instrumentVO.setEmployeeId(memberDTO.getId());
-		int result = factoryStorageService.setAdd(factoryStorageVO);
-				
-		model.addAttribute("result", result);
-		return "commons/ajaxResult";	
-		
+	public String setAdd(FactoryStorageVO factoryStorageVO, HttpServletRequest request, Model model)throws Exception{
+		String id = "2023001";
+		String path=request.getRequestURI();
+		//나중에 세션에서 조회
+		factoryStorageVO.setEmployeeId(id);
+		factoryStorageVO = (FactoryStorageVO)makeColumn.getColumn(factoryStorageVO, path, id);
+		int result=factoryStorageService.setAdd(factoryStorageVO);
+
+    	model.addAttribute("result", result);
+    	model.addAttribute("url", "/factory/list");
+    	return "commons/result";
+    			
 	}
 	
 	@RequestMapping(value = "detail")
@@ -58,9 +68,14 @@ public class FactoryStorageController {
 	}
 	
 	@PostMapping(value = "update")
-	public String setUpdate(FactoryStorageVO factoryStorageVO) throws Exception {
+	public String setUpdate(FactoryStorageVO factoryStorageVO, HttpServletRequest request) throws Exception {
+		String id = "2023001";
+		String path=request.getRequestURI();
+		factoryStorageVO=(FactoryStorageVO)makeColumn.getModColumn(factoryStorageVO, path, id);
 		factoryStorageService.setUpdate(factoryStorageVO);
-		return "redirect:./detail?factoryStorageCd=" + factoryStorageVO.getFactoryStorageCd();
+		return "redirect:/factory/list";
+		
+
 	}
 	
 	@PostMapping(value = "delete")

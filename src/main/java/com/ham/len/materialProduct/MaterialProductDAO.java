@@ -2,8 +2,11 @@ package com.ham.len.materialProduct;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.ham.len.commons.Pager;
 
+@Mapper
 public interface MaterialProductDAO {
 
 	public List<MaterialProductVO> getList(Pager pager) throws Exception;
@@ -16,5 +19,5 @@ public interface MaterialProductDAO {
 	
 	public int setUpdate(MaterialProductVO materialVO) throws Exception;
 	
-	public void setDelete(MaterialProductVO materialVO) throws Exception;
+	public int setDelete(MaterialProductVO materialVO) throws Exception;
 }

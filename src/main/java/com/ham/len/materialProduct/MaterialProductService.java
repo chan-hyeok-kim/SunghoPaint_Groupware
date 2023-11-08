@@ -35,8 +35,8 @@ public class MaterialProductService {
 		return materialDAO.setUpdate(materialVO);
 	}
 	
-	public void setDelete(MaterialProductVO materialVO) throws Exception{
+	public int setDelete(MaterialProductVO materialVO) throws Exception{
 		
-		materialDAO.setDelete(materialVO);
+		return materialDAO.setDelete(materialVO);
 	}
 }

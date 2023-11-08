@@ -140,21 +140,19 @@ ul.nav-tabs {
 				<div class="card-body">
 
 					<div class="wrapper-toolbar">
-
-						제품, 원료 리스트 <span
+						품목 리스트 <span
 							style="margin-left: 700px; text-align: right; width: 700px;">
 							<form class="form-inline"
 								style="width: 700px; display: inline-block;">
 
 								<!-- 검색 설정 -->
-								<select class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected">제목</option>
-									<option>구분</option>
-									<option>결재자</option>
-								</select> 
-								
-								
-								<input style="display: inline-block;" id="top-search-bar"
+								<select name="kind" class="btn btn-gradient-light" id="top-search-select">
+									<option selected="selected" value="code">제품코드</option>
+									<option value="name">제품이름</option>
+									<option value="234">품목구분</option>
+								</select> 							
+													
+								<input style="display: inline-block;" id="top-search-bar" name="search"
 									class="form-control" type="search" placeholder="입력 후 [Enter]"
 									aria-label="Search">
 								<button id="top-search-btn" class="btn btn-info" type="submit">검색</button>
@@ -164,17 +162,17 @@ ul.nav-tabs {
 					</div>
 
 					<ul class="nav-tabs">
-						<li><a class="link-tab">전체</a></li>
+						<!-- <li><a class="link-tab">전체</a></li>
 						<li><a class="link-tab">기안중</a></li>
 						<li><a class="link-tab">진행중</a></li>
 						<li><a class="link-tab">반려</a></li>
-						<li><a class="link-tab">결재</a></li>
+						<li><a class="link-tab">결재</a></li> -->
 					</ul>
 
 
 					<div
 						style="text-align: right; padding-top: 20px; padding-right: 10px">
-						<div id="grid-top-date"></div>
+						
 					</div>
 					<div id="content">
 
@@ -185,7 +183,7 @@ ul.nav-tabs {
 
 
 							<table class="table-bordered mt-2" id="approval-table">
-								<thead>
+								<thead>								
 									<tr>
 										<th>NO.</th>
 										<th>제품, 원료 코드</th>
@@ -195,21 +193,23 @@ ul.nav-tabs {
 										<th>재고수</th>
 										<th>품목구분</th>
 										<th>보관장소</th>
-										<th>생산공장</th>
+										<th>사용여부</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach items="${list}" var="vo" varStatus="i">
 										<tr>
-											<td><input type="checkbox" ></td>
+											<td><input type="checkbox" name="checkList" value="${vo.materialProductCd}"></td>
 										    <td><a href="./detail?materialProductCd=${vo.materialProductCd}">${vo.materialProductCd}</a></td>
 								            <td>${vo.codeName}</td>
 											<td><c:if test="${vo.materialProductCategory == '원료'}">${vo.materialProductPrice}</c:if></td>
 											<td><c:if test="${vo.materialProductCategory == '제품'}">${vo.materialProductPrice}</c:if></td>
 											<td>${vo.materialProductStock}</td>
 								            <td>${vo.materialProductCategory}</td>
-								            <td></td>
-								            <td></td>															
+								            <td><c:if test="${vo.materialProductCategory == '원료'}">원료 창고</c:if>
+											<c:if test="${vo.materialProductCategory == '제품'}">제품 창고</c:if></td>
+											<td>${vo.materialProductUse}</td>
+																						
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -220,7 +220,7 @@ ul.nav-tabs {
 
 
 					<!-- pagination -->
-				<div style="text-align: center">
+								<div style="text-align: center; margin: 20px 20px;">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
 
 
@@ -234,24 +234,26 @@ ul.nav-tabs {
 		<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
 			<li class="page-item"><a class="page-link" href="./list?page=${i}">${i}</a></li>
 		</c:forEach>
+		 
 			<li class="page-item ${pager.next?'':'disabled'}">
 				<a class="page-link" href="./list?page=${pager.lastNum + 1}" aria-label="Next">
 					<span aria-hidden="true"><i class="mdi mdi-arrow-right-drop-circle"></i></span>
 				</a>
-			</li>		
+			</li>
+		
 	</ul>
 </nav>
 
 </nav>
 				</div>
 						<!-- Button List  -->
-						<div style="float: left;">
-							<button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#instrumentaddModal">신규 제품, 원료 등록</button>
-							
-						</div>
+						 <div style="margin-left:1200px;">
+						      <button type="button" class="btn  btn-inverse-dark" id="delete-btn">선택 삭제</button>
+						      <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#materialAddModal">신규 등록</button>
+						  </div> 
 
 	<!-- Modal -->
-	<div class="modal fade" id="instrumentaddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="materialAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -261,12 +263,12 @@ ul.nav-tabs {
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
 			</div>
 			<div class="modal-body">
-				<div class="mb-3">
-					<table class="table-bordered mt-2" id="approval-table">
+				<div class="mb-3 btn-group" role="group" aria-label="Basic radio toggle button group">
+					<table class="table-bordered mt-2" id="approval-table" >
 						<tbody>
 							<tr>
-								<td>제품, 원료 코드</td>
-								<td><input type="text" name="materialProductCd" class="form-control" id="code" placeholder="기기코드를 입력하세요"></td>
+								<td width="200">제품, 원료 코드</td>
+								<td width="400"><input type="text" name="materialProductCd" class="form-control" id="code" placeholder="기기코드를 입력하세요"></td>
 							</tr>
 							<tr>
 								<td>제품, 원료 가격</td>
@@ -274,7 +276,13 @@ ul.nav-tabs {
 							</tr>
 							<tr>
 								<td>제품, 원료 사용여부</td>
-								<td><input type="text" name="materialProductUse" class="form-control" id="use" placeholder="제조사를 입력하세요"></td>
+								<td> <div class="btn-group use" role="group" aria-label="Basic radio toggle button group">
+							  <input type="radio" class="btn-check" name="materialProductUse" value="Yes" id="btnradio1" autocomplete="off" >
+							  <label class="btn btn-outline-primary" for="btnradio1">Yes</label>
+							
+							  <input type="radio" class="btn-check" name="materialProductUse" value="No" id="btnradio2" autocomplete="off">
+							  <label class="btn btn-outline-primary" for="btnradio2">No</label>
+							</div></td>
 							</tr>
 							<tr>
 								<td>제품, 원료 재고</td>
@@ -282,31 +290,17 @@ ul.nav-tabs {
 							</tr>
 							<tr>
 								<td>제품, 원료 범주</td>
-								<td><input type="text" name="materialProductCategory" class="form-control" id="Category1" placeholder="제조사를 입력하세요"></td>
+								<td> <div class="btn-group cate" role="group" aria-label="Basic radio toggle button group">
+								  <input type="radio" class="btn-check" name="materialProductCategory" value="제품" id="btnradio3" autocomplete="off" >
+								  <label class="btn btn-outline-primary" for="btnradio3">제품</label>
+								
+								  <input type="radio" class="btn-check" name="materialProductCategory" value="원료" id="btnradio4" autocomplete="off">
+								  <label class="btn btn-outline-primary" for="btnradio4">원료</label>
+							</div></td>
 							</tr>
 
 
 						
-							<tr>
-								<td>employeeId</td>
-								<td><input type="text" name="employeeId" class="form-control" id="employeeId" placeholder="id"></td>
-							</tr>
-							<tr>
-								<td>regId</td>
-								<td><input type="text" name="regId" class="form-control" id="regId" placeholder="regId"></td>
-							</tr>
-							<tr>
-								<td>regMenu</td>
-								<td><input type="text" name="regMenu" class="form-control" id="regMenu" placeholder="regMenu"></td>
-							</tr>
-							<tr>
-								<td>modId</td>
-								<td><input type="text" name="modId" class="form-control" id="modId" placeholder="modId"></td>
-							</tr>
-							<tr>
-								<td>modMenu</td>
-								<td><input type="text" name="modMenu" class="form-control" id="modMenu" placeholder="modMenu"></td>
-							</tr>
 							
 
 						</tbody>
@@ -314,7 +308,7 @@ ul.nav-tabs {
 					</table>
 				  </div>
 			</div>
-			<div class="modal-footer">
+			<div class="modal-footer" >
 			<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="close">닫기</button>
 			<button type="button" class="btn btn-primary" id="add">제품, 원료등록</button>
 			</div>
@@ -346,18 +340,13 @@ ul.nav-tabs {
 		$("#add").click(function(){
 			let code=$("#code").val();
 			let price=$("#price").val();
-			let use=$("#use").val();
+			let use=$("input[name='materialProductUse']:checked").val();
 			let stock=$("#stock").val();
-			let category1=$("#Category1").val();
-			let employeeId=$("#employeeId").val();
-			let regId=$("#regId").val();
-			let regMenu=$("#regMenu").val();
-			let modId=$("#modId").val();
-			let modMenu=$("#modMenu").val();
-			ajax3(code, price, use, stock, category1, employeeId, regId, regMenu, modId, modMenu);
+			let category1=$("input[name='materialProductCategory']:checked").val();
+			ajax3(code, price, use, stock, category1);
 		});
 
-		function ajax3(code, price, use, stock, category1, employeeId, regId, regMenu, modId, modMenu){
+		function ajax3(code, price, use, stock, category1){
 			$.ajax({
 				type:'POST',
 				url:'add',
@@ -366,28 +355,23 @@ ul.nav-tabs {
 					materialProductPrice:price,
 					materialProductUse:use,
 					materialProductStock:stock,
-					materialProductCategory:category1,
-					employeeId:employeeId,
-					regId:regId,
-					regMenu:regMenu,
-					modId:modId,
-					modMenu:modMenu
+					materialProductCategory:category1
 				},
 				success:function(response){
 					if(response.trim()>0){
-						alert("등록 성공");
-					}else {
 						alert("등록 실패");
+					}else {
+						alert("등록 성공");
 					}
 				},
 				error:function(){
-					alert("관리자에게 문의")
+					alert("관리자에게 문의바랍니다.")
 				}
 			})
 
 		}
 	</script>
-
+	<script src="/js/general/material/delete-check.js"></script>
 
 </body>
 </html>

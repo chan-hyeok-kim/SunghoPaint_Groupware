@@ -5,14 +5,30 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.factoryStorage.FactoryStorageDAO">
+
+	<sql id="searchfac">
+		<choose>
+		  <when test="kind=='code'">F.FACTORY_STORAGE_CD</when>
+		  <when test="kind=='name'">C.CODE_NAME</when>
+		  <otherwise>FACTORY_STORAGE_USE</otherwise>
+		</choose>
+	</sql>
+
 <select id="getTotal" parameterType="Pager" resultType="Long">
-  		SELECT COUNT(FACTORY_STORAGE_NO) FROM FACTORY_STORAGE
+  		SELECT COUNT(FACTORY_STORAGE_NO) FROM 
+  		FACTORY_STORAGE F LEFT OUTER JOIN CODE C
+  		ON F.FACTORY_STORAGE_CD = C.CODE
+  		WHERE <include refid="searchfac"></include>
+  		LIKE CONCAT('%',#{search},'%')
   	</select>
 
 	<select id="getList" resultType="FactoryStorageVO" parameterType="Pager">
 		SELECT F.*, C.* FROM 
 		FACTORY_STORAGE F LEFT OUTER JOIN CODE C 
 		ON F.FACTORY_STORAGE_CD = C.CODE 
+		WHERE <include refid="searchfac"></include>
+	    LIKE CONCAT('%',#{search},'%')
+		ORDER BY CODE DESC		
         LIMIT #{startRow},#{lastRow}
 	</select>
    
@@ -24,7 +40,8 @@
 
 	<update id="setUpdate" parameterType="FactoryStorageVO">
   		UPDATE FACTORY_STORAGE
-  		SET FACTORY_STORAGE_USE = #{factoryStorageUse}
+  		SET FACTORY_STORAGE_USE = #{factoryStorageUse},
+  		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
   		WHERE FACTORY_STORAGE_CD = #{factoryStorageCd}  	
   	</update>
   	
