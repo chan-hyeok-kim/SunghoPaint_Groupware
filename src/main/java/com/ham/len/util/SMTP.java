@@ -30,7 +30,7 @@ public class SMTP {
 		properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 		properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
 		
-		Session session = Session.getDefaultInstance(properties, new Authenticator() {
+		Session session = Session.getInstance(properties, new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(user, password);

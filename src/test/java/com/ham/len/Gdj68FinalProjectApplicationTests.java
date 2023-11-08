@@ -10,6 +10,7 @@ import java.util.Random;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.ham.len.humanresource.HumanResourceDAO;
 import com.ham.len.humanresource.HumanResourceVO;
@@ -27,6 +28,9 @@ class Gdj68FinalProjectApplicationTests {
 	
 	@Autowired
 	HumanResourceDAO humanResourceDAO;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	// @Test
 	void contextLoads() {

@@ -45,9 +45,10 @@
 	      </a>
 	      <div class="collapse" id="general-pages">
 	        <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="/humanresource/registration"> 인사 등록 </a></li>
-	          <li class="nav-item"> <a class="nav-link" href="/transfer/registration"> 발령 등록 </a></li>
-	          <li class="nav-item"> <a class="nav-link" onclick="sendPost('/transfer/view')" style="cursor:pointer;"> 발령 조회 </a></li>
+            	<li class="nav-item"> <a class="nav-link" href="/humanresource/registration"> 인사 등록 </a></li>
+            	<li class="nav-item"> <a class="nav-link" href="/humanresource/list"> 인사 조회 </a></li>
+				<li class="nav-item"> <a class="nav-link" href="/transfer/registration"> 발령 등록 </a></li>
+				<li class="nav-item"> <a class="nav-link" href="/transfer/list"> 발령 조회 </a></li>
 	        </ul>
 	      </div>
 	    </li>

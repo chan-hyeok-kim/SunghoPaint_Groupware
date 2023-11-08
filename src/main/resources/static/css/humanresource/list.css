@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+tr:not(:first-of-type):hover{
+	background-color:#90CAF9;
+	cursor:pointer; 
+}

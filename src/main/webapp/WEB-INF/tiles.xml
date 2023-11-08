@@ -30,6 +30,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/humanresource/registration.jsp"/>
    </definition>
    
+   <definition name="humanresource/list" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/humanresource/list.jsp"/>
+   </definition>
+   
    <definition name="attendance/status" extends="layout">
 		<put-attribute name="body" value="/WEB-INF/views/attendance/status.jsp"/>
    </definition>
@@ -38,8 +42,8 @@
 		<put-attribute name="body" value="/WEB-INF/views/transfer/registration.jsp"/>
    </definition>
    
-   <definition name="transfer/view" extends="layout">
-		<put-attribute name="body" value="/WEB-INF/views/transfer/view.jsp"/>
+   <definition name="transfer/list" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/transfer/list.jsp"/>
    </definition>
 
 

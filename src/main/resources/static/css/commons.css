@@ -12,11 +12,6 @@ i{
 	font-style:unset;
 }
 
-#title{
-	margin-bottom:20px;
-	font-size:22px; font-weight:bold;
-}
-
 
 
 
@@ -27,12 +22,12 @@ i{
     top:50%; left:50%;
     margin-left:-350px; margin-top:-225px;
     z-index:10000;
-	border:1px solid #A65FFF;
+	border:1px solid #3C9CE7;
 	background-color:white;
 }
 
 #searchWindow > #titleBar{
-    background-color:#A65FFF;
+    background-color:#3C9CE7;
     padding:5px;
     font-weight:400;
     color:white;
@@ -82,7 +77,7 @@ i{
 	width:70px; height:30px;
 	margin-left:10px;
 	border:none;
-	background-color:#A65FFF;
+	background-color:#3C9CE7;
 	font-size:13px; font-weight:600;
 	color:white;
 }

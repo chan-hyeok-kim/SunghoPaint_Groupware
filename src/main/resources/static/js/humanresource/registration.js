@@ -127,6 +127,8 @@ $(function(){
 			quitDate.val("1995-07-28"); // 1995-07-28 == NULL
 		}
 		
+		$("body").append("<div id='loading'></div>");
+		
 		$("#registrationForm").submit();
 	});
 });
