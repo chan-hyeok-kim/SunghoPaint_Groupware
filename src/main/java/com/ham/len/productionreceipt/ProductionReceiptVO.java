@@ -10,7 +10,7 @@ import lombok.ToString;
 
 @Getter @Setter
 @ToString
-public class ProductionreceiptVO extends CodeVO {
+public class ProductionReceiptVO extends CodeVO {
 	
 	private Long productNo;
 	private Long materialProductNo;

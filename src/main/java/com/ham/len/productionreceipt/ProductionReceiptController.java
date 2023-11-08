@@ -15,14 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @RequestMapping("/productionreceipt/*")
-public class ProductionreceiptController {
+public class ProductionReceiptController {
 	
 	@Autowired
-	private ProductionreceiptService productionReceiptService;
+	private ProductionReceiptService productionReceiptService;
 	
 	@GetMapping("list")
 	public String getList(Pager pager, Model model)throws Exception{
-		List<ProductionreceiptVO> ar = productionReceiptService.getList(pager);
+		List<ProductionReceiptVO> ar = productionReceiptService.getList(pager);
 		model.addAttribute("list", ar);
 		return "productionreceipt/list";
 	}

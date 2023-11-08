@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import com.ham.len.commons.Pager;
 
 @Service
-public class ProductionreceiptService {
+public class ProductionReceiptService {
 	
 	@Autowired
-	private ProductionreceiptDAO productionReceiptDAO;
+	private ProductionReceiptDAO productionReceiptDAO;
 	
-	public List<ProductionreceiptVO> getList(Pager pager)throws Exception{
+	public List<ProductionReceiptVO> getList(Pager pager)throws Exception{
 		pager.makePageNum(1L);
 		return productionReceiptDAO.getList(pager);
 	}

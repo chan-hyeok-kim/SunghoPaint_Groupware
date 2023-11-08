@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ham.len.commons.Pager;
 
 @Mapper
-public interface ProductionreceiptDAO {
+public interface ProductionReceiptDAO {
 	
-	public List<ProductionreceiptVO> getList(Pager pager)throws Exception;
+	public List<ProductionReceiptVO> getList(Pager pager)throws Exception;
 
 }

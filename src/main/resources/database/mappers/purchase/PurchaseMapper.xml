@@ -5,8 +5,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.purchase.PurchaseDAO">
-	
-	<!-- <sql id="forPager">
+
+	 <!-- <sql id="forPager">
 		<choose>
 			<when test="kind=='1'">
 				clientName
@@ -20,13 +20,13 @@
 				name
 			</otherwise>
 		</choose>
-	</sql> -->
+	</sql>  
+	
+	-->
 	
 
 	<select id="getList" resultMap="PurchaseList" parameterType="Pager">
-         <!-- SELECT * FROM PURCHASE_MANAGEMENT ORDER BY PURCHASE_NO DESC -->
-        
-        SELECT * 
+		 SELECT * 
           FROM PURCHASE_MANAGEMENT P 
     
     INNER JOIN HUMAN_RESOURCE H
@@ -40,7 +40,6 @@
     
          ORDER BY PURCHASE_NO DESC
          LIMIT #{startRow},#{lastRow}
-         
 	</select>
 	
 	<resultMap type="PurchaseVO" id="PurchaseList">
@@ -51,29 +50,15 @@
   		<result column="EMPLOYEE_ID" property="employeeId"/>
   		<result column="PURCHASE_DATE" property="purchaseDate"/>
   		<result column="TOTAL_PRICE" property="totalPrice"/>
-  			
-  			<association property="clientVO" javaType="ClientVO">
-  				<result column="CLIENT_NAME" property="clientName"/>
-  			</association>
-
-  			<association property="employeeVO" javaType="EmployeeVO">
-  				<result column="NAME" property="name"/>
-  			</association>
-
-  			<association property="materialProductVO" javaType="MaterialProductVO">
-  				<result column="MATERIAL_PRODUCT_CATEGORY" property="materialProductCategory"/>
-  			</association>
-  		
+  		<result column="CLIENT_NAME"  property="clientName"/>
   	</resultMap>
    
    
     <insert id="setAdd" parameterType="PurchaseVO">
-    
     	INSERT INTO PURCHASE_MANAGEMENT
 			(PURCHASE_DATE, CLIENT_NO, EMPLOYEE_ID, FACTORY_STORAGE_NO,MOD_MENU,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE)
 		VALUES
 			(#{purchaseDate}, #{clientNo}, #{employeeId}, #{factoryStorageNo}, #{modMenu},#{regId},NOW(),#{regMenu},#{modId},NOW())
-    
     </insert>
     
     <select id="clientSearch" resultType="Long" parameterType="Pager">
@@ -82,18 +67,24 @@
     	 WHERE CLIENT_NAME LIKE '%'||#{search}||'%'
     </select>
     
-    <select id="humanSearch" resultType="EmployeeVO" parameterType="EmployeeVO">
+    <select id="humanSearch" resultType="HumanResourceVO" parameterType="HumanResourceVO">
     	SELECT *
     	  FROM HUMAN_RESOURCE
     	 WHERE NAME=#{name}
     </select>
 
-    <select id="factorySerch" resultType="String" parameterType="CodeVO">
+    <select id="factorySearch" resultType="FactoryStorageVO" parameterType="CodeVO">
     	SELECT *
     	  FROM FACTORY_STORAGE
-    	 WHERE FACTORY_STORAGE_NO = (SELECT CODE
+    	WHERE FACTORY_STORAGE_NO = (SELECT CODE
     	 				  			   FROM CODE
     	  				  			  WHERE CODE_NAME = #{codeName})
+    </select>
+    
+    <select id="clientArr" resultType="ClientVO" parameterType="ClientVO">
+    	SELECT *
+    	  FROM CLIENT_LIST
+    	WHERE CLIENT_NAME = #{clientName}
     </select>
     
     <select id="getDetail" resultMap="detailList" parameterType="purchaseVO">
@@ -157,11 +148,10 @@
 	      	ON P.EMPLOYEE_ID = H.EMPLOYEE_ID
 	INNER JOIN CLIENT_LIST C
 	    	ON P.CLIENT_NO = C.CLIENT_NO
-	<!-- INNER JOIN FACTORY_STORAGE F
-	    	ON P.FACTORY_STORAGE_NO = F.FACTORY_STORAGE_NO -->
+	INNER JOIN FACTORY_STORAGE F
+	    	ON P.FACTORY_STORAGE_NO = F.FACTORY_STORAGE_NO
 	     WHERE P.PURCHASE_NO=#{purchaseNo}
   	
   	</delete> 
-  	
 
 </mapper>
