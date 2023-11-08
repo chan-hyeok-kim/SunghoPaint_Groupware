@@ -169,4 +169,8 @@ public class PDFController {
     	writer.close();
     }
     
+    @RequestMapping("down2")
+    public void getPdf()throws Exception{
+    	
+    }
 }

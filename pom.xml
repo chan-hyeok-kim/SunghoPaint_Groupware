@@ -113,6 +113,21 @@
     <version>5.5.13.3</version>
 </dependency>
 	
+ <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>itext7-core</artifactId>
+    <version>7.0.2</version>
+    <type>pom</type>
+  </dependency>
+
+<!-- https://mvnrepository.com/artifact/com.itextpdf/html2pdf -->
+<dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>html2pdf</artifactId>
+    <version>3.0.3</version>
+</dependency>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
