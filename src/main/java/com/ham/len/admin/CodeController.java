@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import com.ham.len.admin.document.ApprovalTypeVO;
 import com.ham.len.commons.CodeVO;
 import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
+import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +33,6 @@ public class CodeController {
 	@Autowired
 	private MakeColumn makeColumn;
 	
-	private String id="2023001";
 	
 	@GetMapping("list")
 	public void getList(Pager pager,Model model) throws Exception{
@@ -44,7 +45,9 @@ public class CodeController {
 	
 	@PostMapping("add")
     public String setAdd(CodeVO codeVO,Model model,HttpServletRequest request) throws Exception{
-    	 
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		
 		String Upcode=codeVO.getUpCode().toUpperCase();
 		codeVO.setUpCode(Upcode);
 		
@@ -68,6 +71,8 @@ public class CodeController {
 	
 	@PostMapping("update")
 	public String setUpdate(CodeVO codeVO,HttpServletRequest request) throws Exception{
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
 		
 		 String path=request.getRequestURI();
 		 log.warn("수정됐는지확인{}",codeVO);

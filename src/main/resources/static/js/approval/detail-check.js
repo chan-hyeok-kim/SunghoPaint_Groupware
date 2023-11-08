@@ -128,16 +128,19 @@ approvalBtn.addEventListener("click",function(){
 //pdf다운 클릭
 $('#app-pdf-btn').click(function(){
 	let pdfHtml=contents.innerHTML;
-
+   
 	if(!pdfHtml || pdfHtml.trim()==''){
 		return;
 	}
-	
+	var oSerializer = new XMLSerializer();
+	xmlString = oSerializer.serializeToString($('#show-contents')[0]);
+    console.log(xmlString)
+
 	$.ajax({
 		type:"post",
 		 url:"/pdf/down",
 		 data:{
-			approvalContents:pdfHtml
+			approvalContents:xmlString
 		 },success:function(){
 			console.log('다운 성공')
 		 }

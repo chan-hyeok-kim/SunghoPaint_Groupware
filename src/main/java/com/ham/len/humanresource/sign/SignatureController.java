@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,13 +41,11 @@ public class SignatureController {
 		log.warn("*******{}*******",file);
 		
 //		원래 세션에서 꺼내서 조회해야됨.여기선 리퀘스트에서 조회할 예정
-		HumanResourceVO humanResourceVO=new HumanResourceVO();
-		String id="2023001";
-		humanResourceVO.setEmployeeID(id);
-		humanResourceVO=signatureService.getDetail(humanResourceVO);
+	
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		String path=request.getRequestURI();
-		humanResourceVO=(HumanResourceVO)makeColumn.getModColumn(humanResourceVO, path, id);
+		humanResourceVO=(HumanResourceVO)makeColumn.getModColumn(humanResourceVO, path, humanResourceVO.getEmployeeID());
 		
 		int result = signatureService.setSignUpdate(file, request.getSession(),humanResourceVO);
 		model.addAttribute("result", result);

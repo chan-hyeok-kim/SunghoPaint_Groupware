@@ -97,6 +97,7 @@
 				        </thead>
 				        <tbody>
 				        <c:forEach items="${list}" var="vo" varStatus="i">
+				        
 				           <tr>
 				             <td><input type="checkbox"></td>
 				             <td class="approval-start-date">${vo.approvalStartDate}</td>

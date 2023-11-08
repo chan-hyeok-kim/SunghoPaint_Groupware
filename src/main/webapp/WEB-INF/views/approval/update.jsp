@@ -168,6 +168,10 @@
 				</table>
 
 				<!-- add button -->
+				<div style="">
+				<button type="button" class="btn btn-info" id="text-delete-btn"
+					style="margin-left: 20px;">지우기</button>
+					</div>
 				<div id="form-add-btn-box" style="justify-content: flex-end; display: flex">
 					<button type="button" id="update-confirm-btn" class="btn btn-info" style="margin-right:30px">수정</button>
 				</div>

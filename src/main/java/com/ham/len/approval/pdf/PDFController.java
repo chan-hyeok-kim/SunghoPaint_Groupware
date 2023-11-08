@@ -119,7 +119,7 @@ public class PDFController {
     	Document document = new Document(PageSize.A4, 50, 50, 50, 50); // 용지 및 여백 설정
         
     	// PdfWriter 생성
-    	PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("d:/note/test1.pdf")); // 바로 다운로드.
+    	PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("d:/note/test2.pdf")); // 바로 다운로드.
     //PdfWriter writer = PdfWriter.getInstance(document, response.getOutputStream());
     	writer.setInitialLeading(12.5f);
     	 
@@ -160,7 +160,8 @@ public class PDFController {
     	            + "<p>PDF 안에 들어갈 내용입니다.</p>"
     	            + "<h3>한글, English, 漢字.</h3>"
     	        + "</body></head></html>";*/
-    	 
+    	htmlStr=htmlStr.replace("<br>", "<br/>");
+    	htmlStr=htmlStr.replace("<col", "</");
     	StringReader strReader = new StringReader(htmlStr);
     	xmlParser.parse(strReader);
     	 

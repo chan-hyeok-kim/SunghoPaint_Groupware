@@ -1,12 +1,14 @@
 package com.ham.len.approval;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -45,15 +47,59 @@ public class ApprovalController {
 	@Autowired
 	private MakeColumn makeColumn;
 
-	private String id = "2023001";
-
 	@GetMapping("list")
-	public String getList(Pager pager, Model model) throws Exception {
+	public String getList(Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
 		List<ApprovalVO> ar = approvalService.getMyList(pager);
-		model.addAttribute("list", ar);
-
+		
+		List<ApprovalVO> forLast=new ArrayList<>();
+		boolean check1=false;
+		boolean check5=false;
+		boolean check6=false;
+		
+	    for(ApprovalVO a: ar) {
+	    	boolean check0=(a.getEmployeeID().equals(humanResourceVO.getEmployeeID()));
+	    	check1=(a.getLastApprover().equals(humanResourceVO.getEmployeeID()));
+	    	boolean check2=(a.getApprovalStatusCd().equals("R042"));
+	    	boolean check3=(a.getAddApprover()==null);
+	    	boolean check4=(a.getApprovalStatusCd().equals("R043"));
+		    	if(check0 || (check1 && check2 && check3 ) || (check1 && check4)) {
+		    		forLast.add(a);
+		    	}
+	    	    	//R042(1회검토완료)이면서 추가검토자없는거 + 2회 검토완료된거
+	    	
+	    	check5=(a.getMidApprover().equals(humanResourceVO.getEmployeeID()));
+	    	 //중간검토자는 뭘 체크해야될까
+	    	 //R041이기만 하면 됨
+		    	if(check0 || (check5 && a.getApprovalStatusCd().equals("R041"))) {
+		    		forLast.add(a);
+		    	}
+	    	
+		    check6=(a.getMidApprover().equals(humanResourceVO.getEmployeeID()));
+	         //추가검토자는
+		     //R042(1회 검토 완료)이면서(check2가 true)
+		    //추가검토자 있는거 (check3이 false) 
+		    	if(check0 || (check6 && check2 && !check3)) {
+		    		forLast.add(a);
+		    	}
+	    }
+	    
+	    log.warn("********{}******",check1);
+	    log.warn("********{}******",check5);
+	    log.warn("********{}******",check6);
+		if(check1 || check5 || check6) {
+			model.addAttribute("list", forLast);
+			log.warn("********{}******",forLast);
+		}else{
+			model.addAttribute("list", ar);
+		}
+		
+		
+        model.addAttribute("member", humanResourceVO);
 		log.warn("========{}========", ar);
 
+		
+		
+		
 		return "approval/list";
 	}
 
@@ -95,9 +141,12 @@ public class ApprovalController {
 	@PostMapping("add")
 	public String setAdd(ApprovalVO approvalVO, HttpServletRequest request) throws Exception {
 
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		
 		String path = request.getRequestURI();
 		approvalVO = (ApprovalVO) makeColumn.getColumn(approvalVO, path, id);
-
+     
 		// 나머지 값 세팅
 		approvalVO.setEmployeeID(id);
 		approvalVO.setDrafter("최지우");
@@ -163,7 +212,9 @@ public class ApprovalController {
 
 	@PostMapping("update")
 	public String setUpdate(ApprovalVO approvalVO, HttpServletRequest request) throws Exception {
-
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		
 		String path = request.getRequestURI();
 		approvalVO = (ApprovalVO) makeColumn.getModColumn(approvalVO, path, id);
 
@@ -177,6 +228,10 @@ public class ApprovalController {
 //	첨언 추가
 	@PostMapping("oneUpdate")
 	public String setOneUpdate(ApprovalVO approvalVO, HttpServletRequest request) throws Exception {
+		
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		
 		String path = request.getRequestURI();
 		// Long redirectNo=approvalVO.getApprovalNo();
 		approvalVO = (ApprovalVO) makeColumn.getModColumn(approvalVO, path, id);
@@ -190,7 +245,9 @@ public class ApprovalController {
 
 	@PostMapping("check")
 	public String setCheck(ApprovalVO approvalVO, HttpServletRequest request,Model model) throws Exception {
-
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		
 		String path = request.getRequestURI();
 		// Long redirectNo=approvalVO.getApprovalNo();
 		approvalVO = (ApprovalVO) makeColumn.getModColumn(approvalVO, path, id);

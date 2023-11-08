@@ -43,7 +43,7 @@ public class FileManager {
 		log.warn("====={}=====",extension);
 		log.warn("====={}=====",fileName.lastIndexOf(".")+1);
 		String base64=null;
-		if(extension.equalsIgnoreCase("JPG") || extension.equalsIgnoreCase("JPEG") || extension.equalsIgnoreCase("PNG") || extension.equalsIgnoreCase("JPG")
+		if(extension.equalsIgnoreCase("JPG") || extension.equalsIgnoreCase("JPEG") || extension.equalsIgnoreCase("PNG")
 				|| extension.equalsIgnoreCase("GIF") || extension.equalsIgnoreCase("PDF") || extension.equalsIgnoreCase("PSD") 
 				|| extension.equalsIgnoreCase("Al") || extension.equalsIgnoreCase("TIFF") || extension.equalsIgnoreCase("BMP")
 				|| extension.equalsIgnoreCase("EPS")) {

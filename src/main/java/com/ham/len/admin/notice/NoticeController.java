@@ -53,7 +53,6 @@ public class NoticeController {
 	public String setAdd(NoticeVO noticeVO,HttpServletRequest request) throws Exception{
 		
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	    
 		String path=request.getRequestURI();
 		String id=humanResourceVO.getEmployeeID();
 		noticeVO.setEmployeeID(id);
@@ -71,7 +70,12 @@ public class NoticeController {
 	}
 	
 	@PostMapping("update")
-	public String setUpdate(NoticeVO noticeVO) throws Exception{
+	public String setUpdate(NoticeVO noticeVO,HttpServletRequest request) throws Exception{
+		String path=request.getRequestURI();
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		
+		noticeVO=(NoticeVO)makeColumn.getModColumn(noticeVO, path, id);
 		int result=noticeService.setUpdate(noticeVO);
 		
 		return "redirect:/notice/list";
