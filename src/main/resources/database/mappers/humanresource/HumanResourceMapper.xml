@@ -111,4 +111,14 @@
 	<select id="getLatestEmployeeID" parameterType="String">
 		SELECT MAX(EMPLOYEE_ID) FROM HUMAN_RESOURCE
 	</select>
+	
+	<update id="setUpdate" parameterType="HumanResourceVO">
+		UPDATE HUMAN_RESOURCE SET
+			JOIN_DATE = #{joinDate}, JOIN_TYPE = #{joinType}, NAME = #{name}, BIRTH = #{birth},
+			DEPARTMENT_CD = #{departmentCd}, POSITION_CD = #{positionCd}, EXTENSION_NUMBER = #{extensionNumber},
+			PHONE = #{phone}, MAIN_NUMBER = #{mainNumber}, EMAIL = #{email}, ADDRESS = #{address}, BANK = #{bank},
+			ACCOUNT_NUMBER = #{accountNumber}, ACCOUNT_HOLDER = #{accountHolder}, QUIT_DATE = #{quitDate}, QUIT_REASON = #{quitReason}
+			<if test="profile != null">, PROFILE = #{profile}</if>
+		WHERE EMPLOYEE_ID = #{employeeID}
+	</update>
 </mapper>

@@ -29,7 +29,7 @@ public class HumanResourceController {
 	@PostMapping("/humanresource/registration")
 	public String setRegistration(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
 		humanResourceService.setRegistration(humanResourceVO, file);
-		return "humanresource/registration";
+		return "redirect:/humanresource/list";
 	}
 	
 	@GetMapping("/humanresource/list")
@@ -42,10 +42,13 @@ public class HumanResourceController {
 	
 	@GetMapping("/humanresource/update")
 	public String getDetail(String employeeID, Model model) {
-		HumanResourceVO humanResourceVO = humanResourceService.getHumanResource("2023015");
-		log.info("========== {} ==========", humanResourceVO);
-		model.addAttribute("humanResourceVO", humanResourceVO);
-		// model.addAttribute("humanResourceVO", humanResourceService.getHumanResource(employeeID));
+		model.addAttribute("humanResourceVO", humanResourceService.getHumanResource(employeeID));
 		return "humanresource/registration"; 
+	}
+	
+	@PostMapping("/humanresource/update")
+	public String getDetail(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
+		humanResourceService.setUpdate(humanResourceVO, file);
+		return "redirect:/humanresource/update?employeeID=" + humanResourceVO.getEmployeeID();
 	}
 }

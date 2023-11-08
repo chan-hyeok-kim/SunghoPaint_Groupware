@@ -83,4 +83,16 @@ form > #buttons{
 	background-size:45px 45px;
 	background-color:#E3E3E3;
 	opacity:0.5;
+	z-index:10000;
+}
+
+
+
+#addressDetailModal #message-text{
+	text-align:unset;
+}
+
+#addressDetailModal button.close{
+	border:none;
+	background-color:#9797FF;
 }

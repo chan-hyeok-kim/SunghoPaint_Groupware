@@ -8,11 +8,12 @@ import com.ham.len.commons.CodeVO;
 
 @Mapper
 public interface HumanResourceDAO {
-	public HumanResourceVO getHumanResource(String employeeID);
+	public int setRegistration(HumanResourceVO humanResourceVO);
+	public String getLatestEmployeeID();
+	public int setAccountRole(AccountRoleVO accountRoleVO);
 	public Long getTotal(HumanResourcePager pager);
 	public List<HumanResourceVO> getHumanResourceList(HumanResourcePager pager);
 	public List<CodeVO> getDepartmentList();
-	public int setRegistration(HumanResourceVO humanResourceVO);
-	public int setAccountRole(AccountRoleVO accountRoleVO);
-	public String getLatestEmployeeID();
+	public HumanResourceVO getHumanResource(String employeeID);
+	public int setUpdate(HumanResourceVO humanResourceVO);
 }

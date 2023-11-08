@@ -8,6 +8,12 @@
 <link rel="stylesheet" href="/css/commons.css">
 <link rel="stylesheet" href="/css/humanresource/registration.css">
 
+<script>
+	$(function(){
+		if("${humanResourceVO.employeeID}" != "") $("#registrationForm").attr("action", "./update");
+	});
+</script>
+
 <form:form modelAttribute="humanResourceVO" action="./registration" method="POST" enctype="multipart/form-data" id="registrationForm">
 	<table id="basicInfo">
 		<tr>
@@ -30,7 +36,10 @@
 		<tr>
 			<td rowspan="3"><form:input path="name" /></td>
 			<th>사번</th>
-			<td></td>
+			<td>
+				<input type="hidden" name="employeeID" value="${humanResourceVO.employeeID}">
+				${humanResourceVO.employeeID}
+			</td>
 			<th>내선번호</th>
 			<td><form:input path="extensionNumber" /></td>
 		</tr>
@@ -89,7 +98,7 @@
 		<c:if test="${!empty humanResourceVO.employeeID}">
 			<button type="button" id="regist">수정</button>
 		</c:if>
-		<button type="button" id="cancel" onclick="location.href='../'">취소</button>
+		<button type="button" id="cancel" onclick="location.href='./list'">취소</button>
 	</div>
 	
 	
@@ -107,7 +116,7 @@
 	        <form>
 	          <div class="form-group">
 	            <label for="message-text" class="col-form-label">상세주소를 입력해주세요.</label>
-	            <textarea class="form-control" id="message-text"></textarea>
+				<input type="text" id="message-text" class="form-control">
 	          </div>
 	        </form>
 	      </div>
