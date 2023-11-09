@@ -110,7 +110,19 @@ public class HumanResourceService implements UserDetailsService {
 		return humanResourceDAO.setDelete(employeeID);
 	}
 	
-	public boolean getUpdatePasswordError(UpdatePasswordVO updatePasswordVO, BindingResult bindingResult) {
-		return false;
+	public boolean getUpdatePasswordError(UpdatePasswordVO updatePasswordVO, BindingResult bindingResult, HumanResourceVO humanResourceVO) {
+		boolean hasErrors = false;
+		
+		if(!passwordEncoder.matches(updatePasswordVO.getCurPassword(), humanResourceVO.getPassword())) {
+			hasErrors = true;
+			bindingResult.rejectValue("curPassword", "updatePasswordVO.password.equalCheck");
+		}
+		
+		if(!updatePasswordVO.getNewPassword().equals(updatePasswordVO.getCheckNewPassword())) {
+			hasErrors = true;
+			bindingResult.rejectValue("checkNewPassword", "updatePasswordVO.password.equalCheck");
+		}
+		
+		return hasErrors;
 	}
 }

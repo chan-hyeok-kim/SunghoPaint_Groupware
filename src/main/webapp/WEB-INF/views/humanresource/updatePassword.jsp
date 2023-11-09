@@ -20,26 +20,20 @@
 	</header>
 	<form:form modelAttribute="updatePasswordVO" action="./updatePassword" method="POST">
 		<div>
-			<form:password path="curPassword" placeholder="현재 비밀번호" /><br>
+			<form:password path="curPassword" showPassword="true" placeholder="현재 비밀번호" /><br>
 			<form:errors path="curPassword" />
 		</div>
-		
 		<br>
-		
 		<div>
-			<form:password path="newPassword" placeholder="새로운 비밀번호" /><br>
+			<form:password path="newPassword" showPassword="true" placeholder="새로운 비밀번호" /><br>
 			<form:errors path="newPassword" />
 		</div>
-		
 		<br>
-		
 		<div>
-			<form:password path="checkNewPassword" placeholder="새로운 비밀번호 확인" /><br>
+			<form:password path="checkNewPassword" showPassword="true" placeholder="새로운 비밀번호 확인" /><br>
 			<form:errors path="checkNewPassword" />
 		</div>
-		
 		<br>
-		
 		<form:button>변경</form:button>
 	</form:form>
 </div>

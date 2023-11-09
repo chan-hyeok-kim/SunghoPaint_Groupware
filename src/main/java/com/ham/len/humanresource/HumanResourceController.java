@@ -3,6 +3,7 @@ package com.ham.len.humanresource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -67,11 +68,10 @@ public class HumanResourceController {
 	}
 	
 	@PostMapping("/humanresource/updatePassword")
-	public String setUpdatePassword(@Valid UpdatePasswordVO updatePasswordVO, BindingResult bindingResult, Model model) {
-		log.info("updatePasswordVO : {}", updatePasswordVO);
+	public String setUpdatePassword(@Valid UpdatePasswordVO updatePasswordVO, BindingResult bindingResult, @AuthenticationPrincipal HumanResourceVO humanResourceVO, Model model) {
 		model.addAttribute("updatePasswordVO", updatePasswordVO);
 		
-		boolean hasErrors = humanResourceService.getUpdatePasswordError(updatePasswordVO, bindingResult);
+		boolean hasErrors = humanResourceService.getUpdatePasswordError(updatePasswordVO, bindingResult, humanResourceVO);
 		if(bindingResult.hasErrors() || hasErrors) {
 			return "humanresource/updatePassword";
 		}
