@@ -172,6 +172,10 @@ let appStr = '<tr style="height: 20%"><td>추가 검토자</td><td class="add-ap
 /** 결재 버튼 누르면 맨 우측에 결재자로 설정*/
 $('#tree-last-app').click(function() {
 	console.log(employeeName)
+	if(!appMeCheck()){
+		return;
+	}
+
 	if (employeeName != '') {
 		$('#last-app').text(employeeName);
 		$('#last-app').attr("data-id",empId);
@@ -181,6 +185,10 @@ $('#tree-last-app').click(function() {
 
 $('#tree-mid-app').click(function() {
 	console.log(employeeName)
+	if(!appMeCheck()){
+		return;
+	}
+
 	if (employeeName != '') {
 		$('#mid-app').text(employeeName);
 		$('#mid-app').attr("data-id",empId);
@@ -189,11 +197,26 @@ $('#tree-mid-app').click(function() {
 
 $('#tree-add-app').click(function() {
 	console.log(employeeName)
+	if(!appMeCheck()){
+		return;
+	}
+
 	if (employeeName != '') {
 		$('#add-app').text(employeeName);
 		$('#add-app').attr("data-id",empId);
 	}
 })
+
+function appMeCheck(){
+	if(empId===me){
+		swal('기안자 본인은 결재선에 추가할 수 없습니다.')
+		return false;
+	}else{
+		return true;
+	}
+    
+}
+
 
 /**
  * 

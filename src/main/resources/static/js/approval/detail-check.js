@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 const contents=document.getElementById('show-contents');
 const modContents=document.getElementById('mod-contents');
 const check=document.getElementById('check');

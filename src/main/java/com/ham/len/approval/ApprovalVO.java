@@ -25,8 +25,8 @@ public class ApprovalVO extends CodeVO{
 	private String approvalStatusCd;
 	private String approvalCheckCd;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date approvalStartDate;
-	private Date approvalEndDate;
+	private java.sql.Date approvalStartDate;
+	private java.sql.Date approvalEndDate;
     private String drafter;
     private String midApprover;
     private String addApprover;

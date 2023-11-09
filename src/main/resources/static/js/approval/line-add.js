@@ -27,18 +27,26 @@ const botTab = '<td class="bot-sign-tab" style="height:0pt; border-left:solid #0
 function setTimeDept(){
 	$.ajax({
 		type:'POST',
-		url:'/approval/signTime',
+		url:'/approval/mySignTime',
 		data:{
 			approvalNo:appNo
 		},success:function(result){
+			console.log(result)
 			console.log(result.deptName);
-			console.log(result.signTime);
-			$('#top-drafter-tab').text()
-			$('#bot-drafter-tab').text()
+			console.log(result.approvalStartDate);
+			date=result.approvalStartDate;
+			date=date.slice(0,10);
+     
+			$('#top-drafter-tab').text(result.deptName);
+			$('#bot-drafter-tab').text(date);
 		}
 	})
 	
 }
+if(appNo){
+	setTimeDept();
+}
+
 
 
 console.log($('.mid-sign-tab'))

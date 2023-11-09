@@ -80,7 +80,7 @@
 				작성</div>
 
 
-			<form action="add" method="post">
+			<form action="add" method="post" id="app-add-frm">
 				<div id="approval-content">
 					<table class="table table-bordered">
 						<tr>
@@ -160,12 +160,12 @@
 
 				<!-- add button -->
 				<div id="form-add-btn-box">
-					<button type="button" class="btn btn-info">임시저장</button>
+					<!-- <button type="button" class="btn btn-info">임시저장</button> -->
 					<button type="button" class="btn btn-info" id="text-delete-btn"
 					style="margin-left: 20px;">지우기</button>
 					<button type="button" class="btn btn-info" id="form-add-sign"
 					style="margin-left: 20px;">서명하기</button>
-					<button class="btn btn-info" style="margin-left: 400px;">결재</button>
+					<button id="app-add-btn" type="button" class="btn btn-info" style="margin-left: 400px;">결재</button>
 				</div>
 		</div>
 		<input type="hidden" id="form-add-no" name="approvalTypeNo">
@@ -343,14 +343,13 @@
 
 	<!-- modal end -->
   
-  <script type="text/javascript">
-  
-  </script>
+ 
 
 
 <script type="text/javascript">
-console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.username}')
+
 const formSign='${sign}';
+const me='${member.username}'
 </script>
 
 	<!-- approval-form에 html style적용 -->

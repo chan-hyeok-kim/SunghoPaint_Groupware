@@ -104,4 +104,8 @@ public class ApprovalService {
 		return approvalDAO.getSignTime(map);
 	}
 	
+	public ApprovalVO getMySignTime(ApprovalVO approvalVO) throws Exception{
+		return approvalDAO.getMySignTime(approvalVO);
+	}
+	
 }

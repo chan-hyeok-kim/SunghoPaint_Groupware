@@ -24,6 +24,8 @@ $('.nav-tabs li').each(function(){
                 approvalStatusCd:cd
 			},success:function(result){
                 contentDiv.innerHTML=result;
+
+				
 			},error:function(){
 				console.log('실패')
 			}
@@ -33,5 +35,3 @@ $('.nav-tabs li').each(function(){
 	})
 
 })
-	
-	

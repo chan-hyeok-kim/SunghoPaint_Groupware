@@ -322,7 +322,7 @@
 	<!-- 결재 상세에서 검토 완료 시 -->
 	<update id="setEndCheck" parameterType="ApprovalVO">
 	    UPDATE APPROVAL
-		SET APPROVAL_STATUS_CD=#{approvalStatusCd},APPROVAL_END_DATE=#{approvalEndDate},
+		SET APPROVAL_STATUS_CD=#{approvalStatusCd},APPROVAL_END_DATE=NOW(),
 		APPROVAL_CHECK_CD=#{approvalCheckCd},ADMONITION=#{admonition}, 
 		APPROVAL_CONTENTS=#{approvalContents},
 		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
@@ -345,6 +345,12 @@
 	    SELECT NOW() AS SIGN_TIME,FN_DEPT_NM(#{id.employeeID}) AS DEPT_NAME
 		  FROM APPROVAL 
 		 WHERE APPROVAL_NO=#{vo.approvalNo}
+	</select>
+	
+	<select id="getMySignTime" parameterType="ApprovalVO" resultType="ApprovalVO">
+	    SELECT *,FN_DEPT_NM(EMPLOYEE_ID) AS DEPT_NAME
+		  FROM APPROVAL 
+		 WHERE APPROVAL_NO=#{approvalNo}
 	</select>
 	
 </mapper>

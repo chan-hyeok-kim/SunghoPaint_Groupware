@@ -162,6 +162,7 @@ public class ApprovalController {
 
 			humanResourceVO = signatureService.getDetail(humanResourceVO);
 			model.addAttribute("sign", humanResourceVO.getSignature());
+			model.addAttribute("member", humanResourceVO);
 		}
 
 	}
@@ -177,10 +178,9 @@ public class ApprovalController {
      
 		// 나머지 값 세팅
 		approvalVO.setEmployeeID(id);
-		approvalVO.setDrafter("최지우");
-
+	
 		int result = approvalService.setAdd(approvalVO);
-
+         
 		return "redirect:/approval/list";
 	}
 
@@ -323,6 +323,20 @@ public class ApprovalController {
 	@ResponseBody
     public ApprovalVO getSignTime(ApprovalVO approvalVO,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception{
 		approvalVO=approvalService.getSignTime(approvalVO,humanResourceVO);
+		
+		String name=approvalVO.getDeptName();
+		if(name!=null) {
+			String[] names=name.split(" ");
+			approvalVO.setDeptName(names[0]);
+		}
+		
+		return approvalVO;
+	}
+	
+	@PostMapping("mySignTime")
+	@ResponseBody
+	public ApprovalVO getMySignTime(ApprovalVO approvalVO) throws Exception{
+		approvalVO=approvalService.getMySignTime(approvalVO);
 		
 		String name=approvalVO.getDeptName();
 		if(name!=null) {
