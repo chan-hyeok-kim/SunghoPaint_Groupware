@@ -18,6 +18,16 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>5.1.0</version> <!-- 현재 최신 버전 기준, 버전은 변경될 수 있음 -->
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>5.1.0</version> <!-- 현재 최신 버전 기준, 버전은 변경될 수 있음 -->
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>

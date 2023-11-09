@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -91,12 +92,23 @@ public class SalesService {
 		return salesDAO.getClientDivision();
 	}
 	
-
 	public int setAddClient(SalesClientVO salesClientVO) throws Exception{
 		return salesDAO.setAddClient(salesClientVO);
 	}
 	
 	public SalesClientVO getClientDetail(SalesClientVO salesClientVO) throws Exception{
 		return salesDAO.getClientDetail(salesClientVO);
+	}
+	
+	public int setClientUpdate(SalesClientVO salesClientVO) throws Exception{
+		return salesDAO.setClientUpdate(salesClientVO);
+	}
+	
+	public int setClientDelete(SalesClientVO salesClientVO) throws Exception{
+		return salesDAO.setClientDelete(salesClientVO);
+	}
+	
+	public List<SalesPurchaseVO> getPurchaseList() throws Exception{
+		return salesDAO.getPurchaseList();
 	}
 }

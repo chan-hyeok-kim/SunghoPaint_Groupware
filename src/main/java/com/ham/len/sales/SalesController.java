@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -215,5 +216,46 @@ public class SalesController {
 		salesClientVO = salesService.getClientDetail(salesClientVO);
 		model.addAttribute("getClientDetail", salesClientVO);
 		return "sales/clientDetail";
+	}
+	
+	@GetMapping("clientUpdate")
+	public String setClientUpdate(SalesClientVO salesClientVO, Model model) throws Exception{
+		salesClientVO = salesService.getClientDetail(salesClientVO);
+		model.addAttribute("getClientDetail", salesClientVO);
+		
+		return "sales/clientUpdate";
+	}
+	
+	@PostMapping("clientUpdate")
+	public String setClientUpdate(SalesClientVO salesClientVO) throws Exception{
+		int result = salesService.setClientUpdate(salesClientVO);
+		
+		return "redirect:clientDetail?clientNo="+salesClientVO.getClientNo();
+	}
+	
+	@PostMapping("clientDelete")
+	public String setClientDelete(SalesClientVO salesClientVO) throws Exception{
+		int result = salesService.setClientDelete(salesClientVO);
+		
+		return "redirect:clientList";
+	}
+	
+	@GetMapping("dealList")
+	public String getDealList(Model model) throws Exception{
+		List<SalesPurchaseVO> arr = salesService.getPurchaseList();
+		model.addAttribute("dealList", arr);
+		log.info("=======zzz{}=========zzz", arr.get(0));
+		return "sales/dealList";
+	}
+	
+	@GetMapping("dealPopup")
+	public String dealPopup() throws Exception{
+		
+		return "sales/dealPopup";
+	}
+	
+	@GetMapping("excelDownload")
+	public String excelDownload() throws Exception{
+		return "sales/dealPopup";
 	}
 }

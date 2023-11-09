@@ -148,6 +148,16 @@
 	<definition name="sales/clientDetail" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/sales/clientDetail.jsp"/>
 	</definition>
+	
+	<definition name="sales/clientUpdate" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/clientUpdate.jsp"/>
+	</definition>
+	
+	<definition name="sales/dealList" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/dealList.jsp"/>
+	</definition>
+	
+	
 	<!-- 성호 -->
 	
 </tiles-definitions>
