@@ -11,4 +11,6 @@ public class AttachmentVO {
 
 	private Long fileNo;
 	private Long noticeNo;
+	private String fileName;
+	private String originalName;
 }

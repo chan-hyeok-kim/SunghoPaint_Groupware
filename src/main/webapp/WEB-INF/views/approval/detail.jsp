@@ -358,6 +358,9 @@
 
 	<!-- modal end -->
 	
+	<!-- PDF 경로 지정 input -->
+	<input type="file" style="display: none;" id="pdf-file">
+	 
 <!-- 첨언 있는지 여부 체크 -->
 <script type="text/javascript">
 let admonitionCheck=${not empty vo.admonition}

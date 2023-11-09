@@ -8,6 +8,7 @@ import java.nio.charset.Charset;
 import org.springframework.stereotype.Controller;
 
 import com.ham.len.approval.ApprovalVO;
+import com.ham.len.commons.FileDownView;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
@@ -63,6 +64,9 @@ public class PDFController {
     private final HtmlToPdf htmlToPdf;
   
     private final HtmlToPdf2 htmlToPdf2;
+    
+    @Autowired
+    private FileDownView fileDownView;
     
     @RequestMapping("download")
     public void pdfDownload(HttpServletResponse response,ApprovalVO approvalVO) {
@@ -136,7 +140,7 @@ public class PDFController {
     }
     
     @RequestMapping("down")
-    public void getPdf(ApprovalVO approvalVO)throws Exception{
+    public String getPdf(ApprovalVO approvalVO)throws Exception{
     	
     	    File file = new File("D:\\sample1.PDF"); 
     	    //한국어를 표시하기 위해 폰트 적용 
@@ -151,6 +155,8 @@ public class PDFController {
     	    fontProvider.addFont(fontProgram);
     	    properties.setFontProvider(fontProvider);
 
+    	    
+    	    
     	    //pdf 페이지 크기를 조정
     	    List<IElement> elements = HtmlConverter.convertToElements(BODY, properties);
     	    PdfDocument pdf = new PdfDocument(new PdfWriter(file));
@@ -162,5 +168,6 @@ public class PDFController {
     	    }
     	    document.close();
     	
+    	    return "fileDownView";
     }
 }
