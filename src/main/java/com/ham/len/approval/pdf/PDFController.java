@@ -1,6 +1,8 @@
 package com.ham.len.approval.pdf;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -140,9 +142,9 @@ public class PDFController {
     }
     
     @RequestMapping("down")
-    public String getPdf(ApprovalVO approvalVO)throws Exception{
+    public void getPdf(ApprovalVO approvalVO)throws Exception{
     	
-    	    File file = new File("D:\\sample1.PDF"); 
+    	    File file = new File("static/assets/sample.pdf"); 
     	    //한국어를 표시하기 위해 폰트 적용 
     		String BODY=approvalVO.getApprovalContents();    		
     		String dest="D:\\sample.PDF";
@@ -159,7 +161,10 @@ public class PDFController {
     	    
     	    //pdf 페이지 크기를 조정
     	    List<IElement> elements = HtmlConverter.convertToElements(BODY, properties);
-    	    PdfDocument pdf = new PdfDocument(new PdfWriter(file));
+    
+    	    PdfWriter writer= new PdfWriter(new FileOutputStream(file));
+    	 //   PdfWriter writer= new PdfWriter(new FileOutputStream(file));
+    	    PdfDocument pdf = new PdfDocument(writer);
     	    Document document = new Document(pdf);
     	    //setMargins 매개변수순서 : 상, 우, 하, 좌
     	    document.setMargins(50, 0, 50, 0);
@@ -167,7 +172,9 @@ public class PDFController {
     	      document.add((IBlockElement) element);
     	    }
     	    document.close();
+    	    writer.close();
+    	   
     	
-    	    return "fileDownView";
+    	    
     }
 }

@@ -154,8 +154,10 @@
  				</script>
 				<div id="form-add-btn-box">
 				<c:if test="${vo.approvalStatusCd eq 'R033'}">
+				
 					<button class="btn btn-info" type="button" id="app-pdf-btn"
 					>PDF로 다운로드</button>
+	           
 				</c:if>	
 				<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.username ne vo.employeeID}">
 	

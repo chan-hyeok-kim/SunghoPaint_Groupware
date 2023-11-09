@@ -163,22 +163,30 @@ $('#app-pdf-btn').click(function(){
 	if(!pdfHtml || pdfHtml.trim()==''){
 		return;
 	}
-
     
+	filename="sample.pdf"
+	const a = document.createElement("a");
+	a.style = "display: none";
+	a.href = "static/assets/sample.pdf";
+	a.download = filename;
+  
+	document.body.appendChild(a);
+	a.click();
 
 	var oSerializer = new XMLSerializer();
 	xmlString = oSerializer.serializeToString($('#show-contents')[0]);
     console.log(xmlString)
 
-	$.ajax({
-		type:"post",
-		 url:"/pdf/down",
-		 data:{
-			approvalContents:xmlString
-		 },success:function(){
-			console.log('다운 성공')
-		 }
-	})
+	// $.ajax({
+	// 	type:"post",
+	// 	 url:"/pdf/down",
+	// 	 data:{
+	// 		approvalContents:xmlString
+	// 	 },success:function(){
+	// 		console.log('다운 성공')
+			
+	// 	 }
+	// })
 })
 
 
