@@ -149,31 +149,43 @@
 				</table>
 
 <!-- bottom btn-list  -->
+ 				<script type="text/javascript">
+ 				 console.log('${vo.approvalStatusCd}')
+ 				</script>
 				<div id="form-add-btn-box">
+				<c:if test="${vo.approvalStatusCd eq 'R033'}">
 					<button class="btn btn-info" type="button" id="app-pdf-btn"
 					>PDF로 다운로드</button>
+				</c:if>	
+				<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.username ne vo.employeeID}">
+	
 					<button class="btn btn-info" type="button" style="margin-left: 20px;" id="app-reject-btn"
 					>반려</button>
+					
+					
 					<button class="btn btn-info" type="button" style="margin-left: 20px;"
 					onclick="location.href='/approval/update?approvalNo=${vo.approvalNo}'">수정</button>
 					<button type="button" class="btn btn-info" id="app-delete-btn"
 						style="margin-left: 20px;">삭제</button>
-					<script type="text/javascript">
-					 console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.username}')
-					 console.log('${vo.employeeID}')
-					 
-					 </script>
-					<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.username ne vo.employeeID}">
+					
 					
 					
 					<button type="button" class="btn btn-info" id="form-mid-sign"
 					style="margin-left: 400px;"
 					>서명하기</button>
-					</c:if>
 					<button type="button" id="approval-btn" class="btn btn-info" style="margin-left: 20px;">결재</button>
+				   
 				   </form>
 				</div>
+				 </c:if> 
+<script type="text/javascript">
+					 console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.username}')
+					 console.log('${vo.employeeID}')
+					 console.log('${member}')
+					
+					 </script>
 		</div>
+		
 		<input type="hidden" id="form-add-no" name="approvalTypeNo">
 		
 

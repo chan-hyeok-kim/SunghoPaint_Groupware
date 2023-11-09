@@ -66,5 +66,6 @@ $('#form-add-sign').click(function(){
     oEditors.getById["approvalForm"].exec("UPDATE_CONTENTS_FIELD", []);
 
     //$('#form-sign-span').html('<img width="70px" height="40px" src="'+formSign+'">');
+	
 })
 

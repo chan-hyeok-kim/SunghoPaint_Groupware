@@ -340,5 +340,11 @@
 		APPROVAL_NO=#{approvalNo}
 	</update>
 	
+	<!-- 서명 시 -->
+	<select id="getSignTime" parameterType="Map" resultType="ApprovalVO">
+	    SELECT NOW() AS SIGN_TIME,FN_DEPT_NM(#{id.employeeID}) AS DEPT_NAME
+		  FROM APPROVAL 
+		 WHERE APPROVAL_NO=#{vo.approvalNo}
+	</select>
 	
 </mapper>

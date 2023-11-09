@@ -24,6 +24,7 @@ import com.ham.len.admin.document.ApprovalUpTypeVO;
 import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
+import com.ham.len.humanresource.RoleVO;
 import com.ham.len.humanresource.sign.SignatureService;
 import com.nimbusds.jose.JWSObjectJSON.Signature;
 
@@ -53,40 +54,67 @@ public class ApprovalController {
 		
 		List<ApprovalVO> forLast=new ArrayList<>();
 		boolean check1=false;
-		boolean check5=false;
-		boolean check6=false;
+		boolean check2=false;
+		boolean check3=false;
 		
 	    for(ApprovalVO a: ar) {
 	    	boolean check0=(a.getEmployeeID().equals(humanResourceVO.getEmployeeID()));
+	    	//로그인한 사람이 기안자와 같을 경우
 	    	check1=(a.getLastApprover().equals(humanResourceVO.getEmployeeID()));
-	    	boolean check2=(a.getApprovalStatusCd().equals("R042"));
-	    	boolean check3=(a.getAddApprover()==null);
-	    	boolean check4=(a.getApprovalStatusCd().equals("R043"));
-		    	if(check0 || (check1 && check2 && check3 ) || (check1 && check4)) {
+	    	
+	    	boolean check41=(a.getApprovalCheckCd().equals("R041"));
+	    	//0회 검토완료
+	    	boolean check42=(a.getApprovalCheckCd().equals("R042"));
+	    	//1회 검토완료
+	    	boolean check43=(a.getApprovalCheckCd().equals("R043"));
+	    	//2회 검토완료
+	    	boolean check44=(a.getApprovalCheckCd().equals("R044"));
+	    	//3회 검토완료
+	    	boolean check33=(a.getApprovalStatusCd().equals("R033"));
+	    	//승인완료 문서
+	    	boolean check34=(a.getApprovalStatusCd().equals("R034"));
+	    	//반려된 문서. 본인이랑 반려시킨 사람이 볼수 있어야됨
+	    	boolean check4=(a.getAddApprover()==null);
+	    	
+	    	
+		    	if((check0) || (check1 && check42 && check4 ) || (check1 && check43) 
+		    			|| (check1 && check44) || (check1 && check43 && check34)) {
 		    		forLast.add(a);
 		    	}
-	    	    	//R042(1회검토완료)이면서 추가검토자없는거 + 2회 검토완료된거
-	    	
-	    	check5=(a.getMidApprover().equals(humanResourceVO.getEmployeeID()));
+		    	    //최종 결재자는
+	    	    	//1. R042(1회검토완료)이면서 추가검토자없는거
+		    	    //2. 2회 검토완료된거, 3회 검토완료된거, 
+		    	    //3. 자기가 반려한거(2회검토 완료+반려)
+		    	
+	    	check2=(a.getMidApprover().equals(humanResourceVO.getEmployeeID()));
 	    	 //중간검토자는 뭘 체크해야될까
-	    	 //R041이기만 하면 됨
-		    	if(check0 || (check5 && a.getApprovalStatusCd().equals("R041"))) {
+	    	 //1. R041(0회 검토)이거나
+	    	 //2. 0회 검토 말고 전부
+	    	 //3. 0회 검토+반려
+		    	if((check0) || (check2 && check41) || (check2 && !check41) || (check2 && check41 && check34)) {
 		    		forLast.add(a);
 		    	}
-	    	
-		    check6=(a.getMidApprover().equals(humanResourceVO.getEmployeeID()));
+	    	   
+		    check3=(a.getAddApprover().equals(humanResourceVO.getEmployeeID()));
 	         //추가검토자는
-		     //R042(1회 검토 완료)이면서(check2가 true)
-		    //추가검토자 있는거 (check3이 false) 
-		    	if(check0 || (check6 && check2 && !check3)) {
+		     //1. R042(1회 검토 완료)이면서(check2가 true)
+		     // 추가검토자 있는거 (check3이 false) 
+		     //2. 2회 검토 완료된건,3회 검토 완료된건(0회와 1회의 반대) 
+		     //3. 반려된 건 중에서 1회 검토인 것만 보임
+		   
+		    	if((check0) || (check3 && check42 && !check4) || (check3 && check43) || 
+		    	(check3 && check44)|| (check3 && check42 && check34)) {
 		    		forLast.add(a);
 		    	}
+		    	
+	    	
 	    }
 	    
 	    log.warn("********{}******",check1);
-	    log.warn("********{}******",check5);
-	    log.warn("********{}******",check6);
-		if(check1 || check5 || check6) {
+	    
+	    log.warn("********{}******",check2);
+	    log.warn("********{}******",check3);
+		if(check1 || check2 || check3) {
 			model.addAttribute("list", forLast);
 			log.warn("********{}******",forLast);
 		}else{
@@ -176,7 +204,7 @@ public class ApprovalController {
 			humanResourceVO = signatureService.getDetail(humanResourceVO);
 			model.addAttribute("sign", humanResourceVO.getSignature());
 			// 사인 값 들고오기
-			
+			model.addAttribute("member", humanResourceVO);
 //			String empId1=approvalVO.getEmployeeID();
 //			String empId2=humanResourceVO.getEmployeeID();
 //			if(empId1.equals(empId2)) {
@@ -274,10 +302,34 @@ public class ApprovalController {
 		}else {
 			model.addAttribute("message", "에러. 결재 실패");
 		}
-		model.addAttribute("url", "/approval/totalList");
+	
+		
+		model.addAttribute("url", "/approval/list");
+		
+		for(RoleVO r: humanResourceVO.getRoles()) {
+			if(r.getRoleName().equals("R001")) {
+				model.addAttribute("url", "/approval/totalList");
+			}
+		}
+		//관리자인 경우엔 totalList
+		//관리자가 아닌경우엔 그냥 list
+		
 		model.addAttribute("result", result);
 		
 		return "commons/result";
 	}
-
+	
+	@PostMapping("signTime")
+	@ResponseBody
+    public ApprovalVO getSignTime(ApprovalVO approvalVO,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception{
+		approvalVO=approvalService.getSignTime(approvalVO,humanResourceVO);
+		
+		String name=approvalVO.getDeptName();
+		if(name!=null) {
+			String[] names=name.split(" ");
+			approvalVO.setDeptName(names[0]);
+		}
+		
+		return approvalVO;
+	}
 }

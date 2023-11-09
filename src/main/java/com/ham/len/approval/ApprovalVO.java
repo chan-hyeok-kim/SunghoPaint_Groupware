@@ -41,4 +41,6 @@ public class ApprovalVO extends CodeVO{
     private String addApproverName;
     private String lastApproverName;
     
+    private java.sql.Date signTime;
+    private String deptName;  
 }
