@@ -178,7 +178,7 @@ public class ApprovalController {
      
 		// 나머지 값 세팅
 		approvalVO.setEmployeeID(id);
-	
+	    approvalVO.setDrafter(humanResourceVO.getName());
 		int result = approvalService.setAdd(approvalVO);
          
 		return "redirect:/approval/list";
