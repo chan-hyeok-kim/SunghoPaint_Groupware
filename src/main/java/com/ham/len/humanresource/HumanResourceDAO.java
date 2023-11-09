@@ -16,4 +16,5 @@ public interface HumanResourceDAO {
 	public List<CodeVO> getDepartmentList();
 	public HumanResourceVO getHumanResource(String employeeID);
 	public int setUpdate(HumanResourceVO humanResourceVO);
+	public int setDelete(String employeeID);
 }

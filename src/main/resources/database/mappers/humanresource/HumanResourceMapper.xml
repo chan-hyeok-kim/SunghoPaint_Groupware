@@ -121,4 +121,8 @@
 			<if test="profile != null">, PROFILE = #{profile}</if>
 		WHERE EMPLOYEE_ID = #{employeeID}
 	</update>
+	
+	<delete id="setDelete">
+		DELETE FROM HUMAN_RESOURCE WHERE EMPLOYEE_ID = #{value}
+	</delete>
 </mapper>

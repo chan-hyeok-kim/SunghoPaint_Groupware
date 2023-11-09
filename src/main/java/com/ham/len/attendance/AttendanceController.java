@@ -94,6 +94,7 @@ public class AttendanceController {
 		String end_date = weeksOfMonthInfo[weeksOfMonthInfo.length - 1][7].split(" ")[0].replaceAll("[ymd]", "-");
 		start_date = start_date.substring(0, start_date.length() - 1) + " " + "00:00:00";
 		end_date = end_date.substring(0, end_date.length() - 1) + " " + "23:59:59";
+		params.put("employeeID", humanResourceVO.getEmployeeID());
 		params.put("start_date", start_date);
 		params.put("end_date", end_date);
 		

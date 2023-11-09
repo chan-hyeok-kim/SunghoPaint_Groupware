@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ham.len.commons.CodeVO;
@@ -103,5 +104,13 @@ public class HumanResourceService implements UserDetailsService {
 	public int setUpdate(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
 		humanResourceVO.setProfile(encodeImageToBase64(file));
 		return humanResourceDAO.setUpdate(humanResourceVO);
+	}
+	
+	public int setDelete(String employeeID) {
+		return humanResourceDAO.setDelete(employeeID);
+	}
+	
+	public boolean getUpdatePasswordError(UpdatePasswordVO updatePasswordVO, BindingResult bindingResult) {
+		return false;
 	}
 }

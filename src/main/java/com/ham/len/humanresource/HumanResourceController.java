@@ -1,8 +1,11 @@
 package com.ham.len.humanresource;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,12 +46,36 @@ public class HumanResourceController {
 	@GetMapping("/humanresource/update")
 	public String getDetail(String employeeID, Model model) {
 		model.addAttribute("humanResourceVO", humanResourceService.getHumanResource(employeeID));
-		return "humanresource/registration"; 
+		return "humanresource/registration";
 	}
 	
 	@PostMapping("/humanresource/update")
 	public String getDetail(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
 		humanResourceService.setUpdate(humanResourceVO, file);
 		return "redirect:/humanresource/update?employeeID=" + humanResourceVO.getEmployeeID();
+	}
+	
+	@GetMapping("/humanresource/delete")
+	public String setDelete(String employeeID) {
+		humanResourceService.setDelete(employeeID);
+		return "redirect:/humanresource/list";
+	}
+	
+	@GetMapping("/humanresource/updatePassword")
+	public String setUpdatePassword(@ModelAttribute UpdatePasswordVO updatePasswordVO) {
+		return "humanresource/updatePassword";
+	}
+	
+	@PostMapping("/humanresource/updatePassword")
+	public String setUpdatePassword(@Valid UpdatePasswordVO updatePasswordVO, BindingResult bindingResult, Model model) {
+		log.info("updatePasswordVO : {}", updatePasswordVO);
+		model.addAttribute("updatePasswordVO", updatePasswordVO);
+		
+		boolean hasErrors = humanResourceService.getUpdatePasswordError(updatePasswordVO, bindingResult);
+		if(bindingResult.hasErrors() || hasErrors) {
+			return "humanresource/updatePassword";
+		}
+		
+		return "redirect:/";
 	}
 }

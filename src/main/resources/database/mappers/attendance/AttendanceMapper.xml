@@ -9,7 +9,9 @@
 	<![CDATA[
 		SELECT *
 			FROM ATTENDANCE
-		WHERE ATTENDANCE_DATE BETWEEN #{start_date} AND #{end_date}
+		WHERE
+			EMPLOYEE_ID = #{employeeID} AND
+			(ATTENDANCE_DATE BETWEEN #{start_date} AND #{end_date})
 	]]>
 	</select>
 	

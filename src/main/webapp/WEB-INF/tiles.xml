@@ -45,10 +45,14 @@
    <definition name="transfer/list" extends="layout">
 		<put-attribute name="body" value="/WEB-INF/views/transfer/list.jsp"/>
    </definition>
-
-
-
-
+   
+   <definition name="humanresource/updatePassword" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/humanresource/updatePassword.jsp"/>
+   </definition>
+   
+   
+   
+   
   <!-- 김찬혁 -->
   <definition name="approval/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>

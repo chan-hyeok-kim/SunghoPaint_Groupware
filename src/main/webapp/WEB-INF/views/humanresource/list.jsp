@@ -28,6 +28,14 @@
 			$("form").submit();
 		});
 	});
+	
+	function del(employeeID, event){
+		if(confirm("'" + employeeID + "' 사원의 정보를 삭제하시겠습니까?")){
+			location.href = "./delete?employeeID=" + employeeID;
+		}
+		
+		event.stopPropagation();
+	}
 </script>
 
 <div id="wrapper">
@@ -63,6 +71,7 @@
 				<td>${humanResource.positionCdName}</td>
 				<td>${humanResource.email}</td>
 				<td>${humanResource.mainNumber}</td>
+				<td><button class="del" onclick="del('${humanResource.employeeID}', event)">삭제</button></td>
 			</tr>
 		</c:forEach>
 	</table>
