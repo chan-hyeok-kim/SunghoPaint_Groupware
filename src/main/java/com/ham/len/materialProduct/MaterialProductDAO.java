@@ -20,4 +20,6 @@ public interface MaterialProductDAO {
 	public int setUpdate(MaterialProductVO materialVO) throws Exception;
 	
 	public int setDelete(MaterialProductVO materialVO) throws Exception;
+	
+	public Long getMaterialCheck(MaterialProductVO materialVO) throws Exception;
 }

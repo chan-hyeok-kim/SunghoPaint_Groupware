@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ham.len.commons.CodeVO;
 import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
 
@@ -54,6 +53,11 @@ public class InstrumentController {
 		log.warn("====================================기기입력 체크{}",instrumentVO);
 		int result=instrumentService.setAdd(instrumentVO);
 
+	   	 if(result>0) {
+			 model.addAttribute("message", "코드가 정상 등록되었습니다.");
+		 }else {
+			 model.addAttribute("message", "코드 등록 실패");	
+		 }
     	model.addAttribute("result", result);
     	model.addAttribute("url", "/instrument/list");
     	return "commons/result";
@@ -101,6 +105,12 @@ public class InstrumentController {
 	    	return "commons/ajaxResult";
 	}
 	
-
+	@PostMapping("instrumentCheck")
+	public String getInstrumentCheck(InstrumentVO instrumentVO, Model model) throws Exception{
+		Long result=instrumentService.getInstrumentCheck(instrumentVO);
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";
+	}
 	
 }

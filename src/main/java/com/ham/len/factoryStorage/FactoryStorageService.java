@@ -39,4 +39,9 @@ public class FactoryStorageService {
 		
 		return factoryStorageDAO.setDelete(factoryStorageVO);
 	}
+	
+	public Long getFactoryCheck(FactoryStorageVO factoryStorageVO) throws Exception{
+		
+		return factoryStorageDAO.getFactoryCheck(factoryStorageVO);
+	}
 }

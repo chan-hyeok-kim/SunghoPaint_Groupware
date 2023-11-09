@@ -264,6 +264,7 @@ ul.nav-tabs {
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
 			</div>
 			<div class="modal-body">
+				<form action="/instrument/add" method="post" id="frm">
 				<div class="mb-3">
 					<table class="table-bordered mt-2" id="approval-table">
 						<tbody>
@@ -292,6 +293,7 @@ ul.nav-tabs {
 			<div class="modal-footer">
 			<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="close">닫기</button>
 			<button type="button" class="btn btn-primary" id="add">기기등록</button>
+			</form>
 			</div>
 		</div>
 		</div>
@@ -311,45 +313,9 @@ ul.nav-tabs {
 			</div>
 		</div>
 
-
-
-
-		<script src="/js/commons/list-date.js"></script>
-
-
-		<script type="text/javascript">
-		$("#add").click(function(){
-			let code=$("#code").val();
-			let price=$("#price").val();
-			let maker=$("#maker").val();
-			ajax3(code, price, maker);
-		});
-
-		function ajax3(code, price, maker){
-			$.ajax({
-				type:'POST',
-				url:'add',
-				data:{
-					instrumentCd:code,
-					instrumentPrice:price,
-					instrumentMaker:maker
-				},
-				success:function(response){
-					if(response.trim()>0){
-						alert("등록 실패");
-					}else {
-						alert("등록 성공")
-						refreshPage();
-					}
-				},
-				error:function(){
-					alert("관리자에게 문의바랍니다.")
-				}
-			})
-
-		}
-	</script>
+	<script src="/js/commons/list-date.js"></script>
 	<script src="/js/general/instrument/delete-check.js"></script>
+	<script src="/js/general/instrument/add-check.js"></script>
 	<script src="/js/approval/approval-date.js"></script>
 </body>
 </html>

@@ -39,4 +39,9 @@ public class MaterialProductService {
 		
 		return materialDAO.setDelete(materialVO);
 	}
+	
+	public Long getMaterialCheck(MaterialProductVO materialVO) throws Exception{
+		
+		return materialDAO.getMaterialCheck(materialVO);
+	}
 }

@@ -165,7 +165,7 @@ ul.nav-tabs {
 
 
 
-							<form action="./update" method="post">
+							<form action="./update" method="post" id="frm">
 							<table class="table-bordered mt-2" id="approval-table">
 								<tbody>
 									<tr>
@@ -178,7 +178,7 @@ ul.nav-tabs {
 									</tr>
 									<tr>
 										<td>가격</td>
-										<td><input type="text" name="materialProductPrice" value="${dto.materialProductPrice}"></td>
+										<td><input type="text" name="materialProductPrice" value="${dto.materialProductPrice}" id="price"></td>
 									</tr>
 									<tr>
 										<td>사용여부</td>
@@ -210,7 +210,7 @@ ul.nav-tabs {
 									</tr>	
 									<tr>
 										<td>재고</td>
-										<td><input type="text" name="materialProductStock" value="${dto.materialProductStock}"></td>
+										<td><input type="text" name="materialProductStock" value="${dto.materialProductStock}" id="stock"></td>
 									</tr>	
 									<tr>
 										<td>범주</td>
@@ -246,7 +246,7 @@ ul.nav-tabs {
 							</table>
 							<br>
 							<div style="margin-left:1345px;">
-							<button type="submit" class="btn btn-info">수정</button>
+							<button type="button" class="btn btn-info" id="update">수정</button>
 						</form>
 						</div>
 					
@@ -273,6 +273,7 @@ ul.nav-tabs {
 
 
 		<script src="/js/commons/list-date.js"></script>
+		<script src="/js/general/material/update-check.js"></script>
 
 		
 </body>

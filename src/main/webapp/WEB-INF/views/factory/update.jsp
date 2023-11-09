@@ -165,7 +165,7 @@ ul.nav-tabs {
 
 
 
-							<form action="./update" method="post">
+							<form action="./update" method="post" id="frm">
 							<table class="table-bordered mt-2" id="approval-table">
 								<tbody>
 									<tr>
@@ -209,7 +209,7 @@ ul.nav-tabs {
 							</table>
 							<br>
 							<div style="margin-left:1345px;">
-							<button type="submit" class="btn btn-info">수정</button>
+							<button type="button" class="btn btn-info" id="update">수정</button>
 						</form>
 						</div>
 					
@@ -236,6 +236,7 @@ ul.nav-tabs {
 
 
 		<script src="/js/commons/list-date.js"></script>
+		<script src="/js/general/factory/update-check.js"></script>
 
 		
 </body>

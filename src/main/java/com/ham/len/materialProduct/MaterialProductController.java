@@ -48,6 +48,11 @@ public class MaterialProductController {
 		materialVO = (MaterialProductVO)makeColumn.getColumn(materialVO, path, id);
 		log.warn("====================================제품, 원료 체크{}",materialVO);
 		int result=materialService.setAdd(materialVO);
+	   	 if(result>0) {
+			 model.addAttribute("message", "코드가 정상 등록되었습니다.");
+		 }else {
+			 model.addAttribute("message", "코드 등록 실패");	
+		 }
 
     	model.addAttribute("result", result);
     	model.addAttribute("url", "/material/list");
@@ -92,5 +97,13 @@ public class MaterialProductController {
 	    	}
 	    	model.addAttribute("result", result);
 	    	return "commons/ajaxResult";
+	}
+	
+	@PostMapping("materialCheck")
+	public String getMaterialCheck(MaterialProductVO materialVO, Model model) throws Exception{
+		Long result=materialService.getMaterialCheck(materialVO);
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";
 	}
 }

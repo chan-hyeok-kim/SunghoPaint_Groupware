@@ -273,6 +273,7 @@ ul.nav-tabs {
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
 			</div>
 			<div class="modal-body">
+			<form action="/material/add" method="post" id="frm">
 				<div class="mb-3 btn-group" role="group" aria-label="Basic radio toggle button group">
 					<table class="table-bordered mt-2" id="approval-table" >
 						<tbody>
@@ -321,6 +322,7 @@ ul.nav-tabs {
 			<div class="modal-footer" >
 			<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="close">닫기</button>
 			<button type="button" class="btn btn-primary" id="add">제품, 원료등록</button>
+			</form>
 			</div>
 		</div>
 		</div>
@@ -343,44 +345,8 @@ ul.nav-tabs {
 
 
 
-		<script src="/js/commons/list-date.js"></script>
-
-
-		<script type="text/javascript">
-		$("#add").click(function(){
-			let code=$("#code").val();
-			let price=$("#price").val();
-			let use=$("input[name='materialProductUse']:checked").val();
-			let stock=$("#stock").val();
-			let category1=$("input[name='materialProductCategory']:checked").val();
-			ajax3(code, price, use, stock, category1);
-		});
-
-		function ajax3(code, price, use, stock, category1){
-			$.ajax({
-				type:'POST',
-				url:'add',
-				data:{
-					materialProductCd:code,
-					materialProductPrice:price,
-					materialProductUse:use,
-					materialProductStock:stock,
-					materialProductCategory:category1
-				},
-				success:function(response){
-					if(response.trim()>0){
-						alert("등록 실패");
-					}else {
-						alert("등록 성공");
-					}
-				},
-				error:function(){
-					alert("관리자에게 문의바랍니다.")
-				}
-			})
-
-		}
-	</script>
+	<script src="/js/commons/list-date.js"></script>
+	<script src="/js/general/material/add-check.js"></script>	
 	<script src="/js/general/material/delete-check.js"></script>
 
 </body>

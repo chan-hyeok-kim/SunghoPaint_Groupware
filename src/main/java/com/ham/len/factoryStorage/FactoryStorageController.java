@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
-import com.ham.len.instrument.InstrumentVO;
 
 @Controller
 @RequestMapping("/factory/*")
@@ -46,7 +45,11 @@ public class FactoryStorageController {
 		factoryStorageVO.setEmployeeId(id);
 		factoryStorageVO = (FactoryStorageVO)makeColumn.getColumn(factoryStorageVO, path, id);
 		int result=factoryStorageService.setAdd(factoryStorageVO);
-
+		if(result>0) {
+			 model.addAttribute("message", "코드가 정상 등록되었습니다.");
+		 }else {
+			 model.addAttribute("message", "코드 등록 실패");	
+		 }
     	model.addAttribute("result", result);
     	model.addAttribute("url", "/factory/list");
     	return "commons/result";
@@ -92,5 +95,13 @@ public class FactoryStorageController {
 	    	}
 	    	model.addAttribute("result", result);
 	    	return "commons/ajaxResult";
+	}
+	
+	@PostMapping("factoryCheck")
+	public String getFactoryCheck(FactoryStorageVO factoryStorageVO, Model model) throws Exception{
+		Long result=factoryStorageService.getFactoryCheck(factoryStorageVO);
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";
 	}
 }

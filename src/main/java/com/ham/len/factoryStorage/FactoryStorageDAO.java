@@ -20,4 +20,6 @@ public interface FactoryStorageDAO {
 	public int setUpdate(FactoryStorageVO factoryStorageVO) throws Exception;
 	
 	public int setDelete(FactoryStorageVO factoryStorageVO) throws Exception;
+	
+	public Long getFactoryCheck(FactoryStorageVO factoryStorageVO) throws Exception;
 }

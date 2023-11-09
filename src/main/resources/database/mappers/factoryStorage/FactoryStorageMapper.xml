@@ -58,7 +58,11 @@
 		WHERE F.FACTORY_STORAGE_CD = #{factoryStorageCd}
   	</select>
 
-
+	<select id="getFactoryCheck" resultType="Long" parameterType="FactoryStorageVO">
+         SELECT COUNT(*)
+           FROM FACTORY_STORAGE
+          WHERE FACTORY_STORAGE_CD = #{factoryStorageCd}
+    </select>
 
 
 </mapper>

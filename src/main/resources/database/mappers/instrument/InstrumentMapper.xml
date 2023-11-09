@@ -60,6 +60,10 @@
 		WHERE I.INSTRUMENT_CD = #{instrumentCd}
   	</select>
 
-
+	<select id="getInstrumentCheck" resultType="Long" parameterType="InstrumentVO">
+         SELECT COUNT(*)
+           FROM INSTRUMENT
+          WHERE INSTRUMENT_CD = #{instrumentCd}
+    </select>
 
 </mapper>

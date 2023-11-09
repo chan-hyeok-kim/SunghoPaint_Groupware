@@ -246,6 +246,7 @@ ul.nav-tabs {
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
 			</div>
 			<div class="modal-body">
+			<form action="/factory/add" method="post" id="frm">
 				<div class="mb-3">
 					<table class="table-bordered mt-2" id="approval-table">
 						<tbody>
@@ -274,19 +275,11 @@ ul.nav-tabs {
 			<div class="modal-footer">
 			<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="close">닫기</button>
 			<button type="button" class="btn btn-primary" id="add">공장, 창고 등록</button>
+			</form>
 			</div>
 		</div>
 		</div>
   </div>
-
-
-
-
-
-
-
-
-
 
 
 				</div>
@@ -296,39 +289,9 @@ ul.nav-tabs {
 
 
 
-		<script src="/js/commons/list-date.js"></script>
-
-
-		<script type="text/javascript">
-		$("#add").click(function(){
-			let code=$("#code").val();
-			let use=$("input[name='factoryStorageUse']:checked").val();
-			ajax3(code, use);
-		});
-
-		function ajax3(code, use){
-			$.ajax({
-				type:'POST',
-				url:'add',
-				data:{
-					factoryStorageCd:code,
-					factoryStorageUse:use
-				},
-				success:function(response){
-					if(response.trim()>0){
-						alert("등록 실패");
-					}else {
-						alert("등록 성공");
-					}
-				},
-				error:function(){
-					alert("관리자에게 문의")
-				}
-			})
-
-		}
-	</script>
+	<script src="/js/commons/list-date.js"></script>
 	<script src="/js/general/factory/delete-check.js"></script>
+	<script src="/js/general/factory/add-check.js"></script>
 
 </body>
 </html>
