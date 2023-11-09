@@ -45,10 +45,12 @@ public class HumanResourceService implements UserDetailsService {
 		humanResourceVO.setEmployeeID(humanResourceDAO.getLatestEmployeeID());
 		humanResourceVO.setPassword(temporaryPassword);
 		
-		AccountRoleVO accountRoleVO = new AccountRoleVO();
-		accountRoleVO.setRoleNum(ROLE_USER);
-		accountRoleVO.setEmployeeID(humanResourceVO.getEmployeeID());
-		humanResourceDAO.setAccountRole(accountRoleVO);
+		/*
+			AccountRoleVO accountRoleVO = new AccountRoleVO();
+			accountRoleVO.setRoleNum(ROLE_USER);
+			accountRoleVO.setEmployeeID(humanResourceVO.getEmployeeID());
+			humanResourceDAO.setAccountRole(accountRoleVO);
+		*/
 		
 		new SMTP().send_mail(humanResourceVO);
 		
@@ -113,12 +115,12 @@ public class HumanResourceService implements UserDetailsService {
 	public boolean getUpdatePasswordError(UpdatePasswordVO updatePasswordVO, BindingResult bindingResult, HumanResourceVO humanResourceVO) {
 		boolean hasErrors = false;
 		
-		if(!passwordEncoder.matches(updatePasswordVO.getCurPassword(), humanResourceVO.getPassword())) {
+		if(bindingResult.getFieldError("curPassword") == null && !passwordEncoder.matches(updatePasswordVO.getCurPassword(), humanResourceVO.getPassword())) {
 			hasErrors = true;
 			bindingResult.rejectValue("curPassword", "updatePasswordVO.password.equalCheck");
 		}
 		
-		if(!updatePasswordVO.getNewPassword().equals(updatePasswordVO.getCheckNewPassword())) {
+		if(bindingResult.getFieldError("checkNewPassword") == null && !updatePasswordVO.getNewPassword().equals(updatePasswordVO.getCheckNewPassword())) {
 			hasErrors = true;
 			bindingResult.rejectValue("checkNewPassword", "updatePasswordVO.password.equalCheck");
 		}
