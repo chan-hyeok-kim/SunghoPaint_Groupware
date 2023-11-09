@@ -33,7 +33,8 @@ public class CommonsVO {
 		
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		String uri = request.getHeader("Referer");
-		String menu = uri.substring(uri.lastIndexOf("/") + 1) + ".jsp";
+		String menu = "";
+		if(uri != null) menu = uri.substring(uri.lastIndexOf("/") + 1) + ".jsp";
 		
 		this.regId = id;
 		this.regDate = date;

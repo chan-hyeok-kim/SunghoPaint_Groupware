@@ -78,7 +78,7 @@ public class ApprovalTypeController {
 	@PostMapping("add")
 	public String setAdd(ApprovalTypeVO approvalTypeVO, HttpServletRequest request) throws Exception{
 		
-		approvalTypeVO.setEmployeeId(id);
+		approvalTypeVO.setEmployeeID(id);
 		String path=request.getRequestURI();
 		log.warn("====={}======",path);
 		approvalTypeVO=(ApprovalTypeVO)makeColumn.getColumn(approvalTypeVO, path, id);
@@ -88,7 +88,7 @@ public class ApprovalTypeController {
 		//채워야될값: 코드, 업코드
 		//이제 해당 VO에는 코드가 담기지 않게 하는 거지.
 		CodeVO codeVO = new CodeVO();
-		codeVO.setCode(typeUpCd);
+		codeVO.setUpCode(typeUpCd);
 	    String code=codeService.getLastId(codeVO);
 	    log.warn("&&&&&&&{}&&&&&&&",code);
 	    //이 codeVO에는 코드만 있다. 최신 코드에 +1된 값
@@ -136,7 +136,7 @@ public class ApprovalTypeController {
     @PostMapping("upAdd")
     public String setUpAdd(ApprovalUpTypeVO approvalUpTypeVO,HttpServletRequest request) throws Exception{
     	
-    	approvalUpTypeVO.setEmployeeId(id);
+    	approvalUpTypeVO.setEmployeeID(id);
     	String path=request.getRequestURI();
     	approvalUpTypeVO=(ApprovalUpTypeVO)makeColumn.getColumn(approvalUpTypeVO, path, id);
     	
@@ -203,6 +203,15 @@ public class ApprovalTypeController {
     	}
     	model.addAttribute("result", result);
     	return "commons/ajaxResult";
+    }
+    
+    @PostMapping("upCheck")
+    public String setUpCheck(String approvalUpTypeCd,Model model) throws Exception{
+    	Long result=approvalTypeService.checkByCd(approvalUpTypeCd);
+    	
+    	model.addAttribute("result", result);
+    	return "commons/ajaxResult";
+    	
     }
 	
 }

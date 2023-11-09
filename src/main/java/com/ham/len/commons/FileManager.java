@@ -40,12 +40,13 @@ public class FileManager {
 //	    확장자 알아내기
 //		여기서 확장자 조건 걸어줘야 함
 		String extension=fileName.substring(fileName.lastIndexOf(".")+1);
-		
+		log.warn("====={}=====",extension);
+		log.warn("====={}=====",fileName.lastIndexOf(".")+1);
 		String base64=null;
-		if(extension.equalsIgnoreCase("JPEG") && extension.equalsIgnoreCase("PNG") && extension.equalsIgnoreCase("JPG")
-				&& extension.equalsIgnoreCase("GIF") && extension.equalsIgnoreCase("PDF") && extension.equalsIgnoreCase("PSD") 
-				&& extension.equalsIgnoreCase("Al") && extension.equalsIgnoreCase("TIFF") && extension.equalsIgnoreCase("BMP")
-				&& extension.equalsIgnoreCase("EPS") && extension.equalsIgnoreCase("SVG")) {
+		if(extension.equalsIgnoreCase("JPG") || extension.equalsIgnoreCase("JPEG") || extension.equalsIgnoreCase("PNG") || extension.equalsIgnoreCase("JPG")
+				|| extension.equalsIgnoreCase("GIF") || extension.equalsIgnoreCase("PDF") || extension.equalsIgnoreCase("PSD") 
+				|| extension.equalsIgnoreCase("Al") || extension.equalsIgnoreCase("TIFF") || extension.equalsIgnoreCase("BMP")
+				|| extension.equalsIgnoreCase("EPS")) {
 		log.warn("====={}=====",extension);
 	    
 		multipartFile.transferTo(file);

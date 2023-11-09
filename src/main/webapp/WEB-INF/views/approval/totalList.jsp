@@ -7,126 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-
- 
-  
-  
-<style type="text/css">
-  #tree_list_add {
-	margin-left: 20px;
-}
-
-#tree-table {
-	border: 1px solid black;
-	height: 360px;
-	width: 220px;
-	padding: 10px;
-}
-
-#tree-table-div {
-	margin: 10px;
-}
-
-#approval-table {
-	text-align: center;
-	width: 100%
-}
-
-.nav-tabs>li:before, .nav-tabs>li:after {
-	content: " ";
-	display: block;
-	position: absolute;
-	top: 0;
-	height: 100%;
-	width: 12px;
-	background-color: #f7f7f7;
-	transition: all 250ms ease;
-}
-
-.nav-tabs>li {
-	float: left;
-	position: relative;
-	cursor: pointer;
-	z-index: 2;
-	transition: all 250ms ease;
-	padding: 0;
-	margin: 5px 12px -1px 0;
-	background-color: #f7f7f7;
-	border-top: 1px solid #d4d4d4;
-	border-bottom: 1px solid #d4d4d4;
-	list-style: none;
-}
-
-.nav-tabs>li>a {
-	color: #999;
-	display: block;
-	padding: 4px 10px 1px 11px;
-	text-decoration: none;
-}
-
-.nav-tabs>li:after {
-	left: -4px;
-	transform: skew(-25deg, 0deg);
-	box-shadow: #d4d4d4 -1px 1px 0;
-}
-
-.nav-tabs>li {
-	border-radius: 7px 7px 0 0;
-}
-
-.nav-tabs>li:before {
-	right: -4px;;
-	transform: skew(25deg, 0deg);
-	box-shadow: #d4d4d4 1px 1px 0;
-}
-
-.nav-tabs>li:before {
-	border-radius: 0 2px 0 0;
-}
-
-.nav-tabs>li:after {
-	border-radius: 2px 0 0 0;
-}
-
-.link-tab:hover {
-	background: #f7f7f7;
-}
-
-.wrapper-toolbar {
-	padding: 10px 10px;
-}
-
-ul.nav-tabs {
-	border-bottom: 1px solid #d4d4d4;
-}
-
-#grid-top-date {
-	margin: 4px 0;
-	line-height: 1.7;
-	position: relative;
-	display: inline-block;
-}
-
-#top-search-bar {
-	width: 200px;
-	align-content: flex-end;
-	height: 18.53px;
-}
-
-#top-search-btn {
-	width: 77px;
-	height: 20px;
-	padding: 0px;
-	height: 32.06px;
-}
-
-#top-search-select {
-	width: 77px;
-	height: 20px;
-	padding: 0px;
-	height: 32.06px;
-}
-</style>
 </head>
 <body id="page-top">
 	<div id="wrapper">
@@ -139,21 +19,21 @@ ul.nav-tabs {
 
 					<div class="wrapper-toolbar">
 
-						<div style="float:left">내 결재 관리</div> 
+						<div style="float:left">결재 통합 관리</div> 
 						<div style="text-align: right;">
-							<form class="form-inline">
+							<form action="./totalList" method="get" class="form-inline">
 
 								<!-- 검색 설정 -->
-								<select class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected">제목</option>
-									<option>구분</option>
-									<option>결재자</option>
+								<select name="kind" class="btn btn-gradient-light" id="top-search-select">
+									<option selected="selected" value="approvalTitle">제목</option>
+									<option value="drafter">기안자</option>
+									<option value="lastApprover">결재자</option>
 								</select> 
 								
 								
 								<input style="display: inline-block;" id="top-search-bar"
 									class="form-control" type="search" placeholder="입력 후 [Enter]"
-									aria-label="Search">
+									name="search" aria-label="Search">
 								<button id="top-search-btn" class="btn btn-info" type="submit">검색</button>
 
 							</form>
@@ -161,12 +41,12 @@ ul.nav-tabs {
 					</div>
 
 					<ul class="nav-tabs">
-						<li><a class="link-tab">전체</a></li>
-						<li><a class="link-tab">기안중</a></li>
-						<li><a class="link-tab">진행중</a></li>
-						<li><a class="link-tab">반려</a></li>
-						<li><a class="link-tab">결재</a></li>
-					</ul>
+						<li onclick="location.href='./totalList'" class="active"><a class="link-tab">전체</a></li>
+						<li data-cd="R031"><a class="link-tab">기안중</a></li>
+						<li data-cd="R032"><a class="link-tab">진행중</a></li>
+						<li data-cd="R034"><a class="link-tab">반려</a></li>
+						<li data-cd="R033"><a class="link-tab">결재</a></li>
+					</ul>	
 
 
 					<div
@@ -188,7 +68,6 @@ ul.nav-tabs {
 				             <th>선택</th>
 				             <th>기안일자</th>
 				             <th>제목</th>
-				             <th>구분</th>
 				             <th>기안자</th>
 				             <th>결재자</th>
 				             <th>진행상태</th>
@@ -201,10 +80,9 @@ ul.nav-tabs {
 				             <td><input type="checkbox"></td>
 				             <td>${vo.approvalStartDate}</td>
 				             <td>${vo.approvalTitle}</td>
-				             <td>${vo.codeName}</td>
 				             <td>${vo.drafter}</td>
 				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
-				             <td></td>
+				             <td>${vo.codeName}</td>
 				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
 				           </tr>
 				         </c:forEach>
@@ -212,23 +90,25 @@ ul.nav-tabs {
 				      
 				    </table>
 				  </div>
-				  </div>
 				  
 				  
-				  <!-- pagination -->
+				  
+				   <!-- pagination -->
 				  <div style="text-align: center; margin: 20px 20px">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
   <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
+    <li class="page-item ${pager.pre?'':'disabled'}">
+      <a class="page-link" href="/approval/totalList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
         <i class="mdi mdi-arrow-left-drop-circle"></i>
       </a>
     </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
+    
+    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+    <li class="page-item"><a class="page-link" href="/approval/totalList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+    </c:forEach>
+    
+    <li class="page-item ${pager.next?'':'disabled'}">
+      <a class="page-link" href="/approval/totalList?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}" aria-label="Next">
         <i class="mdi mdi-arrow-right-drop-circle"></i>
       </a>
     </li>
@@ -236,24 +116,23 @@ ul.nav-tabs {
 </nav>
 
   <!-- Button List  -->
-				  <div style="float: left;">
+				  <div style="float: right;">
 				  <button class="btn btn-info" onclick="location.href='/approval/add'">새 결재 진행</button>
 				 
 				</div>
 			
-				  
-				  
-				 
-
-
   </div>
-
+</div>
 
 <!-- Sign -->
-<div>
-     <button type="button" class="btn" data-toggle="modal"  data-target="#signModal">My 도장/서명</button>
+<div style="float:left">
+     <button type="button" class="btn" data-toggle="modal"  data-target="#stampModal">도장/서명 등록</button>
   </div> 
-  
+ 
+<!-- Stamp --> 
+<div>
+    <button type="button" class="btn" data-toggle="modal"  data-target="#signModal">서명 만들기</button>
+</div> 
   
 
   
@@ -262,11 +141,9 @@ ul.nav-tabs {
 
 <!-- Modal -->
 
-				  
-
-<!-- Sign-Modal -->
-<div class="modal fade" id="signModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+<!-- Stamp-Modal -->
+<div class="modal fade" id="stampModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
     <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">도장/서명올리기</h5>
@@ -276,32 +153,116 @@ ul.nav-tabs {
       </div>
       <div class="modal-body">
       
-      <div>1. 등록할 이미지를 선택한 후, 사용할 영역을 선택합니다.</div>
+      
+      <div>* 사인이나 도장이 나오는 이미지를 등록해주세요</div>
       
       
-     <div style="display: flex;">
      
-     <div style="border: 1px solid gray">
-     <div style="border: 1px solid gray;">
-      Before: 원본 사진
-      <input type="file" accept="image/*" id="file" name="file" style="display: none;" onchange="loadFile(this)">
-      <div onclick="document.getElementById('file').click()">이미지 삽입</div>
+     
+     <div id="sign-file-reg-div">
+     <div>
+     <form id="sign-frm">
+      <input type="file" accept="image/*" id="file" name="file" onchange="loadFile(this)"> 
+      </form>
+      <div id="sign-file-div" onclick="document.getElementById('file').click()">
+      <span class="material-symbols-outlined">upload</span>이곳을 클릭해서 이미지를 등록하세요
+      
+      </div>
        
          <div id="fileName"></div>
-      <div id="image-show"></div>
+         
+         
+      <div id="image-show" style="padding: 30px 0 0 100px;"></div>
+     
       
       </div>
      </div>
+      
+
      
      
      
      <div style="border: 1px solid gray;">
-     <div style="border: 1px solid gray;">
-      After
+     <div style="border-bottom: 1px solid gray;">
+      미리보기
      </div>
-        <div id="small-image-show" style="align-content: center"></div>  
+         
+        <div id="small-image-show" style="padding: 30px 0 0 195px; height: 100px;"></div>  
         </div>    
+       
+     
+      
+  </div>     
+  
+  
+   
+      <div class="modal-footer" style="background: white">
+        <button type="button" class="btn btn-secondary" id="sign-close" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-info" id="sign-submit-btn">확인</button>
+        
+        </div>
+      </div>
+    </div>
+   </div>
+  
+  
+  <!-- Sign Modal  -->
+  
+  <div class="modal fade" id="signModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" id="sign-modal-size" role="document">
+    <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">도장/서명올리기</h5>
+        <!-- <button type="button" class="close btn-info" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+      <div class="modal-body">
+      
+     
+      <div>*아래에 서명해주세요</div>
+      
+    
+   
+     <div>
+     
+     <!-- Sign Canvas -->
+     
+      <div id="signature-pad" class="signature-pad" style="margin-top: 20px;">
+      <div class="signature-pad--body">
+       <canvas width="664" height="290" id="sign-canvas" style="border: 1px solid gray"></canvas> 
+      
+<%-- <canvas width="664" style="touch-action: none; user-select: none;" height="290"></canvas>  --%>
+      </div>
+      <div class="signature-pad--footer">
+        <div class="description"></div>
+  
+        <div class="signature-pad--actions">
+          <div class="column">
+            <button type="button" class="button clear btn-info" data-action="clear">지우기</button>
+            <button type="button" class="button btn-info" data-action="undo">이전으로</button>
+            
+          </div>
+          <div class="column">
+            <button type="button" class="button save btn-info" data-action="save-png">PNG로 저장</button>
+            <button type="button" class="button save btn-info" data-action="save-jpg">JPG로 저장</button>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+     
+     
+  <%--    <canvas id="sign-canvas" style="border: 1px solid gray"></canvas>
      </div>
+     <div style="float:left">
+     <button id="clear-sign" type="button">지우기</button>
+     </div> --%>
+     
+     
+     
+    
+    
       
       
   </div>     
@@ -309,13 +270,13 @@ ul.nav-tabs {
   
       </div>
       <div class="modal-footer" style="background: white">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">확인</button>
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button> -->
+         <button type="button" class="btn btn-info" data-dismiss="modal">확인</button>
+        </div>
       </div>
     </div>
   </div>
-
-<!-- modal end -->			
+<!-- modal end -->				
 	
 
 
@@ -331,59 +292,13 @@ ul.nav-tabs {
 
 	
 	<script src="/js/commons/list-date.js"></script>
+	<script src="/js/approval/list-move.js"></script>
 	
-<script type="text/javascript">
-function loadFile(input) {
-    var file = input.files[0];	//선택된 파일 가져오기
-
-    //미리 만들어 놓은 div에 text(파일 이름) 추가
-    var name = document.getElementById('fileName');
-    name.textContent = file.name;
-
-  	//새로운 이미지 div 추가
-    var newImage = document.createElement("img");
-    newImage.setAttribute("class", 'img');
-    newImage.setAttribute("id", 'file-img');
-    
-    //이미지 source 가져오기
-    newImage.src = URL.createObjectURL(file);   
-
-    newImage.style.width = "70%";
-    newImage.style.height = "70%";
-      //버튼을 누르기 전까지는 이미지를 숨긴다
-    newImage.style.objectFit = "contain";
-
-    //이미지를 image-show div에 추가
-    var container = document.getElementById('image-show');
-    container.appendChild(newImage);
-    
-    document.getElementById('fileName').textContent = null; 
-    
-    var fileUrl = $('#file-img').attr('src');
-    console.log();
-    $('#small-image-show').append('<img src='+fileUrl+' width="60px" height="40px">')
-    
-};
-    //작은 이미지
-   
-    
-    
-    /* var submit = document.getElementById('submitButton');
-    submit.onclick = showImage;     //Submit 버튼 클릭시 이미지 보여주기
-
-    function showImage() {
-        var newImage = document.getElementById('image-show').lastElementChild;
-      
-        //이미지는 화면에 나타나고
-        newImage.style.visibility = "visible";
-      
-
-           //기존 파일 이름 지우기
-    } */
-
-let cdcheck=$('#check').attr('data-check');
-console.log(cdcheck);
-
-</script>
+	
+    <!-- Signature_pad -->
+	<script src="/js/commons/signature.js"></script>   
+	<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+	<script src="/js/commons/sign.js"></script> 
+	<script src="/js/commons/ul-tabs.js"></script>
 </body>
 </html>

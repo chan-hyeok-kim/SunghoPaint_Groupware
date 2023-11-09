@@ -18,11 +18,12 @@ import lombok.ToString;
 public class ApprovalVO extends CodeVO{
 	
 	private Long approvalNo;
-	private String employeeId;
+	private String employeeID;
 	private Long approvalTypeNo;
 	private String approvalTitle;
 	private String approvalContents;
 	private String approvalStatusCd;
+	private String approvalCheckCd;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date approvalStartDate;
 	private Date approvalEndDate;
@@ -32,5 +33,8 @@ public class ApprovalVO extends CodeVO{
     private String lastApprover;
     private String admonition;
     private ApprovalTypeVO approvalTypeVO;
+    private String aCodeName;
+    private String aptCodeName;
+    private Long aptApprovalTypeNo;
     
 }

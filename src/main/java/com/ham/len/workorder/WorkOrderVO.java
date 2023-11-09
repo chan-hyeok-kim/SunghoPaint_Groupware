@@ -13,7 +13,7 @@ import lombok.ToString;
 public class WorkOrderVO extends CodeVO {
 	
 	private Long workOrderNo;
-	private String employeeId;
+	private String employeeID;
 	private Long materalProductNo;
 	private Long factoryNo;
 	private Date workDeliveryDate;

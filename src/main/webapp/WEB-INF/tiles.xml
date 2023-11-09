@@ -19,8 +19,15 @@
 	  <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
 	</definition>
 	
+	
+	
+	
 	<!-- 김민진 -->
 	<definition name="login" template="/WEB-INF/views/login.jsp">
+   </definition>
+   
+   <definition name="humanresource/registration" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/humanresource/registration.jsp"/>
    </definition>
    
    <definition name="attendance/status" extends="layout">
@@ -38,8 +45,8 @@
 
 
 
-<!-- 김찬혁 -->
-    <definition name="approval/list" extends="layout">
+  <!-- 김찬혁 -->
+  <definition name="approval/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
 	</definition>
 
@@ -75,10 +82,15 @@
 	  <put-attribute name="body" value="/WEB-INF/views/document/update.jsp"/>
 	</definition>
 	
+	<definition name="code/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/code/list.jsp"/>
+	</definition>
+	
     <definition name="commons/ajaxResult" template="/WEB-INF/views/commons/ajaxResult.jsp">
 	  
 	</definition>
 	
+	<!-- 장재혁 -->
 	<!-- 발주서 관련 -->
 	<definition name="order/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/order/list.jsp"/>
@@ -160,4 +172,41 @@
 	
 	<!-- 성호 -->
 	
+	<!-- 호진 -->
+	<definition name="instrument/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/instrument/list.jsp"/>
+	</definition>
+	
+	<definition name="instrument/detail" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/instrument/detail.jsp"/>
+	</definition>
+	
+	<definition name="instrument/update" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/instrument/update.jsp"/>
+	</definition>
+	
+	<definition name="material/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/material/list.jsp"/>
+	</definition>
+	
+	<definition name="material/detail" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/material/detail.jsp"/>
+	</definition>
+	
+	<definition name="material/update" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/material/update.jsp"/>
+	</definition>
+	
+		<definition name="factory/list" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/factory/list.jsp"/>
+	</definition>
+	
+	<definition name="factory/detail" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/factory/detail.jsp"/>
+	</definition>
+	
+	<definition name="factory/update" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/factory/update.jsp"/>
+	</definition>
+	<!-- 호진 -->
 </tiles-definitions>

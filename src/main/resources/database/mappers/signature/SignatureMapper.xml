@@ -7,16 +7,18 @@
 <mapper namespace="com.ham.len.humanresource.sign.SignatureDAO">
 
 <select id="getDetail" resultType="HumanResourceVO" parameterType="HumanResourceVO">
-   SELECT * FROM HUMAN_RESOURCE
-    WHERE EMPLOYEE_ID=#{employeeId}
+   SELECT *,FN_CODE_NM(LEFT(POSITION_CD,3),POSITION_CD) AS CODE_NAME,NOW() AS APP_DATE 
+     FROM HUMAN_RESOURCE
+    WHERE EMPLOYEE_ID=#{employeeID}
 </select>
 
 <update id="setSignUpdate" parameterType="HumanResourceVO">
 UPDATE HUMAN_RESOURCE 
    SET SIGNATURE=#{signature}
 	   ,MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
- WHERE EMPLOYEE_ID=#{employeeId}
+ WHERE EMPLOYEE_ID=#{employeeID}
 </update>
+
 
 
  <!-- insert
