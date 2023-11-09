@@ -142,9 +142,10 @@ public class PDFController {
     }
     
     @RequestMapping("down")
-    public void getPdf(ApprovalVO approvalVO)throws Exception{
-    	
-    	    File file = new File("static/assets/sample.pdf"); 
+    public String getPdf(ApprovalVO approvalVO)throws Exception{
+    	   
+    	    String path="static/assets/sample1.pdf";
+    	    File file = new File("/"+path); 
     	    //한국어를 표시하기 위해 폰트 적용 
     		String BODY=approvalVO.getApprovalContents();    		
     		String dest="D:\\sample.PDF";
@@ -174,7 +175,7 @@ public class PDFController {
     	    document.close();
     	    writer.close();
     	   
-    	
+    	    return path;
     	    
     }
 }

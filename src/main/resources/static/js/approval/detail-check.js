@@ -164,29 +164,29 @@ $('#app-pdf-btn').click(function(){
 		return;
 	}
     
-	filename="sample.pdf"
-	const a = document.createElement("a");
-	a.style = "display: none";
-	a.href = "static/assets/sample.pdf";
-	a.download = filename;
-  
-	document.body.appendChild(a);
-	a.click();
+	
 
 	var oSerializer = new XMLSerializer();
 	xmlString = oSerializer.serializeToString($('#show-contents')[0]);
     console.log(xmlString)
 
-	// $.ajax({
-	// 	type:"post",
-	// 	 url:"/pdf/down",
-	// 	 data:{
-	// 		approvalContents:xmlString
-	// 	 },success:function(){
-	// 		console.log('다운 성공')
-			
-	// 	 }
-	// })
+	$.ajax({
+		type:"post",
+		 url:"/pdf/down",
+		 data:{
+			approvalContents:xmlString
+		 },success:function(result){
+			console.log('다운 성공')
+			filename="sample.pdf"
+			const a = document.createElement("a");
+			a.style = "display: none";
+			a.href = "static/assets/sample.pdf";
+			a.download = result;
+
+			document.body.appendChild(a);
+			a.click();
+		 }
+	})
 })
 
 
