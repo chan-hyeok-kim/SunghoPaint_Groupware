@@ -24,7 +24,8 @@
 		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
 		A_CODE_NAME,
 		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS
-		APT_CODE_NAME
+		APT_CODE_NAME,
+		FN_DEPT_NM(LAST_APPROVER) AS LAST_APPROVER_NAME
 		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
 		ON
 		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
@@ -50,6 +51,7 @@
 		<result column="MID_APPROVER" property="midApprover" />
 		<result column="ADD_APPROVER" property="addApprover" />
 		<result column="LAST_APPROVER" property="lastApprover" />
+		<result column="LAST_APPROVER_NAME" property="lastApproverName" />
 		<result column="ADMONITION" property="admonition" />
 		<result column="REG_ID" property="regId" />
 		<result column="REG_DATE" property="regDate" />
@@ -82,13 +84,14 @@
 		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
 		A_CODE_NAME,
 		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS
-		APT_CODE_NAME
+		APT_CODE_NAME,
+		FN_DEPT_NM(LAST_APPROVER) AS LAST_APPROVER_NAME
 		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
 		ON A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
 		WHERE A.EMPLOYEE_ID=#{vo.employeeID} 
-		OR MID_APPROVER=#{vo.positionCdName}+' '+#{vo.employeeID}
-		OR ADD_APPROVER=#{vo.positionCdName}+' '+#{vo.employeeID}
-		OR LAST_APPROVER=#{vo.positionCdName}+' '+#{vo.employeeID}
+		OR MID_APPROVER=#{vo.employeeID}
+		OR ADD_APPROVER=#{vo.employeeID}
+		OR LAST_APPROVER=#{vo.employeeID}
 		ORDER BY APPROVAL_NO DESC
 		LIMIT
 		#{pager.startRow},#{pager.lastRow} 
@@ -98,9 +101,9 @@
 	  SELECT COUNT(*)
 	    FROM APPROVAL
 	   WHERE EMPLOYEE_ID=#{employeeID} 
-		OR MID_APPROVER=#{positionCdName}+' '+#{employeeID}
-		OR ADD_APPROVER=#{positionCdName}+' '+#{employeeID}
-		OR LAST_APPROVER=#{positionCdName}+' '+#{employeeID}
+		OR MID_APPROVER=#{employeeID}
+		OR ADD_APPROVER=#{employeeID}
+		OR LAST_APPROVER=#{employeeID}
 	</select>
     
 
@@ -112,7 +115,8 @@
 		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
 		A_CODE_NAME,
 		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS
-		APT_CODE_NAME
+		APT_CODE_NAME,
+		FN_DEPT_NM(LAST_APPROVER) AS LAST_APPROVER_NAME
 		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
 		ON
 		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
@@ -136,6 +140,7 @@
 		<result column="MID_APPROVER" property="midApprover" />
 		<result column="ADD_APPROVER" property="addApprover" />
 		<result column="LAST_APPROVER" property="lastApprover" />
+		<result column="LAST_APPROVER_NAME" property="lastApproverName" />
 		<result column="ADMONITION" property="admonition" />
 		<result column="REG_ID" property="regId" />
 		<result column="REG_DATE" property="regDate" />
@@ -168,7 +173,10 @@
 		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
 		A_CODE_NAME,
 		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS
-		APT_CODE_NAME
+		APT_CODE_NAME,
+		FN_DEPT_NM(MID_APPROVER) AS MID_APPROVER_NAME,
+		FN_DEPT_NM(ADD_APPROVER) AS ADD_APPROVER_NAME,
+		FN_DEPT_NM(LAST_APPROVER) AS LAST_APPROVER_NAME
 		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
 		ON
 		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
@@ -190,6 +198,9 @@
 		<result column="MID_APPROVER" property="midApprover" />
 		<result column="ADD_APPROVER" property="addApprover" />
 		<result column="LAST_APPROVER" property="lastApprover" />
+		<result column="MID_APPROVER_NAME" property="midApproverName"/>
+		<result column="ADD_APPROVER_NAME" property="addApproverName"/>
+		<result column="LAST_APPROVER_NAME" property="lastApproverName"/>
 		<result column="ADMONITION" property="admonition" />
 		<result column="REG_ID" property="regId" />
 		<result column="REG_DATE" property="regDate" />
@@ -237,9 +248,7 @@
 		<result column="P_CODE_NAME" property="positionCd" />
 		<result column="PHONE" property="phone" />
 		<result column="EMAIL" property="email" />
-		<result column="ZIPCODE" property="zipCode" />
 		<result column="ADDRESS" property="address" />
-		<result column="ADDRESS_DETAIL" property="addressDetail" />
 		<result column="BANK" property="bank" />
 		<result column="ACCOUNT_NUMBER" property="accountNumber" />
 		<result column="ACCOUNT_HOLDER" property="accountHolder" />
@@ -313,7 +322,7 @@
 	<!-- 결재 상세에서 검토 완료 시 -->
 	<update id="setEndCheck" parameterType="ApprovalVO">
 	    UPDATE APPROVAL
-		SET APPROVAL_STATUS_CD=#{approvalStatusCd},APPROVAL_END_DATE=#{approvalEndDate},
+		SET APPROVAL_STATUS_CD=#{approvalStatusCd},APPROVAL_END_DATE=NOW(),
 		APPROVAL_CHECK_CD=#{approvalCheckCd},ADMONITION=#{admonition}, 
 		APPROVAL_CONTENTS=#{approvalContents},
 		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
@@ -331,5 +340,17 @@
 		APPROVAL_NO=#{approvalNo}
 	</update>
 	
+	<!-- 서명 시 -->
+	<select id="getSignTime" parameterType="Map" resultType="ApprovalVO">
+	    SELECT NOW() AS SIGN_TIME,FN_DEPT_NM(#{id.employeeID}) AS DEPT_NAME
+		  FROM APPROVAL 
+		 WHERE APPROVAL_NO=#{vo.approvalNo}
+	</select>
+	
+	<select id="getMySignTime" parameterType="ApprovalVO" resultType="ApprovalVO">
+	    SELECT *,FN_DEPT_NM(EMPLOYEE_ID) AS DEPT_NAME
+		  FROM APPROVAL 
+		 WHERE APPROVAL_NO=#{approvalNo}
+	</select>
 	
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -92,6 +93,19 @@ public class ApprovalService {
 
 	public int setReject(ApprovalVO approvalVO) throws Exception{
 		return approvalDAO.setReject(approvalVO);
+	}
+	
+	public ApprovalVO getSignTime(ApprovalVO approvalVO,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception{
+		
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("vo", approvalVO);
+		map.put("id", humanResourceVO);
+		return approvalDAO.getSignTime(map);
+	}
+	
+	public ApprovalVO getMySignTime(ApprovalVO approvalVO) throws Exception{
+		return approvalDAO.getMySignTime(approvalVO);
 	}
 	
 }

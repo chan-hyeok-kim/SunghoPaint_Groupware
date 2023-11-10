@@ -65,6 +65,7 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="/approval/list">내 결재 관리</a></li>
           <li class="nav-item"> <a class="nav-link" href="/approval/add"> 기안서 작성 </a></li>
+          
           <li class="nav-item"> <a class="nav-link" href="/approval/totalList"> 기안서 통합관리  </a></li>
         </ul>
       </div>
@@ -164,6 +165,21 @@
       </div>
     </li>
          
+        <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#notice-pages" aria-expanded="false" aria-controls="notice-pages">
+        <span class="menu-title">공지사항</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-file-document-box menu-icon"></i>
+      </a>
+      <div class="collapse" id="notice-pages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/notice/list">공지사항 리스트</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/notice/add">공지사항 작성 </a></li>
+        </ul>
+      </div>
+    </li>
+    
+      
           </ul>
        
      

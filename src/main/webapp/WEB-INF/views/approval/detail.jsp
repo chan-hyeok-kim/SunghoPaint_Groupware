@@ -80,29 +80,29 @@
 				<div id="approval-content">
 					<table class="table table-bordered">
 						<tr>
-							<td>기안일자</td>
+							<th>기안일자</th>
 							<td id="approvalStartDate" colspan="2" 
 							data-date="${vo.approvalStartDate}">${vo.approvalStartDate}</td>
 						</tr>
 						<tr>
-							<td>제목</td>
+							<th>제목</th>
 							<td colspan="2">${vo.approvalTitle}</td>
 						</tr>
 						<tr>
-							<td rowspan="4">결재라인</td>
-							<td>중간검토자</td>
-							<td>${vo.midApprover}</td>
+							<th rowspan="4">결재라인</th>
+							<th>중간검토자</th>
+							<td>${vo.midApproverName}</td>
 						</tr>
 						<tr>
-							<td>추가검토자</td>
-							<td id="add-app" data-no="${vo.approvalNo}">${vo.addApprover}</td>
+							<th>추가검토자</th>
+							<td id="add-app" data-no="${vo.approvalNo}">${vo.addApproverName}</td>
 						</tr>
 						<tr>
-							<td>결재자</td>
-							<td>${vo.lastApprover}</td>
+							<th>결재자</th>
+							<td>${vo.lastApproverName}</td>
 						</tr>
 						<tr>
-							<td>구분(결재양식)</td>
+							<th>구분(결재양식)</th>
 							<td>${vo.approvalTypeVO.codeName}</td>
 						</tr>
 
@@ -132,7 +132,7 @@
 </c:when>
 <c:when test="${empty vo.admonition}">
 
-								<td>첨언</td>
+								<th>첨언</th>
 								<td><textarea rows="5" name="admonition" class="form-control"></textarea>
 								<div style="display:flex; padding:10px 0 0 0; 
 								justify-content: flex-end;">
@@ -149,22 +149,45 @@
 				</table>
 
 <!-- bottom btn-list  -->
+ 				<script type="text/javascript">
+ 				 console.log('${vo.approvalStatusCd}')
+ 				</script>
 				<div id="form-add-btn-box">
+				<c:if test="${vo.approvalStatusCd eq 'R033'}">
+				
 					<button class="btn btn-info" type="button" id="app-pdf-btn"
 					>PDF로 다운로드</button>
+	           
+				</c:if>	
+				<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.username ne vo.employeeID}">
+	
 					<button class="btn btn-info" type="button" style="margin-left: 20px;" id="app-reject-btn"
 					>반려</button>
+					
+					
 					<button class="btn btn-info" type="button" style="margin-left: 20px;"
 					onclick="location.href='/approval/update?approvalNo=${vo.approvalNo}'">수정</button>
 					<button type="button" class="btn btn-info" id="app-delete-btn"
 						style="margin-left: 20px;">삭제</button>
+					
+					
+					
 					<button type="button" class="btn btn-info" id="form-mid-sign"
 					style="margin-left: 400px;"
 					>서명하기</button>
 					<button type="button" id="approval-btn" class="btn btn-info" style="margin-left: 20px;">결재</button>
+				   
 				   </form>
 				</div>
+				 </c:if> 
+<script type="text/javascript">
+					 console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.username}')
+					 console.log('${vo.employeeID}')
+					 console.log('${member}')
+					
+					 </script>
 		</div>
+		
 		<input type="hidden" id="form-add-no" name="approvalTypeNo">
 		
 
@@ -337,6 +360,9 @@
 
 	<!-- modal end -->
 	
+	<!-- PDF 경로 지정 input -->
+	<input type="file" style="display: none;" id="pdf-file">
+	 
 <!-- 첨언 있는지 여부 체크 -->
 <script type="text/javascript">
 let admonitionCheck=${not empty vo.admonition}

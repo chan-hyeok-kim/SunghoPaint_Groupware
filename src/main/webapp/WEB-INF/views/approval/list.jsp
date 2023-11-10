@@ -97,12 +97,13 @@
 				        </thead>
 				        <tbody>
 				        <c:forEach items="${list}" var="vo" varStatus="i">
+				        
 				           <tr>
 				             <td><input type="checkbox"></td>
 				             <td class="approval-start-date">${vo.approvalStartDate}</td>
 				             <td>${vo.approvalTitle}</td>
 				             <td>${vo.drafter}</td>
-				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
+				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
 				             <td>${vo.codeName}</td>
 				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
 				           </tr>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -25,6 +26,7 @@ import com.ham.len.commons.CodeVO;
 import com.ham.len.approval.ApprovalService;
 import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
+import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,7 +45,6 @@ public class ApprovalTypeController {
 	@Autowired
 	private MakeColumn makeColumn;
 	
-	private String id="2023001";
 	
 	@Value("${approval.typeup.cd}")
 	private String typeUpCd;
@@ -77,6 +78,8 @@ public class ApprovalTypeController {
 	
 	@PostMapping("add")
 	public String setAdd(ApprovalTypeVO approvalTypeVO, HttpServletRequest request) throws Exception{
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
 		
 		approvalTypeVO.setEmployeeID(id);
 		String path=request.getRequestURI();
@@ -135,7 +138,9 @@ public class ApprovalTypeController {
 	
     @PostMapping("upAdd")
     public String setUpAdd(ApprovalUpTypeVO approvalUpTypeVO,HttpServletRequest request) throws Exception{
-    	
+    	HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		
     	approvalUpTypeVO.setEmployeeID(id);
     	String path=request.getRequestURI();
     	approvalUpTypeVO=(ApprovalUpTypeVO)makeColumn.getColumn(approvalUpTypeVO, path, id);
@@ -169,6 +174,8 @@ public class ApprovalTypeController {
     	String path1=request.getServletPath();
     	log.warn("====={}======",path);
     	log.warn("====={}======",path1);
+    	HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
 		
     	
     	ApprovalUpTypeVO approvalUpTypeVO=approvalTypeService.getDetailByName(upTypeCodeName);

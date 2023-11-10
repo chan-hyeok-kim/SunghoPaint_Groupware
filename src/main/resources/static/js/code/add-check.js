@@ -56,8 +56,7 @@ codeCheck.addEventListener("blur",function(){
 
 codeAddBtn.addEventListener("click",function(){
     val=codeNameCheck.value;
-    i=2;
-    result=nullCheck(val,2);
+    
  
     val1=codeCheck.value;
     val2=upCodeCheck.value;
@@ -69,13 +68,21 @@ codeAddBtn.addEventListener("click",function(){
        swal('무조건 코드의 첫 글자는 알파벳으로 시작해야 합니다');
     }
 
-    if(!result){
-        return;
+   
+    if(val.trim()==''){
+      swal('빈 내용을 채워주세요')
+      checkResult[2]=false;
+      return;
+    }else{
+    checkResult[2]=true;
     }
+
+
     console.log(checkResult);
     if(!checkResult.includes(false)){
         $('#frm').submit();
     }
+
 })
 
 function nullCheck(val,i){
@@ -83,7 +90,8 @@ function nullCheck(val,i){
        swal('빈 내용을 채워주세요')
        checkResult[i]=false;
        return false;
-    }
+    }else{
     checkResult[i]=true;
     return true;
+    }
 }

@@ -12,22 +12,22 @@ curDate.value = new Date().toISOString().substring(0, 10);;
 
 
 //Fri Nov 03 22:48:52 KST 2023
-if(appDate && appDate!=''){
-let date=appDate.innerText;
-date1=javaDatetoScript(date);
+// if(appDate && appDate!=''){
+// let date=appDate.innerText;
+// date1=javaDatetoScript(date);
 
-appDate.innerText=date1;
-}
+// appDate.innerText=date1;
+// }
 //detail의 기안일자
 
 
-if(appStartDate && appStartDate!=''){
-for(a of appStartDate){
-	let dateOfList=a.innerText;
-	date2=javaDatetoScript(dateOfList);
-	a.innerText=date2;
-	}
-}
+// if(appStartDate && appStartDate!=''){
+// for(a of appStartDate){
+// 	let dateOfList=a.innerText;
+// 	date2=javaDatetoScript(dateOfList);
+// 	a.innerText=date2;
+// 	}
+// }
 //list의 기안일자
 
 

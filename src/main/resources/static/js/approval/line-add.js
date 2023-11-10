@@ -17,12 +17,40 @@ var tabCount;
 const appTab1 ='<th rowspan="3" style="height:5.5872802734375pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;background-color:#cccccc;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;" scope="col"><br><br><p dir="ltr" style="line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-size: 10pt; font-family: Arial, sans-serif; background-color: transparent; font-weight: 400; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;">결</span></p><br><p dir="ltr" style="line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;"><span style="font-size: 10pt; font-family: Arial, sans-serif; background-color: transparent; font-weight: 400; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;">재</span></p></th>'
 
 const appTab = '<td rowspan="3" style="height:5.5872802734375pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;background-color:#cccccc;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br><br><br><p dir="ltr" style="line-height:1.2;text-align: center;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 10pt; font-family: Arial, sans-serif; background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;">결 재</span></p></td>'
-const topTab = '<td style="height:5.5872802734375pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
+const topTab = '<td class="top-sign-tab" style="text-align:center; height:5.5872802734375pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
 const midTab = '<td class="mid-sign-tab" style="height:62.25pt; width:82px; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
-const botTab = '<td style="height:0pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
+const botTab = '<td class="bot-sign-tab" style="height:0pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td>'
 
 
-if(!$('.mid-sign-tab')){
+
+//서명시간, 부서 입력
+function setTimeDept(){
+	$.ajax({
+		type:'POST',
+		url:'/approval/mySignTime',
+		data:{
+			approvalNo:appNo
+		},success:function(result){
+			console.log(result)
+			console.log(result.deptName);
+			console.log(result.approvalStartDate);
+			date=result.approvalStartDate;
+			date=date.slice(0,10);
+     
+			$('#top-drafter-tab').text(result.deptName);
+			$('#bot-drafter-tab').text(date);
+		}
+	})
+	
+}
+if(appNo){
+	setTimeDept();
+}
+
+
+
+console.log($('.mid-sign-tab'))
+if(!$('.mid-sign-tab') || $('.mid-sign-tab').length==0){
     $('#top-tap').append(appTab);
     if ($('#add-app').text()=='') {
         //추가 검토자가 없을때 둘만 필요

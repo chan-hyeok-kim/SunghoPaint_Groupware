@@ -26,7 +26,7 @@ public class FileManager {
 	@Value("${base.img.suffix}")
 	private String baseSuffix;
 	
-	public String save(String path, MultipartFile multipartFile) throws Exception{
+	public String baseSave(String path, MultipartFile multipartFile) throws Exception{
 		File file = new File(path);
 		
 		if(!file.exists()) {
@@ -43,7 +43,7 @@ public class FileManager {
 		log.warn("====={}=====",extension);
 		log.warn("====={}=====",fileName.lastIndexOf(".")+1);
 		String base64=null;
-		if(extension.equalsIgnoreCase("JPG") || extension.equalsIgnoreCase("JPEG") || extension.equalsIgnoreCase("PNG") || extension.equalsIgnoreCase("JPG")
+		if(extension.equalsIgnoreCase("JPG") || extension.equalsIgnoreCase("JPEG") || extension.equalsIgnoreCase("PNG")
 				|| extension.equalsIgnoreCase("GIF") || extension.equalsIgnoreCase("PDF") || extension.equalsIgnoreCase("PSD") 
 				|| extension.equalsIgnoreCase("Al") || extension.equalsIgnoreCase("TIFF") || extension.equalsIgnoreCase("BMP")
 				|| extension.equalsIgnoreCase("EPS")) {
@@ -58,5 +58,27 @@ public class FileManager {
 		}
 		
 		return base64;
+	}
+	
+	public String save(String path, MultipartFile multipartFile) throws Exception{
+		File file = new File(path);
+		
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+		
+		String fileName= UUID.randomUUID().toString()+'_'+multipartFile.getOriginalFilename();
+		file = new File(file,fileName);
+		
+           
+		
+		multipartFile.transferTo(file);
+		     
+		
+		
+		return fileName;
+		
+		
+	
 	}
 }

@@ -80,7 +80,7 @@
 				작성</div>
 
 
-			<form action="add" method="post">
+			<form action="add" method="post" id="app-add-frm">
 				<div id="approval-content">
 					<table class="table table-bordered">
 						<tr>
@@ -113,22 +113,25 @@
 							<td>검토자</td>
 							<td><input id="mid-approver" style="display: inline-block;"
 								class="form-control approval-line-search" type="search"
-								name="midApprover" placeholder="" aria-label="Search"></td>
+								 placeholder="" aria-label="Search"></td>
 						</tr>
 						<tr>
 							<td>추가검토자</td>
 							<td><input style="display: inline-block; margin-left: 4px"
 								id="add-approver" class="form-control approval-line-search"
 								type="search" placeholder="" aria-label="Search"
-								name="addApprover"></td>
+								></td>
 						</tr>
 						<tr>
 							<td>결재자</td>
 							<td><input id="last-approver"
 								style="display: inline-block; margin-left: 4px"
 								class="form-control approval-line-search" type="search"
-								placeholder="" aria-label="Search" name="lastApprover"></td>
+								placeholder="" aria-label="Search"></td>
 						</tr>
+						<input type="hidden" name="lastApprover" id="last-data-id">
+								<input type="hidden" name="midApprover" id="mid-data-id">
+								<input type="hidden" name="addApprover" id="add-data-id">
 						<tr>
 							<td>구분(결재양식)</td>
 							<td colspan="2"><input id="form-add-name" readonly
@@ -157,12 +160,12 @@
 
 				<!-- add button -->
 				<div id="form-add-btn-box">
-					<button type="button" class="btn btn-info">임시저장</button>
+					<!-- <button type="button" class="btn btn-info">임시저장</button> -->
 					<button type="button" class="btn btn-info" id="text-delete-btn"
 					style="margin-left: 20px;">지우기</button>
 					<button type="button" class="btn btn-info" id="form-add-sign"
 					style="margin-left: 20px;">서명하기</button>
-					<button class="btn btn-info" style="margin-left: 400px;">결재</button>
+					<button id="app-add-btn" type="button" class="btn btn-info" style="margin-left: 400px;">결재</button>
 				</div>
 		</div>
 		<input type="hidden" id="form-add-no" name="approvalTypeNo">
@@ -213,15 +216,15 @@
 
 					<div id="btn-box">
 						<div>
-							<button type="button" class="btn btn-info" id="tree-mid-app">중간
+							<button type="button" class="btn btn-info" id="tree-mid-app" data-id="">중간
 								검토자 추가</button>
 						</div>
 						<div>
-							<button type="button" class="btn btn-info" id="tree-add-app">추가
+							<button type="button" class="btn btn-info" id="tree-add-app" data-id="">추가
 								검토자 추가</button>
 						</div>
 						<div>
-							<button type="button" class="btn btn-info" id="tree-last-app">결재자
+							<button type="button" class="btn btn-info" id="tree-last-app" data-id="">결재자
 								추가</button>
 						</div>
 					</div>
@@ -237,6 +240,7 @@
 								<tr style="height: 20%">
 									<td>중간 검토자</td>
 									<td id="mid-app" width="158px"></td>
+									
 								</tr>
 								<tr style="height: 20%">
 									<td>추가 검토자</td>
@@ -339,14 +343,13 @@
 
 	<!-- modal end -->
   
-  <script type="text/javascript">
-  
-  </script>
+ 
 
 
 <script type="text/javascript">
-console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.username}')
+
 const formSign='${sign}';
+const me='${member.username}'
 </script>
 
 	<!-- approval-form에 html style적용 -->

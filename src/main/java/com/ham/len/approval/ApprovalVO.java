@@ -24,9 +24,9 @@ public class ApprovalVO extends CodeVO{
 	private String approvalContents;
 	private String approvalStatusCd;
 	private String approvalCheckCd;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date approvalStartDate;
-	private Date approvalEndDate;
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private java.sql.Date approvalStartDate;
+	private java.sql.Date approvalEndDate;
     private String drafter;
     private String midApprover;
     private String addApprover;
@@ -37,4 +37,10 @@ public class ApprovalVO extends CodeVO{
     private String aptCodeName;
     private Long aptApprovalTypeNo;
     
+    private String midApproverName;
+    private String addApproverName;
+    private String lastApproverName;
+    
+    private java.sql.Date signTime;
+    private String deptName;  
 }

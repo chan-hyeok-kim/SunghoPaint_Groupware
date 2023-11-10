@@ -1,12 +1,14 @@
 package com.ham.len.approval;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ import com.ham.len.admin.document.ApprovalUpTypeVO;
 import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
+import com.ham.len.humanresource.RoleVO;
 import com.ham.len.humanresource.sign.SignatureService;
 import com.nimbusds.jose.JWSObjectJSON.Signature;
 
@@ -45,15 +48,86 @@ public class ApprovalController {
 	@Autowired
 	private MakeColumn makeColumn;
 
-	private String id = "2023001";
-
 	@GetMapping("list")
-	public String getList(Pager pager, Model model) throws Exception {
+	public String getList(Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
 		List<ApprovalVO> ar = approvalService.getMyList(pager);
-		model.addAttribute("list", ar);
-
+		
+		List<ApprovalVO> forLast=new ArrayList<>();
+		boolean check1=false;
+		boolean check2=false;
+		boolean check3=false;
+		
+	    for(ApprovalVO a: ar) {
+	    	boolean check0=(a.getEmployeeID().equals(humanResourceVO.getEmployeeID()));
+	    	//로그인한 사람이 기안자와 같을 경우
+	    	check1=(a.getLastApprover().equals(humanResourceVO.getEmployeeID()));
+	    	
+	    	boolean check41=(a.getApprovalCheckCd().equals("R041"));
+	    	//0회 검토완료
+	    	boolean check42=(a.getApprovalCheckCd().equals("R042"));
+	    	//1회 검토완료
+	    	boolean check43=(a.getApprovalCheckCd().equals("R043"));
+	    	//2회 검토완료
+	    	boolean check44=(a.getApprovalCheckCd().equals("R044"));
+	    	//3회 검토완료
+	    	boolean check33=(a.getApprovalStatusCd().equals("R033"));
+	    	//승인완료 문서
+	    	boolean check34=(a.getApprovalStatusCd().equals("R034"));
+	    	//반려된 문서. 본인이랑 반려시킨 사람이 볼수 있어야됨
+	    	boolean check4=(a.getAddApprover()==null);
+	    	
+	    	
+		    	if((check0) || (check1 && check42 && check4 ) || (check1 && check43) 
+		    			|| (check1 && check44) || (check1 && check43 && check34)) {
+		    		forLast.add(a);
+		    	}
+		    	    //최종 결재자는
+	    	    	//1. R042(1회검토완료)이면서 추가검토자없는거
+		    	    //2. 2회 검토완료된거, 3회 검토완료된거, 
+		    	    //3. 자기가 반려한거(2회검토 완료+반려)
+		    	
+	    	check2=(a.getMidApprover().equals(humanResourceVO.getEmployeeID()));
+	    	 //중간검토자는 뭘 체크해야될까
+	    	 //1. R041(0회 검토)이거나
+	    	 //2. 0회 검토 말고 전부
+	    	 //3. 0회 검토+반려
+		    	if((check0) || (check2 && check41) || (check2 && !check41) || (check2 && check41 && check34)) {
+		    		forLast.add(a);
+		    	}
+	    	   
+		    check3=(a.getAddApprover().equals(humanResourceVO.getEmployeeID()));
+	         //추가검토자는
+		     //1. R042(1회 검토 완료)이면서(check2가 true)
+		     // 추가검토자 있는거 (check3이 false) 
+		     //2. 2회 검토 완료된건,3회 검토 완료된건(0회와 1회의 반대) 
+		     //3. 반려된 건 중에서 1회 검토인 것만 보임
+		   
+		    	if((check0) || (check3 && check42 && !check4) || (check3 && check43) || 
+		    	(check3 && check44)|| (check3 && check42 && check34)) {
+		    		forLast.add(a);
+		    	}
+		    	
+	    	
+	    }
+	    
+	    log.warn("********{}******",check1);
+	    
+	    log.warn("********{}******",check2);
+	    log.warn("********{}******",check3);
+		if(check1 || check2 || check3) {
+			model.addAttribute("list", forLast);
+			log.warn("********{}******",forLast);
+		}else{
+			model.addAttribute("list", ar);
+		}
+		
+		
+        model.addAttribute("member", humanResourceVO);
 		log.warn("========{}========", ar);
 
+		
+		
+		
 		return "approval/list";
 	}
 
@@ -88,6 +162,7 @@ public class ApprovalController {
 
 			humanResourceVO = signatureService.getDetail(humanResourceVO);
 			model.addAttribute("sign", humanResourceVO.getSignature());
+			model.addAttribute("member", humanResourceVO);
 		}
 
 	}
@@ -95,15 +170,17 @@ public class ApprovalController {
 	@PostMapping("add")
 	public String setAdd(ApprovalVO approvalVO, HttpServletRequest request) throws Exception {
 
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		
 		String path = request.getRequestURI();
 		approvalVO = (ApprovalVO) makeColumn.getColumn(approvalVO, path, id);
-
+     
 		// 나머지 값 세팅
 		approvalVO.setEmployeeID(id);
-		approvalVO.setDrafter("최지우");
-
+	    approvalVO.setDrafter(humanResourceVO.getName());
 		int result = approvalService.setAdd(approvalVO);
-
+         
 		return "redirect:/approval/list";
 	}
 
@@ -120,14 +197,27 @@ public class ApprovalController {
 		approvalVO = approvalService.getDetail(approvalVO);
 		model.addAttribute("vo", approvalVO);
 
-		// 사인 값 들고오기
 		SecurityContext context = SecurityContextHolder.getContext();
 		if (!(context.getAuthentication().getPrincipal() instanceof String)) {
 			HumanResourceVO humanResourceVO = (HumanResourceVO) context.getAuthentication().getPrincipal();
 
 			humanResourceVO = signatureService.getDetail(humanResourceVO);
 			model.addAttribute("sign", humanResourceVO.getSignature());
+			// 사인 값 들고오기
+			model.addAttribute("member", humanResourceVO);
+//			String empId1=approvalVO.getEmployeeID();
+//			String empId2=humanResourceVO.getEmployeeID();
+//			if(empId1.equals(empId2)) {
+//				
+//			}
+//			
+//			//서명하기 체크. 사원아이디를 비교해야됨
 		}
+		
+		
+		
+		
+		
 
 	}
 
@@ -150,7 +240,9 @@ public class ApprovalController {
 
 	@PostMapping("update")
 	public String setUpdate(ApprovalVO approvalVO, HttpServletRequest request) throws Exception {
-
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		
 		String path = request.getRequestURI();
 		approvalVO = (ApprovalVO) makeColumn.getModColumn(approvalVO, path, id);
 
@@ -164,6 +256,10 @@ public class ApprovalController {
 //	첨언 추가
 	@PostMapping("oneUpdate")
 	public String setOneUpdate(ApprovalVO approvalVO, HttpServletRequest request) throws Exception {
+		
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		
 		String path = request.getRequestURI();
 		// Long redirectNo=approvalVO.getApprovalNo();
 		approvalVO = (ApprovalVO) makeColumn.getModColumn(approvalVO, path, id);
@@ -177,7 +273,9 @@ public class ApprovalController {
 
 	@PostMapping("check")
 	public String setCheck(ApprovalVO approvalVO, HttpServletRequest request,Model model) throws Exception {
-
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		
 		String path = request.getRequestURI();
 		// Long redirectNo=approvalVO.getApprovalNo();
 		approvalVO = (ApprovalVO) makeColumn.getModColumn(approvalVO, path, id);
@@ -204,10 +302,48 @@ public class ApprovalController {
 		}else {
 			model.addAttribute("message", "에러. 결재 실패");
 		}
-		model.addAttribute("url", "/approval/totalList");
+	
+		
+		model.addAttribute("url", "/approval/list");
+		
+		for(RoleVO r: humanResourceVO.getRoles()) {
+			if(r.getRoleName().equals("R001")) {
+				model.addAttribute("url", "/approval/totalList");
+			}
+		}
+		//관리자인 경우엔 totalList
+		//관리자가 아닌경우엔 그냥 list
+		
 		model.addAttribute("result", result);
 		
 		return "commons/result";
 	}
-
+	
+	@PostMapping("signTime")
+	@ResponseBody
+    public ApprovalVO getSignTime(ApprovalVO approvalVO,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception{
+		approvalVO=approvalService.getSignTime(approvalVO,humanResourceVO);
+		
+		String name=approvalVO.getDeptName();
+		if(name!=null) {
+			String[] names=name.split(" ");
+			approvalVO.setDeptName(names[0]);
+		}
+		
+		return approvalVO;
+	}
+	
+	@PostMapping("mySignTime")
+	@ResponseBody
+	public ApprovalVO getMySignTime(ApprovalVO approvalVO) throws Exception{
+		approvalVO=approvalService.getMySignTime(approvalVO);
+		
+		String name=approvalVO.getDeptName();
+		if(name!=null) {
+			String[] names=name.split(" ");
+			approvalVO.setDeptName(names[0]);
+		}
+		
+		return approvalVO;
+	}
 }

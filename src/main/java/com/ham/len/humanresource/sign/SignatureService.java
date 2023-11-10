@@ -36,7 +36,7 @@ public class SignatureService {
 //		session.get이나 security에서 아이디꺼내주면됨
 		
 		String path=uploadPath+sign;
-		String fileName=fileManager.save(path, file);
+		String fileName=fileManager.baseSave(path, file);
 		
 		log.warn("********{}*******",fileName);
 		

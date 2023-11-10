@@ -30,7 +30,7 @@
 				             <td>${vo.approvalTitle}</td>
 				             <td>${vo.codeName}</td>
 				             <td>${vo.drafter}</td>
-				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
+				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
 				           
 				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
 				           </tr>

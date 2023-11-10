@@ -133,8 +133,7 @@
           id="code-name-update-check${i.index}" name="codeName" value="${vo.codeName}"> </p>
   </div>     
   
-      <input type="hidden" value="${vo.code}" name="originCode">
-      
+      <input type="hidden" name="originCode" value="${vo.code}">
       <div class="modal-footer" style="background: white">
          <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
          <button type="button" class="btn btn-info" id="code-update-btn${i.index}">확인</button>

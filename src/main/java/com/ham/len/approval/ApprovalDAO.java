@@ -44,5 +44,7 @@ public interface ApprovalDAO {
 
 	public int setReject(ApprovalVO approvalVO) throws Exception;
 
-	 
+	public ApprovalVO getSignTime(Map<String, Object> map) throws Exception;
+	
+	public ApprovalVO getMySignTime(ApprovalVO approvalVO) throws Exception;
 }

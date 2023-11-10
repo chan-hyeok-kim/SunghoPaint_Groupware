@@ -1,6 +1,7 @@
 package com.ham.len.instrument;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+
 import com.ham.len.commons.Pager;
 
 @Mapper
@@ -16,7 +17,8 @@ public interface InstrumentDAO {
 	
 	public int setUpdate(InstrumentVO instrumentVO) throws Exception;
 	
-	public void setDelete(InstrumentVO instrumentVO) throws Exception;
+	public int setDelete(InstrumentVO instrumentVO) throws Exception;
 	
+	public Long getInstrumentCheck(InstrumentVO instrumentVO) throws Exception;
 	
 }

@@ -41,6 +41,7 @@ public class HumanResourceController {
 	
 	@PostMapping("/humanresource/registration")
 	public String setRegistration(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
+		
 		humanResourceService.setRegistration(humanResourceVO, file);
 		return "redirect:/humanresource/list";
 	}

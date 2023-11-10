@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -147,14 +148,13 @@ ul.nav-tabs {
 								style="width: 700px; display: inline-block;">
 
 								<!-- 검색 설정 -->
-								<select class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected">제목</option>
-									<option>구분</option>
-									<option>결재자</option>
-								</select> 
-								
-								
-								<input style="display: inline-block;" id="top-search-bar"
+								<select name="kind" class="btn btn-gradient-light" id="top-search-select">
+									<option selected="selected" value="code">기기코드</option>
+									<option value="name">기기이름</option>
+									<option value="234">기기상태</option>
+								</select> 							
+													
+								<input style="display: inline-block;" id="top-search-bar" name="search"
 									class="form-control" type="search" placeholder="입력 후 [Enter]"
 									aria-label="Search">
 								<button id="top-search-btn" class="btn btn-info" type="submit">검색</button>
@@ -164,17 +164,17 @@ ul.nav-tabs {
 					</div>
 
 					<ul class="nav-tabs">
-						<li><a class="link-tab">전체</a></li>
+						<!-- <li><a class="link-tab">전체</a></li>
 						<li><a class="link-tab">기안중</a></li>
 						<li><a class="link-tab">진행중</a></li>
 						<li><a class="link-tab">반려</a></li>
-						<li><a class="link-tab">결재</a></li>
+						<li><a class="link-tab">결재</a></li> -->
 					</ul>
 
 
 					<div
 						style="text-align: right; padding-top: 20px; padding-right: 10px">
-						<div id="grid-top-date"></div>
+						
 					</div>
 					<div id="content">
 
@@ -187,25 +187,28 @@ ul.nav-tabs {
 							<table class="table-bordered mt-2" id="approval-table">
 								<thead>
 									<tr>
-										<th>NO.</th>
+										<th>선택</th>
 										<th>기기코드</th>
 										<th>기기이름</th>
 										<th>기기상태</th>
 										<th>기가가격</th>
-										<th>기기구매일자</th>
 										<th>기기메이커</th>
+										<th>기기구매일자</th>
+										
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach items="${list}" var="vo" varStatus="i">
-										<tr>
-											<td><input type="checkbox" ></td>
+										<tr class="approval-list">
+											<td><input type="checkbox" name="checkList" value="${vo.instrumentCd}"></td>
 										    <td><a href="./detail?instrumentCd=${vo.instrumentCd}">${vo.instrumentCd}</a></td>
 								            <td>${vo.codeName}</td>
 											<td>${vo.instrumentCondition}</td>
-								            <td>${vo.instrumentPrice}</td>
-								            <td>${vo.instrumentBuyYear}</td>
-								            <td>${vo.instrumentMaker}</td>															
+											<td><fmt:formatNumber value="${vo.instrumentPrice}" pattern="###,###,###" />원</td>
+								          <%--   <td>${vo.instrumentPrice}</td> --%>
+								            <td>${vo.instrumentMaker}</td>	
+								            <td class="approval-start-date">${vo.instrumentBuyYear}</td>
+								          														
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -216,26 +219,27 @@ ul.nav-tabs {
 
 
 					<!-- pagination -->
-				<div style="text-align: center">
+				<div style="text-align: center; margin: 20px 20px;">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
 
 
   <nav aria-label="Page navigation example">
 	<ul class="pagination justify-content-center">
-		<li class="page-item ${pager.pre?'':'disabled'}">
-			<a class="page-link" href="./list?page=${pager.startNum - 1}" aria-label="Previous">
-				<span aria-hidden="true"><i class="mdi mdi-arrow-left-drop-circle"></i></span>
-			</a>
-		</li>
-		<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-			<li class="page-item"><a class="page-link" href="./list?page=${i}">${i}</a></li>
-		</c:forEach>
-		 
-			<li class="page-item ${pager.next?'':'disabled'}">
-				<a class="page-link" href="./list?page=${pager.lastNum + 1}" aria-label="Next">
-					<span aria-hidden="true"><i class="mdi mdi-arrow-right-drop-circle"></i></span>
-				</a>
-			</li>
+		 <li class="page-item ${pager.pre?'':'disabled'}">
+      <a class="page-link" href="/instrument/list?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
+        <i class="mdi mdi-arrow-left-drop-circle"></i>
+      </a>
+    </li>
+    
+    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+    <li class="page-item"><a class="page-link" href="/instrument/list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+    </c:forEach>
+    
+    <li class="page-item ${pager.next?'':'disabled'}">
+      <a class="page-link" href="/instrument/list?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}" aria-label="Next">
+        <i class="mdi mdi-arrow-right-drop-circle"></i>
+      </a>
+    </li>
 		
 	</ul>
 </nav>
@@ -243,10 +247,11 @@ ul.nav-tabs {
 </nav>
 				</div>
 						<!-- Button List  -->
-						<div style="float: left;">
-							<button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#instrumentaddModal">신규기기등록</button>
-							
-						</div>
+						  <div style="margin-left:1200px;">
+						      <button type="button" class="btn  btn-inverse-dark" id="delete-btn">선택 삭제</button>
+						      <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#instrumentaddModal">신규 등록</button>
+						  </div> 
+					
 
 	<!-- Modal -->
 	<div class="modal fade" id="instrumentaddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -259,6 +264,7 @@ ul.nav-tabs {
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
 			</div>
 			<div class="modal-body">
+				<form action="/instrument/add" method="post" id="frm">
 				<div class="mb-3">
 					<table class="table-bordered mt-2" id="approval-table">
 						<tbody>
@@ -277,26 +283,6 @@ ul.nav-tabs {
 
 
 						
-							<tr>
-								<td>employeeId</td>
-								<td><input type="text" name="employeeId" class="form-control" id="employeeId" placeholder="id"></td>
-							</tr>
-							<tr>
-								<td>regId</td>
-								<td><input type="text" name="regId" class="form-control" id="regId" placeholder="regId"></td>
-							</tr>
-							<tr>
-								<td>regMenu</td>
-								<td><input type="text" name="regMenu" class="form-control" id="regMenu" placeholder="regMenu"></td>
-							</tr>
-							<tr>
-								<td>modId</td>
-								<td><input type="text" name="modId" class="form-control" id="modId" placeholder="modId"></td>
-							</tr>
-							<tr>
-								<td>modMenu</td>
-								<td><input type="text" name="modMenu" class="form-control" id="modMenu" placeholder="modMenu"></td>
-							</tr>
 							
 
 						</tbody>
@@ -307,6 +293,7 @@ ul.nav-tabs {
 			<div class="modal-footer">
 			<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="close">닫기</button>
 			<button type="button" class="btn btn-primary" id="add">기기등록</button>
+			</form>
 			</div>
 		</div>
 		</div>
@@ -326,54 +313,9 @@ ul.nav-tabs {
 			</div>
 		</div>
 
-
-
-
-		<script src="/js/commons/list-date.js"></script>
-
-
-		<script type="text/javascript">
-		$("#add").click(function(){
-			let code=$("#code").val();
-			let price=$("#price").val();
-			let maker=$("#maker").val();
-			let employeeId=$("#employeeId").val();
-			let regId=$("#regId").val();
-			let regMenu=$("#regMenu").val();
-			let modId=$("#modId").val();
-			let modMenu=$("#modMenu").val();
-			ajax3(code, price, maker, employeeId, regId, regMenu, modId, modMenu);
-		});
-
-		function ajax3(code, price, maker, employeeId, regId, regMenu, modId, modMenu){
-			$.ajax({
-				type:'POST',
-				url:'add',
-				data:{
-					instrumentCd:code,
-					instrumentPrice:price,
-					instrumentMaker:maker,
-					employeeId:employeeId,
-					regId:regId,
-					regMenu:regMenu,
-					modId:modId,
-					modMenu:modMenu
-				},
-				success:function(response){
-					if(response.trim()>0){
-						alert("등록 성공");
-					}else {
-						alert("등록 실패");
-					}
-				},
-				error:function(){
-					alert("관리자에게 문의")
-				}
-			})
-
-		}
-	</script>
-
-
+	<script src="/js/commons/list-date.js"></script>
+	<script src="/js/general/instrument/delete-check.js"></script>
+	<script src="/js/general/instrument/add-check.js"></script>
+	<script src="/js/approval/approval-date.js"></script>
 </body>
 </html>
