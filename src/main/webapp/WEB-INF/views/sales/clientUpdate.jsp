@@ -138,11 +138,11 @@ ul.nav-tabs {
 
 						<div style="float:left"><p style="font-weight:bold; font-size: 20px;">${getClientDetail.clientName}</p></div> 
 						<div style="text-align: right;">
-							<a href="./clientUpdate?clientNo=${getClientDetail.clientNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">
-							<span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; font-size: 12px; padding: 5px 10px;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">수정</span></a>
+							<a id="updateClient" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">
+							<span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; font-size: 12px; padding: 5px 10px;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">확인</span></a>
 							
-							<a id="deleteClient" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">
-							<span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; font-size: 12px; padding: 5px 10px;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">삭제</span></a>
+							<a href="./clientDetail?clientNo=${getClientDetail.clientNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">
+							<span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; font-size: 12px; padding: 5px 10px;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">취소</span></a>
 						</div>
 					</div>
 					<br>
@@ -159,75 +159,68 @@ ul.nav-tabs {
 					</div>
 					<div id="content">
 
-
+						<form action="./clientUpdate" method="post">
 						<div class="container-fluid">
 						<div class="row">
                     		<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">업체명</label>
-							<p>${getClientDetail.clientName}</p>
+							<input type="text" class="form-control form-control-short" id="clientName" name="clientName" value="${getClientDetail.clientName}">
 							</div>
 							<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">거래처 구분</label>
-							<c:choose>
-					            <c:when test="${getClientDetail.clientTypeCd eq 'C021'}">
-					                <p>매출처</p>
-					            </c:when>
-					            <c:when test="${getClientDetail.clientTypeCd eq 'C022'}">
-					                <p>매입처</p>
-					            </c:when>
-					            <c:when test="${getClientDetail.clientTypeCd eq 'C023'}">
-					                <p>매출/매입처</p>
-					            </c:when>
-					        </c:choose>
+					        <select class="form-select form-select-sm form-control-short" aria-label="Small select example" id="clientTypeCd" name="clientTypeCd">
+								    <option value="C021">매출처</option>
+								    <option value="C022">매입처</option>
+								    <option value="C033">매출/매입처</option>
+								</select>
 							</div>
 							<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">업종</label>
-							<p>${getClientDetail.clientIndustry}</p>
+							<input type="text" class="form-control form-control-short" id="clientIndustry" name="clientIndustry" value="${getClientDetail.clientIndustry}">
+							</div>
+						</div>
+						<br>
+						
+						<div class="row">
+							<div class="col-md-4">
+							<label for="carReason" class="form-label" style="font-weight:bold;">대표자명</label>
+							<input type="text" class="form-control form-control-short" id="clientRepresent" name="clientRepresent" value="${getClientDetail.clientRepresent}">
+							</div>
+							<div class="col-md-4">
+							<label for="carReason" class="form-label" style="font-weight:bold;">대표번호</label>
+							<input type="text" class="form-control form-control-short" id="clientNumber" name="clientNumber" value="${getClientDetail.clientNumber}">
+							</div>
+                    		<div class="col-md-4">
+							<label for="carReason" class="form-label" style="font-weight:bold;">사업장 주소</label>
+							<input type="text" class="form-control form-control-short" id="clientAddress" name="clientAddress" value="${getClientDetail.clientAddress}">
 							</div>
 						</div>
 						<br>
 						
 						<div class="row">
                     		<div class="col-md-4">
-							<label for="carReason" class="form-label" style="font-weight:bold;">대표자명</label>
-							<p>${getClientDetail.clientRepresent}</p>
-							</div>
-							<div class="col-md-4">
-							<label for="carReason" class="form-label" style="font-weight:bold;">대표번호</label>
-							<p>${getClientDetail.clientNumber}</p>
-							</div>
-							<div class="col-md-4">
-							<label for="carReason" class="form-label" style="font-weight:bold;">사업장 주소</label>
-							<p>${getClientDetail.clientAddress}</p>
-							</div>
-						</div>
-						<br>
-						
-						<div class="row">
-							<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">거래처 담당자</label>
-							<p>${getClientDetail.clientManager}</p>
+							<input type="text" class="form-control form-control-short" id="clientManager" name="clientManager" value="${getClientDetail.clientManager}">
 							</div>
 							<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">담당자 연락처</label>
-							<p>${getClientDetail.clientPhone}</p>
+							<input type="text" class="form-control form-control-short" id="clientPhone" name="clientPhone" value="${getClientDetail.clientPhone}">
 							</div>
 							<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">은행명</label>
-							<p>${getClientDetail.clientBank}</p>
+							<input type="text" class="form-control form-control-short" id="clientBank" name="clientBank" value="${getClientDetail.clientBank}">
 							</div>
 						</div>
 						<br>
-						
 						
 						<div class="row">
 							<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">계좌번호</label>
-							<p>${getClientDetail.clientAccountNo}</p>
+							<input type="text" class="form-control form-control-short" id="clientAccountNo" name="clientAccountNo" value="${getClientDetail.clientAccountNo}">
 							</div>
-                    		<div class="col-md-4">
+							<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">예금주명</label>
-							<p>${getClientDetail.clientBankName}</p>
+							<input type="text" class="form-control form-control-short" id="clientBankName" name="clientBankName" value="${getClientDetail.clientBankName}">
 							</div>
 							<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">매출합계</label>
@@ -236,36 +229,22 @@ ul.nav-tabs {
 						</div>
 						<br>
 						
-						
 				  </div>
+				  <input type="hidden" class="form-control form-control-short" id="clientNo" name="clientNo" value="${getClientDetail.clientNo}">
+							
+				  			</form>
 				  </div>
-				  
 				 
 				</div>
               </div>
 			</div>
 </div>
 		
-		<form action="./clientDelete" method="post">
-		<input type="hidden" class="form-control form-control-short" id="clientNo" name="clientNo" value="${getClientDetail.clientNo}">
-		</form>
+		
 		
 <script type="text/javascript">
-$("#deleteClient").click(function(){
-	swal({
-        title: "삭제 확인",
-        text: "삭제시 복구할 수 없습니다. 정말 삭제하시겠습니까?",
-        icon: "warning",
-        buttons: ["취소", "삭제"],
-        dangerMode: true,
-    })
-    .then((willDelete) => {
-        if (willDelete) {
-        	$("form").submit();
-        }
-    });
-	
-
+$("#updateClient").click(function(){
+    $("form").submit();
 });
 </script>
 </body>

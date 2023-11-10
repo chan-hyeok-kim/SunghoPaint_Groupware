@@ -146,4 +146,30 @@
    <select id="getClientDetail" resultType="SalesClientVO">
    		SELECT * FROM CLIENT_LIST WHERE CLIENT_NO=#{clientNo}
    </select>
+   
+   <!-- 거래처 상세 수정 -->
+   <update id="setClientUpdate" parameterType="SalesClientVO">
+   		UPDATE CLIENT_LIST SET
+   		CLIENT_NAME=#{clientName}, CLIENT_TYPE_CD=#{clientTypeCd}, CLIENT_ADDRESS=#{clientAddress}, 
+   		CLIENT_NUMBER=#{clientNumber}, CLIENT_MANAGER=#{clientManager}, CLIENT_PHONE=#{clientPhone}, 
+   		CLIENT_INDUSTRY=#{clientIndustry}, CLIENT_BANK=#{clientBank}, CLIENT_ACCOUNT_NO=#{clientAccountNo},
+   		CLIENT_BANK_NAME=#{clientBankName} 
+   		WHERE CLIENT_NO=#{clientNo}
+   </update>
+   
+   <!-- 거래처 상세 삭제 -->
+   <delete id="setClientDelete" parameterType="SalesClientVO">
+   		DELETE FROM CLIENT_LIST
+   		WHERE CLIENT_NO=#{clientNo}   
+   </delete>
+   
+   <!-- 구매 목록 -->
+   <select id="getPurchaseList" resultType="SalesPurchaseVO">
+   		SELECT *,FN_CODE_NM(LEFT(MATERIAL_PRODUCT_CD,3),MATERIAL_PRODUCT_CD) AS CODE_NAME FROM PURCHASE_MANAGEMENT PM INNER JOIN CLIENT_LIST CL
+   		ON PM.CLIENT_NO = CL.CLIENT_NO INNER JOIN MATERIAL_PRODUCT MP
+   		ON PM.MATERIAL_PRODUCT_NO = MP.MATERIAL_PRODUCT_NO
+   </select>
+   
+   
+   
 </mapper>
