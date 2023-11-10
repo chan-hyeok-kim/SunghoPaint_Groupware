@@ -15,6 +15,12 @@ public class FileMappingConfig implements WebMvcConfigurer {
 	@Value("${app.url.path}")
 	private String urlPath;
 	
+	@Value("${pdf.upload.mapping}")
+    private String pdfUploadPath;
+	
+	@Value("${pdf.url.path}")
+	private String pdfUrlPath;
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		
@@ -22,9 +28,12 @@ public class FileMappingConfig implements WebMvcConfigurer {
 		registry.addResourceHandler(urlPath)
 //		local파일 위치
 		.addResourceLocations(filePath);
-		
-		
+	
+		registry.addResourceHandler(pdfUrlPath)
+		.addResourceLocations(pdfUploadPath);
 	}
+	
+
 
 
 }

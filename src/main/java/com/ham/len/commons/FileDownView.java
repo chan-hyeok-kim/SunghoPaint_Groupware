@@ -44,7 +44,7 @@ public class FileDownView extends AbstractView{
 		//한글 처리
 		response.setCharacterEncoding("UTF-8");
 		
-		log.warn("억까뭔데{}",attachmentVO);
+		
 		//파일의 크기 정보
 		response.setContentLengthLong(file.length());
 

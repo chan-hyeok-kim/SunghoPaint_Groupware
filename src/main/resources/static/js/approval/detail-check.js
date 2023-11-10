@@ -172,21 +172,21 @@ $('#app-pdf-btn').click(function(){
 
 	$.ajax({
 		type:"post",
-		 url:"/pdf/down",
+		 url:"/pdf/down32",
 		 data:{
 			approvalContents:xmlString
 		 },success:function(result){
 			console.log('다운 성공')
-			 filename="sample.pdf"
-			 console.log(result)
-			  const a = document.createElement("a");
-			  a.style = "display: none";
-			  a.href = result;
-			  a.target= '_selt';
-			  a.download = filename;
+			//  filename="sample.pdf"
+			//  console.log(result)
+			//   const a = document.createElement("a");
+			//   a.style = "display: none";
+			//   a.href = result;
+			//   a.target= '_selt';
+			//   a.download = filename;
 
-			  document.body.appendChild(a);
-			  a.click();
+			//   document.body.appendChild(a);
+			//   a.click();
 		 }
 	})
 })
