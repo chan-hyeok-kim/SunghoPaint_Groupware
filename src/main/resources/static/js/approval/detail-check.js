@@ -171,22 +171,37 @@ $('#app-pdf-btn').click(function(){
     console.log(xmlString)
 
 	$.ajax({
-		type:"post",
+		type:"POST",
 		 url:"/pdf/down",
 		 data:{
 			approvalContents:xmlString
-		 },success:function(result){
+		 },
+		 xhrFields: {
+			responseType: 'blob' // 서버로부터 Blob 형태의 데이터를 받음
+		},success:function(data){
 			console.log('다운 성공')
-			 filename="sample.pdf"
-			 console.log(result)
-			  const a = document.createElement("a");
-			  a.style = "display: none";
-			  a.href = result;
-			  a.target= '_selt';
-			  a.download = filename;
 
-			  document.body.appendChild(a);
-			  a.click();
+			var blob = new Blob([data], { type: 'application/pdf' });
+			var link = document.createElement('a');
+			link.href = window.URL.createObjectURL(blob);
+			link.download = 'sample.pdf';
+			document.body.appendChild(link);
+
+			// 링크를 클릭하여 다운로드 시작
+			link.click();
+
+			// 링크 제거
+			document.body.removeChild(link);
+
+			//  filename="sample.pdf"
+			//  console.log(result)
+			//   const a = document.createElement("a");
+			//   a.style = "display: none";
+			//   a.href = result;
+			//   a.download = filename;
+
+			//   document.body.appendChild(a);
+			//   a.click();
 		 }
 	})
 })
