@@ -38,6 +38,13 @@ target/
 hs_err_pid*
 replay_pid*
 
+.metadata/
+Servers/
+*.class
+*.classpath
+/target/
+/bin/
+
 ### Maven ###
 target/
 pom.xml.tag
