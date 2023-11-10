@@ -87,7 +87,7 @@
                     <td><span class="codeName"></span></td>
                     <td>?</td>
                     <td>?</td>
-                    <td><span class="totalPrice"></span></td>
+                    <td><span class="totalPrice"></span> 원</td>
                 </tr>
             </tbody>
         </table>
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
         element.innerText = clientNumber;
     });
 
-let a = num2han(toPrice) + '원';
+let a = num2han(toPrice) + '원 정';
 document.getElementById('result').innerText=a;
 console.log(a);
 
