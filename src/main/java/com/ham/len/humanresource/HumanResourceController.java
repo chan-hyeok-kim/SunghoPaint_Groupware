@@ -20,6 +20,15 @@ public class HumanResourceController {
 	@Autowired
 	private HumanResourceService humanResourceService;
 	
+	@GetMapping("/forbidden")
+	public String forbidden(Model model) {
+		model.addAttribute("result", 0);
+		model.addAttribute("message", "접근 권한이 없습니다.");
+		model.addAttribute("url", "/");
+		
+		return "commons/result";
+	}
+	
 	@GetMapping("/login")
 	public String getLogin(@ModelAttribute HumanResourceVO humanResourceVO) {
 		return "login";
@@ -74,8 +83,21 @@ public class HumanResourceController {
 		boolean hasErrors = humanResourceService.getUpdatePasswordError(updatePasswordVO, bindingResult, humanResourceVO);
 		if(bindingResult.hasErrors() || hasErrors) {
 			return "humanresource/updatePassword";
+		}else {
+			humanResourceVO.setPassword(updatePasswordVO.getNewPassword());
+			int result = humanResourceService.setUpdatePassword(humanResourceVO);
+			
+			if(result > 0) {
+				model.addAttribute("result", 1);
+				model.addAttribute("message", "변경이 완료되었습니다.");
+				model.addAttribute("url", "/logout"); // Security Session에 저장되어 있는 사용자의 정보는 기존 정보이기 때문에 재로그인하여 정보가 갱신될 수 있도록 유도하기 위해 강제 로그아웃 처리
+			}else {
+				model.addAttribute("result", 0);
+				model.addAttribute("message", "비밀번호 변경 실패(서버 내부적 오류)");
+				model.addAttribute("url", "/humanresource/updatePassword");
+			}
 		}
 		
-		return "redirect:/";
+		return "commons/result";
 	}
 }

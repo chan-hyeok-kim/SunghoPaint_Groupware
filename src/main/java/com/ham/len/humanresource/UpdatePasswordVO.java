@@ -10,7 +10,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UpdatePasswordVO {
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\",.<>?]).{8,16}$", message = "형식에 맞지 않는 비밀번호입니다.")
 	private String curPassword;
 	
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\",.<>?]).{8,16}$", message = "형식에 맞지 않는 비밀번호입니다.")

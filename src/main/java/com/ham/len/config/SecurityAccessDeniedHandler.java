@@ -17,6 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 public class SecurityAccessDeniedHandler implements AccessDeniedHandler {
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-		response.sendRedirect("/humanresource/updatePassword");
+		if(request.isUserInRole("USER")){
+			response.sendRedirect("/forbidden");
+		}else { // USER 권한이 존재하지 않는 경우(인사 등록 후 최초 로그인한 경우)
+			response.sendRedirect("/humanresource/updatePassword");
+		}
 	}
 }

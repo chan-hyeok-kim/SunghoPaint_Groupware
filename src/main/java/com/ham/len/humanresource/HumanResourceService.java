@@ -45,13 +45,6 @@ public class HumanResourceService implements UserDetailsService {
 		humanResourceVO.setEmployeeID(humanResourceDAO.getLatestEmployeeID());
 		humanResourceVO.setPassword(temporaryPassword);
 		
-		/*
-			AccountRoleVO accountRoleVO = new AccountRoleVO();
-			accountRoleVO.setRoleNum(ROLE_USER);
-			accountRoleVO.setEmployeeID(humanResourceVO.getEmployeeID());
-			humanResourceDAO.setAccountRole(accountRoleVO);
-		*/
-		
 		new SMTP().send_mail(humanResourceVO);
 		
 		return result;
@@ -114,8 +107,7 @@ public class HumanResourceService implements UserDetailsService {
 	
 	public boolean getUpdatePasswordError(UpdatePasswordVO updatePasswordVO, BindingResult bindingResult, HumanResourceVO humanResourceVO) {
 		boolean hasErrors = false;
-		
-		if(bindingResult.getFieldError("curPassword") == null && !passwordEncoder.matches(updatePasswordVO.getCurPassword(), humanResourceVO.getPassword())) {
+		if(!passwordEncoder.matches(updatePasswordVO.getCurPassword(), humanResourceVO.getPassword())) {
 			hasErrors = true;
 			bindingResult.rejectValue("curPassword", "updatePasswordVO.password.equalCheck");
 		}
@@ -126,5 +118,19 @@ public class HumanResourceService implements UserDetailsService {
 		}
 		
 		return hasErrors;
+	}
+	
+	@Transactional
+	public int setUpdatePassword(HumanResourceVO humanResourceVO) {
+		String password = humanResourceVO.getPassword();
+		humanResourceVO.setPassword(passwordEncoder.encode(password));
+		int result = humanResourceDAO.setUpdatePassword(humanResourceVO);
+		
+		AccountRoleVO accountRoleVO = new AccountRoleVO();
+		accountRoleVO.setRoleNum(ROLE_USER);
+		accountRoleVO.setEmployeeID(humanResourceVO.getEmployeeID());
+		humanResourceDAO.setAccountRole(accountRoleVO);
+		
+		return result;
 	}
 }

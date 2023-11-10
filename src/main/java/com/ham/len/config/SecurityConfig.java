@@ -50,10 +50,12 @@ public class SecurityConfig {
  					USER 권한이 없더라도 인증된 사용자 == 로그인한 사용자(authenticated)이기만 하면 접근이 가능하다.
  					
  					.antMatchers("/**").hasAnyRole("USER")
+ 					.antMatchers("/attendance/**").hasAnyRole("ADMIN")
  					.antMatchers("/humanresource/updatePassword").authenticated()
  					
  					실제로 위처럼 antMatchers("/humanresource/updatePassword").authenticated() 설정과
  					antMatchers("/**").hasAnyRole("USER") 설정의 순서를 맞바꾸면 다음과 같은 상황 때문에 무한 리다이렉션 현상에 빠지게 된다.
+ 					※"/attendance/**" 경로 또한 ADMIN 권한 없이 USER 권한만 존재해도 접근이 가능해진다. 
  					
  					1. 먼저 최초로 로그인 페이지로 리다이렉트된다.(어찌 됐든 간에 사용자의 권한을 확인하려면 사용자가 로그인을 해야, 즉 인증을 해야 확인할 수 있기 때문인 것 같다.)
  					2. 인증 완료 시 "/" 경로로 리다이렉트되도록 설정을 해놨지만(defaultSuccessUrl("/")), antMatchers("/attendance/**").hasAnyRole("USER") 설정에 의해
@@ -62,8 +64,8 @@ public class SecurityConfig {
  					4. 이렇게 3번 과정이 무한 반복되면서 무한 리다이렉션 현상에 빠지게 된다.
 				*/
 				.antMatchers("/humanresource/updatePassword").authenticated()
+				// .antMatchers("/attendance/**").hasAnyRole("ADMIN")
 				.antMatchers("/**").hasAnyRole("USER")
-				.antMatchers("/attendance/**").hasAnyRole("USER")
 				.and()
 			.formLogin()
 				.loginPage("/login")

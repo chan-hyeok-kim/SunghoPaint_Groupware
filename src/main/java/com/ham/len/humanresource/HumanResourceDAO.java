@@ -17,4 +17,5 @@ public interface HumanResourceDAO {
 	public HumanResourceVO getHumanResource(String employeeID);
 	public int setUpdate(HumanResourceVO humanResourceVO);
 	public int setDelete(String employeeID);
+	public int setUpdatePassword(HumanResourceVO humanResourceVO);
 }

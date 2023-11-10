@@ -49,6 +49,7 @@
             	<li class="nav-item"> <a class="nav-link" href="/humanresource/list"> 인사 조회 </a></li>
 				<li class="nav-item"> <a class="nav-link" href="/transfer/registration"> 발령 등록 </a></li>
 				<li class="nav-item"> <a class="nav-link" href="/transfer/list"> 발령 조회 </a></li>
+				<li class="nav-item"> <a class="nav-link" href="/annual/status"> 연차 현황 </a></li>
 	        </ul>
 	      </div>
 	    </li>
