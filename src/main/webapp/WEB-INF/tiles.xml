@@ -30,6 +30,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/humanresource/registration.jsp"/>
    </definition>
    
+   <definition name="humanresource/list" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/humanresource/list.jsp"/>
+   </definition>
+   
    <definition name="attendance/status" extends="layout">
 		<put-attribute name="body" value="/WEB-INF/views/attendance/status.jsp"/>
    </definition>
@@ -38,13 +42,21 @@
 		<put-attribute name="body" value="/WEB-INF/views/transfer/registration.jsp"/>
    </definition>
    
-   <definition name="transfer/view" extends="layout">
-		<put-attribute name="body" value="/WEB-INF/views/transfer/view.jsp"/>
+   <definition name="transfer/list" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/transfer/list.jsp"/>
    </definition>
-
-
-
-
+   
+   <definition name="humanresource/updatePassword" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/humanresource/updatePassword.jsp"/>
+   </definition>
+   
+   <definition name="annual/status" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/annual/status.jsp"/>
+   </definition>
+   
+   
+   
+   
   <!-- 김찬혁 -->
   <definition name="approval/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
@@ -103,7 +115,9 @@
 	</definition>
 	
     <definition name="commons/ajaxResult" template="/WEB-INF/views/commons/ajaxResult.jsp">
-	  
+	</definition>
+	
+	<definition name="commons/result" template="/WEB-INF/views/commons/result.jsp">
 	</definition>
 	
 	<!-- 장재혁 -->

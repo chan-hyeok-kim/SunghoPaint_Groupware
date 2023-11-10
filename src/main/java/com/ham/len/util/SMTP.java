@@ -16,25 +16,34 @@ import javax.mail.internet.MimeMessage;
 import com.ham.len.humanresource.HumanResourceVO;
 
 public class SMTP {
-	private String from = "plz_reply@naver.com"; 
+	private String user = "a57796682@gmail.com";
+	private String password = "cjmy fkhm mrjp wcia";
+	
 	private MimeMessage msg;
 	
 	public SMTP() {
 		Properties properties = new Properties();
-		// properties.put("mail.smtp.starttls.enable", "true"); // Gmail 사용 시 필수 properties
-		properties.put("mail.smtp.host", "smtp.naver.com"); // Gmail : smtp.gmail.com
-		properties.put("mail.smtp.auth", "true"); // 인증 시도 허용
-		properties.put("mail.smtp.port", "587"); // 네이버 SMTP 포트 번호
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", 465);
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.ssl.enable", "true");
+		properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
 		
-		Authenticator auth = new MyAuthentication();
-		Session session = Session.getInstance(properties, auth); // 인증
+		Session session = Session.getInstance(properties, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(user, password);
+			}
+		});
+		
 		msg = new MimeMessage(session);
 	}
 	
 	public void send_mail(HumanResourceVO humanResourceVO) {
 		try {
 			msg.setSentDate(new Date()); // 전송 날짜
-			msg.setFrom(new InternetAddress(from)); // 보내는 사람
+			msg.setFrom(new InternetAddress(user)); // 보내는 사람
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(humanResourceVO.getEmail())); // 받는 사람
 			msg.setSubject("성호 페인트 임시 비밀번호 발급 안내", "UTF-8"); // 제목
 			
@@ -62,21 +71,5 @@ public class SMTP {
 		}catch(MessagingException msg_e) {
 			msg_e.printStackTrace();
 		}
-	}
-}
-
-class MyAuthentication extends Authenticator{
-	private PasswordAuthentication account;
-	
-	public MyAuthentication() {
-		String id = "plz_reply";
-		String pw = "MJ1159029?";
-		
-		account = new PasswordAuthentication(id, pw);
-	}
-	
-	@Override
-	protected PasswordAuthentication getPasswordAuthentication() {
-		return account;
 	}
 }

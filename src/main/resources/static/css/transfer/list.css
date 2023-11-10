@@ -15,7 +15,7 @@ form > select{
 	height:33px;
 	padding:5px;
 	vertical-align:middle;
-	border:1px solid #BF8DFF;
+	border:none;
 	border-radius:5px;
 }
 
@@ -55,5 +55,10 @@ nav:has(ul.pagination){
 }
 
 .page-link{
-	color:#A65FFF;
+	color:#58B4FF;
+}
+
+
+.btn-gradient-primary {
+	background:linear-gradient(to right, #B3DBfB, #5DB4FD)
 }

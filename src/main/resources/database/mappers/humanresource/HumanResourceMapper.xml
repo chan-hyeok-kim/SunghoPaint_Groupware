@@ -5,14 +5,47 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.humanresource.HumanResourceDAO">
+	<sql id="searchSQL">
+		<if test="department != ''">
+			WHERE DEPARTMENT_CD = #{department}
+		</if>
+		<if test="name != ''">
+			<if test="department == ''">WHERE</if>
+			<if test="department != ''">AND</if>
+			NAME = #{name}
+		</if>
+	</sql>
+	
 	<select id="getHumanResource" parameterType="String" resultMap="getHumanResourceResult">
-      SELECT *
-         FROM HUMAN_RESOURCE HR LEFT OUTER JOIN ACCOUNT_ROLE AR
-            ON HR.EMPLOYEE_ID = AR.EMPLOYEE_ID LEFT OUTER JOIN ROLE R
-            ON AR.ROLE_NUM = R.ROLE_NUM LEFT OUTER JOIN CODE C
-            ON R.ROLE_NAME = C.CODE
-      WHERE HR.EMPLOYEE_ID = #{value}
-   </select>
+
+		SELECT *,
+		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD_NAME,
+		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME
+			FROM HUMAN_RESOURCE HR LEFT OUTER JOIN ACCOUNT_ROLE AR
+				ON HR.EMPLOYEE_ID = AR.EMPLOYEE_ID LEFT OUTER JOIN ROLE R
+				ON AR.ROLE_NUM = R.ROLE_NUM LEFT OUTER JOIN CODE C
+				ON R.ROLE_NAME = C.CODE
+		WHERE HR.EMPLOYEE_ID = #{value}
+	</select>
+
+	<select id="getTotal" resultType="Long">
+		SELECT COUNT(*)
+			FROM HUMAN_RESOURCE
+		<include refid="searchSQL" />
+	</select>
+	
+	<select id="getHumanResourceList" resultType="HumanResourceVO">
+		SELECT *,
+		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD_NAME,
+		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME 
+			FROM HUMAN_RESOURCE
+		<include refid="searchSQL" />
+		LIMIT #{startRow}, 10
+	</select>
+	
+	<select id="getDepartmentList" resultType="CodeVO">
+		SELECT CODE, CODE_NAME FROM CODE WHERE UP_CODE = 'D00'
+	</select>
 	
 	<resultMap id="getHumanResourceResult" type="HumanResourceVO">
 		<id column="EMPLOYEE_ID" property="employeeID" />
@@ -22,7 +55,9 @@
 		<result column="NAME" property="name" />
 		<result column="BIRTH" property="birth" />
 		<result column="DEPARTMENT_CD" property="departmentCd" />
+		<result column="DEPARTMENT_CD_NAME" property="departmentCdName" />
 		<result column="POSITION_CD" property="positionCd" />
+		<result column="POSITION_CD_NAME" property="positionCdName" />
 		<result column="EXTENSION_NUMBER" property="extensionNumber" />
 		<result column="PHONE" property="phone" />
 		<result column="MAIN_NUMBER" property="mainNumber" />
@@ -68,7 +103,29 @@
 		)
 	</insert>
 	
+	<insert id="setAccountRole" parameterType="AccountRoleVO">
+		INSERT INTO ACCOUNT_ROLE VALUES(#{roleNum}, #{employeeID})
+	</insert>
+	
 	<select id="getLatestEmployeeID" parameterType="String">
 		SELECT MAX(EMPLOYEE_ID) FROM HUMAN_RESOURCE
 	</select>
+	
+	<update id="setUpdate" parameterType="HumanResourceVO">
+		UPDATE HUMAN_RESOURCE SET
+			JOIN_DATE = #{joinDate}, JOIN_TYPE = #{joinType}, NAME = #{name}, BIRTH = #{birth},
+			DEPARTMENT_CD = #{departmentCd}, POSITION_CD = #{positionCd}, EXTENSION_NUMBER = #{extensionNumber},
+			PHONE = #{phone}, MAIN_NUMBER = #{mainNumber}, EMAIL = #{email}, ADDRESS = #{address}, BANK = #{bank},
+			ACCOUNT_NUMBER = #{accountNumber}, ACCOUNT_HOLDER = #{accountHolder}, QUIT_DATE = #{quitDate}, QUIT_REASON = #{quitReason}
+			<if test="profile != null">, PROFILE = #{profile}</if>
+		WHERE EMPLOYEE_ID = #{employeeID}
+	</update>
+	
+	<delete id="setDelete">
+		DELETE FROM HUMAN_RESOURCE WHERE EMPLOYEE_ID = #{value}
+	</delete>
+	
+	<update id="setUpdatePassword" parameterType="HumanResourceVO">
+		UPDATE HUMAN_RESOURCE SET PASSWORD = #{password} WHERE EMPLOYEE_ID = #{employeeID}
+	</update>
 </mapper>

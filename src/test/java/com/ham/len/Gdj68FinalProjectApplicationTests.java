@@ -10,11 +10,13 @@ import java.util.Random;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.ham.len.humanresource.HumanResourceDAO;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.transfer.TransferDAO;
 import com.ham.len.transfer.TransferVO;
+import com.ham.len.util.SMTP;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,8 +29,12 @@ class Gdj68FinalProjectApplicationTests {
 	@Autowired
 	HumanResourceDAO humanResourceDAO;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	// @Test
 	void contextLoads() {
+		
 	}
 	
 	// @Test
@@ -53,7 +59,7 @@ class Gdj68FinalProjectApplicationTests {
 		}
 	}
 	
-	// @Test
+	@Test
 	void setRegistrationHumanresource() {
 		HumanResourceVO humanResourceVO = new HumanResourceVO();
 		humanResourceVO.setPassword("1234");
@@ -64,7 +70,7 @@ class Gdj68FinalProjectApplicationTests {
 		humanResourceVO.setDepartmentCd("D001");
 		humanResourceVO.setPositionCd("U001");
 		humanResourceVO.setPhone("010-0000-0000");
-		humanResourceVO.setEmail("abc@naver.com");
+		humanResourceVO.setEmail("dngu_icdi@naver.com");
 		humanResourceVO.setAddress("가나다라마바사");
 		humanResourceVO.setBank("신한");
 		humanResourceVO.setAccountNumber("123456789");
@@ -75,10 +81,12 @@ class Gdj68FinalProjectApplicationTests {
 		humanResourceVO.setEmployeeID(humanResourceDAO.getLatestEmployeeID());
 		log.info("after : {}", humanResourceVO.getEmployeeID());
 		
+		new SMTP().send_mail(humanResourceVO);
+		
 		assertTrue(result > 0);
 	}
 	
-	@Test
+	// @Test
 	void generateTemporaryPassword() {
 		String temporaryPassword = "";
 		

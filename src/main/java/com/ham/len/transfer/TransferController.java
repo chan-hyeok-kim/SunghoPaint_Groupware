@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ham.len.commons.CodeVO;
+import com.ham.len.humanresource.HumanResourceService;
 import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,22 +25,22 @@ public class TransferController {
 	private TransferService transferService;
 	
 	@GetMapping("registration")
-	public String registration(Model model) {
+	public String setRegistration(Model model) {
 		model.addAttribute("isTransferForm", true);
 		return "transfer/registration";
 	}
 	
 	@PostMapping("registration")
-	public String registration(TransferVO transferVO) {
+	public String setRegistration(TransferVO transferVO) {
 		int result = transferService.setTransfer(transferVO);
-		return "transfer/view";
+		return "redirect:/transfer/view";
 	}
 	
-	@PostMapping("view")
-	public String view(TransferPager pager, Model model) {
+	@GetMapping("list")
+	public String getView(TransferPager pager, Model model) {
 		model.addAttribute("transferList", transferService.getTransferList(pager));
 		model.addAttribute("pager", pager);
-		return "transfer/view";
+		return "transfer/list";
 	}
 	
 	@ResponseBody

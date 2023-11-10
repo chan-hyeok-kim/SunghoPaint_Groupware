@@ -34,9 +34,9 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
-	
+		
 		<!-- ======================================= -->
-	
+		
 		<!--tomcat-embed-jasper -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
@@ -211,6 +211,4 @@
 			
 		</plugins>
 	</build>
-	
-
 </project>

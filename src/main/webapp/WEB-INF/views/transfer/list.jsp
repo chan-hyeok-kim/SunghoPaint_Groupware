@@ -1,9 +1,8 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script src="/js/transfer/view.js"></script>
 <link rel="stylesheet" href="/css/commons.css">
-<link rel="stylesheet" href="/css/transfer/view.css">
+<link rel="stylesheet" href="/css/transfer/list.css">
 
 <script>
 	$(function(){
@@ -13,7 +12,7 @@
 		let kind = $("[name='kind']").attr("data-kind");
 		$("[name='kind'] > option[value='" + kind + "']").prop("selected", true);
 
-		$(".page-link[data-num='${pager.page}']").css("background-color", "#DBBEFF");
+		$(".page-link[data-num='${pager.page}']").css("background-color", "#D4E9FB");
 	});
 
 	$(function(){
@@ -35,14 +34,14 @@
 
 
 <div id="wrapper">
-	<form action="./view" method="POST">
+	<form action="./list" method="GET">
 		<input type="hidden" name="page" value="${pager.page}">
 		
 		<input type="date" name="startDate" value="${startDate}"> ~ <input type="date" name="endDate" value="${endDate}">
 	
 		<select name="kind" data-kind="${pager.kind}">
-			<option class="kind" value="employeeID">사번</option>
-			<option class="kind" value="name">이름</option>
+			<option value="employeeID">사번</option>
+			<option value="name">이름</option>
 		</select>
 		<input type="text" name="keyword" value="${pager.keyword}">
 		<button type="button" id="searchBtn" class="btn btn-gradient-primary">검색</button>

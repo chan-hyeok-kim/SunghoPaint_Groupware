@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+tr:not(:first-of-type):hover{
+	background-color:#90CAF9;
+	cursor:pointer; 
+}
+
+button.del{
+	width:50px; height:30px;
+	background-color:#8D8D8D;
+	border:none; border-radius:5px;
+	font-size:13px;
+	color:white;
+}
