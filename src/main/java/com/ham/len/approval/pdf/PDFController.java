@@ -225,7 +225,7 @@ public class PDFController {
     		response.setHeader("Content-Transper-Encoding", "binary");
     		response.setHeader("Content-Disposition", "inline; filename=" + fileNm + ".pdf");
     	    
-FileInputStream fi = new FileInputStream(file);
+            FileInputStream fi = new FileInputStream(file);
     		
     		//클라이언트로 전송
     		OutputStream os = response.getOutputStream();
