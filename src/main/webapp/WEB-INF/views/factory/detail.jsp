@@ -147,7 +147,7 @@ ul.nav-tabs {
 
 					<div class="wrapper-toolbar">
 
-						기기 정보 <span
+						공장, 창고 정보 <span
 							style="margin-left: 700px; text-align: right; width: 700px;">
 							
 						</span>
@@ -157,7 +157,7 @@ ul.nav-tabs {
 
 					<div
 						style="text-align: right; padding-top: 20px; padding-right: 10px">
-						<div id="grid-top-date"></div>
+						
 					</div>
 					<div id="content">
 
@@ -170,31 +170,17 @@ ul.nav-tabs {
 							<table class="table-bordered mt-2" id="approval-table">
 								<tbody>
 									<tr>
-										<td>기기 코드</td>
-										<td>${dto.instrumentCd}</td>
+										<td width="200">공장, 창고 코드</td>
+										<td width="400">${dto.factoryStorageCd}</td>
 									</tr>
 									<tr>
-										<td>기기 이름</td>
+										<td>공장, 창고 이름</td>
 										<td>${dto.codeName}</td>
 									</tr>
 									<tr>
-										<td>구매 가격</td>
-										<td>${dto.instrumentPrice}</td>
+										<td>사용여부</td>
+										<td>${dto.factoryStorageUse}</td>
 									</tr>
-									<tr>
-										<td>제조사</td>
-										<td>${dto.instrumentMaker}</td>
-									</tr>								
-									<tr>
-										<td>기기 구매 연도</td>
-										<td>${dto.instrumentBuyYear}</td>
-									</tr>
-									<tr>
-										<td>기기 상태</td>
-										<td>${dto.instrumentCondition}</td>
-									</tr>
-																		
-		
 								</tbody>
 		
 							</table>
@@ -204,13 +190,11 @@ ul.nav-tabs {
 						<br>
 			
 						<!-- Button List  -->
-						<div style="float: left;">
-							<a href="./update?instrumentCd=${dto.instrumentCd}" class="btn btn-info">기기 정보 수정</a>
+						 <div style="margin-left:1250px;">
+							<a href="./update?factoryStorageCd=${dto.factoryStorageCd}" class="btn btn-info">공장, 창고 정보 수정</a>
 
 						
-						<c:if test="${dto.instrumentCondition == '고장'}">
-							<a href=# class="btn btn-info">수리 요청</a>
-						</c:if>
+
 						</div>
 					</div>
 
