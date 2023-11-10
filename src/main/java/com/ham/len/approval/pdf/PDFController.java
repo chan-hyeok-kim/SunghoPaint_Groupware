@@ -8,6 +8,8 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 
 import com.ham.len.approval.ApprovalVO;
 import com.ham.len.commons.FileDownView;
@@ -16,6 +18,7 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
+import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -42,11 +45,20 @@ import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 
+import com.nimbusds.jose.util.Resource;
+
 import lombok.RequiredArgsConstructor;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
@@ -56,6 +68,7 @@ import java.io.FileInputStream;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -142,13 +155,18 @@ public class PDFController {
     }
     
     @RequestMapping("down")
-    public String getPdf(ApprovalVO approvalVO)throws Exception{
-    	   
-    	    String path="static/assets/sample1.pdf";
-    	    File file = new File("/"+path); 
+    @ResponseBody
+    public String getPdf(ApprovalVO approvalVO,Model model)throws Exception{
+    	    
+    	    String fileNm= UUID.randomUUID().toString()+'_'+"sample.pdf";
+    	    String path="D:\\"+fileNm;
+    	    model.addAttribute("path", path);
+    	  //  String path="/static/pdf/"+fileNm;
+    	    File file = new File(path); 
+    	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	    //한국어를 표시하기 위해 폰트 적용 
     		String BODY=approvalVO.getApprovalContents();    		
-    		String dest="D:\\sample.PDF";
+    		String dest="D:\\sample1235.PDF";
 //    	    String FONT = "D:\\malgun.ttf";
     	    String FONT="static/fonts/malgun.ttf";
     	    //ConverterProperties : htmlconverter의 property를 지정하는 메소드인듯
@@ -163,8 +181,8 @@ public class PDFController {
     	    //pdf 페이지 크기를 조정
     	    List<IElement> elements = HtmlConverter.convertToElements(BODY, properties);
     
+    	 //   PdfWriter writer= new PdfWriter(baos);
     	    PdfWriter writer= new PdfWriter(new FileOutputStream(file));
-    	 //   PdfWriter writer= new PdfWriter(new FileOutputStream(file));
     	    PdfDocument pdf = new PdfDocument(writer);
     	    Document document = new Document(pdf);
     	    //setMargins 매개변수순서 : 상, 우, 하, 좌
@@ -175,7 +193,109 @@ public class PDFController {
     	    document.close();
     	    writer.close();
     	   
+    	   return path;
+    	
+    	    
+    }
+    
+    @RequestMapping("down1")
+    @ResponseBody
+    public String getPdf(ApprovalVO approvalVO,HttpServletResponse response)throws Exception{
+    	    
+    	    String fileNm= UUID.randomUUID().toString()+'_'+"sample.pdf";
+    	  //  String path="D:\\"+fileNm;
+    	    
+    	    String path="D:\\"+fileNm;
+    	    File file = new File(path); 
+    	    //한국어를 표시하기 위해 폰트 적용 
+    		String BODY=approvalVO.getApprovalContents();    		
+    		String dest="D:\\sample1235.PDF";
+//    	    String FONT = "D:\\malgun.ttf";
+    	    String FONT="static/fonts/malgun.ttf";
+    	    //ConverterProperties : htmlconverter의 property를 지정하는 메소드인듯
+    	    ConverterProperties properties = new ConverterProperties();
+    	    FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+    	    FontProgram fontProgram = FontProgramFactory.createFont(FONT);
+    	    fontProvider.addFont(fontProgram);
+    	    properties.setFontProvider(fontProvider);
+
+    	    // 파일 다운로드 설정
+    		response.setContentType("application/pdf");
+    		String fileName = URLEncoder.encode("한글파일명", "UTF-8"); // 파일명이 한글일 땐 인코딩 필요
+    		response.setHeader("Content-Transper-Encoding", "binary");
+    		response.setHeader("Content-Disposition", "inline; filename=" + fileNm + ".pdf");
+    	    
+FileInputStream fi = new FileInputStream(file);
+    		
+    		//클라이언트로 전송
+    		OutputStream os = response.getOutputStream();
+    		
+    
+ 
+    	    
+    	    //pdf 페이지 크기를 조정
+    	    List<IElement> elements = HtmlConverter.convertToElements(BODY, properties);
+    
+    	    PdfWriter writer= new PdfWriter(response.getOutputStream());
+    	    
+    	
+    		
+    	 //   PdfWriter writer= new PdfWriter(new FileOutputStream(file));
+    	    PdfDocument pdf = new PdfDocument(writer);
+    	    Document document = new Document(pdf);
+    	    //setMargins 매개변수순서 : 상, 우, 하, 좌
+    	    document.setMargins(50, 0, 50, 0);
+    	    for (IElement element : elements) {
+    	      document.add((IBlockElement) element);
+    	    }
+    	    document.close();
+    	    writer.close();
+
+    		
+    		FileCopyUtils.copy(fi, os);
+//    		fi에서 읽어들인걸 os로 전송하자
+    		
+//    		자원 해제
+    		os.close();
+    		fi.close();
+    	   
     	    return path;
     	    
+    }
+    
+    @RequestMapping("down3")
+    public void getPdf1(ApprovalVO approvalVO, HttpServletResponse response) throws Exception {
+        String fileNm = UUID.randomUUID().toString() + "_" + "sample.pdf";
+        String path = "D:\\" + fileNm; // 이 경로가 허용되는지 확인 필요
+
+        String fontPath = "static/fonts/malgun.ttf"; // 폰트 파일 경로
+        String body = approvalVO.getApprovalContents();
+
+        ConverterProperties properties = new ConverterProperties();
+        FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+        FontProgram fontProgram = FontProgramFactory.createFont(fontPath);
+        fontProvider.addFont(fontProgram);
+        properties.setFontProvider(fontProvider);
+
+        List<IElement> elements = HtmlConverter.convertToElements(body, properties);
+
+        File file = new File(path);
+        PdfWriter writer = new PdfWriter(new FileOutputStream(file));
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf);
+        document.setMargins(50, 0, 50, 0);
+        for (IElement element : elements) {
+            document.add((IBlockElement) element);
+        }
+        document.close();
+        writer.close();
+
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=sample.pdf");
+
+        FileInputStream inputStream = new FileInputStream(file);
+        IOUtils.copy(inputStream, response.getOutputStream());
+        response.flushBuffer();
+        inputStream.close();
     }
 }

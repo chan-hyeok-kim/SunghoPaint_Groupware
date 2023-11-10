@@ -20,4 +20,9 @@ public interface NoticeDAO {
 	public int setUpdate(NoticeVO noticeVO) throws Exception;
 	
 	public int setDelete(NoticeVO noticeVO) throws Exception;
+	
+	public int setFileAdd(AttachmentVO attachmentVO) throws Exception;
+	
+	public AttachmentVO getFileDetail(AttachmentVO attachmentVO) throws Exception;
+	
 }

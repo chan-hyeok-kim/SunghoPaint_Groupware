@@ -16,7 +16,7 @@
 <div class="card">
 <div class="card-body">
 
-<form action="/notice/add" method="post" id="frm">
+<form action="/notice/add" method="post" id="frm" enctype="multipart/form-data">
   <table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 			
@@ -71,7 +71,7 @@
 				</tr>
 				<tr>
 				<th>파일 첨부</th>
-				<td colspan="3"><input type="file" class="form-control"></td>
+				<td colspan="3"><input name="files" type="file" class="form-control"></td>
 				</tr>
 			</tbody>
 			</table>    

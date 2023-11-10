@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
@@ -50,14 +51,10 @@ public class NoticeController {
 	}
 	
 	@PostMapping("add")
-	public String setAdd(NoticeVO noticeVO,HttpServletRequest request) throws Exception{
+	public String setAdd(NoticeVO noticeVO,HttpServletRequest request,MultipartFile[] files) throws Exception{
 		
-		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String path=request.getRequestURI();
-		String id=humanResourceVO.getEmployeeID();
-		noticeVO.setEmployeeID(id);
-		noticeVO=(NoticeVO)makeColumn.getColumn(noticeVO, path, id);
-		int result=noticeService.setAdd(noticeVO);
+		
+		int result=noticeService.setAdd(noticeVO,request,files);
 		
 		return "redirect:/notice/list";
 	}
@@ -94,5 +91,13 @@ public class NoticeController {
 		model.addAttribute("result", result);
 		
 		return "commons/ajaxResult";
+	}
+	
+	@GetMapping("fileDown")
+	public String fileDown(AttachmentVO attachmentVO,Model model)throws Exception{
+		attachmentVO=noticeService.getFileDetail(attachmentVO);
+		model.addAttribute("attachmentVO", attachmentVO);
+		
+		return "fileDownView";
 	}
 }

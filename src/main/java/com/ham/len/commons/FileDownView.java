@@ -32,24 +32,24 @@ public class FileDownView extends AbstractView{
 			HttpServletResponse response) throws Exception {
 		//서버에서 파일을 찾아서 클라이언트로 전송
 		
-		//어디에서?
-		String board = (String)model.get("board");
-		
 		//어떤 파일?
-		AttachmentVO attachmentVO = (AttachmentVO)model.get("fileVO");
+		AttachmentVO attachmentVO = (AttachmentVO)model.get("attachmentVO");
 		String fileName = attachmentVO.getFileName();
 		
+		String path=(String)model.get("path");
+		
 		//파일 객체 생성
-		File file = new File("D:\\sample2.PDF");
+		File file = new File(filePath+fileName);
 		
 		//한글 처리
 		response.setCharacterEncoding("UTF-8");
 		
+		log.warn("억까뭔데{}",attachmentVO);
 		//파일의 크기 정보
-		response.setContentLengthLong(file.length());;
+		response.setContentLengthLong(file.length());
 
 		//다운로드시 파일의 이름 인코딩
-		String downName = URLEncoder.encode("샘플2.PDF","UTF-8");
+		String downName = URLEncoder.encode(attachmentVO.getOriginalName(),"UTF-8");
 		
 		//헤더 정보 설정
 		response.setHeader("Content-Disposition", "attachment;filename=\""+downName+"\"");
@@ -68,8 +68,6 @@ public class FileDownView extends AbstractView{
 		os.close();
 		fi.close();
 		
-		log.info("--------- File Down view-------");
-		log.info("Board:{}", board);
 		
 		
 	}

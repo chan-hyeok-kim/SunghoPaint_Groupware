@@ -50,7 +50,8 @@
     SELECT *,FN_CODE_NM(LEFT(NOTICE_PRIORITY_CD,3),NOTICE_PRIORITY_CD) AS PRIOR_CD_NAME,
      FN_CODE_NM(LEFT(NOTICE_CATEGORY_CD,3),NOTICE_CATEGORY_CD) AS CATEGORY_CD_NAME
      FROM NOTICE N INNER JOIN HUMAN_RESOURCE HR
-       ON N.EMPLOYEE_ID=HR.EMPLOYEE_ID
+       ON N.EMPLOYEE_ID=HR.EMPLOYEE_ID LEFT OUTER JOIN ATTACHMENT ATC 
+       ON N.NOTICE_NO=ATC.NOTICE_NO 
      WHERE N.NOTICE_NO=#{noticeNo}
   </select>
   
@@ -66,10 +67,17 @@
      <association property="humanResourceVO" javaType="HumanResourceVO">
      <result column="NAME" property="name"/>
      </association>
-  
+     
+     <collection property="attachmentVOs" javaType="List"
+     ofType="AttachmentVO">
+     <id column="FILE_NO" property="fileNo"/>
+     <result column="FILE_PATH" property="filePath"/>
+     <result column="FILE_NAME" property="fileName"/>
+     <result column="ORIGINAL_NAME" property="originalName"/>
+     </collection>
   </resultMap>
   
-  <insert id="setAdd" parameterType="NoticeVO">
+  <insert id="setAdd" parameterType="NoticeVO" useGeneratedKeys="true" keyProperty="noticeNo">
      INSERT INTO NOTICE(NOTICE_NO,EMPLOYEE_ID,NOTICE_TITLE,NOTICE_CONTENTS,NOTICE_HIT,NOTICE_PRIORITY_CD,NOTICE_CATEGORY_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
      VALUES (#{noticeNo},#{employeeID},#{noticeTitle},#{noticeContents},0,#{noticePriorityCd},#{noticeCategoryCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu}) 
   </insert>
@@ -88,6 +96,16 @@
       WHERE NOTICE_NO=#{noticeNo}
   </delete>
  
+   <insert id="setFileAdd" parameterType="AttachmentVO">
+     INSERT INTO ATTACHMENT(FILE_NO,NOTICE_NO,FILE_PATH,FILE_NAME,ORIGINAL_NAME,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+     VALUES (#{fileNo},#{noticeNo},#{filePath},#{fileName},#{originalName},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu}) 
+  </insert>
+  
+  <select id="getFileDetail" parameterType="AttachmentVO">
+     SELECT *
+       FROM ATTACHMENT
+      WHERE FILE_NO=#{fileNo}
+  </select>
 
 
 </mapper>

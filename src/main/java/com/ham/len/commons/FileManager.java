@@ -26,7 +26,7 @@ public class FileManager {
 	@Value("${base.img.suffix}")
 	private String baseSuffix;
 	
-	public String save(String path, MultipartFile multipartFile) throws Exception{
+	public String baseSave(String path, MultipartFile multipartFile) throws Exception{
 		File file = new File(path);
 		
 		if(!file.exists()) {
@@ -58,5 +58,27 @@ public class FileManager {
 		}
 		
 		return base64;
+	}
+	
+	public String save(String path, MultipartFile multipartFile) throws Exception{
+		File file = new File(path);
+		
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+		
+		String fileName= UUID.randomUUID().toString()+'_'+multipartFile.getOriginalFilename();
+		file = new File(file,fileName);
+		
+           
+		
+		multipartFile.transferTo(file);
+		     
+		
+		
+		return fileName;
+		
+		
+	
 	}
 }

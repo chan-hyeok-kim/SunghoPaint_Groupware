@@ -32,7 +32,6 @@
 									<option value="name">작성자</option>
 								</select> 
 								
-								
 								<input style="display: inline-block;" id="top-search-bar"
 									class="form-control" type="search" placeholder="입력 후 [Enter]"
 									aria-label="Search">

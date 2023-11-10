@@ -112,6 +112,8 @@ $('#app-add-btn').click(function(){
 		return;
 	}
 	
+	oEditors.getById["approvalForm"].exec("UPDATE_CONTENTS_FIELD", []);
+	
 	if(check5 && check5.trim().length!=0){
 		appAddCheckResult[3]=true;
 	}else{
