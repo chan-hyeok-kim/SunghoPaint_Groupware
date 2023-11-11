@@ -116,7 +116,7 @@ undoButton.addEventListener("click", () => {
 
 savePNGButton.addEventListener("click", () => {
   if (signaturePad.isEmpty()) {
-    alert("먼저 서명해주세요");
+    swal("먼저 서명해주세요");
   } else {
     const dataURL = signaturePad.toDataURL();
     download(dataURL, "signature.png");
@@ -125,7 +125,7 @@ savePNGButton.addEventListener("click", () => {
 
 saveJPGButton.addEventListener("click", () => {
   if (signaturePad.isEmpty()) {
-    alert("먼저 서명해주세요");
+    swal("먼저 서명해주세요");
   } else {
     const dataURL = signaturePad.toDataURL("image/jpeg");
     download(dataURL, "signature.jpg");
@@ -138,7 +138,8 @@ signAddBtn=document.querySelector('#sign-add-btn');
 signAddBtn.addEventListener("click",()=>{
 
       if (signaturePad.isEmpty()) {
-        alert("먼저 서명해주세요");
+        swal("먼저 서명해주세요");
+        return;
       }
       const dataURL=signaturePad.toDataURL();
       console.log(dataURL);
