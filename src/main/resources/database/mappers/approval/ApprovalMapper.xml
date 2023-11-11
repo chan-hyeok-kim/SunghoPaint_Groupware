@@ -121,6 +121,10 @@
 		ON
 		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
 		WHERE A.APPROVAL_STATUS_CD=#{vo.approvalStatusCd}
+		AND (A.EMPLOYEE_ID=#{vo.employeeID} 
+		OR MID_APPROVER=#{vo.employeeID}
+		OR ADD_APPROVER=#{vo.employeeID}
+		OR LAST_APPROVER=#{vo.employeeID})
 		ORDER BY APPROVAL_NO DESC
 		LIMIT
 		#{pager.startRow},#{pager.lastRow}	
@@ -343,14 +347,12 @@
 	<!-- 서명 시 -->
 	<select id="getSignTime" parameterType="Map" resultType="ApprovalVO">
 	    SELECT NOW() AS SIGN_TIME,FN_DEPT_NM(#{id.employeeID}) AS DEPT_NAME
-		  FROM APPROVAL 
-		 WHERE APPROVAL_NO=#{vo.approvalNo}
+		  FROM DUAL
 	</select>
 	
 	<select id="getMySignTime" parameterType="ApprovalVO" resultType="ApprovalVO">
 	    SELECT *,FN_DEPT_NM(EMPLOYEE_ID) AS DEPT_NAME
-		  FROM APPROVAL 
-		 WHERE APPROVAL_NO=#{approvalNo}
+		  FROM DUAL
 	</select>
 	
 </mapper>

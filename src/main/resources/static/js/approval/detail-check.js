@@ -78,20 +78,17 @@ $('#form-mid-sign').click(function(){
 
 
     //서명시간, 부서 입력
-function setTimeDept(i){
+    function setTimeDept(i){
 	$.ajax({
-		type:'POST',
+		type:'GET',
 		url:'/approval/signTime',
-		data:{
-			approvalNo:appNo
-		},success:function(result){
+		success:function(result){
 			console.log(result.deptName);
 			console.log(result.signTime);
 			topSign[i].innerText=result.deptName;
 			botSign[i].innerText=result.signTime;
 		}
 	})
-	
 	}
 
 
@@ -110,7 +107,8 @@ rejectBtn.addEventListener("click",function(){
 	    reverseButtons: true,
 	}).then(function(result){
 		if(result.isConfirmed){
-			statusCdCheck.value='R034'
+			statusCdCheck.value='R034';
+            modContents.value=originContents;
 			$('#app-check-frm').submit();
 		}
 	})
@@ -136,7 +134,8 @@ approvalBtn.addEventListener("click",function(){
 		showCancelButton:true,
 		iconHtml:'<i class="mdi mdi-bell-ring-outline"></i>',
 		confirmButtonColor: 'blue',
-		cancleButtonText:'취소',
+		cancelButtonText:'취소',
+		confirmButtonText:'확인',
 	    reverseButtons: true,
 		customClass: {
 			icon: 'no-border'

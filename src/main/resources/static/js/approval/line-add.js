@@ -23,29 +23,7 @@ const botTab = '<td class="bot-sign-tab" style="height:0pt; border-left:solid #0
 
 
 
-//서명시간, 부서 입력
-function setTimeDept(){
-	$.ajax({
-		type:'POST',
-		url:'/approval/mySignTime',
-		data:{
-			approvalNo:appNo
-		},success:function(result){
-			console.log(result)
-			console.log(result.deptName);
-			console.log(result.approvalStartDate);
-			date=result.approvalStartDate;
-			date=date.slice(0,10);
-     
-			$('#top-drafter-tab').text(result.deptName);
-			$('#bot-drafter-tab').text(date);
-		}
-	})
-	
-}
-if(appNo){
-	setTimeDept();
-}
+
 
 
 
@@ -89,7 +67,7 @@ $('#app-delete-btn').click(function() {
 		dangerMode: true,
 		confirmButtonText: '승인',
 		confirmButtonColor: 'red',
-		cancleButtonText: '취소',
+		cancelButtonText: '취소',
 		reverseButtons: true,
 		icon: 'warning',
 	}).then(function(result) {

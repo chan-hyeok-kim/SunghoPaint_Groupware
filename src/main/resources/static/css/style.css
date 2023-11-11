@@ -14471,6 +14471,12 @@ dl {
 	margin: 20px 0 0 0;
 }
 
+.detail-proceed-btn{
+	color: #0D6EFD;
+	text-decoration: none;
+	cursor: pointer;
+}
+
 /* textarea */
 #approvalForm{
 	width: 100%;
@@ -14495,6 +14501,12 @@ dl {
 	float:left;
 }
 
+#image-show{
+	overflow: hidden;
+    height: 250px;
+    text-align: center;
+    padding: 5%;
+}
 /* tree ul */
 #form_list{
 	width: 700px;
