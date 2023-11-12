@@ -62,7 +62,7 @@
 				  
 				  
 				
-				    <table class="table-bordered mt-2" id="approval-table">
+				    <table class="table table-hover mt-2" id="approval-table">
 				        <thead>
 				           <tr>
 				             <th>선택</th>
@@ -83,7 +83,7 @@
 				             <td>${vo.drafter}</td>
 				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
 				             <td>${vo.codeName}</td>
-				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
+				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}" class="detail-proceed-btn">기안서 확인</a></td>
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -287,6 +287,11 @@
 		
 
 	
+			<script type="text/javascript">
+	var formSign='${member.signature}';
+	var username='${member.username}';
+	
+	</script>
 			
 
 

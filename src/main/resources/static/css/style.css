@@ -14507,6 +14507,12 @@ dl {
     text-align: center;
     padding: 5%;
 }
+
+.code-scroll{
+	height: 300px;
+}
+
+
 /* tree ul */
 #form_list{
 	width: 700px;
@@ -14539,6 +14545,9 @@ dl {
 #sign-modal-size{
 	max-width: 700px;
 	background: white;
+}
+.code-modal-size{
+	min-width: 800px;
 }
 
 /* table */
@@ -14630,17 +14639,18 @@ dl {
 
 .nav-tabs>li:after {
 	left: -4px;
-	transform: skew(-25deg, 0deg);
+	transform: skew(339deg, 0deg);
 	box-shadow: #d4d4d4 -1px 1px 0;
 }
 
 .nav-tabs>li {
 	border-radius: 7px 7px 0 0;
+	line-height: 2.0;
 }
 
 .nav-tabs>li:before {
 	right: -4px;;
-	transform: skew(25deg, 0deg);
+	transform: skew(200deg, 0deg);
 	box-shadow: #d4d4d4 1px 1px 0;
 }
 
@@ -14732,6 +14742,21 @@ ul.nav-tabs {
 	margin: 10px 0 0 10px;
 	display: block;
 	float: right;
+}
+
+/* table hover custom*/
+.table-hover > tbody > tr:hover > * {
+    background-color: #EEF1F6;
+    --bs-table-accent-bg: #EEF1F6;
+  
+}
+.table-hover > thead > tr th{
+	border-top: 1px solid #ebedf2;
+}
+
+/*canvas */
+#sign-canvas{
+    background: white;	
 }
 
 /*# sourceMappingURL=style.css.map */

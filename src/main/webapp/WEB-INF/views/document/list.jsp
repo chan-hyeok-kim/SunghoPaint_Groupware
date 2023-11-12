@@ -112,7 +112,7 @@
 							
 							</div>
 
-							<table class="table-bordered mt-2" id="approval-table">
+							<table class="table table-hover mt-2" id="approval-table">
 								<thead>
 									<tr>
 										<th>선택</th>

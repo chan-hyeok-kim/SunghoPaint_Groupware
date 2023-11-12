@@ -7,8 +7,6 @@ if(!formSign){
 }else{
   
 
-
-
   $('#small-image-show').html('<img src='+formSign+' width="60px" height="40px">');
 }
 
