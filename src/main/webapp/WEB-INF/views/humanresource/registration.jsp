@@ -11,6 +11,7 @@
 <script>
 	$(function(){
 		if("${humanResourceVO.employeeID}" != "") $("#registrationForm").attr("action", "./update");
+		$("input#yearsOfService").attr("type", "number");
 	});
 </script>
 
@@ -27,27 +28,23 @@
 				<input type="file" name="file" accept="image/*" onchange="validation(this)">
 			</td>
 			<th>이름</th>
+			<th>사번</th>
+			<td>
+				<input type="hidden" name="employeeID" value="${humanResourceVO.employeeID}">
+				${humanResourceVO.employeeID}
+			</td>
 			<th>부서</th>
-			<td colspan="3">
+			<td>
 				<form:hidden path="departmentCd" />
 				<form:input path="departmentCdName" readonly="true" data-search-type="department" />
 			</td>
 		</tr>
 		<tr>
 			<td rowspan="3"><form:input path="name" /></td>
-			<th>사번</th>
-			<td>
-				<input type="hidden" name="employeeID" value="${humanResourceVO.employeeID}">
-				${humanResourceVO.employeeID}
-			</td>
-			<th>내선번호</th>
-			<td><form:input path="extensionNumber" /></td>
-		</tr>
-		<tr>
 			<th>이메일</th>
 			<td><form:input path="email" /></td>
-			<th>휴대폰</th>
-			<td><form:input path="phone" /></td>
+			<th>내선번호</th>
+			<td><form:input path="extensionNumber" /></td>
 		</tr>
 		<tr>
 			<th>직급</th>
@@ -55,6 +52,12 @@
 				<form:hidden path="positionCd" />
 				<form:input path="positionCdName" readonly="true" data-search-type="position" />
 			</td>
+			<th>휴대폰</th>
+			<td><form:input path="phone" /></td>
+		</tr>
+		<tr>
+			<th>근속연수</th>
+			<td><form:input path="yearsOfService" /></td>
 			<th>대표번호</th>
 			<td><form:input path="mainNumber" /></td>
 		</tr>

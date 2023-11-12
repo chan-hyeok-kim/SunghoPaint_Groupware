@@ -41,17 +41,21 @@ public class HumanResourceController {
 	
 	@PostMapping("/humanresource/registration")
 	public String setRegistration(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
-		
 		humanResourceService.setRegistration(humanResourceVO, file);
 		return "redirect:/humanresource/list";
 	}
 	
 	@GetMapping("/humanresource/list")
-	public String getView(HumanResourcePager pager, Model model) {
+	public String getList(HumanResourcePager pager, Model model) {
 		model.addAttribute("humanResourceList", humanResourceService.getHumanResourceList(pager));
 		model.addAttribute("pager", pager);
 		model.addAttribute("departmentList", humanResourceService.getDepartmentList());
 		return "humanresource/list";
+	}
+	
+	@GetMapping("/humanresource/list/excelDownload")
+	public void excelDownload() {
+		humanResourceService.excelDownload();
 	}
 	
 	@GetMapping("/humanresource/update")

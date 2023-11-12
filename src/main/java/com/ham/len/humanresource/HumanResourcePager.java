@@ -8,8 +8,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class HumanResourcePager {
+	private String startDate = "";
+	private String endDate = "";
 	private String department = "";
-	private String name = "";
+	private String kind = "";
+	private String keyword = "";
 	
 	private Long startRow;
 	// private Long lastRow;

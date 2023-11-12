@@ -15,6 +15,7 @@ public interface HumanResourceDAO {
 	public List<HumanResourceVO> getHumanResourceList(HumanResourcePager pager);
 	public List<CodeVO> getDepartmentList();
 	public HumanResourceVO getHumanResource(String employeeID);
+	public List<HumanResourceExcelVO> getDepartmentalHumanResourceList(String department);
 	public int setUpdate(HumanResourceVO humanResourceVO);
 	public int setDelete(String employeeID);
 	public int setUpdatePassword(HumanResourceVO humanResourceVO);

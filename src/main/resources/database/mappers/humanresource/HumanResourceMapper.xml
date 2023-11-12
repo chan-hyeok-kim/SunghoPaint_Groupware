@@ -6,18 +6,41 @@
   
 <mapper namespace="com.ham.len.humanresource.HumanResourceDAO">
 	<sql id="searchSQL">
-		<if test="department != ''">
-			WHERE DEPARTMENT_CD = #{department}
+		<if test="startDate != '' or endDate != ''">
+			WHERE
+			<choose>
+				<when test="startDate != '' and endDate != ''">
+					${dateColumn} BETWEEN #{startDate} AND #{endDate}
+				</when>
+				<when test="startDate != '' and endDate == ''">
+					<![CDATA[${dateColumn} >= #{startDate}]]>
+				</when>
+				<when test="startDate == '' and endDate != ''">
+					<![CDATA[${dateColumn} <= #{endDate}]]> 
+				</when>
+			</choose>
 		</if>
-		<if test="name != ''">
-			<if test="department == ''">WHERE</if>
-			<if test="department != ''">AND</if>
-			NAME = #{name}
+		<if test="department != ''">
+			<if test="startDate == '' and endDate == ''">WHERE</if>
+			<if test="startDate != '' or endDate != ''">AND</if>
+			DEPARTMENT_CD = #{department}
+		</if>
+		<if test="keyword != ''">
+			<if test="startDate == '' and endDate == '' and department == ''">WHERE</if>
+			<if test="startDate != '' or endDate != '' or department != ''">AND</if>
+			<choose>
+				<when test="kind == 'employeeID'">
+					${baseTableName}EMPLOYEE_ID
+					LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+				<when test="kind == 'name'">
+					NAME LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+			</choose>
 		</if>
 	</sql>
 	
 	<select id="getHumanResource" parameterType="String" resultMap="getHumanResourceResult">
-
 		SELECT *,
 		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD_NAME,
 		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME
@@ -28,19 +51,41 @@
 		WHERE HR.EMPLOYEE_ID = #{value}
 	</select>
 
-	<select id="getTotal" resultType="Long">
+	<select id="getTotal" parameterType="HumanResourcePager" resultType="Long">
 		SELECT COUNT(*)
 			FROM HUMAN_RESOURCE
-		<include refid="searchSQL" />
+		<include refid="searchSQL">
+			<property name="dateColumn" value="JOIN_DATE" />
+			<property name="baseTableName" value="" />
+		</include>
 	</select>
 	
-	<select id="getHumanResourceList" resultType="HumanResourceVO">
+	<select id="getHumanResourceList" parameterType="HumanResourcePager" resultType="HumanResourceVO">
 		SELECT *,
 		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD_NAME,
 		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME 
 			FROM HUMAN_RESOURCE
-		<include refid="searchSQL" />
+		<include refid="searchSQL">
+			<property name="dateColumn" value="JOIN_DATE" />
+			<property name="baseTableName" value="" />
+		</include>
 		LIMIT #{startRow}, 10
+	</select>
+	
+	<select id="getDepartmentalHumanResourceList" parameterType="String" resultType="HumanResourceExcelVO">
+		SELECT
+		EMPLOYEE_ID, DATE_FORMAT(JOIN_DATE, '%Y-%m-%d') AS JOIN_DATE,
+		NAME, DATE_FORMAT(BIRTH, '%Y-%m-%d') AS BIRTH, YEARS_OF_SERVICE,
+		EXTENSION_NUMBER, PHONE, MAIN_NUMBER, EMAIL, ADDRESS,
+		BANK, ACCOUNT_NUMBER, ACCOUNT_HOLDER, DATE_FORMAT(QUIT_DATE, '%Y-%m-%d') AS QUIT_DATE , QUIT_REASON,
+		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD_NAME,
+		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME,
+		CASE
+			WHEN JOIN_TYPE = 0 THEN '신입'
+			WHEN JOIN_TYPE = 1 THEN '경력'
+		END AS JOIN_TYPE
+			FROM HUMAN_RESOURCE
+		WHERE DEPARTMENT_CD = #{value}
 	</select>
 	
 	<select id="getDepartmentList" resultType="CodeVO">
@@ -58,6 +103,7 @@
 		<result column="DEPARTMENT_CD_NAME" property="departmentCdName" />
 		<result column="POSITION_CD" property="positionCd" />
 		<result column="POSITION_CD_NAME" property="positionCdName" />
+		<result column="YEARS_OF_SERVICE" property="yearsOfService" />
 		<result column="EXTENSION_NUMBER" property="extensionNumber" />
 		<result column="PHONE" property="phone" />
 		<result column="MAIN_NUMBER" property="mainNumber" />
@@ -88,7 +134,7 @@
 		INSERT INTO HUMAN_RESOURCE
 		(
 			EMPLOYEE_ID, PASSWORD, JOIN_DATE, JOIN_TYPE, NAME, BIRTH,
-			DEPARTMENT_CD, POSITION_CD, EXTENSION_NUMBER, PHONE, MAIN_NUMBER,
+			DEPARTMENT_CD, POSITION_CD, YEARS_OF_SERVICE, EXTENSION_NUMBER, PHONE, MAIN_NUMBER,
 			EMAIL, ADDRESS, BANK, ACCOUNT_NUMBER, ACCOUNT_HOLDER,
 			APPROVAL_AUTHORITY, SIGNATURE, QUIT_DATE, QUIT_REASON, PROFILE,
 			REG_ID, REG_DATE, REG_MENU, MOD_ID, MOD_DATE, MOD_MENU
@@ -96,7 +142,7 @@
 		VALUES
 		(
 			FN_EMPLOYEE_ID(), #{password}, #{joinDate}, #{joinType}, #{name}, #{birth},
-			#{departmentCd}, #{positionCd}, #{extensionNumber}, #{phone}, #{mainNumber},
+			#{departmentCd}, #{positionCd}, #{yearsOfService}, #{extensionNumber}, #{phone}, #{mainNumber},
 			#{email}, #{address}, #{bank}, #{accountNumber}, #{accountHolder},
 			#{approvalAuthority}, #{signature}, #{quitDate}, #{quitReason}, #{profile},
 			#{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu}
@@ -114,7 +160,7 @@
 	<update id="setUpdate" parameterType="HumanResourceVO">
 		UPDATE HUMAN_RESOURCE SET
 			JOIN_DATE = #{joinDate}, JOIN_TYPE = #{joinType}, NAME = #{name}, BIRTH = #{birth},
-			DEPARTMENT_CD = #{departmentCd}, POSITION_CD = #{positionCd}, EXTENSION_NUMBER = #{extensionNumber},
+			DEPARTMENT_CD = #{departmentCd}, POSITION_CD = #{positionCd}, YEARS_OF_SERVICE = #{yearsOfService}, EXTENSION_NUMBER = #{extensionNumber},
 			PHONE = #{phone}, MAIN_NUMBER = #{mainNumber}, EMAIL = #{email}, ADDRESS = #{address}, BANK = #{bank},
 			ACCOUNT_NUMBER = #{accountNumber}, ACCOUNT_HOLDER = #{accountHolder}, QUIT_DATE = #{quitDate}, QUIT_REASON = #{quitReason}
 			<if test="profile != null">, PROFILE = #{profile}</if>
