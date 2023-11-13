@@ -41,7 +41,7 @@ public class AnnualController {
 	
 	@PostMapping("update")
 	@ResponseBody
-	public void setUpdate(@RequestBody List<AnnualVO> annuals) {
-		log.info("{}", annuals);
+	public int setUpdate(@RequestBody List<AnnualVO> annuals) {
+		return annualService.setUpdate(annuals);
 	}
 }

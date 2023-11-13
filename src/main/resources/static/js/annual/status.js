@@ -69,19 +69,18 @@ $(function(){
 			let used = parent.siblings(".used").html();
 			let have = parent.siblings(".have").html();
 			
-			occurrence = parseInt(occurrence) + annualCount;
-			total = parseInt(total) + annualCount;
-			have = total - parseInt(used);
+			occurrence = (occurrence = parseInt(occurrence) + annualCount) < 0 ? 0 : occurrence;
+			total = (total = parseInt(total) + annualCount) < 0 ? 0 : total;
+			have = (have = total - parseInt(used)) < 0 ? 0 : have;
 			
-			occurrence = parent.siblings(".occurrence").html(occurrence < 0 ? 0 : occurrence);
-			parent.siblings(".total").html(total < 0 ? 0 : total);
-			parent.siblings(".have").html(have < 0 ? 0 : have);
+			parent.siblings(".occurrence").html(occurrence);
+			parent.siblings(".total").html(total);
+			parent.siblings(".have").html(have);
 			
 			let annual = new Object();
 			annual.employeeID = employeeID;
 			annual.occurrenceAnnualLeave = occurrence;
 			annual.totalAnnualLeave = total;
-			annual.usedAnnualLeave = used;
 			annual.haveAnnualLeave = have;
 			
 			annuals.push(annual);

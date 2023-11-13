@@ -12,4 +12,5 @@ public interface AnnualDAO {
 	public Long getTotal(HumanResourcePager pager);
 	public List<AnnualVO> getAnnualList(HumanResourcePager pager);
 	public List<AnnualExcelVO> getDepartmentalAnnualList(String department);
+	public int setUpdate(AnnualVO annualVO);
 }

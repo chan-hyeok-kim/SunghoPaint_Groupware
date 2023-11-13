@@ -43,4 +43,13 @@ public class AnnualService {
 		
 		excelWriter.write(data, "annual.xlsx", "전사 연차 현황.xlsx");
 	}
+	
+	public int setUpdate(List<AnnualVO> annuals) {
+		int result = 0;
+		for(AnnualVO annualVO : annuals) {
+			result = annualDAO.setUpdate(annualVO);
+		}
+		
+		return result;
+	}
 }

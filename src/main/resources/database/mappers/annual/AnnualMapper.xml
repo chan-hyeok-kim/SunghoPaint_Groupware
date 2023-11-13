@@ -43,4 +43,15 @@
 				ON h.EMPLOYEE_ID = a.EMPLOYEE_ID
 		WHERE DEPARTMENT_CD = #{value}
 	</select>
+	
+	<update id="setUpdate" parameterType="AnnualVO">
+		UPDATE
+			ANNUAL_LEAVE
+		SET
+			OCCURRENCE_ANNUAL_LEAVE = #{occurrenceAnnualLeave},
+			TOTAL_ANNUAL_LEAVE = #{totalAnnualLeave},
+			HAVE_ANNUAL_LEAVE = #{haveAnnualLeave}
+		WHERE
+			EMPLOYEE_ID = #{employeeID}
+	</update>
 </mapper>
