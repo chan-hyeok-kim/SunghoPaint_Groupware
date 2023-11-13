@@ -160,7 +160,8 @@
 
 				<!-- add button -->
 				<div id="form-add-btn-box" style="float:left;">
-					<!-- <button type="button" class="btn btn-info">임시저장</button> -->
+					<button type="button" class="btn btn-info"
+					style="margin-left: 20px;" id="app-save-btn">임시저장</button>
 					<button type="button" class="btn btn-info" id="text-delete-btn"
 					style="margin-left: 20px;">지우기</button>
 				</div>

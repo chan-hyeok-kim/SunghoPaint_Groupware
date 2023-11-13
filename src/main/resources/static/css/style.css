@@ -14477,6 +14477,28 @@ dl {
 	cursor: pointer;
 }
 
+.code-delete-btn{
+	text-align:right;
+    border: 1px solid gainsboro;
+    float: right;
+    margin: 0 0px 10% 0;
+    background:#e6e6e6;
+    text-decoration: none !important;
+    cursor: pointer;
+    padding: 7px 18px 7px 18px;
+}
+
+#code-add-modal-btn{
+	font-weight:bold;
+    border: 1px solid gainsboro;
+    float: left;
+    margin: 0 0px 10% 0;
+    background:#e6e6e6;
+    text-decoration: none !important;
+    cursor: pointer;
+    padding: 7px 18px 7px 18px;
+}
+
 /* textarea */
 #approvalForm{
 	width: 100%;
@@ -14485,7 +14507,24 @@ dl {
 }
 
 
-
+.modal.modal-center {
+   text-align: center;
+ }
+ 
+@media screen and (min-width: 768px) { 
+   .modal.modal-center:before {
+     display: inline-block;
+     vertical-align: middle;
+     content: " ";
+     height: 100%;
+   }
+ }
+ 
+.modal-dialog.modal-center {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
 
 /* div */
 #approval-content{

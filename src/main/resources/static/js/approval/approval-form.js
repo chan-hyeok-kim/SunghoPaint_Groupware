@@ -88,7 +88,7 @@ $('#app-add-btn').click(function(){
 	let check2=$('input[name=midApprover]').val();
     let check3=$('input[name=lastApprover]').val();
 
-	let check4=$('input[name=approvalTypeNo').val();
+	let check4=$('input[name=approvalTypeNo]').val();
 
 	let check5=$('#approvalForm').val();
 
@@ -138,3 +138,43 @@ $('#app-add-btn').click(function(){
 
 	
 })
+
+
+// 임시저장
+
+$('#app-save-btn').click(function(){ 
+	const check1=$('input[name=approvalTitle]').val();
+	const check2=$('input[name=midApprover]').val();
+    const check3=$('input[name=lastApprover]').val();
+    const check4=$('input[name=approvalTypeNo]').val();
+	oEditors.getById["approvalForm"].exec("UPDATE_CONTENTS_FIELD", []);
+	
+    const check5=$('#approvalForm').val();
+    const check6=$('input[name=addApprover]').val();
+
+	console.log(check1)
+	$.ajax({
+		type: 'POST',
+		url:'/approval/save',
+		data:{
+			approvalStatusCd:'R031',
+            approvalTitle:check1,
+			midApprover:check2,
+			lastApprover:check3,
+			approvalTypeNo:check4,
+			approvalContents:check5,
+			addApprover:check6
+		},success:function(result){
+            if(result.trim()>0){
+				Swal.fire({
+					title:'저장 성공!',
+					text:'임시저장한 내용은 기안중 란에서 확인하실 수 있습니다.',
+					icon:'success'
+				}).then(function(){
+					location.href="/apporval/list";
+				})
+			}
+		}
+	})
+
+})   

@@ -63,7 +63,10 @@
 							</form>
 						</div>
 					</div>
-
+					
+					<!-- 선긋기용 -->
+                    <ul class="nav-tabs">
+					</ul>
 
 					<div
 						style="text-align: right; padding-top: 20px; padding-right: 10px">
@@ -105,15 +108,14 @@
   <div class="modal-dialog code-modal-size" role="document">
     <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
       <div class="modal-header" style="background-color: black; padding:0px">
-        <h5 class="modal-title" id="exampleModalLabel" style="padding: 20px;color:white; font-weight: bold;">코드 등록</h5>
+        <h5 class="modal-title" id="exampleModalLabel" style="padding: 20px;color:white; font-weight: bold;">코드 정보</h5>
         <!-- <button type="button" class="close btn-info" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button> -->
       </div>
       <div class="modal-body" style="background: white;">
           
-        <form action="/code/update" method="post" id="frm-update${i.index}">
-      
+        
         <div>
        <table class="table table-bordered">
           <tr>
@@ -134,7 +136,55 @@
         </th>
        
         <th>
-            
+        <div>
+        
+            <button id="code-add-modal-btn" type="button" class="btn code-add-modal-btn"  data-target="#add-code-modal${i.index}"><div class="material-symbols-outlined">
+arrow_left<span style="float:right; display:block; font-size:15px; margin-top: 4px">코드 추가</span>
+</div></button>
+
+<button type="button" class="btn code-delete-btn">
+<span style="float:right; display:block; font-size:15px; margin-top: 4px">삭제</span><div class="material-symbols-outlined">delete
+</div></button>
+
+<!-- add Modal  -->
+  
+  <div data-bs-backdrop="static" class="modal fade modal-center" id="add-code-modal${i.index}" tabindex="0" aria-labelledby="add-code-modal${i.index}" aria-hidden="true">
+  <div class="modal-dialog modal-center" id="sign-modal-size" role="document">
+    <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
+      <div class="modal-header" style="background-color: black; padding:0px">
+        <h5 class="modal-title" id="add-code-modal${i.index}Label" style="padding: 20px;color:white; font-weight: bold;">코드 등록</h5>
+      </div>
+      <div class="modal-body">
+       
+          <p>* ${vo.upCode}의 하위코드만 입력해주세요</p>
+          
+          <form action="/code/add" method="post" id="frm">
+          <input type="hidden" name="upCode" value="${vo.upCode}">
+          <p><span class="code-input-title">코드 </span>
+          <input style="width:50%;" type="text" class="form-control" 
+          id="code-check" name="code"> </p>
+          <p><span class="code-input-title">코드명</span>
+          <input style="width:50%;" type="text" class="form-control"
+          id="code-name-check" name="codeName"> </p>
+  </div>     
+  
+  
+      
+      <div class="modal-footer" style="background: white">
+         <button type="button" class="btn btn-secondary code-close-btn">닫기</button>
+         <button type="submit" class="btn btn-info" id="code-add-btn">확인</button>
+         </form>
+        </div>
+        
+        </div>
+      </div>
+    </div>
+    <!-- add modal end -->
+
+        
+        </div>     
+        <form action="/code/update" method="post" id="frm-update${i.index}">
+      
              <table class="table table-bordered">
             
                 <tr>
@@ -205,7 +255,8 @@
 
 			  <div style="margin-left:300px;">
       <button type="button" class="btn  btn-inverse-dark" id="delete-btn">코드 삭제</button>
-      <button type="button" class="btn btn-info" data-toggle="modal"  data-target="#add-code-modal">코드 추가</button>
+      <button type="button" class="btn  btn-info" data-toggle="modal" data-target="#up-code-modal">상위코드 추가</button>
+      
   </div> 
      
  
@@ -239,44 +290,30 @@
 
 <!-- Modal -->
 
-				  
-
-
-  
-  
-  <!-- add Modal  -->
-  
-  <div class="modal fade" id="add-code-modal" tabindex="0" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" id="sign-modal-size" role="document">
-    <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
+	<!-- upcode add modal  -->	  
+<div class="modal fade" id="up-code-modal" tabindex="-1" role="dialog" aria-labelledby="up-code-modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">코드 등록</h5>
-        <!-- <button type="button" class="close btn-info" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="up-code-modalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button> -->
+        </button>
       </div>
       <div class="modal-body">
-          
-          <form action="/code/add" method="post" id="frm">
-          <p><span class="code-input-title">코드 </span>
-          <input style="width:50%;" type="text" class="form-control" 
-          id="code-check" name="code"> </p>
-          <p><span class="code-input-title">코드명</span>
-          <input style="width:50%;" type="text" class="form-control"
-          id="code-name-check" name="codeName"> </p>
-  </div>     
-  
-  
-      
-      <div class="modal-footer" style="background: white">
-         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-         <button type="button" class="btn btn-info" id="code-add-btn">확인</button>
-         </form>
-        </div>
-        
-        </div>
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
+  </div>
+</div>
+
+  
+  
+  
   
   
  
@@ -303,7 +340,7 @@
 	
 	<script src="/js/code/add-check.js"></script>
 	<script src="/js/code/delete-check.js"></script>
-	 <script src="/js/code/update-check.js"></script> 
+	<script src="/js/code/update-check.js"></script> 
 	<!-- 날짜 변환 -->
 	<script src="/js/code/date.js"></script>
 	

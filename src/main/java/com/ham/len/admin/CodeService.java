@@ -55,6 +55,11 @@ public class CodeService {
 		return codeDAO.getListByUpCode(codeVO);
 	}
 	
+	public int setUpDelete(UpCodeVO upCodeVO) throws Exception{
+		return codeDAO.setUpDelete(upCodeVO);
+	}
+	
+	
 	
 
 }

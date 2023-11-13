@@ -64,7 +64,6 @@ $('#app-delete-btn').click(function() {
 	Swal.fire({
 		text: '정말로 삭제하시겠습니까?',
 		showCancelButton: true,
-		dangerMode: true,
 		confirmButtonText: '승인',
 		confirmButtonColor: 'red',
 		cancelButtonText: '취소',
@@ -73,7 +72,7 @@ $('#app-delete-btn').click(function() {
 	}).then(function(result) {
 		if (result.isConfirmed) {
 			let deleteNo = $('#add-app').attr('data-no');
-
+            console.log(deleteNo)
 			$.ajax({
 				type: 'POST',
 				url: '/approval/delete',
@@ -81,9 +80,10 @@ $('#app-delete-btn').click(function() {
 					approvalNo: deleteNo
 				}, success: function(result) {
 					if (result.trim() > 0) {
-						console.log('삭제 성공')
+						swal('삭제 성공')
+						location.replace('/approval/totalList')
 					}
-					location.replace('/approval/totalList')
+					
 
 				}, error: function() {
 					console.log('삭제 실패')

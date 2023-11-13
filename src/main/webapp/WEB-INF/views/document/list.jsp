@@ -129,7 +129,7 @@
 											<td><input type="checkbox" class="approval-check-box" name="checkList" value="${vo.approvalTypeNo}"></td>
 											<td>${vo.approvalUpTypeVO.codeName}</td>
 											<td>${vo.codeName}</td>
-											<td class="approval-start-date">${vo.regDate}</td>
+											<td class="approval-reg-date">${vo.regDate}</td>
 											<td><button class="btn btn-info document-update" onclick="location.href='/document/update?approvalTypeNo=${vo.approvalTypeNo}'">수정</button></td>
 										  </tr>
 									   </c:if>

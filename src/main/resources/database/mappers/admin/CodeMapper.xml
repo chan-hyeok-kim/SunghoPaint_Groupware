@@ -52,6 +52,12 @@
 		WHERE
 		CODE=#{code}
 	</delete>
+	
+	<delete id="setUpDelete" parameterType="UpCodeVO">
+		DELETE FROM UP_CODE
+		WHERE
+		UP_CODE=#{upCode}
+	</delete>
 
 	<select id="getLastId" resultType="String"
 		parameterType="CodeVO">

@@ -22,6 +22,8 @@ public interface CodeDAO {
 	
 	public int setDelete(CodeVO codeVO) throws Exception;
 	
+	public int setUpDelete(UpCodeVO upCodeVO) throws Exception;
+	
 	public String getLastId(CodeVO codeVO) throws Exception;
 	
 	public List<UpCodeVO> getUpList(Pager pager) throws Exception;
