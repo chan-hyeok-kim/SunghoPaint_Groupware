@@ -13,6 +13,7 @@
 	
 	<table>
 		<tr>
+			<th><input type="checkbox" id="checkAll"></th>
 			<th>사번</th>
 			<th>부서</th>
 			<th>성명</th>
@@ -26,16 +27,17 @@
 		</tr>
 		<c:forEach items="${annualList}" var="annual">
 			<tr onclick="location.href='#'">
-				<td>${annual.employeeID}</td>
+				<td><input type="checkbox"></td>
+				<td class="employeeID">${annual.employeeID}</td>
 				<td>${annual.departmentCdName}</td>
-				<td>${annual.name}</td>
-				<td>${annual.joinDate}</td>
+				<td class="name">${annual.name}</td>
+				<td class="joinDate">${annual.joinDate}</td>
 				<td>${annual.quitDate}</td>
 				<td>${annual.yearsOfService}</td>
-				<td>${annual.occurrenceAnnualLeave}</td>
-				<td>${annual.totalAnnualLeave}</td>
-				<td>${annual.usedAnnualLeave}</td>
-				<td>${annual.haveAnnualLeave}</td>
+				<td class="occurrence">${annual.occurrenceAnnualLeave}</td>
+				<td class="total">${annual.totalAnnualLeave}</td>
+				<td class="used">${annual.usedAnnualLeave}</td>
+				<td class="have">${annual.haveAnnualLeave}</td>
 			</tr>
 		</c:forEach>
 	</table>

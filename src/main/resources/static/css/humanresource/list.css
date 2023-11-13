@@ -28,6 +28,7 @@ form select{
 	vertical-align:middle;
 	border:1px solid #DBDBDB;
 	border-radius:5px;
+	font-size:13px;
 }
 
 form select{
@@ -51,7 +52,7 @@ form button{
     height:40px;
     border:none; border-radius:5px;
     background-color:#6CBDFF;
-    font-weight:600;
+    font-size:13px; font-weight:600;
     color:white;
     cursor:pointer;
 }

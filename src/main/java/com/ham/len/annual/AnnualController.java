@@ -1,10 +1,15 @@
 package com.ham.len.annual;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ham.len.humanresource.HumanResourcePager;
 import com.ham.len.humanresource.HumanResourceService;
@@ -32,5 +37,11 @@ public class AnnualController {
 	@GetMapping("status/excelDownload")
 	public void excelDownload() {
 		annualService.excelDownload();
+	}
+	
+	@PostMapping("update")
+	@ResponseBody
+	public void setUpdate(@RequestBody List<AnnualVO> annuals) {
+		log.info("{}", annuals);
 	}
 }
