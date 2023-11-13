@@ -32,7 +32,7 @@
        <typeAlias type="com.ham.len.admin.notice.AttachmentVO" alias="AttachmentVO"/>
        
        <typeAlias type="com.ham.len.humanresource.sign.SignatureVO" alias="SignatureVO"/>
-
+       <typeAlias type="com.ham.len.humanresource.todolist.ToDoListVO" alias="ToDoListVO"/>
    
 
    
