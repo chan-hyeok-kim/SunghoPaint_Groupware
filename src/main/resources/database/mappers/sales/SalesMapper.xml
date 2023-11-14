@@ -26,7 +26,34 @@
    
    <!-- 배차 조회 -->
    <select id="getReservationList" resultType="CarReservationVO">
-   		SELECT * FROM CAR_RESERVATION
+   		<!-- SELECT *, FN_CODE_NM(LEFT(POSITION_CD,3),POSITION_CD) AS CODE_NAME FROM CAR_RESERVATION CR INNER JOIN HUMAN_RESOURCE HR
+   		ON CR.EMPLOYEE_ID=HR.EMPLOYEE_ID INNER JOIN CAR_LIST CL
+   		ON CR.CAR_NO = CL.CAR_NO
+   		WHERE CL.CAR_STATUS_CD='C012' -->
+   		<!-- SELECT *, FN_CODE_NM(LEFT(POSITION_CD,3),POSITION_CD) AS CODE_NAME
+   		FROM CAR_RESERVATION CR INNER JOIN CAR_LIST CL
+		ON CR.CAR_NO = CL.CAR_NO INNER JOIN HUMAN_RESOURCE HR
+		ON CR.EMPLOYEE_ID = HR.EMPLOYEE_ID
+		WHERE CL.CAR_STATUS_CD='C012'
+	    GROUP BY CL.CAR_MODEL_NAME
+	    ORDER BY CR.RENTAL_NO DESC -->
+	    SELECT *,
+       FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS CODE_NAME
+		FROM CAR_RESERVATION CR
+		INNER JOIN CAR_LIST CL ON CR.CAR_NO = CL.CAR_NO
+		INNER JOIN HUMAN_RESOURCE HR ON CR.EMPLOYEE_ID = HR.EMPLOYEE_ID
+		WHERE CL.CAR_STATUS_CD = 'C012'
+		      AND (CR.CAR_NO, CR.RENTAL_NO) IN (
+		          SELECT CAR_NO, MAX(RENTAL_NO) AS MAX_RENTAL_NO
+		          FROM CAR_RESERVATION
+		          WHERE CAR_STATUS_CD = 'C012'
+		          GROUP BY CAR_NO
+      );
+   </select>
+   
+   <!-- 배차 신청시 대여자 직급 -->
+   <select id="getPosition" parameterType="HumanResourceVO" resultType="HumanResourceVO">
+   		SELECT FN_CODE_NM(LEFT(POSITION_CD,3),POSITION_CD) AS CODE_NAME FROM HUMAN_RESOURCE WHERE EMPLOYEE_ID=#{employeeID}
    </select>
    
    <!-- 배차 수정 -->
@@ -54,14 +81,19 @@
    
    <!-- 전체 대여 현황 -->
    <select id="getAllReservation" resultMap="AllReservationList">
-   		SELECT CL.CAR_MODEL_NAME, CR.RENTAL_DATE, CR.RETURN_DATE, CR.EMPLOYEE_ID, CL.CAR_STATUS_CD 
+   		SELECT CL.CAR_MODEL_NAME, CR.RENTAL_DATE, CR.RETURN_DATE, CR.EMPLOYEE_ID, CL.CAR_STATUS_CD, HR.NAME, FN_CODE_NM(LEFT(POSITION_CD,3),POSITION_CD) AS CODE_NAME
    		FROM CAR_RESERVATION CR INNER JOIN CAR_LIST CL
-		ON CR.CAR_NO = CL.CAR_NO
+		ON CR.CAR_NO = CL.CAR_NO INNER JOIN HUMAN_RESOURCE HR
+		ON CR.EMPLOYEE_ID = HR.EMPLOYEE_ID
+		WHERE CL.CAR_STATUS_CD='C012'
    </select>
    
    <resultMap id="AllReservationList" type="CarListVO">
 		<result property="carModelName" column="CAR_MODEL_NAME" />
 	    <result property="carStatusCd" column="CAR_STATUS_CD" />
+	    <result property="name" column="NAME" />
+	    <result property="codeName" column="CODE_NAME" />
+	    
    
    		<association javaType="CarReservationVO" property="carReservationVO">
 	        <result property="rentalDate" column="RENTAL_DATE" />
@@ -71,10 +103,10 @@
    </resultMap>
    
    <!-- 내 대여 현황 -->
-   <select id="getMyReservation" resultMap="MyReservationList">
+   <select id="getMyReservation" resultMap="MyReservationList" parameterType="CarReservationVO">
    		SELECT CL.CAR_MODEL_NAME, CR.RENTAL_DATE, CR.RETURN_DATE, CL.CAR_STATUS_CD, CR.CAR_NO, CR.RENTAL_NO
    		FROM CAR_RESERVATION CR INNER JOIN CAR_LIST CL
-		ON CR.CAR_NO = CL.CAR_NO
+		ON CR.CAR_NO = CL.CAR_NO WHERE CR.EMPLOYEE_ID=#{employeeId}
    </select>
    
    <resultMap id="MyReservationList" type="CarListVO">
@@ -169,6 +201,7 @@
    		ON PM.CLIENT_NO = CL.CLIENT_NO INNER JOIN MATERIAL_PRODUCT MP
    		ON PM.MATERIAL_PRODUCT_NO = MP.MATERIAL_PRODUCT_NO
    </select>
+   
    
    
    

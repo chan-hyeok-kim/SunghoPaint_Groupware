@@ -105,6 +105,10 @@
             <div style="text-align: right;">
             
             <form action="./excelDownload" method="get">
+            <input type="hidden" name="purDate" value="">
+	        <input type="hidden" name="cliName" value="">
+	        <input type="hidden" name="codName" value="">
+	        <input type="hidden" name="toPrice" value="">
     			<button id="submit">¿¢¼¿ ´Ù¿î·Îµå</button>
         	</form>
 	</div>
@@ -217,7 +221,14 @@ function num2han(num) {
 			}  
 		return result.join('');
 		}
+		
+		
+
+console.log(cliName)
+console.log("zzz")
 });
+
+
 </script>
 </body>
 </html>

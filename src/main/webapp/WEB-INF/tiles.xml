@@ -169,7 +169,9 @@
 	  <put-attribute name="body" value="/WEB-INF/views/sales/dealList.jsp"/>
 	</definition>
 	
-	
+	<definition name="sales/scheduleManagement" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/scheduleManagement.jsp"/>
+	</definition>
 	<!-- 성호 -->
 	
 	<!-- 호진 -->

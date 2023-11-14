@@ -19,4 +19,6 @@ public class CarListVO extends CodeVO{
 	private String carReason;
 	
 	private CarReservationVO carReservationVO;
+	
+	private String name;
 }
