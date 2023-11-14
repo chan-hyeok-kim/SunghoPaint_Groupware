@@ -13,6 +13,9 @@ import lombok.ToString;
 @ToString
 public class ExcelVO extends CodeVO{
 
+	private String title;
+	private String corporateName;
+	
 	private String clientName;
 	private String clientAddress;
 	private String clientRefAddress;

@@ -192,7 +192,7 @@ ul.nav-tabs {
 							      <th scope="col" style="font-weight:bold;">번호</th>
 							      <th scope="col" style="font-weight:bold;">차종</th>
 							      <th scope="col" style="font-weight:bold;">예약 시간</th>
-							      <th scope="col" style="font-weight:bold;">반납 시간</th>
+							      <th scope="col" style="font-weight:bold;">반납 예정일</th>
 							      <th scope="col" style="font-weight:bold;">대여자</th>
 							    </tr>
 							  </thead>
@@ -203,7 +203,7 @@ ul.nav-tabs {
 				             <td>${vo.carModelName}</td>
 				             <td>${vo.carReservationVO.rentalDate}</td>
 				             <td>${vo.carReservationVO.returnDate}</td>
-				             <td>${vo.carReservationVO.employeeId}</td>
+				             <td>${vo.name} ${vo.codeName}</td>
 				           </tr>
 				         </c:forEach>
 							  </tbody>

@@ -8,7 +8,7 @@
 				             <th>번호</th>
 				             <th>차종</th>
 				             <th>예약 시간</th>
-				             <th>반납 시간</th>
+				             <th>반납 예정일</th>
 				             <th>대여자</th>
 				           </tr>
 				        </thead>
@@ -19,7 +19,7 @@
 				             <td>${vo.carModelName}</td>
 				             <td>${vo.carReservationVO.rentalDate}</td>
 				             <td>${vo.carReservationVO.returnDate}</td>
-				             <td>${vo.carReservationVO.employeeId}</td>
+				             <td>${vo.name} ${vo.codeName}</td>
 				           </tr>
 				         </c:forEach>
 				        </tbody>
