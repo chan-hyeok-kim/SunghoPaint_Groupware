@@ -6,11 +6,10 @@
 
 <mapper namespace="com.ham.len.admin.CodeDAO">
 
-<sql id="searchCdName">
+<sql id="searchUpCdName">
 <choose>
   <when test="kind=='upCode'">UP_CODE</when>
-  <when test="kind=='code'">CODE</when>
-  <otherwise>CODE_NAME</otherwise>
+  <otherwise>UP_CODE_NAME</otherwise>
 </choose>
 </sql>
 
@@ -21,13 +20,15 @@
 		WHERE CODE=#{code}
 	</select>
 
-	<select id="getList" resultType="CodeVO" parameterType="Pager">
+	<select id="getList" resultType="CodeVO">
 		SELECT *
 		FROM CODE
-		WHERE <include refid="searchCdName"></include>
-	    LIKE CONCAT('%',#{search},'%')
-		ORDER BY CODE DESC
-		LIMIT #{startRow},#{lastRow}
+	</select>
+	
+	<select id="getListByUpCode" resultType="CodeVO" parameterType="CodeVO">
+		SELECT *
+		FROM CODE
+		WHERE UP_CODE=#{upCode}
 	</select>
 
 	<insert id="setAdd" parameterType="CodeVO">
@@ -51,6 +52,12 @@
 		WHERE
 		CODE=#{code}
 	</delete>
+	
+	<delete id="setUpDelete" parameterType="UpCodeVO">
+		DELETE FROM UP_CODE
+		WHERE
+		UP_CODE=#{upCode}
+	</delete>
 
 	<select id="getLastId" resultType="String"
 		parameterType="CodeVO">
@@ -59,18 +66,30 @@
 		WHERE UP_CODE=#{upCode}
 	</select>
 	
-	<select id="getTotal" resultType="Long" parameterType="Pager">
-	    SELECT COUNT(*)
-	      FROM CODE
-	      WHERE <include refid="searchCdName"></include>
-	    LIKE CONCAT('%',#{search},'%')
-	</select>
-	
+
 	<select id="getCodeCheck" resultType="Long" parameterType="CodeVO">
          SELECT COUNT(*)
            FROM CODE
           WHERE CODE=#{code}
     </select>
 
+    <select id="getUpList" resultType="UpCodeVO" parameterType="Pager">
+         SELECT *
+           FROM UP_CODE
+          WHERE <include refid="searchUpCdName"></include>
+           LIKE CONCAT('%',#{search},'%')
+          ORDER BY UP_CODE DESC
+          LIMIT #{startRow},#{lastRow}
+    </select>
+    
+    <select id="getUpTotal" resultType="Long" parameterType="Pager">
+	    SELECT COUNT(*)
+	      FROM UP_CODE
+	     WHERE <include refid="searchUpCdName"></include>
+	   	  LIKE CONCAT('%',#{search},'%')
+	</select>
+	
 
+	
+    
 </mapper>

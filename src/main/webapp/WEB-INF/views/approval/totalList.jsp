@@ -40,12 +40,12 @@
 						</div>
 					</div>
 
-					<ul class="nav-tabs">
+					<ul class="nav-tabs total-list-tabs">
 						<li onclick="location.href='./totalList'" class="active"><a class="link-tab">전체</a></li>
 						<li data-cd="R031"><a class="link-tab">기안중</a></li>
 						<li data-cd="R032"><a class="link-tab">진행중</a></li>
 						<li data-cd="R034"><a class="link-tab">반려</a></li>
-						<li data-cd="R033"><a class="link-tab">결재</a></li>
+						<li data-cd="R033"><a class="link-tab">승인 완료</a></li>
 					</ul>	
 
 
@@ -62,7 +62,7 @@
 				  
 				  
 				
-				    <table class="table-bordered mt-2" id="approval-table">
+				    <table class="table table-hover mt-2" id="approval-table">
 				        <thead>
 				           <tr>
 				             <th>선택</th>
@@ -75,6 +75,10 @@
 				           </tr>
 				        </thead>
 				        <tbody>
+				        <script>
+				        
+				        console.log('${list[0].approvalNo}')
+				        </script>
 				        <c:forEach items="${list}" var="vo" varStatus="i">
 				           <tr>
 				             <td><input type="checkbox"></td>
@@ -82,8 +86,17 @@
 				             <td>${vo.approvalTitle}</td>
 				             <td>${vo.drafter}</td>
 				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
-				             <td>${vo.codeName}</td>
-				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
+				             <td>${vo.apCodeName}</td>
+				             <c:choose>
+				             <c:when test="${vo.approvalStatusCd eq 'R031'}">
+				             <td><a href="/approval/update?approvalNo=${vo.approvalNo}" class="detail-proceed-btn">기안서 확인</a></td>
+				             </c:when>
+				             <c:otherwise>
+				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}" class="detail-proceed-btn">기안서 확인</a></td>
+				             </c:otherwise>
+				             </c:choose>
+				             
+				             
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -287,6 +300,11 @@
 		
 
 	
+			<script type="text/javascript">
+	var formSign='${member.signature}';
+	var username='${member.username}';
+	
+	</script>
 			
 
 

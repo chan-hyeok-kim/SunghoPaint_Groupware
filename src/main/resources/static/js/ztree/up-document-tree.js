@@ -236,12 +236,35 @@ function upDocumentCheck(event, treeId, treeNode) {
 
 
 	/* 결재선 추가 */
-	let approvalTest = '<span id="docs-internal-guid-fe95ce02-7fff-fe80-414b-be8c661eb408"><div dir="ltr" style="margin-left:0pt;" align="center"></div></span><span id="docs-internal-guid-d2c86d64-7fff-7309-2473-a557a501100f"><div dir="ltr" style="margin-left:0pt;" align="center"><table id="app-test-tbl" class="__se_tbl_ext" style="border:none;border-collapse:collapse;"><colgroup><col width="58"><col width="86"><col width="58"></colgroup><tbody><tr style="height:5.5872802734375pt" id="top-tap"><td rowspan="3" style="height:5.5872802734375pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;background-color:#cccccc;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br><br><br><p dir="ltr" style="line-height:1.2;text-align: center;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 10pt; font-family: Arial, sans-serif; background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;">기 안</span></p></td><td id="top-drafter-tab" style="text-align:center; height:5.5872802734375pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td></tr><tr style="height:62.25pt" id="mid-tap"><td id="mid-drafter-tab" style="height:62.25pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br><span class="form-sign-span"></span></td></tr><tr style="height:0pt" id="bot-tap"><td id="bot-drafter-tab" style="height:0pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td></tr>';
-	let approvalLine1 = '<span id="docs-internal-guid-fe95ce02-7fff-fe80-414b-be8c661eb408"><div dir="ltr" style="margin-left:0pt;" align="center"></div></span><span id="docs-internal-guid-d2c86d64-7fff-7309-2473-a557a501100f"><div dir="ltr" style="margin-left:0pt;" align="center"><table id="app-test-tbl" class="__se_tbl_ext" style="border:none;border-collapse:collapse;"><colgroup><col width="58"><col width="86"><col width="86"></colgroup><tbody><tr style="height:5.5872802734375pt"><td rowspan="3" style="height:5.5872802734375pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;background-color:#cccccc;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br><br><br><p dir="ltr" style="line-height:1.2;text-align: center;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 10pt; font-family: Arial, sans-serif; background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;">기 안</span></p></td><td style="height:5.5872802734375pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td></tr><tr style="height:62.25pt"><td style="height:62.25pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br><span class="form-sign-span"></span></td></tr><tr style="height:0pt"><td style="height:0pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td></tr></tbody></table></div></span>';
-
+	let approvalTest = '<span id="docs-internal-guid-fe95ce02-7fff-fe80-414b-be8c661eb408"><div dir="ltr" style="margin-left:0pt;" align="center"></div></span><span id="docs-internal-guid-d2c86d64-7fff-7309-2473-a557a501100f"><div dir="ltr" style="margin-left:0pt;" align="center"><table id="app-test-tbl" class="__se_tbl_ext" style="border:none;border-collapse:collapse;"><tbody><tr style="height:5.5872802734375pt" id="top-tap"><td rowspan="3" style="height:5.5872802734375pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;background-color:#cccccc;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br><br><br><p dir="ltr" style="line-height:1.2;text-align: center;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 10pt; font-family: Arial, sans-serif; background-color: transparent; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; vertical-align: baseline; white-space-collapse: preserve;">기 안</span></p></td><td id="top-drafter-tab" style="text-align:center; height:5.5872802734375pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td></tr><tr style="height:62.25pt" id="mid-tap"><td id="mid-drafter-tab" style="height:62.25pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br><span class="form-sign-span"></span></td></tr><tr style="height:0pt" id="bot-tap"><td id="bot-drafter-tab" style="text-align:center;height:0pt; border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><br></td></tr>';
+	
        
 	$('#approval-line-add-blank').text('');
 	$('#approval-line-add-blank').append(approvalTest);
+
+	const imgTag='<img width="70px" height="40px" src="'+formSign+'">'
+	mid=document.getElementById('mid-drafter-tab');
+	mid.innerHTML=imgTag;
+
+	setTimeDept();
+  
+	//서명시간, 부서 입력
+	function setTimeDept(){
+		$.ajax({
+			type:'GET',
+			url:'/approval/signTime'
+			,success:function(result){
+			
+				$('#top-drafter-tab').text(result.deptName);
+				$('#bot-drafter-tab').text(result.signTime);
+			}
+		})
+		}
+
+   
+   
+
+
 }
 
 

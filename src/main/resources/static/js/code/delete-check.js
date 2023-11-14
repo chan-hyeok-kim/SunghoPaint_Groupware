@@ -28,8 +28,13 @@ $('#delete-btn').click(function() {
         data: {
             deleteCdArr: arr
         }, success: function(result) {
+            if(result.trim()>0){
+                swal('삭제 성공','','success').then(function(){
+                    location.replace('/code/list');
+                })
+               
+            }
             
-            location.replace('/code/list');
         }, error: function() {
     
         }
@@ -41,3 +46,4 @@ $('#delete-btn').click(function() {
     
     })
     
+  

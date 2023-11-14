@@ -53,6 +53,109 @@ public class ApprovalController {
 		List<ApprovalVO> ar = approvalService.getMyList(pager);
 		
 		List<ApprovalVO> forLast=new ArrayList<>();
+		List<ApprovalVO> forMid=new ArrayList<>();
+		List<ApprovalVO> forAdd=new ArrayList<>();
+		boolean check1=false;
+		boolean check2=false;
+		boolean check3=false;
+		
+	    for(ApprovalVO a: ar) {
+	    	boolean check0=(a.getEmployeeID().equals(humanResourceVO.getEmployeeID()));
+	    	//로그인한 사람이 기안자와 같을 경우
+	    	check1=(a.getLastApprover().equals(humanResourceVO.getEmployeeID()));
+	    	
+	    	boolean check41=(a.getApprovalCheckCd().equals("R041"));
+	    	//0회 검토완료
+	    	boolean check42=(a.getApprovalCheckCd().equals("R042"));
+	    	//1회 검토완료
+	    	boolean check43=(a.getApprovalCheckCd().equals("R043"));
+	    	//2회 검토완료
+	    	boolean check44=(a.getApprovalCheckCd().equals("R044"));
+	    	//3회 검토완료
+	    	boolean check31=(a.getApprovalStatusCd().equals("R031"));
+	        //임시저장 문서
+	    	boolean check33=(a.getApprovalStatusCd().equals("R033"));
+	    	//승인완료 문서
+	    	boolean check34=(a.getApprovalStatusCd().equals("R034"));
+	    	//반려된 문서. 본인이랑 반려시킨 사람이 볼수 있어야됨
+	    	boolean check4=(a.getAddApprover()==null);
+	    	
+	    	
+		    	if((check0)|| (check0 && check31) || (check1 && check42 && check4 ) || (check1 && check43) 
+		    			|| (check1 && check44) || (check1 && check43 && check34)) {
+		    		forLast.add(a);
+		    	}
+		    	    //최종 결재자는
+	    	    	//1. R042(1회검토완료)이면서 추가검토자없는거
+		    	    //2. 2회 검토완료된거, 3회 검토완료된거, 
+		    	    //3. 자기가 반려한거(2회검토 완료+반려)
+		    	
+	    	check2=(a.getMidApprover().equals(humanResourceVO.getEmployeeID()));
+	    	 //중간검토자는 뭘 체크해야될까
+	    	 //1. R041(0회 검토)이거나
+	    	 //2. 0회 검토 말고 전부
+	    	 //3. 0회 검토+반려
+		    	if((check0) || (check0 && check31)|| (check2 && check41) || (check2 && !check41) || (check2 && check41 && check34)) {
+		    		forMid.add(a);
+		    	}
+	    	   
+		    check3=(a.getAddApprover().equals(humanResourceVO.getEmployeeID()));
+	         //추가검토자는
+		     //1. R042(1회 검토 완료)이면서(check2가 true)
+		     // 추가검토자 있는거 (check3이 false) 
+		     //2. 2회 검토 완료된건,3회 검토 완료된건(0회와 1회의 반대) 
+		     //3. 반려된 건 중에서 1회 검토인 것만 보임
+		   
+		    	if((check0) || (check0 && check31) ||(check3 && check42 && !check4) || (check3 && check43) || 
+		    	(check3 && check44)|| (check3 && check42 && check34)) {
+		    		forAdd.add(a);
+		    	}
+		    	
+	    	
+	    }
+	    
+	    log.warn("********{}******",check1);
+	    
+	    log.warn("********{}******",check2);
+	    log.warn("********{}******",check3);
+		if((check1 ^ check2) ^ check3) {
+			if(check1) {
+			    model.addAttribute("list", forLast);
+			}else if(check2) {
+				model.addAttribute("list", forMid);
+			}else if(check3) {
+				model.addAttribute("list", forAdd);
+			}
+			log.warn("********{}******",forLast);
+		}else{
+			model.addAttribute("list", ar);
+		}
+		
+		
+        model.addAttribute("member", humanResourceVO);
+		log.warn("========{}========", ar);
+
+		
+		
+		
+		return "approval/list";
+	}
+    
+	@GetMapping("ajaxTotalList")
+	public void getStatusAdminList(ApprovalVO approvalVO,Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
+		List<ApprovalVO> ar = approvalService.getStatusAdminList(approvalVO,pager);
+       	model.addAttribute("list", ar);
+       	
+       	
+	}
+	
+	@GetMapping("ajaxList")
+	public String getStatusList(ApprovalVO approvalVO,Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
+        List<ApprovalVO> ar = approvalService.getStatusList(approvalVO,pager,humanResourceVO);
+		
+		List<ApprovalVO> forLast=new ArrayList<>();
+		List<ApprovalVO> forMid=new ArrayList<>();
+		List<ApprovalVO> forAdd=new ArrayList<>();
 		boolean check1=false;
 		boolean check2=false;
 		boolean check3=false;
@@ -92,7 +195,7 @@ public class ApprovalController {
 	    	 //2. 0회 검토 말고 전부
 	    	 //3. 0회 검토+반려
 		    	if((check0) || (check2 && check41) || (check2 && !check41) || (check2 && check41 && check34)) {
-		    		forLast.add(a);
+		    		forMid.add(a);
 		    	}
 	    	   
 		    check3=(a.getAddApprover().equals(humanResourceVO.getEmployeeID()));
@@ -104,7 +207,7 @@ public class ApprovalController {
 		   
 		    	if((check0) || (check3 && check42 && !check4) || (check3 && check43) || 
 		    	(check3 && check44)|| (check3 && check42 && check34)) {
-		    		forLast.add(a);
+		    		forAdd.add(a);
 		    	}
 		    	
 	    	
@@ -114,8 +217,14 @@ public class ApprovalController {
 	    
 	    log.warn("********{}******",check2);
 	    log.warn("********{}******",check3);
-		if(check1 || check2 || check3) {
-			model.addAttribute("list", forLast);
+		if((check1 ^ check2) ^ check3) {
+			if(check1) {
+			    model.addAttribute("list", forLast);
+			}else if(check2) {
+				model.addAttribute("list", forMid);
+			}else if(check3) {
+				model.addAttribute("list", forAdd);
+			}
 			log.warn("********{}******",forLast);
 		}else{
 			model.addAttribute("list", ar);
@@ -123,19 +232,7 @@ public class ApprovalController {
 		
 		
         model.addAttribute("member", humanResourceVO);
-		log.warn("========{}========", ar);
-
-		
-		
-		
-		return "approval/list";
-	}
-
-	@GetMapping("ajaxList")
-	public String getStatusList(ApprovalVO approvalVO,Pager pager, Model model) throws Exception {
-		List<ApprovalVO> ar = approvalService.getStatusList(approvalVO,pager);
-		model.addAttribute("list", ar);
-
+        
 		log.warn("========{}========", ar);
 
 		return "approval/ajaxList";
@@ -179,9 +276,10 @@ public class ApprovalController {
 		// 나머지 값 세팅
 		approvalVO.setEmployeeID(id);
 	    approvalVO.setDrafter(humanResourceVO.getName());
+	    approvalVO.setApprovalStatusCd("R032");
 		int result = approvalService.setAdd(approvalVO);
          
-		return "redirect:/approval/list";
+		return "redirect:approval/list";
 	}
 
 	@ResponseBody
@@ -195,6 +293,7 @@ public class ApprovalController {
 	@GetMapping("detail")
 	public void getDetail(ApprovalVO approvalVO, Model model) throws Exception {
 		approvalVO = approvalService.getDetail(approvalVO);
+		log.warn("왜안옴{}",approvalVO);
 		model.addAttribute("vo", approvalVO);
 
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -205,13 +304,7 @@ public class ApprovalController {
 			model.addAttribute("sign", humanResourceVO.getSignature());
 			// 사인 값 들고오기
 			model.addAttribute("member", humanResourceVO);
-//			String empId1=approvalVO.getEmployeeID();
-//			String empId2=humanResourceVO.getEmployeeID();
-//			if(empId1.equals(empId2)) {
-//				
-//			}
-//			
-//			//서명하기 체크. 사원아이디를 비교해야됨
+
 		}
 		
 		
@@ -251,6 +344,26 @@ public class ApprovalController {
 		int result = approvalService.setUpdate(approvalVO);
 
 		return "redirect:/approval/totalList";
+	}
+	
+	@PostMapping("save")
+	public String setSave(ApprovalVO approvalVO, HttpServletRequest request,@AuthenticationPrincipal HumanResourceVO humanResourceVO,Model model) throws Exception {
+
+		String id=humanResourceVO.getEmployeeID();
+		approvalVO.setEmployeeID(id);
+		approvalVO.setDrafter(humanResourceVO.getName());
+		
+		//기안자 이름, 아이디 세팅
+		
+		String path = request.getRequestURI();
+		approvalVO = (ApprovalVO) makeColumn.getColumn(approvalVO, path, id);
+
+		log.warn("********{}******", approvalVO);
+
+		int result = approvalService.setAdd(approvalVO);
+ 
+		model.addAttribute("result", result);
+		return "commons/ajaxResult";
 	}
 
 //	첨언 추가
@@ -319,7 +432,7 @@ public class ApprovalController {
 		return "commons/result";
 	}
 	
-	@PostMapping("signTime")
+	@GetMapping("signTime")
 	@ResponseBody
     public ApprovalVO getSignTime(ApprovalVO approvalVO,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception{
 		approvalVO=approvalService.getSignTime(approvalVO,humanResourceVO);
@@ -333,7 +446,7 @@ public class ApprovalController {
 		return approvalVO;
 	}
 	
-	@PostMapping("mySignTime")
+	@GetMapping("mySignTime")
 	@ResponseBody
 	public ApprovalVO getMySignTime(ApprovalVO approvalVO) throws Exception{
 		approvalVO=approvalService.getMySignTime(approvalVO);
@@ -346,4 +459,7 @@ public class ApprovalController {
 		
 		return approvalVO;
 	}
+	
+	
+	
 }

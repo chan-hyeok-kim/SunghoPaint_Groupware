@@ -18,12 +18,9 @@ public class CodeService {
 	@Autowired
 	private CodeDAO codeDAO;
 
-	public List<CodeVO> getList(Pager pager) throws Exception{
-		pager.makeRowNum();
-  	    Long total=codeDAO.getTotal(pager);
-		pager.makePageNum(total);
-		log.warn("페이저 토탈{}",pager.getTotalPage());
-		return codeDAO.getList(pager);
+	public List<CodeVO> getList() throws Exception{
+
+		return codeDAO.getList();
 	}
 	
     public int setAdd(CodeVO codeVO) throws Exception{
@@ -45,6 +42,24 @@ public class CodeService {
 	public Long getCodeCheck(CodeVO codeVO) throws Exception{
 		return codeDAO.getCodeCheck(codeVO);
 	}
+	
+	public List<UpCodeVO> getUpList(Pager pager) throws Exception{
+		pager.makeRowNum();
+		Long total=codeDAO.getUpTotal(pager);
+		pager.makePageNum(total);
+		
+		return codeDAO.getUpList(pager);
+	}
+	
+	public List<CodeVO> getListByUpCode(CodeVO codeVO) throws Exception{
+		return codeDAO.getListByUpCode(codeVO);
+	}
+	
+	public int setUpDelete(UpCodeVO upCodeVO) throws Exception{
+		return codeDAO.setUpDelete(upCodeVO);
+	}
+	
+	
 	
 
 }

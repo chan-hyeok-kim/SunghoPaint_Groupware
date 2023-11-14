@@ -14471,6 +14471,34 @@ dl {
 	margin: 20px 0 0 0;
 }
 
+.detail-proceed-btn{
+	color: #0D6EFD;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.code-delete-btn{
+	text-align:right;
+    border: 1px solid gainsboro;
+    float: right;
+    margin: 0 0px 10% 0;
+    background:#e6e6e6;
+    text-decoration: none !important;
+    cursor: pointer;
+    padding: 7px 18px 7px 18px;
+}
+
+#code-add-modal-btn{
+	font-weight:bold;
+    border: 1px solid gainsboro;
+    float: left;
+    margin: 0 0px 10% 0;
+    background:#e6e6e6;
+    text-decoration: none !important;
+    cursor: pointer;
+    padding: 7px 18px 7px 18px;
+}
+
 /* textarea */
 #approvalForm{
 	width: 100%;
@@ -14479,7 +14507,24 @@ dl {
 }
 
 
-
+.modal.modal-center {
+   text-align: center;
+ }
+ 
+@media screen and (min-width: 768px) { 
+   .modal.modal-center:before {
+     display: inline-block;
+     vertical-align: middle;
+     content: " ";
+     height: 100%;
+   }
+ }
+ 
+.modal-dialog.modal-center {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
 
 /* div */
 #approval-content{
@@ -14494,6 +14539,18 @@ dl {
 	margin-top: 50px;
 	float:left;
 }
+
+#image-show{
+	overflow: hidden;
+    height: 250px;
+    text-align: center;
+    padding: 5%;
+}
+
+.code-scroll{
+	height: 300px;
+}
+
 
 /* tree ul */
 #form_list{
@@ -14527,6 +14584,9 @@ dl {
 #sign-modal-size{
 	max-width: 700px;
 	background: white;
+}
+.code-modal-size{
+	min-width: 800px;
 }
 
 /* table */
@@ -14618,17 +14678,18 @@ dl {
 
 .nav-tabs>li:after {
 	left: -4px;
-	transform: skew(-25deg, 0deg);
+	transform: skew(339deg, 0deg);
 	box-shadow: #d4d4d4 -1px 1px 0;
 }
 
 .nav-tabs>li {
 	border-radius: 7px 7px 0 0;
+	line-height: 2.0;
 }
 
 .nav-tabs>li:before {
 	right: -4px;;
-	transform: skew(25deg, 0deg);
+	transform: skew(200deg, 0deg);
 	box-shadow: #d4d4d4 1px 1px 0;
 }
 
@@ -14720,6 +14781,21 @@ ul.nav-tabs {
 	margin: 10px 0 0 10px;
 	display: block;
 	float: right;
+}
+
+/* table hover custom*/
+.table-hover > tbody > tr:hover > * {
+    background-color: #EEF1F6;
+    --bs-table-accent-bg: #EEF1F6;
+  
+}
+.table-hover > thead > tr th{
+	border-top: 1px solid #ebedf2;
+}
+
+/*canvas */
+#sign-canvas{
+    background: white;	
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -22,6 +22,7 @@
 	   <typeAlias type="com.ham.len.annual.AnnualExcelVO" alias="AnnualExcelVO" />
 	   
 	   <typeAlias type="com.ham.len.commons.CodeVO" alias="CodeVO" />
+	   <typeAlias type="com.ham.len.admin.UpCodeVO" alias="UpCodeVO" />
 	   <typeAlias type="com.ham.len.commons.Pager" alias="Pager" />
 	   
 	    <typeAlias type="com.ham.len.instrument.InstrumentVO" alias="InstrumentVO" />
@@ -35,7 +36,7 @@
        <typeAlias type="com.ham.len.admin.notice.AttachmentVO" alias="AttachmentVO"/>
        
        <typeAlias type="com.ham.len.humanresource.sign.SignatureVO" alias="SignatureVO"/>
-
+       <typeAlias type="com.ham.len.humanresource.todolist.ToDoListVO" alias="ToDoListVO"/>
    
 
    

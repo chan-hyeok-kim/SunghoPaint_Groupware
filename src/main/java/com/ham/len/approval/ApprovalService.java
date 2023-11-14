@@ -44,15 +44,30 @@ public class ApprovalService {
 		return approvalDAO.getMyList(map);
 	}
 	
-	public List<ApprovalVO> getStatusList(ApprovalVO approvalVO, Pager pager) throws Exception{
+	public List<ApprovalVO> getStatusList(ApprovalVO approvalVO, Pager pager,HumanResourceVO humanResourceVO) throws Exception{
+		approvalVO.setEmployeeID(humanResourceVO.getEmployeeID());
+		
 		pager.makeRowNum();
 		Long total=approvalDAO.getStatusTotal(approvalVO);
 		pager.makePageNum(total);
+		log.warn("몇개나오는데{}",approvalVO);
+		log.warn("몇개나오는데{}",total);
 		
 		HashMap<String, Object> map=new HashMap();
 		map.put("pager",pager);
 		map.put("vo", approvalVO);
 		return approvalDAO.getStatusList(map);
+	}
+	
+	public List<ApprovalVO> getStatusAdminList(ApprovalVO approvalVO,Pager pager) throws Exception{
+		pager.makeRowNum();
+		Long total=approvalDAO.getStatusAdmin(approvalVO);
+		pager.makePageNum(total);
+		
+		HashMap<String, Object> map=new HashMap();
+		map.put("pager",pager);
+		map.put("vo", approvalVO);
+		return approvalDAO.getStatusAdminList(map);
 	}
 	
 	public List<HumanResourceVO> getTeamList(HumanResourceVO humanResourceVO) throws Exception{

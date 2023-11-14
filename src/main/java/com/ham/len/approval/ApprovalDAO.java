@@ -24,6 +24,10 @@ public interface ApprovalDAO {
 	
 	public Long getStatusTotal(ApprovalVO approvalVO) throws Exception;
 	
+	public List<ApprovalVO> getStatusAdminList(Map<String, Object> map) throws Exception;
+	
+	public Long getStatusAdmin(ApprovalVO approvalVO) throws Exception;
+	
 	public List<HumanResourceVO> getTeamList(HumanResourceVO humanResourceVO) throws Exception;
 		
 	public ApprovalVO getDetail(ApprovalVO approvalVO) throws Exception;

@@ -97,6 +97,10 @@
 	  <put-attribute name="body" value="/WEB-INF/views/code/list.jsp"/>
 	</definition>
 	
+	<definition name="code/test" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/code/test.jsp"/>
+	</definition>
+	
 	<definition name="notice/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/notice/list.jsp"/>
 	</definition>

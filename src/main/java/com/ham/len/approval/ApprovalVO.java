@@ -33,7 +33,7 @@ public class ApprovalVO extends CodeVO{
     private String lastApprover;
     private String admonition;
     private ApprovalTypeVO approvalTypeVO;
-    private String aCodeName;
+    private String apCodeName;
     private String aptCodeName;
     private Long aptApprovalTypeNo;
     

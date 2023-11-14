@@ -19,4 +19,5 @@ public class MaterialProductVO extends CodeVO {
 	private Long materialProductStock;
 	private String materialProductCategory;
     
+	private String materialProductName;
 }
