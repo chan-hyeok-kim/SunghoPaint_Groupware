@@ -99,6 +99,19 @@
       </div>
     </li>
     
+        <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages-3" aria-expanded="false" aria-controls="general-pages">
+        <span class="menu-title">일정관리</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-medical-bag menu-icon"></i>
+      </a>
+      <div class="collapse" id="general-pages-3">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/sales/scheduleManagement"> 일정 관리 </a></li>
+        </ul>
+      </div>
+    </li>
+    
     
         <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#purchase-general-pages" aria-expanded="false" aria-controls="general-pages">

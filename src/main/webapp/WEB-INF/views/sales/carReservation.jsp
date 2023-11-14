@@ -161,7 +161,9 @@
                         <select class="form-select form-select-sm" aria-label="Small select example" id="carList" name="carNo">
 						  <option selected>항목을 선택하세요</option>
 						  <c:forEach items="${list}" var="car">
+						  <c:if test="${car.carStatusCd eq 'C011'}">
 					        <option value="${car.carNo}">${car.carModelName}</option>
+					        </c:if>
 					    </c:forEach>
 						</select>
 						
@@ -175,7 +177,9 @@
                         <select class="form-select form-select-sm" id="calendar_end_date_time" name="return_DateTime" style="padding-left:20px;"></select>
                         
                         <label for="taskId" class="col-form-label">대여자</label>
-                        <input type="text" class="form-control" id="calendar_name" name="employeeId">
+                        <input type="text" class="form-control" id="calendar_name" value=${name} readonly>
+                        <input type="hidden" class="form-control" id="calendar_name" name="employeeId" value=${empId}>
+                        
                         
                         <label for="taskId" class="col-form-label">대여 용도</label>
                         <select class="form-select form-select-sm" aria-label="Small select example" id="calendar_content" name="rentalReasonCd">
@@ -192,7 +196,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-warning" id="addCalendar">추가</button>
+                    <button type="button" class="btn btn-warning" id="addCalendar">추가</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         id="sprintSettingModalClose">취소</button>
                 </div>
@@ -273,7 +277,7 @@ $.ajax({
 	      
 	      obj.id = res[key].rentalNo;
 	      
-	      obj.title = res[key].employeeId;
+	      obj.title = res[key].name + ' ' + res[key].codeName;
 	      
 	      obj.location = res[key].rentalLocation;
 	      
@@ -384,6 +388,50 @@ $.ajax({
 	    });
 	});
 	
+	$("#addCalendar").click(function(){
+		var today1 = new Date(); 
+	    var today2 = today1.setHours(today1.getHours());
+		console.log("추가 ㅋㅋ")
+						var rentalDate = new Date($('#calendar_start_date').val());
+	    	    	      var returnDate = new Date($('#calendar_end_date').val());
+	    	    		  console.log(rentalDate)
+	    	    		  console.log(returnDate)
+	    	    		  
+	    	    		  var dateObject = new Date(today2);
+        		
+		        		var startDate = rentalDate;
+		
+						var year = startDate.getFullYear();
+						var month = startDate.getMonth() + 1;
+						var day = startDate.getDate();
+						
+						var formattedDate = year + (month < 10 ? '0' : '') + month + (day < 10 ? '0' : '') + day;
+						
+		
+						var startDate1 = dateObject;
+		
+						var year = startDate1.getFullYear();
+						var month = startDate1.getMonth() + 1;
+						var day = startDate1.getDate();
+						
+						var formattedDate1 = year + (month < 10 ? '0' : '') + month + (day < 10 ? '0' : '') + day;
+						console.log(formattedDate)
+						console.log(formattedDate1)
+						
+						
+		    	    		  if (formattedDate < formattedDate1) {
+			                    alert('대여일은 오늘 이후로 설정해야 합니다.');
+			                    return 0;
+			                }
+	    			        // 반납 예정일이 대여일보다 이전인지 확인
+	    			        if (returnDate < rentalDate) {
+	    			            alert('반납 예정일은 대여일보다 이전으로 설정할 수 없습니다.');
+	    			            return 0;
+	    			        } else{
+	    	    		 		 $("#addForm").submit();
+	    			        }
+	});
+		
 	
 var startElement = document.getElementById('calendar_start_date_time');
 for (var hour = 0; hour < 24; hour++) {
@@ -411,7 +459,7 @@ for (var hour = 0; hour < 24; hour++) {
         
     }
 }
-endElement.value = "09:00";
+endElement.value = "18:00";
 
 var updateStartElement = document.getElementById('calendar_start_date_time_update');
 for (var hour = 0; hour < 24; hour++) {

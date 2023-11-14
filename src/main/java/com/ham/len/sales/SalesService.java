@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -60,8 +61,8 @@ public class SalesService {
 		return salesDAO.getAllReservation(carListVO);
 	}
 	
-	public List<CarListVO> getMyReservation(CarListVO carListVO) throws Exception{
-		return salesDAO.getMyReservation(carListVO);
+	public List<CarListVO> getMyReservation(CarReservationVO carReservationVO) throws Exception{
+		return salesDAO.getMyReservation(carReservationVO);
 	}
 	
 	public List<CarListVO> getCarSort() throws Exception{
@@ -110,5 +111,13 @@ public class SalesService {
 	
 	public List<SalesPurchaseVO> getPurchaseList() throws Exception{
 		return salesDAO.getPurchaseList();
+	}
+	
+	public HumanResourceVO getPosition(HumanResourceVO humanResourceVO) throws Exception{
+		return salesDAO.getPosition(humanResourceVO);
+	}
+	
+	public int setCarListUpdateAvailable(CarListVO carListVO) throws Exception{
+		return salesDAO.setCarListUpdateAvailable(carListVO);
 	}
 }
