@@ -18,10 +18,11 @@ import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.transfer.TransferDAO;
 import com.ham.len.transfer.TransferVO;
 import com.ham.len.util.SMTP;
+import com.itextpdf.text.log.SysoCounter;
 
 import lombok.extern.slf4j.Slf4j;
 
-@SpringBootTest
+// @SpringBootTest
 @Slf4j
 class Gdj68FinalProjectApplicationTests {
 	@Autowired
@@ -68,7 +69,7 @@ class Gdj68FinalProjectApplicationTests {
 		for(int i = 1; i <= 100; i++) {
 			HumanResourceVO humanResourceVO = new HumanResourceVO();
 			humanResourceVO.setPassword(passwordEncoder.encode("1234"));
-			humanResourceVO.setJoinDate(Date.valueOf("2023-11-07"));
+			humanResourceVO.setJoinDate(Date.valueOf("2023-11-11"));
 			humanResourceVO.setJoinType((byte)0);
 			humanResourceVO.setName("테스트" + i);
 			humanResourceVO.setBirth(Date.valueOf("1995-07-28"));

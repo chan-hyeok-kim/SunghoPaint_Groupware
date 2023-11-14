@@ -53,6 +53,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/annual/status.jsp"/>
    </definition>
    
+   <definition name="annual/myAnnual" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/annual/myAnnual.jsp"/>
+   </definition>
+   
    
    
    

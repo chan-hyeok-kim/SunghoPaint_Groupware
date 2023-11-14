@@ -28,9 +28,8 @@ public class AnnualController {
 	
 	@GetMapping("myAnnual")
 	public String getMyAnnual(String employeeID, Model model) {
-		AnnualVO annualVO = annualService.getAnnual(employeeID);
-		log.info("annualVO : {}", annualVO);
-		model.addAttribute("annualVO", annualVO);
+		List<AnnualLeaveHistoryVO> annualLeaveHistorys = annualService.getMyAnnual(employeeID);
+		model.addAttribute("annualLeaveHistorys", annualLeaveHistorys);
 		return "annual/myAnnual";
 	}
 	

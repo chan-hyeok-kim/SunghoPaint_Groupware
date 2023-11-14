@@ -14,8 +14,8 @@
 	// init(${isAuthenticated});
 	let weeksOfMonthInfo_json = ${weeksOfMonthInfo_json};
 	let attendances_json = ${attendances_json};
-	
-	let daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+
+	// let daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]; // move sidebar.js
 
 	$(function(){
 		let startBtn_status = "on";
@@ -35,12 +35,18 @@
 										   "<button id='end_btn' class='" + endBtn_status + "'>퇴근하기</button>" +
 									   "</div>");
 		
-		let dayOfWeek = new Date(serverDate).getDay();
 		let cur_date = new Date(serverDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, "-");
+		let dayOfWeek = new Date(serverDate).getDay();
 		$("#cur_date").html(cur_date + "(" + daysOfWeek[dayOfWeek] + ")");
 		
 		setInterval(function(){
-			cur_time = new Date(getServerDate()).toTimeString().split(" ")[0];
+			let serverDate = getServerDate();
+
+			let cur_date = new Date(serverDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, "-");
+			let dayOfWeek = new Date(serverDate).getDay();
+			$("#cur_date").html(cur_date + "(" + daysOfWeek[dayOfWeek] + ")");
+
+			cur_time = new Date(serverDate).toTimeString().split(" ")[0];
 			$("#cur_time").html(cur_time);
 		}, 1000);
 	});
@@ -65,15 +71,8 @@
 			
 			/*
 				총 근무 시간 구하기
-				-근무 시간은 09시부터 적용
-				-점심 시간 제외(-1시간) : 3시간 이상 근무 시 적용
+				※점심 시간 제외(-1시간) : 3시간 이상 근무 시 적용
 			*/
-			if(attendanceStart.getHours() < 9){
-				attendanceStart.setHours(9);
-				attendanceStart.setMinutes(0);
-				attendanceStart.setSeconds(0);
-			}
-			
 			let lunch_time;
 			let total = timeDiffToTimeString(attendanceEnd.getTime() - attendanceStart.getTime(), ":");
 			let total_timeObj = splitTimeString(total, ":");
@@ -102,8 +101,7 @@
 			let over = hoursToTimeString(timeStringToHours(total, ":") - timeStringToHours("08:00:00", ":"), ":"); // 기본 8시간 초과 시 연장 및 야간 적용
 			let over_timeObj = splitTimeString(over, ":");
 
-			if(timeStringToHours(over, ":") - timeStringToHours("00:00:00", ":") > 0){
-			// 또는 if(over > "00:00:00")
+			if(timeStringToHours(over, ":") - timeStringToHours("00:00:00", ":") > 0){ // 또는 if(over > "00:00:00")
 				detail += " / 연장 " + over;
 				if(over_timeObj.hours > 4){
 					detail += "(야간 " + formatTime(over_timeObj.hours - 4, over_timeObj.minutes, over_timeObj.seconds, ":") + ")";

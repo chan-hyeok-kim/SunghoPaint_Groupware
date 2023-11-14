@@ -1,5 +1,7 @@
 package com.ham.len.attendance;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +15,28 @@ import lombok.extern.slf4j.Slf4j;
 public class AttendanceService {
 	@Autowired
 	private AttendanceDAO attendanceDAO;
+	
+	public Map<String, Boolean> getCommuteWhether(String employeeId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("employeeId", employeeId);
+		params.put("date", new Date());
+		AttendanceVO attendanceVO = attendanceDAO.getAttendance(params);
+		
+		Map<String, Boolean> commuteWhether = new HashMap<>();
+		if(attendanceVO == null && attendanceDAO.getLeaveWorkWhether(employeeId) == 0) {
+			commuteWhether.put("goWork", false);
+			commuteWhether.put("leaveWork", true);
+		}else {
+			commuteWhether.put("goWork", true);
+			if(attendanceVO != null) {
+				commuteWhether.put("leaveWork", (attendanceVO.getAttendanceEnd() != null));
+			}else {
+				commuteWhether.put("leaveWork", false);
+			}
+		}
+		
+		return commuteWhether;
+	}
 	
 	public List<AttendanceVO> getStatus(Map<String, String> params) {
 		return attendanceDAO.getStatus(params);

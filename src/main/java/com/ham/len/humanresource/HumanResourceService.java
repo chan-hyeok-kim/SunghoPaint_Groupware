@@ -7,6 +7,9 @@ import java.util.Random;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -127,7 +130,21 @@ public class HumanResourceService implements UserDetailsService {
 	
 	public int setUpdate(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
 		humanResourceVO.setProfile(encodeImageToBase64(file));
-		return humanResourceDAO.setUpdate(humanResourceVO);
+		int result = humanResourceDAO.setUpdate(humanResourceVO);
+		
+		// Authentication 갱신
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		humanResourceVO = (HumanResourceVO)authentication.getPrincipal();
+		SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(authentication, humanResourceVO.getUsername()));
+		
+		return result;
+	}
+	
+	private Authentication createNewAuthentication(Authentication beforeAuthentication, String username) {
+		UserDetails newPrincipal = loadUserByUsername(username);
+		UsernamePasswordAuthenticationToken newAuthentication = new UsernamePasswordAuthenticationToken(newPrincipal, beforeAuthentication.getCredentials(), newPrincipal.getAuthorities());
+		newAuthentication.setDetails(beforeAuthentication.getDetails());
+		return newAuthentication;
 	}
 	
 	public int setDelete(String employeeID) {
@@ -176,6 +193,17 @@ public class HumanResourceService implements UserDetailsService {
 		humanResourceVO.setPassword(passwordEncoder.encode(password));
 		humanResourceDAO.setUpdatePassword(humanResourceVO);
 		
+		// Email 절반 블라인드 처리
+		String localPart = email.substring(0, email.indexOf("@"));
+		String domain = email.substring(email.indexOf("@") + 1);
+		int blindCount = localPart.length() / 2;
+		
+		localPart = localPart.substring(0, localPart.length() - blindCount);
+		for(int i = 0; i < blindCount; i++) {
+			localPart += "*";
+		}
+		
+		email = localPart + "@" + domain;
 		return email;
-	}
+	}	
 }

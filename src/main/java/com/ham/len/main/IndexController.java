@@ -3,8 +3,6 @@ package com.ham.len.main;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ham.len.approval.ApprovalService;
 import com.ham.len.approval.ApprovalVO;
+import com.ham.len.attendance.AttendanceService;
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.humanresource.todolist.ToDoListVO;
@@ -32,6 +31,9 @@ public class IndexController {
 	
 	@Autowired
 	private ApprovalService approvalService;
+	
+	@Autowired
+	private AttendanceService attendanceService;
 	
 	@GetMapping("/")
 	public String getIndex(Model model,Pager pager,@AuthenticationPrincipal HumanResourceVO humanResourceVO)throws Exception{
@@ -53,11 +55,9 @@ public class IndexController {
 		        al.add(m);
 			}
 		}
+	    
 	    model.addAttribute("list", al);
-		
-		
-		
-		
+	    model.addAttribute("commuteWhether", attendanceService.getCommuteWhether(humanResourceVO.getEmployeeID()));
 		
 		return "index";
 	}

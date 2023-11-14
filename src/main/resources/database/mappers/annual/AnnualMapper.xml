@@ -5,8 +5,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.annual.AnnualDAO">
-	<select id="getAnnual" parameterType="String">
-		SELECT * FROM ANNUAL_LEAVE WHERE EMPLOYEE_ID = #{value}
+	<select id="getMyAnnual" parameterType="String" resultType="AnnualLeaveHistoryVO">
+		SELECT * FROM ANNUAL_LEAVE_HISTORY WHERE EMPLOYEE_ID = #{employeeID}
 	</select>
 	
 	<insert id="setAnnual" parameterType="AnnualVO">

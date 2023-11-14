@@ -26,8 +26,8 @@ public class AnnualService {
 	@Autowired
 	private ExcelWriter excelWriter;
 	
-	public AnnualVO getAnnual(String employeeID) {
-		 return annualDAO.getAnnual(employeeID);
+	public List<AnnualLeaveHistoryVO> getMyAnnual(String employeeID){
+		return annualDAO.getMyAnnual(employeeID);
 	}
 	
 	public List<AnnualVO> getAnnualList(HumanResourcePager pager){

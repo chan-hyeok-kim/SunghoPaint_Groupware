@@ -98,20 +98,22 @@ function hoursToTimeString(hours, format){
 }
 
 
-// 서버 Date 정보 가져오기
-function getServerDate(){
-	let serverDate;
-	$.ajax({
-		url:"./getServerDate",
-		type:"GET",
-		async:false,
-		success:function(result){
-			serverDate = result;
-		}
-	});
-	
-	return serverDate;
-}
+// move sidebar.js
+/*
+	function getServerDate(){
+		let serverDate;
+		$.ajax({
+			url:"/attendance/getServerDate",
+			type:"GET",
+			async:false,
+			success:function(result){
+				serverDate = result;
+			}
+		});
+		
+		return serverDate;
+	}
+*/
 
 
 // 출퇴근 버튼

@@ -39,6 +39,7 @@ $(function(){
 							success:function(result){
 								alert("'" + result + "'" + "로 임시 비밀번호를 전송했습니다.");
 								$("#loading").remove();
+								$("#findPwForm").remove();
 							}
 						});
 					}else{

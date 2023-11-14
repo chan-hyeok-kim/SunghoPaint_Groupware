@@ -14793,16 +14793,96 @@ ul.nav-tabs {
 	border-top: 1px solid #ebedf2;
 }
 
-/*canvas */
+/* canvas */
 #sign-canvas{
     background: white;	
 }
 
 /*# sourceMappingURL=style.css.map */
 
-/* sidebar line */
-#sidebar_line{
+/* navbar profile */
+.nav-profile-text{
+  margin-left:10px !important;
+}
+
+.nav-profile-text > .mb-1{
+  margin-bottom:0px !important;
+}
+
+.mdi.mdi-account-circle.me-2,
+.mdi.mdi-cached.me-2{
+  color:#198AE3;
+}
+
+/* sidebar-divider */
+#sidebar-divider{
 	width:75%;
 	margin:10px auto;
 	border-top:1px solid #E7E7E7;
+}
+
+/* sidebar attendance */
+#main-attendance{
+  margin-bottom:10px;
+}
+
+#profile-wrap{
+  margin-bottom:10px;
+  text-align:center;
+}
+
+#profile-wrap > img#profile{
+  width:150px; height:135px;
+  margin-bottom:10px;
+  border-radius:100%;
+  cursor:default;
+}
+
+#profile-wrap > h2#profile-text{
+  font-size:16px; font-weight:600;
+  margin-bottom:0px;
+}
+
+#commute-wrap{
+  color:#626262;
+}
+
+#commute-wrap > #date-wrap{
+  margin-bottom:10px;
+  text-align:center;
+}
+
+#commute-wrap > #start-time > i,
+#commute-wrap > #end-time > i{
+  font-size:13px;
+}
+
+#commute-wrap > #start-time > span,
+#commute-wrap > #end-time > span{
+  float:right;
+}
+
+#commute-wrap > #attendance-btns{
+  margin-top:15px;
+}
+
+#attendance-btns > button{
+	width:calc(50% - 5px); height:42px;
+	border:1px solid #198AE3; border-radius:25px;
+	background-color:white;
+	color:#198AE3;
+}
+
+#attendance-btns > button.off{
+	border:1px solid #CDCDCD;
+	color:#CDCDCD;
+	cursor:unset;
+}
+
+#attendance-btns > button.on:hover{
+  background-color:#DAEFFF;
+}
+
+#attendance-btns > button#end-btn{
+  float:right;
 }

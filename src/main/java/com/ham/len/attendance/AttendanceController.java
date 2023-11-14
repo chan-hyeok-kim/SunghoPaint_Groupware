@@ -40,28 +40,6 @@ public class AttendanceController {
 		return new Date();
 	}
 	
-	private Map<String, Boolean> getCommuteWhether(String employeeId) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("employeeId", employeeId);
-		params.put("date", new Date());
-		AttendanceVO attendanceVO = attendanceService.getAttendance(params);
-		
-		Map<String, Boolean> commuteWhether = new HashMap<>();
-		if(attendanceVO == null && attendanceService.getLeaveWorkWhether(employeeId) == 0) {
-			commuteWhether.put("goWork", false);
-			commuteWhether.put("leaveWork", true);
-		}else {
-			commuteWhether.put("goWork", true);
-			if(attendanceVO != null) {
-				commuteWhether.put("leaveWork", (attendanceVO.getAttendanceEnd() != null));
-			}else {
-				commuteWhether.put("leaveWork", false);
-			}
-		}
-		
-		return commuteWhether;
-	}
-	
 	@PostMapping("status")
 	public String getStatus(@RequestParam(value = "year", defaultValue = "0")int year,
 									@RequestParam(value = "month", defaultValue = "0")int month,
@@ -112,7 +90,7 @@ public class AttendanceController {
 		model.addAttribute("weeksOfMonthInfo", weeksOfMonthInfo);
 		model.addAttribute("weeksOfMonthInfo_json", gson.toJson(weeksOfMonthInfo));
 		model.addAttribute("attendances_json", gson.toJson(attendances));
-		model.addAttribute("commuteWhether", getCommuteWhether(humanResourceVO.getEmployeeID()));
+		model.addAttribute("commuteWhether", attendanceService.getCommuteWhether(humanResourceVO.getEmployeeID()));
 		
 		return "attendance/status";
 	}
@@ -122,7 +100,7 @@ public class AttendanceController {
 	public Timestamp setGoWork(@AuthenticationPrincipal HumanResourceVO humanResourceVO, HttpServletRequest httpServletRequest) throws Exception {
 		String employeeID = humanResourceVO.getEmployeeID();
 		
-		if(getCommuteWhether(employeeID).get("goWork") == false) {
+		if(attendanceService.getCommuteWhether(employeeID).get("goWork") == false) {
 			Timestamp goWorkDate = new Timestamp(new Date().getTime());
 			
 	        AttendanceVO attendanceVO = new AttendanceVO();
@@ -142,7 +120,7 @@ public class AttendanceController {
 	public Timestamp setLeaveWork(@AuthenticationPrincipal HumanResourceVO humanResourceVO, HttpServletRequest httpServletRequest) throws Exception {
 		String employeeID = humanResourceVO.getEmployeeID();
 		
-		if(getCommuteWhether(employeeID).get("leaveWork") == false) {
+		if(attendanceService.getCommuteWhether(employeeID).get("leaveWork") == false) {
 			Timestamp leaveWorkDate = new Timestamp(new Date().getTime());
 	        
 	        AttendanceVO attendanceVO = new AttendanceVO();

@@ -65,7 +65,7 @@ public class SecurityConfig {
 				*/
 				.antMatchers("/humanresource/checkEmployeeID").permitAll()
 				.antMatchers("/humanresource/findPw").permitAll()
-				.antMatchers("/humanresource/updatePassword").authenticated()
+				.antMatchers("/humanresource/updatePassword").permitAll()
 				// .antMatchers("/attendance/**").hasAnyRole("ADMIN")
 				.antMatchers("/**").hasAnyRole("USER")
 				.and()
