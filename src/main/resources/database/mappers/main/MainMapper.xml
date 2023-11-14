@@ -40,6 +40,11 @@ VALUES
    WHERE TO_DO_LIST_NO=#{toDoListNo}
 </delete>
  
+<select id="getAlarmList" resultType="NotificationVO" parameterType="String">
+  SELECT * 
+    FROM NOTIFICATION
+   WHERE EMPLOYEE_ID=#{id}
+</select> 
  
  <!-- update
  

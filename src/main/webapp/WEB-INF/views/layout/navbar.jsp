@@ -95,7 +95,7 @@
 	                <span class="count-symbol bg-danger"></span>
 	              </a>
 	              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-	                <h6 class="p-3 mb-0">Notifications</h6>
+	                <h6 class="p-3 mb-0">알림</h6>
 	                <div class="dropdown-divider"></div>
 	                <a class="dropdown-item preview-item">
 	                  <div class="preview-thumbnail">
@@ -133,7 +133,7 @@
 	                  </div>
 	                </a>
 	                <div class="dropdown-divider"></div>
-	                <h6 class="p-3 mb-0 text-center">See all notifications</h6>
+	                <h6 class="p-3 mb-0 text-center"><a>모든 알림 확인하기</a></h6>
 	              </div>
 	            </li>
             </sec:authorize>

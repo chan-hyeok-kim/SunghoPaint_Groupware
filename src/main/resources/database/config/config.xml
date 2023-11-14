@@ -37,7 +37,8 @@
        
        <typeAlias type="com.ham.len.humanresource.sign.SignatureVO" alias="SignatureVO"/>
        <typeAlias type="com.ham.len.humanresource.todolist.ToDoListVO" alias="ToDoListVO"/>
-   
+       <typeAlias type="com.ham.len.main.NotificationVO" alias="NotificationVO"/>
+       
 
    
    <typeAlias type="com.ham.len.sales.CarReservationVO" alias="CarReservationVO"/>

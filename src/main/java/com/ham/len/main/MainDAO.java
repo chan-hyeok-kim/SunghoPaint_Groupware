@@ -19,4 +19,7 @@ public interface MainDAO {
 	public int setUpdate(ToDoListVO toDoListVO) throws Exception;
 	
 	public int setDelete(ToDoListVO toDoListVO) throws Exception;
+	
+	public List<NotificationVO> getAlarmList(String id) throws Exception;
+	
 }
