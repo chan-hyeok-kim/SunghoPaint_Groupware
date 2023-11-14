@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 <!-- plugins:css -->
     <link rel="stylesheet" href="/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
@@ -29,32 +29,25 @@
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css" rel="stylesheet">
 
- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   
 
 	<script type="text/javascript" src="/js/ztree/jquery-1.4.4.min.js"></script>
 	<script type="text/javascript" src="/js/ztree/jquery.ztree.core.js"></script>
  </head>
 <body>
-
-
- <div class="container-scroller">
+    <div class="container-scroller">
       <tiles:insertAttribute name="navbar"/>
       <div class="container-fluid page-body-wrapper">
-      
-      <tiles:insertAttribute name="sidebar"/>
-      <div class="main-panel">
-      <div class="content-wrapper">
-      <tiles:insertAttribute name="body"/>
-          
-       
-             </div>
-             <tiles:insertAttribute name="footer"/>
-       </div>
-     
+        <tiles:insertAttribute name="sidebar"/>
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <tiles:insertAttribute name="body"/>
+          </div>
+          <tiles:insertAttribute name="footer"/>
         </div>
+      </div>
       <!-- page-body-wrapper ends -->
-      
     </div>
     <!-- container-scroller-ends-->
    

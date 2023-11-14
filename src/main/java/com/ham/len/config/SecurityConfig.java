@@ -63,6 +63,8 @@ public class SecurityConfig {
  					3. 하지만 "/humanresource/updatePassword" 경로 역시 USER 권한이 없으므로 accessDeniedHandler에 의해 다시 "/humanresource/updatePassword" 경로로 리다이렉트된다.
  					4. 이렇게 3번 과정이 무한 반복되면서 무한 리다이렉션 현상에 빠지게 된다.
 				*/
+				.antMatchers("/humanresource/checkEmployeeID").permitAll()
+				.antMatchers("/humanresource/findPw").permitAll()
 				.antMatchers("/humanresource/updatePassword").authenticated()
 				// .antMatchers("/attendance/**").hasAnyRole("ADMIN")
 				.antMatchers("/**").hasAnyRole("USER")

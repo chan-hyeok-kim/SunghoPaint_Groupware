@@ -10,7 +10,19 @@
 
 <script>
 	$(function(){
-		if("${humanResourceVO.employeeID}" != "") $("#registrationForm").attr("action", "./update");
+		$("input#yearsOfService").attr("type", "number");
+		
+		if("${isUpdate}") $("#registrationForm").attr("action", "./update");
+		
+		if("${isDetail}"){
+			$("*").off("click");
+			$("*:not(#return)").removeAttr("onclick");
+			
+			$("select").attr("disabled", true);
+			$("input[type='file']").attr("disabled", true);
+			$("input").attr("readonly", true);
+			$("input").css("cursor", "default");
+		}
 	});
 </script>
 
@@ -27,27 +39,23 @@
 				<input type="file" name="file" accept="image/*" onchange="validation(this)">
 			</td>
 			<th>이름</th>
+			<th>사번</th>
+			<td>
+				<input type="hidden" name="employeeID" value="${humanResourceVO.employeeID}">
+				${humanResourceVO.employeeID}
+			</td>
 			<th>부서</th>
-			<td colspan="3">
+			<td>
 				<form:hidden path="departmentCd" />
 				<form:input path="departmentCdName" readonly="true" data-search-type="department" />
 			</td>
 		</tr>
 		<tr>
 			<td rowspan="3"><form:input path="name" /></td>
-			<th>사번</th>
-			<td>
-				<input type="hidden" name="employeeID" value="${humanResourceVO.employeeID}">
-				${humanResourceVO.employeeID}
-			</td>
-			<th>내선번호</th>
-			<td><form:input path="extensionNumber" /></td>
-		</tr>
-		<tr>
 			<th>이메일</th>
 			<td><form:input path="email" /></td>
-			<th>휴대폰</th>
-			<td><form:input path="phone" /></td>
+			<th>내선번호</th>
+			<td><form:input path="extensionNumber" /></td>
 		</tr>
 		<tr>
 			<th>직급</th>
@@ -55,6 +63,12 @@
 				<form:hidden path="positionCd" />
 				<form:input path="positionCdName" readonly="true" data-search-type="position" />
 			</td>
+			<th>휴대폰</th>
+			<td><form:input path="phone" /></td>
+		</tr>
+		<tr>
+			<th>근속연수</th>
+			<td><form:input path="yearsOfService" /></td>
 			<th>대표번호</th>
 			<td><form:input path="mainNumber" /></td>
 		</tr>
@@ -92,13 +106,18 @@
 	</table>
 
 	<div id="buttons">
-		<c:if test="${empty humanResourceVO.employeeID}">
+		<c:if test="${isRegistration}">
 			<button type="button" id="regist">등록</button>
 		</c:if>
-		<c:if test="${!empty humanResourceVO.employeeID}">
-			<button type="button" id="regist">수정</button>
+		<c:if test="${isUpdate}">
+			<button type="button" id="update">수정</button>
 		</c:if>
-		<button type="button" id="cancel" onclick="location.href='./list'">취소</button>
+		<c:if test="${empty isDetail}">
+			<button type="button" id="cancel" onclick="location.href='./list'">취소</button>
+		</c:if>
+		<c:if test="${isDetail}">
+			<button type="button" id="return" onclick="location.href='../'">돌아가기</button>
+		</c:if>
 	</div>
 	
 	
@@ -108,9 +127,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="exampleModalLabel"></h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
+	        <img src="/images/humanresource/close-icon.png" class="close" data-dismiss="modal" aria-label="Close">
 	      </div>
 	      <div class="modal-body">
 	        <form>

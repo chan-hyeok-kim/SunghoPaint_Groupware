@@ -1,8 +1,8 @@
 package com.ham.len.humanresource;
 
-
+import java.util.HashMap;
 import java.util.List;
-import java.io.Console;
+import java.util.Map;
 import java.util.Random;
 
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -16,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ham.len.annual.AnnualDAO;
+import com.ham.len.annual.AnnualVO;
 import com.ham.len.commons.CodeVO;
+import com.ham.len.util.ExcelWriter;
 import com.ham.len.util.SMTP;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,10 +30,16 @@ public class HumanResourceService implements UserDetailsService {
 	@Autowired
 	private HumanResourceDAO humanResourceDAO;
 	
+	@Autowired
+	private AnnualDAO annualDAO;
+	
 	public static final int ROLE_USER = 3;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private ExcelWriter excelWriter;
 
 	@Override
 	public UserDetails loadUserByUsername(String employeeID) throws UsernameNotFoundException {
@@ -42,11 +51,16 @@ public class HumanResourceService implements UserDetailsService {
 	public int setRegistration(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
 		humanResourceVO.setProfile(encodeImageToBase64(file));
 		String temporaryPassword = generateTemporaryPassword();
-		humanResourceVO.setPassword(passwordEncoder.encode("1234"));
+		humanResourceVO.setPassword(passwordEncoder.encode(temporaryPassword));
 		
 		int result = humanResourceDAO.setRegistration(humanResourceVO);
-		humanResourceVO.setEmployeeID(humanResourceDAO.getLatestEmployeeID());
+		String employeeID = humanResourceDAO.getLatestEmployeeID();
+		humanResourceVO.setEmployeeID(employeeID);
 		humanResourceVO.setPassword(temporaryPassword);
+		
+		AnnualVO annualVO = new AnnualVO();
+		annualVO.setEmployeeID(employeeID);
+		annualDAO.setAnnual(annualVO);
 		
 		new SMTP().send_mail(humanResourceVO);
 		
@@ -69,7 +83,7 @@ public class HumanResourceService implements UserDetailsService {
 	}
 	
 	private String encodeImageToBase64(MultipartFile file) throws Exception {
-		if(!file.isEmpty()) {
+		if(file != null && !file.isEmpty()) {
 			byte[] fileContent = file.getBytes();
 			byte[] encodedBytes = Base64.encodeBase64(fileContent);
 			String base64String = new String(encodedBytes);
@@ -97,6 +111,18 @@ public class HumanResourceService implements UserDetailsService {
 	
 	public HumanResourceVO getHumanResource(String employeeID){
 		return humanResourceDAO.getHumanResource(employeeID);
+	}
+	
+	public void excelDownload() {
+		Map<String, List<HumanResourceExcelVO>> data = new HashMap<>();
+		
+		List<CodeVO> departmentList = humanResourceDAO.getDepartmentList();
+		for(CodeVO department : departmentList) {
+			List<HumanResourceExcelVO> departmentalHumanResourceList = humanResourceDAO.getDepartmentalHumanResourceList(department.getCode());
+			data.put(department.getCode(), departmentalHumanResourceList);
+		}
+		
+		excelWriter.write(data, "humanresource.xlsx", "전사 인사 정보.xlsx");
 	}
 	
 	public int setUpdate(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
@@ -135,5 +161,21 @@ public class HumanResourceService implements UserDetailsService {
 		humanResourceDAO.setAccountRole(accountRoleVO);
 		
 		return result;
+	}
+	
+	public String findPw(String employeeID) {
+		String email = humanResourceDAO.getEmail(employeeID);
+		String password = generateTemporaryPassword();
+		
+		HumanResourceVO humanResourceVO = new HumanResourceVO();
+		humanResourceVO.setEmployeeID(employeeID);
+		humanResourceVO.setPassword(password);
+		humanResourceVO.setEmail(email);
+		new SMTP().send_mail(humanResourceVO);
+		
+		humanResourceVO.setPassword(passwordEncoder.encode(password));
+		humanResourceDAO.setUpdatePassword(humanResourceVO);
+		
+		return email;
 	}
 }

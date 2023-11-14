@@ -1,57 +1,32 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<link rel="stylesheet" href="/css/commons.css">
-<link rel="stylesheet" href="/css/humanresource/list.css">
-<link rel="stylesheet" href="/css/transfer/list.css">
-
-<script>
-	$(function(){
-		let kind = $("[name='department']").attr("data-kind");
-		$("[name='department'] > option[value='" + kind + "']").prop("selected", true);
-		
-		$(".page-link[data-num='${pager.page}']").css("background-color", "#D4E9FB");
-	});
-	
-	$(function(){
-		$("#searchBtn").click(function(){
-			$("[name='page']").val(1);
-			$("form").submit();
-		});
-	});
-	
-	$(function(){
-		$(".page-link").click(function(){
-			let page = $(this).attr("data-num");
-			$("[name='page']").val(page);
-			
-			$("form").submit();
-		});
-	});
-	
-	function del(employeeID, event){
-		if(confirm("'" + employeeID + "' 사원의 정보를 삭제하시겠습니까?")){
-			location.href = "./delete?employeeID=" + employeeID;
-		}
-		
-		event.stopPropagation();
+<script src="/js/humanresource/list.js"></script>
+<style type="text/css">
+	tr:not(:first-of-type):hover{
+		background-color:#90CAF9;
+		cursor:pointer; 
 	}
-</script>
 
-<div id="wrapper">
-	<form action="./list" method="GET">
-		<input type="hidden" name="page" value="${pager.page}">
+	button.del{
+		width:50px; height:30px;
+		background-color:#8D8D8D;
+		border:none; border-radius:5px;
+		font-size:13px;
+		color:white;
+	}
+
+	button.del:hover{
+		background-color:rgb(255, 90, 90);
+	}
+</style>
+
+<%@include file="/WEB-INF/views/humanresource/search.jsp"%>
 	
-		<select name="department" data-kind="${pager.department}">
-			<option value="">전체</option>
-			<c:forEach items="${departmentList}" var="department">
-				<option value="${department.code}">${department.codeName}</option>
-			</c:forEach>
-		</select>
-		<input type="text" name="name" value="${pager.name}">
-		<button type="button" id="searchBtn" class="btn btn-gradient-primary">검색</button>
-	</form>
-	
+	<div id="buttons">
+		<button id="excelDownload">목록 다운로드</button>
+	</div>
+
 	<table>
 		<tr>
 			<th>입사일</th>
@@ -76,19 +51,5 @@
 		</c:forEach>
 	</table>
 	
-	<nav>
-		<ul class="pagination">
-			<li class="page-item ${pager.pre ? '' : 'disabled'}">
-				<a class="page-link" href="#" data-num="${pager.startNum - 1}"><i class="mdi mdi-chevron-left"></i></a>
-			</li>
-			<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-				<li class="page-item">
-					<a class="page-link" href="#" data-num="${i}">${i}</a>
-				</li>
-			</c:forEach>
-			<li class="page-item ${pager.next ? '' : 'disabled'}">
-				<a class="page-link" href="#" data-num="${pager.lastNum + 1}"><i class="mdi mdi-chevron-right"></i></a>
-			</li>
-		</ul>
-	</nav>
+	<%@include file="/WEB-INF/views/humanresource/paging.jsp"%>
 </div>

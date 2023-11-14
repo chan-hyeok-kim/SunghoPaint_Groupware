@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ham.len.commons.CodeVO;
+import com.ham.len.humanresource.HumanResourcePager;
 import com.ham.len.humanresource.HumanResourceService;
 import com.ham.len.humanresource.HumanResourceVO;
 
@@ -24,6 +25,9 @@ public class TransferController {
 	@Autowired
 	private TransferService transferService;
 	
+	@Autowired
+	private HumanResourceService humanResourceService;
+	
 	@GetMapping("registration")
 	public String setRegistration(Model model) {
 		model.addAttribute("isTransferForm", true);
@@ -33,12 +37,13 @@ public class TransferController {
 	@PostMapping("registration")
 	public String setRegistration(TransferVO transferVO) {
 		int result = transferService.setTransfer(transferVO);
-		return "redirect:/transfer/view";
+		return "redirect:/transfer/list";
 	}
 	
 	@GetMapping("list")
-	public String getView(TransferPager pager, Model model) {
+	public String getList(HumanResourcePager pager, Model model) {
 		model.addAttribute("transferList", transferService.getTransferList(pager));
+		model.addAttribute("departmentList", humanResourceService.getDepartmentList());
 		model.addAttribute("pager", pager);
 		return "transfer/list";
 	}

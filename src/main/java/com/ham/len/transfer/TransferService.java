@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ham.len.commons.CodeVO;
+import com.ham.len.humanresource.HumanResourcePager;
 import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ public class TransferService {
 		return transferDAO.setTransfer(transferVO);
 	}
 	
-	public List<TransferVO> getTransferList(TransferPager pager){
+	public List<TransferVO> getTransferList(HumanResourcePager pager){
 		pager.makeRowNum();
 		pager.makePageNum(transferDAO.getTotal(pager));
 		return transferDAO.getTransferList(pager);

@@ -133,7 +133,7 @@ $(function(){
 
 
 $(function(){
-	$("#regist").click(function(){
+	$("#regist, #update").click(function(){
 		let quitDate = $("[name='quitDate']");
 		if(quitDate.val() == ""){
 			quitDate.val("1995-07-28"); // 1995-07-28 == NULL

@@ -5,6 +5,10 @@
 <html>
 <head>
 	<title>로그인</title>
+	
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="/js/humanresource/login.js"></script>
+	<link rel="stylesheet" href="/css/commons.css" />
 	<link rel="stylesheet" href="/css/humanresource/login.css" />
 </head>
 <body>
@@ -18,6 +22,7 @@
 			<form:button>로그인</form:button><br>
 			<input type="checkbox" name="remember-me" id="remember-me">
 			<label for="remember-me">로그인 유지</label>
+			<span id="findPw">비밀번호 찾기</span>
 		</form:form>
 	</div>
 </body>

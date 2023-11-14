@@ -31,6 +31,7 @@ public class HumanResourceVO extends CodeVO implements UserDetails {
 	private String departmentCdName;
 	private String positionCd;
 	private String positionCdName;
+	private Integer yearsOfService;
 	private String extensionNumber;
 	private String phone;
 	private String mainNumber;

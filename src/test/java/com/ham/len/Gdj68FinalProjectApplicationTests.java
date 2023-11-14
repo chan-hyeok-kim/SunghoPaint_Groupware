@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.ham.len.humanresource.HumanResourceDAO;
+import com.ham.len.humanresource.HumanResourceService;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.transfer.TransferDAO;
 import com.ham.len.transfer.TransferVO;
@@ -25,6 +26,9 @@ import lombok.extern.slf4j.Slf4j;
 class Gdj68FinalProjectApplicationTests {
 	@Autowired
 	TransferDAO transferDAO;
+	
+	@Autowired
+	HumanResourceService humanResourceService;
 	
 	@Autowired
 	HumanResourceDAO humanResourceDAO;
@@ -51,7 +55,7 @@ class Gdj68FinalProjectApplicationTests {
 			transferVO.setName("테스트" + i);
 			transferVO.setTransferDate(new Date(cal.getTimeInMillis()));
 			transferVO.setTransferTypeCd("U013");
-			transferVO.setBeforePositionCd("D002");
+			transferVO.setBeforePositionCd("U004");
 			transferVO.setTransferPositionCd("U003");
 			transferVO.setBeforeDepartmentCd("D002");
 			transferVO.setTransferDepartmentCd("D006");
@@ -60,30 +64,37 @@ class Gdj68FinalProjectApplicationTests {
 	}
 	
 	@Test
-	void setRegistrationHumanresource() {
-		HumanResourceVO humanResourceVO = new HumanResourceVO();
-		humanResourceVO.setPassword("1234");
-		humanResourceVO.setJoinDate(Date.valueOf("2023-11-07"));
-		humanResourceVO.setJoinType((byte)0);
-		humanResourceVO.setName("김민진");
-		humanResourceVO.setBirth(Date.valueOf("1995-07-28"));
-		humanResourceVO.setDepartmentCd("D001");
-		humanResourceVO.setPositionCd("U001");
-		humanResourceVO.setPhone("010-0000-0000");
-		humanResourceVO.setEmail("dngu_icdi@naver.com");
-		humanResourceVO.setAddress("가나다라마바사");
-		humanResourceVO.setBank("신한");
-		humanResourceVO.setAccountNumber("123456789");
-		humanResourceVO.setAccountHolder("김민진");
+	void setRegistrationHumanresource() throws Exception {
+		for(int i = 1; i <= 100; i++) {
+			HumanResourceVO humanResourceVO = new HumanResourceVO();
+			humanResourceVO.setPassword(passwordEncoder.encode("1234"));
+			humanResourceVO.setJoinDate(Date.valueOf("2023-11-07"));
+			humanResourceVO.setJoinType((byte)0);
+			humanResourceVO.setName("테스트" + i);
+			humanResourceVO.setBirth(Date.valueOf("1995-07-28"));
+			humanResourceVO.setDepartmentCd("D001");
+			humanResourceVO.setPositionCd("U001");
+			humanResourceVO.setYearsOfService(0);
+			humanResourceVO.setPhone("010-0000-0000");
+			humanResourceVO.setEmail("dngu_icdi@naver.com");
+			humanResourceVO.setAddress("가나다라마바사");
+			humanResourceVO.setBank("신한");
+			humanResourceVO.setAccountNumber("123456789");
+			humanResourceVO.setAccountHolder("김민진");
+			humanResourceService.setRegistration(humanResourceVO, null);
+			// humanResourceDAO.setRegistration(humanResourceVO);
+		}
 		
-		log.info("before : {}", humanResourceVO.getEmployeeID());
-		int result = humanResourceDAO.setRegistration(humanResourceVO);
-		humanResourceVO.setEmployeeID(humanResourceDAO.getLatestEmployeeID());
-		log.info("after : {}", humanResourceVO.getEmployeeID());
-		
-		new SMTP().send_mail(humanResourceVO);
-		
-		assertTrue(result > 0);
+		/*
+			log.info("before : {}", humanResourceVO.getEmployeeID());
+			int result = humanResourceDAO.setRegistration(humanResourceVO);
+			humanResourceVO.setEmployeeID(humanResourceDAO.getLatestEmployeeID());
+			log.info("after : {}", humanResourceVO.getEmployeeID());
+			
+			new SMTP().send_mail(humanResourceVO);
+			
+			assertTrue(result > 0);
+		*/
 	}
 	
 	// @Test
