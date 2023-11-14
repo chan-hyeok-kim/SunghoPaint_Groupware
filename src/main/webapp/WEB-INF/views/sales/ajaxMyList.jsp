@@ -8,7 +8,7 @@
 							      <th scope="col" style="font-weight:bold;">번호</th>
 							      <th scope="col" style="font-weight:bold;">차종</th>
 							      <th scope="col" style="font-weight:bold;">예약 시간</th>
-							      <th scope="col" style="font-weight:bold;">반납 시간</th>
+							      <th scope="col" style="font-weight:bold;">반납 예정일</th>
 							      <th scope="col" style="font-weight:bold;">취소/반납</th>
 							    </tr>
 							  </thead>
@@ -22,6 +22,9 @@
 						             <c:choose>
 						             <c:when test="${vo.carStatusCd eq 'C012'}">
 						             <td><a class="sweet" data-num="${vo.carReservationVO.rentalNo}" data-num-no="${vo.carNo}" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'"><span class="btn btn-mini" style="border:1px solid #ddd; background-color: transparent; color:red;" onmouseover="this.style.backgroundColor='transparent'" onmouseout="this.style.backgroundColor='transparent'">반납</span></a></td>
+						             </c:when>
+						             <c:when test="${vo.carStatusCd eq 'C011'}">
+						             <td>반납 완료</td>
 						             </c:when>
 						             </c:choose>
 						           </tr>
