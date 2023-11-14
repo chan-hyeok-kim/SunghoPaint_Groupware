@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,8 @@ public class HumanResourceController {
 	}
 	
 	@GetMapping("/humanresource/registration")
-	public String setRegistration(@ModelAttribute HumanResourceVO humanResourceVO) {
+	public String setRegistration(@ModelAttribute HumanResourceVO humanResourceVO, Model model) {
+		model.addAttribute("isRegistration", true);
 		return "humanresource/registration";
 	}
 	
@@ -58,14 +60,22 @@ public class HumanResourceController {
 		humanResourceService.excelDownload();
 	}
 	
-	@GetMapping("/humanresource/update")
+	@GetMapping("/humanresource/detail")
 	public String getDetail(String employeeID, Model model) {
 		model.addAttribute("humanResourceVO", humanResourceService.getHumanResource(employeeID));
+		model.addAttribute("isDetail", true);
+		return "humanresource/registration";
+	}
+	
+	@GetMapping("/humanresource/update")
+	public String setUpdate(String employeeID, Model model) {
+		model.addAttribute("humanResourceVO", humanResourceService.getHumanResource(employeeID));
+		model.addAttribute("isUpdate", true);
 		return "humanresource/registration";
 	}
 	
 	@PostMapping("/humanresource/update")
-	public String getDetail(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
+	public String setUpdate(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
 		humanResourceService.setUpdate(humanResourceVO, file);
 		return "redirect:/humanresource/update?employeeID=" + humanResourceVO.getEmployeeID();
 	}
@@ -104,5 +114,20 @@ public class HumanResourceController {
 		}
 		
 		return "commons/result";
+	}
+	
+	@GetMapping("/humanresource/checkEmployeeID")
+	@ResponseBody
+	public String checkEmployeeID(String employeeID) {
+		if(humanResourceService.getHumanResource(employeeID) != null)
+			return employeeID;
+		
+		return null;
+	}
+	
+	@GetMapping("/humanresource/findPw")
+	@ResponseBody
+	public String findPw(String employeeID) {
+		return humanResourceService.findPw(employeeID);
 	}
 }

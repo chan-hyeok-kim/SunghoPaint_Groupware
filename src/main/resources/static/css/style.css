@@ -14723,3 +14723,10 @@ ul.nav-tabs {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+/* sidebar line */
+#sidebar_line{
+	width:75%;
+	margin:10px auto;
+	border-top:1px solid #E7E7E7;
+}

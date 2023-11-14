@@ -10,8 +10,19 @@
 
 <script>
 	$(function(){
-		if("${humanResourceVO.employeeID}" != "") $("#registrationForm").attr("action", "./update");
 		$("input#yearsOfService").attr("type", "number");
+		
+		if("${isUpdate}") $("#registrationForm").attr("action", "./update");
+		
+		if("${isDetail}"){
+			$("*").off("click");
+			$("*:not(#return)").removeAttr("onclick");
+			
+			$("select").attr("disabled", true);
+			$("input[type='file']").attr("disabled", true);
+			$("input").attr("readonly", true);
+			$("input").css("cursor", "default");
+		}
 	});
 </script>
 
@@ -95,13 +106,18 @@
 	</table>
 
 	<div id="buttons">
-		<c:if test="${empty humanResourceVO.employeeID}">
+		<c:if test="${isRegistration}">
 			<button type="button" id="regist">등록</button>
 		</c:if>
-		<c:if test="${!empty humanResourceVO.employeeID}">
-			<button type="button" id="regist">수정</button>
+		<c:if test="${isUpdate}">
+			<button type="button" id="update">수정</button>
 		</c:if>
-		<button type="button" id="cancel" onclick="location.href='./list'">취소</button>
+		<c:if test="${empty isDetail}">
+			<button type="button" id="cancel" onclick="location.href='./list'">취소</button>
+		</c:if>
+		<c:if test="${isDetail}">
+			<button type="button" id="return" onclick="location.href='../'">돌아가기</button>
+		</c:if>
 	</div>
 	
 	
@@ -111,9 +127,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="exampleModalLabel"></h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
+	        <img src="/images/humanresource/close-icon.png" class="close" data-dismiss="modal" aria-label="Close">
 	      </div>
 	      <div class="modal-body">
 	        <form>

@@ -51,7 +51,7 @@ public class HumanResourceService implements UserDetailsService {
 	public int setRegistration(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
 		humanResourceVO.setProfile(encodeImageToBase64(file));
 		String temporaryPassword = generateTemporaryPassword();
-		humanResourceVO.setPassword(passwordEncoder.encode(generateTemporaryPassword()));
+		humanResourceVO.setPassword(passwordEncoder.encode(temporaryPassword));
 		
 		int result = humanResourceDAO.setRegistration(humanResourceVO);
 		String employeeID = humanResourceDAO.getLatestEmployeeID();
@@ -161,5 +161,21 @@ public class HumanResourceService implements UserDetailsService {
 		humanResourceDAO.setAccountRole(accountRoleVO);
 		
 		return result;
+	}
+	
+	public String findPw(String employeeID) {
+		String email = humanResourceDAO.getEmail(employeeID);
+		String password = generateTemporaryPassword();
+		
+		HumanResourceVO humanResourceVO = new HumanResourceVO();
+		humanResourceVO.setEmployeeID(employeeID);
+		humanResourceVO.setPassword(password);
+		humanResourceVO.setEmail(email);
+		new SMTP().send_mail(humanResourceVO);
+		
+		humanResourceVO.setPassword(passwordEncoder.encode(password));
+		humanResourceDAO.setUpdatePassword(humanResourceVO);
+		
+		return email;
 	}
 }

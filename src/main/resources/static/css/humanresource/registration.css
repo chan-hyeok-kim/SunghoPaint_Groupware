@@ -77,7 +77,7 @@ form > #buttons{
 	text-align:unset;
 }
 
-#addressDetailModal button.close{
-	border:none;
-	background-color:#9797FF;
+#addressDetailModal img.close{
+	width:25px;
+	cursor:pointer;
 }

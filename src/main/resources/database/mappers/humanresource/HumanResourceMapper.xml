@@ -174,4 +174,10 @@
 	<update id="setUpdatePassword" parameterType="HumanResourceVO">
 		UPDATE HUMAN_RESOURCE SET PASSWORD = #{password} WHERE EMPLOYEE_ID = #{employeeID}
 	</update>
+	
+	<select id="getEmail" parameterType="String" resultType="String">
+		SELECT EMAIL
+			FROM HUMAN_RESOURCE
+		WHERE EMPLOYEE_ID = #{value}
+	</select>
 </mapper>
