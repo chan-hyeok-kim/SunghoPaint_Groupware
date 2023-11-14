@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" href="/css/calendarStyle/calendar.css">
+<link rel="stylesheet" href="/css/myCustomStyle/todolist.css">
 
 </head>
 <body>
@@ -18,12 +19,70 @@
 </div>
 </div>
 </div>
+
+
+
 <!-- progress start -->
+<div class="row">
+<div class="col-7 grid-margin stretch-card">
+<div class="card">
+ <div class="card-body">
+ <h4 class="card-title">내 결재현황</h4>
+ <table class="table table-hover mt-2" id="approval-table">
+				        <thead>
+				           <tr>
+				             <th>선택</th>
+				             <th>기안일자</th>
+				             <th>제목</th>
+				             <th>기안자</th>
+				             <th>결재자</th>
+				             <th>진행상태</th>
+				             <th>결재 확인</th>
+				           </tr>
+				        </thead>
+				        <tbody>
+				        <c:forEach items="${list}" var="vo" varStatus="i">
+				        
+				           <tr>
+				             <td><input type="checkbox"></td>
+				             <td class="approval-start-date">${vo.approvalStartDate}</td>
+				             <td>${vo.approvalTitle}</td>
+				             <td>${vo.drafter}</td>
+				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
+				             <td>${vo.apCodeName}</td>
+				             <td><a data-no="${vo.approvalNo}" class="detail-proceed-btn">기안서 확인</a></td>
+				           </tr>
+				         </c:forEach>
+				        </tbody>
+ </table>
+ </div>
+</div>
+</div>
+
+
+
+
+<!-- progress end -->
+
+<!-- calendar start -->
+   <div class="col-md-5 grid-margin stretch-card" style="flex:right">
+                
+                <div class="card">
+           		  <div class="card-body">
+              		  
+               		  <div id='calendar'></div>
+                  </div>
+                 </div>
+                </div>
+</div>                
+<!-- calendar end -->
+
+<!-- my approval -->
 <div class="row">
 <div class="col-md-7 grid-margin stretch-card">
 <div class="card">
 <div class="card-body">
-                    <h4 class="card-title">주간 제품별 생산량</h4>
+                    <h4 class="card-title">재고현황</h4>
                     <div class="table-responsive">
                       <table class="table">
                         <thead>
@@ -54,54 +113,30 @@
                   </div>
 </div>
 </div>
+</div>
+<!-- my approval end -->
 
-<!-- progress end -->
+<!-- pending approval -->
 
-<!-- calendar start -->
-   <div class="col-md-5 grid-margin stretch-card" style="flex:right">
-                
-                <div class="card">
-           		  <div class="card-body">
-              		  
-               		  <div id='calendar'></div>
-                  </div>
-                 </div>
-                </div>
-</div>                
-<!-- calendar end -->
+<!-- <div class="col-md-5 grid-margin stretch-card">
+<div class="card">
+ <div class="card-body"></div>
+</div>
+</div>
+ -->
+<!-- pending approval end -->
 
 
 <!-- todolist start -->
-<div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title text-black">To-do List</h4>
-                    <div class="add-items d-flex">
-                      <input type="text" id="todo-list-input" class="form-control todo-list-input" placeholder="오늘 할일이 뭐가 있을까?">
-                      <button class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" id="add-task">추가</button>
-                    </div>
-                    <div class="list-wrapper">
-                      <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
-                      <c:forEach items="${list}" var="vo">
-                        <li>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                             <c:if test="${vo.toDoListCheck}">
-                             <input class="checkbox" type="checkbox" checked="checked"></c:if>
-                              <c:if test="${not vo.toDoListCheck}"><input class="checkbox" type="checkbox"></c:if> 
-                              <span id="toDoContents">${vo.toDoListContents}</span> <i class="input-helper"></i></label>
-                          </div>
-                          <i class="remove mdi mdi-close-circle-outline" data-no="${vo.toDoListNo}"></i>
-                        </li>
-                       </c:forEach>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+
+
+ 
                 <!-- todolist end -->
              
              
-             
+          
                 <!-- calendar -->
+                
        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
        <script src='/js/main/mainCalendar.js'></script>
        

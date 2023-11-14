@@ -98,22 +98,26 @@
 	    	    	  
 	    	      }
 	    	    },
-				cumstomButton2:{
+				customButton2:{
 					text:'일정 등록',
 				}
 	    	  },
 	    	    	  
 	      headerToolbar: {
-	    	    left: 'myCustomButton',
+	    	    left: 'prev,next',
 	    	    center: 'title',
-	    	    right: 'cumstomButton2'
+	    	    right: 'myCustomButton,customButton2'
 	    	  },
-	    	  
+			  buttonIcons:{
+				customButton2: '',
+				myCustomButton: '',
+			  }
+	    	  ,
 	      buttonText:{
-	    	  today: '오늘'
-	    	 
+	    	  today: '오늘',
+	    	  title: '일정관리'
 	      },
-	      
+		  
 	      
 	      /* events:[ // 일정 데이터 추가 , DB의 event를 가져오려면 JSON 형식으로 변환해 events에 넣어주면된다.
               {
@@ -155,6 +159,12 @@
 
 		
 	    calendar.render();
+
+		let icon=document.getElementsByClassName('fc-icon');
+		
+		icon[2].innerHTML='<span class="material-symbols-outlined">cached</span>';
+		icon[3].innerHTML='<span class="material-symbols-outlined">edit_square</span>';
+      //  $('.fc-toolbar-title').html('2023/11 일정관리');
 	  });
 	
 	

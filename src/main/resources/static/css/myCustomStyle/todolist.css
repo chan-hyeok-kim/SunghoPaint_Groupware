@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+/* 사이드바 너비의 80%만큼 왼쪽으로 이동 */
+#toggle-slide-List {
+  border-radius: 20px;
+  transform: translate(calc(392.75px * +0.8), 0);  /* X축 이동, Y축 고정 */
+  transition: .5s;
+}
+
+/* 마우스 인식 시 원래의 위치로 이동 */
+#toggle-slide-List:hover {
+  transform: translate(-20px, 0);   /* 둥근 모서리의 너비만큼 X축 이동, Y축 고정 */
+}
+

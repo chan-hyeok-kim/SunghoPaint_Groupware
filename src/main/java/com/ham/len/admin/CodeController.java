@@ -1,5 +1,6 @@
 package com.ham.len.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ham.len.admin.document.ApprovalTypeVO;
 import com.ham.len.commons.CodeVO;
-import com.ham.len.commons.MakeColumn;
+
 import com.ham.len.commons.Pager;
+import com.ham.len.commons.ZtreeVO;
 import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +34,7 @@ public class CodeController {
 	@Autowired
 	private CodeService codeService;
 
-	@Autowired
-	private MakeColumn makeColumn;
-	
+
 	
 	@GetMapping("list")
 	public void getList(Pager pager,Model model) throws Exception{
@@ -42,7 +44,6 @@ public class CodeController {
 		List<UpCodeVO> upList=codeService.getUpList(pager);
 		model.addAttribute("list", ar);
 		model.addAttribute("upList", upList);
-		
 	}
 	
 	@GetMapping("listByUpCode")
@@ -58,15 +59,12 @@ public class CodeController {
 	
 	@PostMapping("add")
     public String setAdd(CodeVO codeVO,Model model,HttpServletRequest request) throws Exception{
-		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String id=humanResourceVO.getEmployeeID();
 		
 		String code=codeVO.getCode();
 		codeVO.setCode(codeVO.getUpCode()+code);
 	    //뒷자리만 들어온거랑 더하기
 		
-		String path=request.getRequestURI();
-		codeVO=makeColumn.getColumn(codeVO, path, id);
+	
 		int result=codeService.setAdd(codeVO);
     	 
     	 if(result>0) {
@@ -80,10 +78,8 @@ public class CodeController {
     }
 	
 	@PostMapping("update")
-	public String setUpdate(CodeVO codeVO,HttpServletRequest request) throws Exception{
-		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String id=humanResourceVO.getEmployeeID();
-		
+	public String setUpdate(CodeVO codeVO) throws Exception{
+	
 		String code=codeVO.getCode().toUpperCase();
 		codeVO.setCode(code);
 		//혹시 소문자 들어오면 대문자로 변환
@@ -92,29 +88,21 @@ public class CodeController {
 		codeVO.setUpCode(Upcode);
 		//업코드 세팅
 		
-		 String path=request.getRequestURI();
-		 log.warn("수정됐는지확인{}",codeVO);
- 		 codeVO=makeColumn.getModColumn(codeVO, path, id);
+		
 		 int result=codeService.setUpdate(codeVO);
 		 
 		 log.warn("수정됐는지확인{}",codeVO);
 		 log.warn("수정됐는지확인{}",result);
-		 return "redirect:/code/list";
+		 return "redirect:./list";
 	}
 	
 	@PostMapping("delete")
-	public String setDelete(CodeVO codeVO,Model model) throws Exception{
+	public String setDelete(CodeVO codeVO) throws Exception{
 	    	int result=codeService.setDelete(codeVO);
 	 
 	    	
-	    	if(result>0) {
-	    		 model.addAttribute("message", "코드가 성공적으로 삭제되었습니다.");
-	    	 }else {
-	    		 model.addAttribute("message", "에러. 코드 삭제 실패");	
-	    	 }
-	    	 model.addAttribute("result", result);
-	    	 model.addAttribute("url", "/code/list");
-	    	 return "commons/result";
+	    	
+	    	 return "redirect:./list";
 	}
 	
 	@PostMapping("upDelete")
@@ -136,7 +124,7 @@ public class CodeController {
 	    	 }
 	    	 model.addAttribute("result", result);
 	    	 model.addAttribute("url", "/code/list");
-	    	 return "commons/result";
+	    	 return "redirect:./list";
 	}
 	
 	@PostMapping("codeCheck")
@@ -152,5 +140,65 @@ public class CodeController {
 		List<UpCodeVO> ar=codeService.getUpList(pager);
 		model.addAttribute("upList", ar);
 	}
+	
+	@PostMapping("upAdd")
+    public String setUpAdd(UpCodeVO upCodeVO,Model model) throws Exception{
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		int result=codeService.setUpAdd(upCodeVO);
+    	 
+    	 if(result>0) {
+    		 model.addAttribute("message", "코드가 성공적으로 등록되었습니다.");
+    	 }else {
+    		 model.addAttribute("message", "에러. 코드 등록 실패");	
+    	 }
+    	 model.addAttribute("result", result);
+    	 model.addAttribute("url", "/code/list");
+    	 return "commons/result";
+    }
+	
+	@PostMapping("upUpdate")
+	public String setUpUpdate(UpCodeVO upCodeVO,HttpServletRequest request) throws Exception{
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		
+		String upCode=upCodeVO.getUpCode().toUpperCase();
+		upCodeVO.setUpCode(upCode);
+		//혹시 소문자 들어오면 대문자로 변환
+		
+		
+		 int result=codeService.setUpUpdate(upCodeVO);
+		
+		 return "redirect:./list";
+	}
+	
+	@GetMapping("upCodeCheck")
+	public String getUpCodeCheck(UpCodeVO upCodeVO,Model model) throws Exception{
+		Long result=codeService.getUpCodeCheck(upCodeVO);
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";
+	}
+	
+	
+	@GetMapping("approvalLineDept")
+	@ResponseBody
+	public List<ZtreeVO> getApprovalLineDept() throws Exception{
+		List<CodeVO> cl=codeService.getApprovalLineDept();
+		
+		List<ZtreeVO> zl=new ArrayList<>();
+		for(CodeVO c: cl) {
+			ZtreeVO ztreeVO=new ZtreeVO();
+			ztreeVO.setId("1");
+			ztreeVO.setName(c.getCodeName());
+			ztreeVO.setPId("0");
+			
+			zl.add(ztreeVO);
+		}
+		
+		
+		return zl;
+	}
+	
 	
 }

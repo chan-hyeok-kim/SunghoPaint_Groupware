@@ -112,4 +112,66 @@ $('.code-close-btn').click(function(){
 })
  
 
- 
+/*업코드 체크 
+*/
+const upCodeAddBtn=document.getElementById('up-code-add-btn');
+const upCodeCheck=document.getElementById('up-code-check');
+const upCodeNameCheck=document.getElementById('up-code-name-check');
+const upCodeForm=document.getElementById('up-code-frm');
+
+upCodeCheckResult=[false, false];
+
+upCodeAddBtn.addEventListener('click',function(){
+  
+   if(!upCodeCheck.value || upCodeCheck.value.length==0){
+      upCodeCheckResult[0]=false;
+      swal('상위코드를 입력해주세요')
+      return;
+   }else{
+      upCodeCheckResult[0]=true;
+
+   }
+
+   let upCode=upCodeCheck.value;
+
+   var pattern_eng = /[a-zA-Z]/;
+        if(pattern_eng.test(upCode.slice(0,1))){
+          upCodeCheckResult[0]=true;
+       }else{
+        upCodeCheckResult[0]=false;
+          swal('무조건 코드의 첫 글자는 알파벳으로 시작해야 합니다');
+          return;
+       }
+
+   $.ajax({
+    type:'GET',
+     url:'/code/upCodeCheck',
+     data:{
+      upCode:upCode
+     },success:function(result){
+             if(result.trim()>0){
+              swal('이미 존재하는 코드입니다.')
+              upCodeCheckResult[0]=false;
+              return;
+             }else{
+              swal('등록 가능한 코드입니다.')
+              upCodeCheckResult[0]=true;
+             }
+     }
+
+   })
+
+
+
+   if(!upCodeNameCheck.value || upCodeNameCheck.value.length==0){
+      upCodeCheckResult[1]=false;
+      swal('상위코드명을 입력해주세요')
+   }else{
+      upCodeCheckResult[1]=true; 
+   }
+
+   if(!upCodeCheckResult.includes(false)){
+      upCodeForm.submit();
+   }
+
+})

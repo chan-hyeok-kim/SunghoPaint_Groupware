@@ -10,7 +10,7 @@
           <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/images/logo-mini.svg" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
-          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <button class="navbar-toggler navbar-toggler align-self-center" id="minimize-toggle" type="button" data-toggle="minimize">
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="search-field d-none d-md-block">
@@ -152,10 +152,10 @@
             </li>
             
             <sec:authorize access="isAuthenticated()">
-	            <li class="nav-item nav-settings d-none d-lg-block">
-	              <a class="nav-link" href="#">
+	            <li class="nav-item nav-settings d-none d-lg-block" id="toggle">
+	              <button class="navbar-toggler" id="todolist-toggle">
 	                <i class="mdi mdi-format-line-spacing"></i>
-	              </a>
+	              </button>
 	            </li>
             </sec:authorize>
           </ul>
@@ -163,4 +163,5 @@
             <span class="mdi mdi-menu"></span>
           </button>
         </div>
+        
       </nav>

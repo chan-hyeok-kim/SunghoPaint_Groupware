@@ -28,10 +28,9 @@ $('.code-delete-btn').click(function(){
     Swal.fire({
         text: '정말로 삭제하시겠습니까?',
         showCancelButton: true, 
-        dangerMode: true,
         confirmButtonText: '승인',
         confirmButtonColor: 'red',
-        cancleButtonText:'취소',
+        cancelButtonText:'취소',
         reverseButtons: true,
         icon: 'warning',
     }).then(function(result) {

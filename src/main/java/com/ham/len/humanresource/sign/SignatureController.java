@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ham.len.commons.ImgToBase64;
-import com.ham.len.commons.MakeColumn;
+
 import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,9 +33,6 @@ public class SignatureController {
 	@Autowired
 	private SignatureService signatureService;
 
-	@Autowired
-	private MakeColumn makeColumn;
-	
 	@Autowired
 	private ImgToBase64 imgToBase64;
 	
@@ -53,7 +50,7 @@ public class SignatureController {
 
 	@PostMapping("signUpdate")
 	@ResponseBody
-	public HumanResourceVO setSignUpdate(HttpServletRequest request, HumanResourceVO humanResourceVO,MultipartFile file) throws Exception {
+	public HumanResourceVO setSignUpdate(HumanResourceVO humanResourceVO,MultipartFile file) throws Exception {
 		
 		if(file!=null && !file.isEmpty()) {
 			// &쓰면 오류나고, 순서바꿔도 오류남.
@@ -75,9 +72,7 @@ public class SignatureController {
 		
 		humanResourceVO.setEmployeeID(humanResourceVO1.getEmployeeID());
 		
-		String path=request.getRequestURI();
-		humanResourceVO=(HumanResourceVO)makeColumn.getModColumn(humanResourceVO, path, humanResourceVO.getEmployeeID());
-		
+	
 		int result = signatureService.setSignUpdate(humanResourceVO);
 	//	model.addAttribute("result", result);
 		

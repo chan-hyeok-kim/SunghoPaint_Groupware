@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
 
 @Controller
@@ -24,8 +23,6 @@ public class FactoryStorageController {
 	@Autowired
 	private FactoryStorageService factoryStorageService;
 	
-	@Autowired
-	private MakeColumn makeColumn;
 	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
@@ -38,12 +35,11 @@ public class FactoryStorageController {
 	
 	
 	@PostMapping(value = "add")
-	public String setAdd(FactoryStorageVO factoryStorageVO, HttpServletRequest request, Model model)throws Exception{
-		String id = "2023001";
-		String path=request.getRequestURI();
+	public String setAdd(FactoryStorageVO factoryStorageVO, Model model)throws Exception{
+		
+		
 		//나중에 세션에서 조회
-		factoryStorageVO.setEmployeeId(id);
-		factoryStorageVO = (FactoryStorageVO)makeColumn.getColumn(factoryStorageVO, path, id);
+		
 		int result=factoryStorageService.setAdd(factoryStorageVO);
 		if(result>0) {
 			 model.addAttribute("message", "코드가 정상 등록되었습니다.");
@@ -72,10 +68,8 @@ public class FactoryStorageController {
 	}
 	
 	@PostMapping(value = "update")
-	public String setUpdate(FactoryStorageVO factoryStorageVO, HttpServletRequest request) throws Exception {
-		String id = "2023001";
-		String path=request.getRequestURI();
-		factoryStorageVO=(FactoryStorageVO)makeColumn.getModColumn(factoryStorageVO, path, id);
+	public String setUpdate(FactoryStorageVO factoryStorageVO) throws Exception {
+		
 		factoryStorageService.setUpdate(factoryStorageVO);
 		return "redirect:/factory/list";
 		

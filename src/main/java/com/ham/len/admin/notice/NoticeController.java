@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ham.len.commons.MakeColumn;
+
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 
@@ -28,8 +28,6 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
-	@Autowired
-	private MakeColumn makeColumn;
 	
 	
 	@GetMapping("detail")
@@ -51,10 +49,10 @@ public class NoticeController {
 	}
 	
 	@PostMapping("add")
-	public String setAdd(NoticeVO noticeVO,HttpServletRequest request,MultipartFile[] files) throws Exception{
+	public String setAdd(NoticeVO noticeVO,MultipartFile[] files) throws Exception{
 		
 		
-		int result=noticeService.setAdd(noticeVO,request,files);
+		int result=noticeService.setAdd(noticeVO,files);
 		
 		return "redirect:/notice/list";
 	}
@@ -67,12 +65,12 @@ public class NoticeController {
 	}
 	
 	@PostMapping("update")
-	public String setUpdate(NoticeVO noticeVO,HttpServletRequest request) throws Exception{
-		String path=request.getRequestURI();
+	public String setUpdate(NoticeVO noticeVO) throws Exception{
+		
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id=humanResourceVO.getEmployeeID();
-		
-		noticeVO=(NoticeVO)makeColumn.getModColumn(noticeVO, path, id);
+		noticeVO.setEmployeeID(id);
+	
 		int result=noticeService.setUpdate(noticeVO);
 		
 		return "redirect:/notice/list";

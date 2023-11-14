@@ -37,7 +37,7 @@
 		REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
 		VALUES(#{code},#{upCode},#{codeName},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
 	</insert>
-
+	
 	<update id="setUpdate" parameterType="CodeVO">
 		UPDATE CODE
 		SET
@@ -46,7 +46,30 @@
 		WHERE
 		CODE=#{originCode}
 	</update>
+	
+	<insert id="setUpAdd" parameterType="UpCodeVO">
+		INSERT INTO
+		UP_CODE(UP_CODE,UP_CODE_NAME,
+		REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+		VALUES(#{upCode},#{upCodeName},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
+	</insert>
+	
+	<update id="setUpUpdate" parameterType="UpCodeVO">
+		UPDATE UP_CODE
+		SET
+		UP_CODE=#{upCode},UP_CODE_NAME=#{upCodeName}
+		,MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+		WHERE
+		UP_CODE=#{originUpCode}
+	</update>
+	
+	<select id="getUpCodeCheck" parameterType="UpCodeVO" resultType="Long">
+	SELECT COUNT(*) 
+	  FROM UP_CODE
+   	WHERE UP_CODE=#{upCode}
+	</select>
 
+	
 	<delete id="setDelete" parameterType="CodeVO">
 		DELETE FROM CODE
 		WHERE
@@ -89,7 +112,11 @@
 	   	  LIKE CONCAT('%',#{search},'%')
 	</select>
 	
-
+    	<!-- 인사부 목록 가져오기 -->
+    <select id="getApprovalLineDept" resultType="CodeVO">
+     SELECT * FROM CODE
+      WHERE UP_CODE='D00' AND RIGHT(CODE_NAME,1)='부'
+    </select>
 	
     
 </mapper>

@@ -17,9 +17,8 @@
   
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  
-    <!-- <link rel="stylesheet" href="/css/sign/signature-pad.css">
-   -->
+    <link rel="stylesheet" href="/css/myCustomStyle/code.css">
+   
     <script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script><script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-39365077-1']);
@@ -68,10 +67,7 @@
                     <ul class="nav-tabs">
 					</ul>
 
-					<div
-						style="text-align: right; padding-top: 20px; padding-right: 10px">
-						<div id="grid-top-date"></div>
-					</div>
+					
 					
 					
 					<div id="content">
@@ -107,8 +103,8 @@
    <div class="modal fade" id="update-code-modal${i.index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog code-modal-size" role="document">
     <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
-      <div class="modal-header" style="background-color: black; padding:0px">
-        <h5 class="modal-title" id="exampleModalLabel" style="padding: 20px;color:white; font-weight: bold;">코드 정보</h5>
+      <div class="modal-header code-modal-custom-header">
+        <h5 class="modal-title code-modal-custom-title" id="exampleModalLabel">코드 정보</h5>
         <!-- <button type="button" class="close btn-info" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button> -->
@@ -151,8 +147,8 @@ arrow_left<span style="float:right; display:block; font-size:15px; margin-top: 4
   <div data-bs-backdrop="static" class="modal fade modal-center" id="add-code-modal${i.index}" tabindex="0" aria-labelledby="add-code-modal${i.index}" aria-hidden="true">
   <div class="modal-dialog modal-center" id="sign-modal-size" role="document">
     <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
-      <div class="modal-header" style="background-color: black; padding:0px">
-        <h5 class="modal-title" id="add-code-modal${i.index}Label" style="padding: 20px;color:white; font-weight: bold;">코드 등록</h5>
+      <div class="modal-header code-modal-custom-header">
+        <h5 class="modal-title code-modal-custom-title" id="add-code-modal${i.index}Label">코드 등록</h5>
       </div>
       <div class="modal-body">
        
@@ -232,7 +228,7 @@ arrow_left<span style="float:right; display:block; font-size:15px; margin-top: 4
 				  
 				  
 				  <!-- pagination -->
-				  <div style="text-align: right; margin: 20px 20px;">
+				  <div style="text-align: center; margin: 20px 20px;">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
   <ul class="pagination">
     <li class="page-item ${pager.pre?'':'disabled'}">
@@ -251,13 +247,7 @@ arrow_left<span style="float:right; display:block; font-size:15px; margin-top: 4
       </a>
     </li>
     
-    <!-- Button List  -->
-
-			  <div style="margin-left:300px;">
-      <button type="button" class="btn  btn-inverse-dark" id="delete-btn">코드 삭제</button>
-      <button type="button" class="btn  btn-info" data-toggle="modal" data-target="#up-code-modal">상위코드 추가</button>
-      
-  </div> 
+   
      
  
   </ul>
@@ -265,6 +255,16 @@ arrow_left<span style="float:right; display:block; font-size:15px; margin-top: 4
   
 </nav>
 
+ <!-- Button List  -->
+  <div style="float:left">
+	   <button type="button" class="btn btn-info" id="up-code-update-btn" 
+	   data-toggle="modal" data-target="">상위코드 수정</button>
+  </div>
+  <div style="float:right">    
+      <button type="button" class="btn  btn-inverse-dark" id="delete-btn">코드 삭제</button>
+      <button type="button" class="btn  btn-info" data-toggle="modal" data-target="#up-code-modal">상위코드 추가</button>
+      
+  </div> 
  
 			
  	  
@@ -294,23 +294,64 @@ arrow_left<span style="float:right; display:block; font-size:15px; margin-top: 4
 <div class="modal fade" id="up-code-modal" tabindex="-1" role="dialog" aria-labelledby="up-code-modalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="up-code-modalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-header code-modal-custom-header">
+        <h5 class="modal-title code-modal-custom-title" id="up-code-modalLabel">상위코드 등록</h5>
       </div>
       <div class="modal-body">
-        ...
+      
+      	<form action="/code/upAdd" method="post" id="up-code-frm">
+	          <p><span class="code-input-title">상위코드 </span>
+	          <input style="width:50%;" type="text" class="form-control" 
+	          id="up-code-check" name="upCode"> </p>
+	          <p><span class="code-input-title">상위코드명</span>
+	          <input style="width:50%;" type="text" class="form-control"
+	          id="up-code-name-check" name="upCodeName"> </p>
+        
       </div>
+      
+      
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-info" id="up-code-add-btn">등록</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
+<!-- upcode add modal end -->
 
+
+<!-- upcode update modal  -->
+  
+<div class="modal fade" id="up-code-update-modal" tabindex="-1" role="dialog" aria-labelledby="up-code-update-modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header code-modal-custom-header">
+        <h5 class="modal-title code-modal-custom-title" id="up-code-update-modalLabel">상위코드 수정</h5>
+      </div>
+      <div class="modal-body">
+      
+      	<form action="/code/upUpdate" method="post" id="up-code-update-frm">
+      	      <input type="hidden" name="originUpCode" id="origin-up-code">
+	          <p><span class="code-input-title">상위코드 </span>
+	          <input style="width:50%;" type="text" class="form-control" 
+	          id="up-code-update-check" name="upCode"> </p>
+	          <p><span class="code-input-title">상위코드명</span>
+	          <input style="width:50%;" type="text" class="form-control"
+	          id="up-code-name-update-check" name="upCodeName"> </p>
+        
+      </div>
+      
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-info" id="up-code-update-modal-btn">수정</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- upcode update modal end -->
   
   
   
@@ -343,6 +384,7 @@ arrow_left<span style="float:right; display:block; font-size:15px; margin-top: 4
 	<script src="/js/code/update-check.js"></script> 
 	<!-- 날짜 변환 -->
 	<script src="/js/code/date.js"></script>
+	
 	
 	
 </body>

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ham.len.admin.document.ApprovalTypeService;
 import com.ham.len.admin.document.ApprovalTypeVO;
 import com.ham.len.admin.document.ApprovalUpTypeVO;
-import com.ham.len.commons.MakeColumn;
+
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.humanresource.RoleVO;
@@ -45,91 +45,12 @@ public class ApprovalController {
 	@Autowired
 	private SignatureService signatureService;
 
-	@Autowired
-	private MakeColumn makeColumn;
-
+	
 	@GetMapping("list")
 	public String getList(Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
 		List<ApprovalVO> ar = approvalService.getMyList(pager);
 		
-		List<ApprovalVO> forLast=new ArrayList<>();
-		List<ApprovalVO> forMid=new ArrayList<>();
-		List<ApprovalVO> forAdd=new ArrayList<>();
-		boolean check1=false;
-		boolean check2=false;
-		boolean check3=false;
-		
-	    for(ApprovalVO a: ar) {
-	    	boolean check0=(a.getEmployeeID().equals(humanResourceVO.getEmployeeID()));
-	    	//로그인한 사람이 기안자와 같을 경우
-	    	check1=(a.getLastApprover().equals(humanResourceVO.getEmployeeID()));
-	    	
-	    	boolean check41=(a.getApprovalCheckCd().equals("R041"));
-	    	//0회 검토완료
-	    	boolean check42=(a.getApprovalCheckCd().equals("R042"));
-	    	//1회 검토완료
-	    	boolean check43=(a.getApprovalCheckCd().equals("R043"));
-	    	//2회 검토완료
-	    	boolean check44=(a.getApprovalCheckCd().equals("R044"));
-	    	//3회 검토완료
-	    	boolean check31=(a.getApprovalStatusCd().equals("R031"));
-	        //임시저장 문서
-	    	boolean check33=(a.getApprovalStatusCd().equals("R033"));
-	    	//승인완료 문서
-	    	boolean check34=(a.getApprovalStatusCd().equals("R034"));
-	    	//반려된 문서. 본인이랑 반려시킨 사람이 볼수 있어야됨
-	    	boolean check4=(a.getAddApprover()==null);
-	    	
-	    	
-		    	if((check0)|| (check0 && check31) || (check1 && check42 && check4 ) || (check1 && check43) 
-		    			|| (check1 && check44) || (check1 && check43 && check34)) {
-		    		forLast.add(a);
-		    	}
-		    	    //최종 결재자는
-	    	    	//1. R042(1회검토완료)이면서 추가검토자없는거
-		    	    //2. 2회 검토완료된거, 3회 검토완료된거, 
-		    	    //3. 자기가 반려한거(2회검토 완료+반려)
-		    	
-	    	check2=(a.getMidApprover().equals(humanResourceVO.getEmployeeID()));
-	    	 //중간검토자는 뭘 체크해야될까
-	    	 //1. R041(0회 검토)이거나
-	    	 //2. 0회 검토 말고 전부
-	    	 //3. 0회 검토+반려
-		    	if((check0) || (check0 && check31)|| (check2 && check41) || (check2 && !check41) || (check2 && check41 && check34)) {
-		    		forMid.add(a);
-		    	}
-	    	   
-		    check3=(a.getAddApprover().equals(humanResourceVO.getEmployeeID()));
-	         //추가검토자는
-		     //1. R042(1회 검토 완료)이면서(check2가 true)
-		     // 추가검토자 있는거 (check3이 false) 
-		     //2. 2회 검토 완료된건,3회 검토 완료된건(0회와 1회의 반대) 
-		     //3. 반려된 건 중에서 1회 검토인 것만 보임
-		   
-		    	if((check0) || (check0 && check31) ||(check3 && check42 && !check4) || (check3 && check43) || 
-		    	(check3 && check44)|| (check3 && check42 && check34)) {
-		    		forAdd.add(a);
-		    	}
-		    	
-	    	
-	    }
-	    
-	    log.warn("********{}******",check1);
-	    
-	    log.warn("********{}******",check2);
-	    log.warn("********{}******",check3);
-		if((check1 ^ check2) ^ check3) {
-			if(check1) {
-			    model.addAttribute("list", forLast);
-			}else if(check2) {
-				model.addAttribute("list", forMid);
-			}else if(check3) {
-				model.addAttribute("list", forAdd);
-			}
-			log.warn("********{}******",forLast);
-		}else{
-			model.addAttribute("list", ar);
-		}
+		approvalService.getMyList(ar, model, humanResourceVO);
 		
 		
         model.addAttribute("member", humanResourceVO);
@@ -153,82 +74,7 @@ public class ApprovalController {
 	public String getStatusList(ApprovalVO approvalVO,Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
         List<ApprovalVO> ar = approvalService.getStatusList(approvalVO,pager,humanResourceVO);
 		
-		List<ApprovalVO> forLast=new ArrayList<>();
-		List<ApprovalVO> forMid=new ArrayList<>();
-		List<ApprovalVO> forAdd=new ArrayList<>();
-		boolean check1=false;
-		boolean check2=false;
-		boolean check3=false;
-		
-	    for(ApprovalVO a: ar) {
-	    	boolean check0=(a.getEmployeeID().equals(humanResourceVO.getEmployeeID()));
-	    	//로그인한 사람이 기안자와 같을 경우
-	    	check1=(a.getLastApprover().equals(humanResourceVO.getEmployeeID()));
-	    	
-	    	boolean check41=(a.getApprovalCheckCd().equals("R041"));
-	    	//0회 검토완료
-	    	boolean check42=(a.getApprovalCheckCd().equals("R042"));
-	    	//1회 검토완료
-	    	boolean check43=(a.getApprovalCheckCd().equals("R043"));
-	    	//2회 검토완료
-	    	boolean check44=(a.getApprovalCheckCd().equals("R044"));
-	    	//3회 검토완료
-	    	boolean check33=(a.getApprovalStatusCd().equals("R033"));
-	    	//승인완료 문서
-	    	boolean check34=(a.getApprovalStatusCd().equals("R034"));
-	    	//반려된 문서. 본인이랑 반려시킨 사람이 볼수 있어야됨
-	    	boolean check4=(a.getAddApprover()==null);
-	    	
-	    	
-		    	if((check0) || (check1 && check42 && check4 ) || (check1 && check43) 
-		    			|| (check1 && check44) || (check1 && check43 && check34)) {
-		    		forLast.add(a);
-		    	}
-		    	    //최종 결재자는
-	    	    	//1. R042(1회검토완료)이면서 추가검토자없는거
-		    	    //2. 2회 검토완료된거, 3회 검토완료된거, 
-		    	    //3. 자기가 반려한거(2회검토 완료+반려)
-		    	
-	    	check2=(a.getMidApprover().equals(humanResourceVO.getEmployeeID()));
-	    	 //중간검토자는 뭘 체크해야될까
-	    	 //1. R041(0회 검토)이거나
-	    	 //2. 0회 검토 말고 전부
-	    	 //3. 0회 검토+반려
-		    	if((check0) || (check2 && check41) || (check2 && !check41) || (check2 && check41 && check34)) {
-		    		forMid.add(a);
-		    	}
-	    	   
-		    check3=(a.getAddApprover().equals(humanResourceVO.getEmployeeID()));
-	         //추가검토자는
-		     //1. R042(1회 검토 완료)이면서(check2가 true)
-		     // 추가검토자 있는거 (check3이 false) 
-		     //2. 2회 검토 완료된건,3회 검토 완료된건(0회와 1회의 반대) 
-		     //3. 반려된 건 중에서 1회 검토인 것만 보임
-		   
-		    	if((check0) || (check3 && check42 && !check4) || (check3 && check43) || 
-		    	(check3 && check44)|| (check3 && check42 && check34)) {
-		    		forAdd.add(a);
-		    	}
-		    	
-	    	
-	    }
-	    
-	    log.warn("********{}******",check1);
-	    
-	    log.warn("********{}******",check2);
-	    log.warn("********{}******",check3);
-		if((check1 ^ check2) ^ check3) {
-			if(check1) {
-			    model.addAttribute("list", forLast);
-			}else if(check2) {
-				model.addAttribute("list", forMid);
-			}else if(check3) {
-				model.addAttribute("list", forAdd);
-			}
-			log.warn("********{}******",forLast);
-		}else{
-			model.addAttribute("list", ar);
-		}
+		approvalService.getMyList(ar, model, humanResourceVO);
 		
 		
         model.addAttribute("member", humanResourceVO);
@@ -270,9 +116,6 @@ public class ApprovalController {
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id=humanResourceVO.getEmployeeID();
 		
-		String path = request.getRequestURI();
-		approvalVO = (ApprovalVO) makeColumn.getColumn(approvalVO, path, id);
-     
 		// 나머지 값 세팅
 		approvalVO.setEmployeeID(id);
 	    approvalVO.setDrafter(humanResourceVO.getName());
@@ -332,13 +175,8 @@ public class ApprovalController {
 	}
 
 	@PostMapping("update")
-	public String setUpdate(ApprovalVO approvalVO, HttpServletRequest request) throws Exception {
-		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String id=humanResourceVO.getEmployeeID();
+	public String setUpdate(ApprovalVO approvalVO) throws Exception {
 		
-		String path = request.getRequestURI();
-		approvalVO = (ApprovalVO) makeColumn.getModColumn(approvalVO, path, id);
-
 		log.warn("********{}******", approvalVO);
 
 		int result = approvalService.setUpdate(approvalVO);
@@ -347,7 +185,7 @@ public class ApprovalController {
 	}
 	
 	@PostMapping("save")
-	public String setSave(ApprovalVO approvalVO, HttpServletRequest request,@AuthenticationPrincipal HumanResourceVO humanResourceVO,Model model) throws Exception {
+	public String setSave(ApprovalVO approvalVO,@AuthenticationPrincipal HumanResourceVO humanResourceVO,Model model) throws Exception {
 
 		String id=humanResourceVO.getEmployeeID();
 		approvalVO.setEmployeeID(id);
@@ -355,9 +193,7 @@ public class ApprovalController {
 		
 		//기안자 이름, 아이디 세팅
 		
-		String path = request.getRequestURI();
-		approvalVO = (ApprovalVO) makeColumn.getColumn(approvalVO, path, id);
-
+		
 		log.warn("********{}******", approvalVO);
 
 		int result = approvalService.setAdd(approvalVO);
@@ -368,15 +204,9 @@ public class ApprovalController {
 
 //	첨언 추가
 	@PostMapping("oneUpdate")
-	public String setOneUpdate(ApprovalVO approvalVO, HttpServletRequest request) throws Exception {
+	public String setOneUpdate(ApprovalVO approvalVO) throws Exception {
 		
-		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String id=humanResourceVO.getEmployeeID();
 		
-		String path = request.getRequestURI();
-		// Long redirectNo=approvalVO.getApprovalNo();
-		approvalVO = (ApprovalVO) makeColumn.getModColumn(approvalVO, path, id);
-
 		log.warn("들어오는지확인");
 
 		int result = approvalService.setOneUpdate(approvalVO);
@@ -385,14 +215,9 @@ public class ApprovalController {
 	}
 
 	@PostMapping("check")
-	public String setCheck(ApprovalVO approvalVO, HttpServletRequest request,Model model) throws Exception {
+	public String setCheck(ApprovalVO approvalVO, Model model) throws Exception {
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String id=humanResourceVO.getEmployeeID();
 		
-		String path = request.getRequestURI();
-		// Long redirectNo=approvalVO.getApprovalNo();
-		approvalVO = (ApprovalVO) makeColumn.getModColumn(approvalVO, path, id);
-
 		log.warn("들어오는지확인");
 		
         int result=0;

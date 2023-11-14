@@ -32,4 +32,11 @@ public interface CodeDAO {
 	
 	public List<CodeVO> getListByUpCode(CodeVO codeVO) throws Exception;
 	
+	public int setUpAdd(UpCodeVO upCodeVO) throws Exception;
+	
+	public int setUpUpdate(UpCodeVO upCodeVO) throws Exception;
+	
+	public Long getUpCodeCheck(UpCodeVO upCodeVO) throws Exception;
+	
+	public List<CodeVO> getApprovalLineDept() throws Exception;
 }

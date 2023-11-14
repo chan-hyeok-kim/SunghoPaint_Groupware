@@ -14,4 +14,6 @@ public class UpCodeVO extends CommonsVO{
 	private String upCode;
 	private String upCodeName;
 	
+	private String originUpCode;
+	
 }
