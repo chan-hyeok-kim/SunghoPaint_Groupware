@@ -45,7 +45,7 @@
       <div class="collapse" id="humanresource-general-pages">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="/humanresource/detail?employeeID=${principal.employeeID}">내 인사 정보</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#">내 연차 현황</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/annual/myAnnual?employeeID=${principal.employeeID}">내 연차 현황</a></li>
         </ul>
       </div>
     </li>

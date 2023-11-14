@@ -26,6 +26,10 @@ public class AnnualService {
 	@Autowired
 	private ExcelWriter excelWriter;
 	
+	public AnnualVO getAnnual(String employeeID) {
+		 return annualDAO.getAnnual(employeeID);
+	}
+	
 	public List<AnnualVO> getAnnualList(HumanResourcePager pager){
 		pager.makeRowNum();
 		pager.makePageNum(annualDAO.getTotal(pager));

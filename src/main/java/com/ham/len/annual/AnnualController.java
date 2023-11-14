@@ -26,6 +26,14 @@ public class AnnualController {
 	@Autowired
 	private HumanResourceService humanResourceService;
 	
+	@GetMapping("myAnnual")
+	public String getMyAnnual(String employeeID, Model model) {
+		AnnualVO annualVO = annualService.getAnnual(employeeID);
+		log.info("annualVO : {}", annualVO);
+		model.addAttribute("annualVO", annualVO);
+		return "annual/myAnnual";
+	}
+	
 	@GetMapping("status")
 	public String getStatus(HumanResourcePager pager, Model model) {
 		model.addAttribute("annualList", annualService.getAnnualList(pager));

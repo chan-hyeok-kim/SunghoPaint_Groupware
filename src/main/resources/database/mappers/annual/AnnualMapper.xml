@@ -5,6 +5,10 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.annual.AnnualDAO">
+	<select id="getAnnual" parameterType="String">
+		SELECT * FROM ANNUAL_LEAVE WHERE EMPLOYEE_ID = #{value}
+	</select>
+	
 	<insert id="setAnnual" parameterType="AnnualVO">
 		INSERT INTO ANNUAL_LEAVE(EMPLOYEE_ID, REG_ID, REG_DATE, REG_MENU, MOD_ID, MOD_DATE, MOD_MENU)
 		VALUES(#{employeeID}, #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu})

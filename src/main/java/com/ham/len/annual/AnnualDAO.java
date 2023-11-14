@@ -8,6 +8,7 @@ import com.ham.len.humanresource.HumanResourcePager;
 
 @Mapper
 public interface AnnualDAO {
+	public AnnualVO getAnnual(String employeeID);
 	public int setAnnual(AnnualVO annualVO);
 	public Long getTotal(HumanResourcePager pager);
 	public List<AnnualVO> getAnnualList(HumanResourcePager pager);
