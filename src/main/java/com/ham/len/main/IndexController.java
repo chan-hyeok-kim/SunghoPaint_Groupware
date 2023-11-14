@@ -53,6 +53,8 @@ public class IndexController {
 		        al.add(m);
 			}
 		}
+	    log.warn("마이리스트{}",myList.size());
+	    log.warn("마이리스트{}",al.size());
 	    model.addAttribute("list", al);
 		
 		

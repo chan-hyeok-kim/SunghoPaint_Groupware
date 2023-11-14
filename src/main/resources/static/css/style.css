@@ -12600,7 +12600,7 @@ code {
 
 .btn-gradient-info {
   background: -webkit-gradient(linear, left top, right top, from(#90caf9), color-stop(99%, #047edf));
-  background: linear-gradient(to right, #90caf9, #90caf9 99%);
+  background: linear-gradient(to right, #90caf9, #047edf 99%);
   border: 0;  
   -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease; }

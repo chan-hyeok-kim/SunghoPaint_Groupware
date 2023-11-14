@@ -44,7 +44,7 @@
             toDoListNo:no
           },
           success:function(){
-           console.log('성공')
+           console.log('0 성공')
         }
   
        })
@@ -56,11 +56,11 @@
           type:'POST',
           url:'/toDo/update',
           data: {
-            toDoListCheck:0,
+            toDoListCheck:1,
             toDoListNo:no
           },
           success:function(){
-           console.log('성공')
+           console.log('1 성공')
         }
   
        })
@@ -74,6 +74,7 @@
       $(this).parent().remove();
 
       let no=$(this).attr('data-no');
+      console.log(no);
       $.ajax({
         type:'POST',
         url:'/toDo/delete',

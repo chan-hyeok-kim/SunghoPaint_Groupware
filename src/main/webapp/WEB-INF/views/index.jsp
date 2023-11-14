@@ -12,19 +12,11 @@
 
 </head>
 <body>
-<div class="row">
-<div class="col-md-5 grid-margin stretch-card">
-<div class="card">
- <div class="card-body">성호 페인트 홈입니다</div>
-</div>
-</div>
-</div>
-
 
 
 <!-- progress start -->
 <div class="row">
-<div class="col-7 grid-margin stretch-card">
+<div class="col-7 grid-margin stretch-card" style="height:500px;">
 <div class="card">
  <div class="card-body">
  <h4 class="card-title">내 결재현황</h4>
@@ -64,6 +56,59 @@
 
 <!-- progress end -->
 
+<!-- stock -->
+<div class="col-md-5 grid-margin stretch-card" style="height:1000px;">
+                <div class="card">
+                  <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <h4 class="card-title">Traffic Sources</h4>
+                    <canvas id="traffic-chart" width="277" height="138" style="display: block; width: 277px; height: 138px;" class="chartjs-render-monitor"></canvas>
+                    <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"><ul><li><span class="legend-dots" style="background:linear-gradient(to right, rgba(54, 215, 232, 1), rgba(177, 148, 250, 1))"></span>Search Engines<span class="float-right">30%</span></li><li><span class="legend-dots" style="background:linear-gradient(to right, rgba(6, 185, 157, 1), rgba(132, 217, 210, 1))"></span>Direct Click<span class="float-right">30%</span></li><li><span class="legend-dots" style="background:linear-gradient(to right, rgba(255, 191, 150, 1), rgba(254, 112, 150, 1))"></span>Bookmarks Click<span class="float-right">40%</span></li></ul></div>
+                  </div>
+                </div>
+              </div>
+</div>   
+<!-- stock end -->
+
+<!-- todolist start -->
+
+<div class="toggle-slide-List">
+<div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title text-black">To-do List</h4>
+                    <div class="add-items d-flex">
+                      <input type="text" id="todo-list-input" class="form-control todo-list-input" placeholder="오늘 할일이 뭐가 있을까?">
+                      <button class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" id="add-task">
+                      <span class="material-symbols-outlined">add</span></button>
+                    </div>
+                    <div class="list-wrapper">
+                      <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
+                      <c:forEach items="${toDoList}" var="vo">
+                      <c:if test="${vo.toDoListCheck}">
+                        <li class="complete completed">
+                        </c:if>
+                        <c:if test="${not vo.toDoListCheck}">
+                        <li>
+                        </c:if>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                             <c:if test="${vo.toDoListCheck}">
+                             <input class="checkbox" type="checkbox" checked="checked"></c:if>
+                              <c:if test="${not vo.toDoListCheck}"><input class="checkbox" type="checkbox"></c:if> 
+                              <i class="input-helper"></i><span id="toDoContents">${vo.toDoListContents}</span></label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline" data-no="${vo.toDoListNo}"></i>
+                        </li>
+                       </c:forEach>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                </div> 
+ 
+                <!-- todolist end -->
+
+
+
 <!-- calendar start -->
    <div class="col-md-5 grid-margin stretch-card" style="flex:right">
                 
@@ -74,47 +119,8 @@
                   </div>
                  </div>
                 </div>
-</div>                
+             
 <!-- calendar end -->
-
-<!-- my approval -->
-<div class="row">
-<div class="col-md-7 grid-margin stretch-card">
-<div class="card">
-<div class="card-body">
-                    <h4 class="card-title">재고현황</h4>
-                    <div class="table-responsive">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th> # </th>
-                            <th> 수성1 </th>
-                            <th> 마감 기한 </th>
-                            <th> 생산량 </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${materList}" var="mvo" varStatus="i">
-                          <tr>
-                            <td> ${i.count} </td>
-                            <td> ${mvo.materialProductName} </td>
-                            <td> 12월 3일 </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 25%" aria-valuenow="${mvo.materialProductStock}" aria-valuemin="0" aria-valuemax="1000"></div>
-                              </div>
-                            </td>
-                          </tr>
-                          </c:forEach>
-                         
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-</div>
-</div>
-</div>
-<!-- my approval end -->
 
 <!-- pending approval -->
 
@@ -127,11 +133,7 @@
 <!-- pending approval end -->
 
 
-<!-- todolist start -->
 
-
- 
-                <!-- todolist end -->
              
              
           
