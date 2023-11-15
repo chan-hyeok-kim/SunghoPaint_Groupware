@@ -33,4 +33,16 @@ public class MainService {
 	public int setDelete(ToDoListVO toDoListVO) throws Exception{
 		return mainDAO.setDelete(toDoListVO);
 	}
+	
+	public int setAlarmAdd(NotificationVO notificationVO) throws Exception{
+		return setAlarmAdd(notificationVO);
+	}
+	
+	public int setAlarmUpdate(NotificationVO notificationVO) throws Exception{
+		return setAlarmUpdate(notificationVO);
+	}
+	
+	
+	
+	
 }

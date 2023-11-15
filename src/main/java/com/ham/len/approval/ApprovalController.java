@@ -26,6 +26,9 @@ import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.humanresource.RoleVO;
 import com.ham.len.humanresource.sign.SignatureService;
+import com.ham.len.main.AlarmSetting;
+import com.ham.len.main.MainService;
+import com.ham.len.main.NotificationVO;
 import com.nimbusds.jose.JWSObjectJSON.Signature;
 
 import lombok.extern.java.Log;
@@ -45,6 +48,11 @@ public class ApprovalController {
 	@Autowired
 	private SignatureService signatureService;
 
+	@Autowired
+	private MainService mainService;
+	
+	@Autowired
+	private AlarmSetting alarmSetting;
 	
 	@GetMapping("list")
 	public String getList(Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
@@ -121,7 +129,7 @@ public class ApprovalController {
 	    approvalVO.setDrafter(humanResourceVO.getName());
 	    approvalVO.setApprovalStatusCd("R032");
 		int result = approvalService.setAdd(approvalVO);
-         
+		
 		return "redirect:/approval/list";
 	}
 
@@ -225,6 +233,12 @@ public class ApprovalController {
 		if (approvalVO.getApprovalStatusCd().equals("R033")) {
             result = approvalService.setEndCheck(approvalVO);
             message="승인";
+            
+            if(result>0) {
+        		NotificationVO notificationVO=alarmSetting.setApprovalAlarm();
+        		notificationVO.setEmployeeID(approvalVO.getDrafter());
+        		result=mainService.setAlarmAdd(notificationVO);
+        		}
             //결재 승인
 		} else if (approvalVO.getApprovalStatusCd().equals("R034")) {
             result = approvalService.setReject(approvalVO);

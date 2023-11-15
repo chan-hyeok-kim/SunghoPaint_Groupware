@@ -1,84 +1,101 @@
 package com.ham.len.main;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.ILoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.ham.len.config.WebSocketSessionPool;
+
+import ch.qos.logback.classic.Logger;
+import lombok.extern.slf4j.Slf4j;
+
+// ...
+
 @Component
 @RequestMapping("/echo")
-public class EchoHandler extends TextWebSocketHandler{
-	
-	@Autowired
-	private MainDAO mainDAO;
-	
-	
-	public void setAlarmDao(MainDAO mainDAO) {
-		this.mainDAO = mainDAO;
-	}
+@Slf4j
+public class EchoHandler extends TextWebSocketHandler {
 
-	
-	private static final Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
-	//로그인 한 인원 전체
-	private List<WebSocketSession> sessions = new ArrayList<WebSocketSession>();
-	
-	//클라이언트가 웹 소켓 생성
-	@Override
-	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		logger.warn("Socket 연결");
-		//웹 소켓이 생성될 때마다 리스트에 넣어줌
-		sessions.add(session);
-	}
-	
-	//JS에서 메세지 받을 때.
-	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {// 메시지
-		 
-			 
-		for(WebSocketSession single : sessions) {
-	
-			
-				//세션아이디
-				String hsid = (String) single.getAttributes().get("user_id");
-				
-				//세션값이 같을때, 알람보낼 것이 있을 때만 전송 -> 로그인 한 사용자가 처음으로 알람 받는 순간임
-				//해당 sendMsg에 DB정보 넣어서 체크 안된 알람 전부 전송하기
-				if(single.getAttributes().get("user_id").equals(session.getAttributes().get("user_id"))) {				
-					//체크 안된 알림들만 담아서 View
-					List<NotificationVO> vo = new ArrayList<>();
-					vo = mainDAO.getAlarmList(hsid);
-					for(NotificationVO alarm : vo) {
-						String contents=alarm.getNotificationContents();
-						String title=alarm.getNotificationTitle();
-						
-						TextMessage sendMsg = new TextMessage("("+title+")"+contents);
-						single.sendMessage(sendMsg);
-					 }
-				  }
-			   
-		
-		
-		 }
-	}
-		 
-	
-	
-	@Override
-	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {//연결 해제
-		// TODO Auto-generated method stub
-		logger.warn("Socket 끊음");
-		//웹 소켓이 종료될 때마다 리스트에서 뺀다.
-		sessions.remove(session);
-	}
+    @Autowired
+    private MainDAO mainDAO;
+
+    @Autowired
+    private WebSocketSessionPool sessionPool;
+
+   
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        log.warn("Socket 연결");
+
+        // 세션을 borrow하여 사용
+        WebSocketSession pooledSession = sessionPool.borrowSession();
+        try {
+            // 세션 작업 수행
+            handleTextMessageInternal(pooledSession, null);
+        } finally {
+            // 작업이 끝난 세션을 반환
+            sessionPool.returnSession(pooledSession);
+        }
+    }
+
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        // WebSocket 세션을 borrow하여 사용
+        WebSocketSession pooledSession = sessionPool.borrowSession();
+        try {
+            // 세션 작업 수행
+            handleTextMessageInternal(pooledSession, message);
+        } finally {
+            // 작업이 끝난 세션을 반환
+            sessionPool.returnSession(pooledSession);
+        }
+    }
+
+    @Async
+    public void sendNotificationAsync(WebSocketSession targetSession) {
+        try {
+            List<NotificationVO> notifications = mainDAO.getAlarmList(targetSession.getAttributes().get("user_id").toString());
+            for (NotificationVO alarm : notifications) {
+                String contents = alarm.getNotificationContents();
+                String title = alarm.getNotificationTitle();
+                TextMessage sendMsg = new TextMessage("("+title+")" + contents);
+                targetSession.sendMessage(sendMsg);
+            }
+        } catch (Exception e) {
+            // 예외 처리 로직 추가
+        }
+    }
+
+    private void handleTextMessageInternal(WebSocketSession session, TextMessage message) throws Exception {
+        // 원래의 handleTextMessage 로직을 여기에 복사
+
+        for (WebSocketSession single : sessionPool.getActiveSessions()) {
+            // 세션 작업 수행
+            sendNotificationIfMatchAsync(session, single);
+        }
+    }
+
+    @Async
+    private void sendNotificationIfMatchAsync(WebSocketSession session, WebSocketSession targetSession) {
+        if (isMatchingUser(session, targetSession)) {
+            sendNotificationAsync(targetSession);
+        }
+    }
+
+    private boolean isMatchingUser(WebSocketSession session, WebSocketSession targetSession) {
+        return targetSession.getAttributes().get("user_id").equals(session.getAttributes().get("user_id"));
+    }
+
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        log.warn("Socket 끊음");
+        // 세션 풀에서 세션 제거
+        sessionPool.removeSession(session);
+    }
 }

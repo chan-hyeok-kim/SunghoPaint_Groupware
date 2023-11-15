@@ -39,6 +39,8 @@ public class ApprovalService {
 		Long total=approvalDAO.getMyTotal(humanResourceVO);
 		pager.makePageNum(total);
 		
+		log.warn("몇개나오는데{}",total);
+		
 		Map<String, Object> map=new HashMap<>();
 		map.put("vo", humanResourceVO);
 		map.put("pager", pager);
@@ -172,7 +174,7 @@ public class ApprovalService {
 	    	 //1. R041(0회 검토)이거나
 	    	 //2. 0회 검토 말고 전부
 	    	 //3. 0회 검토+반려
-		    	if((check0) || (check0 && check31)|| (check2 && check41) || (check2 && !check41) || (check2 && check41 && check34)) {
+		    	if((check0) || (check0 && check31)|| (check2)) {
 		    		forMid.add(a);
 		    	}
 	    	   

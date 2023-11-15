@@ -56,6 +56,7 @@ public class IndexController {
 		}
 	    
 	    //다른 사람들이 올린 결재 리스트(내가 결재해줘야 되는)
+	    //조건 추가해야됨
 	    List<ApprovalVO> approvalList=new ArrayList<>();
 	    for(ApprovalVO ap: al) {
 			if(ap.getApprovalStatusCd().equals("R032") &&

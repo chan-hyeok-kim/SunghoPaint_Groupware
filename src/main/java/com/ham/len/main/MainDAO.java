@@ -22,4 +22,10 @@ public interface MainDAO {
 	
 	public List<NotificationVO> getAlarmList(String id) throws Exception;
 	
+	public int setAlarmAdd(NotificationVO notificationVO) throws Exception;
+	
+	public int setAlarmUpdate(NotificationVO notificationVO) throws Exception;
+	
+	
+	
 }

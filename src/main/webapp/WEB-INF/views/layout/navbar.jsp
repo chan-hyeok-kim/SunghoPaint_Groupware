@@ -97,7 +97,7 @@
 	              </a>
 	              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
 	                <h6 class="p-3 mb-0">알림</h6>
-	                <div class="dropdown-divider"></div>
+	                <div class="dropdown-divider" id="alarmUL"></div>
 	                <a class="dropdown-item preview-item">
 	                  <div class="preview-thumbnail">
 	                    <div class="preview-icon bg-success">
