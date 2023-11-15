@@ -11,11 +11,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class AnnualLeaveHistoryVO extends CodeVO {
-	private Long annualLeaveHistoryNo;
+public class AnnualLeaveUsedHistoryVO extends CodeVO {
+	private Long annualLeaveUsedHistoryNo;
 	private String employeeID;
-	private Date annual_leave_start;
-	private Date annual_leave_end;
-	private Integer used_annual_leave_count;
+	private Date annualLeaveStart;
+	private Date annualLeaveEnd;
+	private Integer usedAnnualLeaveCount;
 	private String reason;
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ham.len.commons.CodeVO;
 import com.ham.len.humanresource.HumanResourceDAO;
@@ -26,8 +27,8 @@ public class AnnualService {
 	@Autowired
 	private ExcelWriter excelWriter;
 	
-	public List<AnnualLeaveHistoryVO> getMyAnnual(String employeeID){
-		return annualDAO.getMyAnnual(employeeID);
+	public AnnualVO getMyAnnual(Map<String, Object> params){
+		return annualDAO.getMyAnnual(params);
 	}
 	
 	public List<AnnualVO> getAnnualList(HumanResourcePager pager){
@@ -48,10 +49,12 @@ public class AnnualService {
 		excelWriter.write(data, "annual.xlsx", "전사 연차 현황.xlsx");
 	}
 	
+	@Transactional
 	public int setUpdate(List<AnnualVO> annuals) {
 		int result = 0;
 		for(AnnualVO annualVO : annuals) {
-			result = annualDAO.setUpdate(annualVO);
+			annualDAO.setUpdate(annualVO);
+			result = annualDAO.setAnnualLeaveOccurredHistory(annualVO.getAnnualLeaveOccurredHistorys().get(0));
 		}
 		
 		return result;

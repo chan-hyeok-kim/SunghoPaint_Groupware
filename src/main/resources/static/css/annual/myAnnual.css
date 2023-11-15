@@ -1,8 +1,7 @@
 @charset "UTF-8";
 
-table img{
-	width:45px; height:45px;
-	font-size:15px; font-weight:600;
+table{
+	width:100%;
 }
 
 table th,
@@ -11,4 +10,75 @@ table td{
     border-collapse:collapse;
 	border:1px solid #CDCDCD;
 	font-size:14px;
+}
+
+
+
+#total{
+	height:110px;
+}
+
+#total img{
+	width:50px; height:50px;
+	vertical-align:middle;
+	border-radius:100%;
+	font-size:15px; font-weight:600;
+}
+
+#total img+span{
+	margin-left:5px;
+	vertical-align:middle;
+	font-size:15px;
+}
+
+#total h2{
+	font-size:20px; font-weight:600;
+}
+
+#total h2+span{
+	font-size:18px;
+}
+
+
+
+#movePeriod{
+	margin-top:50px;
+}
+
+#movePeriod > select{
+	height:33px;
+	border:1px solid #CDCDCD;
+	background-color:#EEF1F6;
+}
+
+
+
+#usedList,
+#generatedList{
+	margin-top:50px;
+}
+
+#usedList > h1,
+#generatedList > h1{
+	font-size:18px; font-weight:600;
+}
+
+#usedList > table th,
+#usedList > table td,
+#generatedList > table th,
+#generatedList > table td{
+	height:35px;
+	border:none;
+	border-top:1px solid #CDCDCD;;
+	border-bottom:1px solid #CDCDCD;;
+}
+
+#usedList > table th,
+#usedList > table td{
+	width:20%;
+}
+
+#generatedList > table th,
+#generatedList > table td{
+	width:33.3%;
 }

@@ -1,6 +1,7 @@
 package com.ham.len.annual;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.ham.len.commons.CodeVO;
 
@@ -22,4 +23,6 @@ public class AnnualVO extends CodeVO {
 	private Integer totalAnnualLeave;
 	private Integer usedAnnualLeave;
 	private Integer haveAnnualLeave;
+	private List<AnnualLeaveOccurredHistoryVO> annualLeaveOccurredHistorys;
+	private List<AnnualLeaveUsedHistoryVO> annualLeaveUsedHistorys;
 }
