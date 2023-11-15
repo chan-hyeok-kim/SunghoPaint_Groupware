@@ -71,7 +71,8 @@
 
 // 상단 버튼
 const mainCheckBtn=document.getElementsByClassName('main-btn-check');
- 
+const mainBtn=document.getElementsByClassName('main-btn');
+
 mainCheckBtn[0].addEventListener('click',(function(){
     console.log('클릭 확인')
     $('#my-app-list').toggleClass('active')
@@ -82,6 +83,12 @@ mainCheckBtn[0].addEventListener('click',(function(){
     // }else{ 		
     // 	con.style.display = 'none'; 	
     // } 
+})
+)
+
+mainBtn.addEventListener('click',(function(){
+    $('this').toggleClass('active')
+
 })
 )
 
