@@ -1,6 +1,25 @@
+<%@page import="org.springframework.security.core.Authentication"%>
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page import="java.util.Map"%>
+<%@page import="com.ham.len.attendance.AttendanceService"%>
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@page import="org.springframework.web.context.WebApplicationContext"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+<%
+	WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(application);
+	AttendanceService attendanceService = (AttendanceService)ctx.getBean("attendanceService");
+	
+	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	
+	Map<String, Boolean> commuteWhether = attendanceService.getCommuteWhether(authentication.getName());
+    request.setAttribute("commuteWhether", commuteWhether);
+    request.setAttribute("currentAttendance", attendanceService.getCurrentAttendance(commuteWhether));
+%>
 
 <sec:authentication property="principal" var="principal" />
 <script type="text/javascript" src="/js/sidebar.js"></script>
@@ -18,8 +37,24 @@
             <span id="cur-date"></span><br>
             <span id="cur-time"></span>
           </div>
-          <div id="start-time"><i>출근 시간</i> <span>미등록</span></div>
-          <div id="end-time"><i>퇴근 시간</i> <span>미등록</span></div>
+          <div id="start-time">
+			<i>출근 시간</i>
+			<c:if test="${empty currentAttendance.attendanceStart}">
+				<span>미등록</span>
+			</c:if>
+			<c:if test="${!empty currentAttendance.attendanceStart}">
+				<span><fmt:formatDate value="${currentAttendance.attendanceStart}" pattern="HH:mm:ss" /></span>
+			</c:if>
+          </div>
+          <div id="end-time">
+			<i>퇴근 시간</i>
+			<c:if test="${empty currentAttendance.attendanceEnd}">
+				<span>미등록</span>
+			</c:if>
+			<c:if test="${!empty currentAttendance.attendanceEnd}">
+				<span><fmt:formatDate value="${currentAttendance.attendanceEnd}" pattern="HH:mm:ss" /></span>
+			</c:if>
+          </div>
           <div id="attendance-btns">
             <c:if test="${commuteWhether.goWork}">
               <button id="start-btn" class="off">출근</button>

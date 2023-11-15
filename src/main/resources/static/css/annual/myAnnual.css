@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+table img{
+	width:45px; height:45px;
+	font-size:15px; font-weight:600;
+}
+
+table th,
+table td{
+	text-align:center;
+    border-collapse:collapse;
+	border:1px solid #CDCDCD;
+	font-size:14px;
+}

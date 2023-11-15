@@ -14,22 +14,27 @@
 	// init(${isAuthenticated});
 	let weeksOfMonthInfo_json = ${weeksOfMonthInfo_json};
 	let attendances_json = ${attendances_json};
-
+	
 	// let daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]; // move sidebar.js
-
+	
 	$(function(){
+		let attendanceStart = "<fmt:formatDate value='${currentAttendance.attendanceStart}' pattern='HH:mm:ss' />";
+		let attendanceEnd = "<fmt:formatDate value='${currentAttendance.attendanceEnd}' pattern='HH:mm:ss' />";
+		attendanceStart = attendanceStart ? attendanceStart : "미등록";
+		attendanceEnd = attendanceEnd ? attendanceEnd : "미등록";
+		
 		let startBtn_status = "on";
 		let endBtn_status = "on";
 		if(${commuteWhether.goWork}) startBtn_status = "off";
 		if(${commuteWhether.leaveWork}) endBtn_status = "off";
-
+		
 		let serverDate = getServerDate();
 		let cur_time = new Date(serverDate).toTimeString().split(" ")[0];
 		
 		$("#attendance").html("<p id='cur_date'></p>" +
 									   "<p id='cur_time'>" + cur_time + "</p>" +
-									   "<div id='start_time' class='attendance_time'><i>출근 시간</i> <span>미등록</span></div>" +
-									   "<div id='end_time' class='attendance_time'><i>퇴근 시간</i> <span>미등록</span></div>" +
+									   "<div id='start_time' class='attendance_time'><i>출근 시간</i> <span>" + attendanceStart + "</span></div>" +
+									   "<div id='end_time' class='attendance_time'><i>퇴근 시간</i> <span>" + attendanceEnd + "</span></div>" +
 									   "<div id='attendance_btn'>" +
 										   "<button id='start_btn' class='" + startBtn_status + "'>출근하기</button> &nbsp;" +
 										   "<button id='end_btn' class='" + endBtn_status + "'>퇴근하기</button>" +

@@ -86,11 +86,14 @@ public class AttendanceController {
 		date.put("month", month);
 		date.put("weekOfMonth", weekOfMonth);
 		
+		Map<String, Boolean> commuteWhether = attendanceService.getCommuteWhether(humanResourceVO.getEmployeeID());
+		
 		model.addAttribute("date", date);
+		model.addAttribute("commuteWhether", commuteWhether);
+		model.addAttribute("currentAttendance", attendanceService.getCurrentAttendance(commuteWhether));
 		model.addAttribute("weeksOfMonthInfo", weeksOfMonthInfo);
 		model.addAttribute("weeksOfMonthInfo_json", gson.toJson(weeksOfMonthInfo));
 		model.addAttribute("attendances_json", gson.toJson(attendances));
-		model.addAttribute("commuteWhether", attendanceService.getCommuteWhether(humanResourceVO.getEmployeeID()));
 		
 		return "attendance/status";
 	}

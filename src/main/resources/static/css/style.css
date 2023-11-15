@@ -14852,6 +14852,10 @@ ul.nav-tabs {
   text-align:center;
 }
 
+#commute-wrap > #date-wrap > #cur-time{
+	font-size:16px; font-weight:bold;
+}
+
 #commute-wrap > #start-time > i,
 #commute-wrap > #end-time > i{
   font-size:13px;

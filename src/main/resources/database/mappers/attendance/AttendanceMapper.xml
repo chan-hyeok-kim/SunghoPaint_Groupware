@@ -5,6 +5,10 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.attendance.AttendanceDAO">
+	<select id="getCurrentAttendance" resultType="AttendanceVO">
+		SELECT * FROM ATTENDANCE ORDER BY ATTENDANCE_NO DESC LIMIT 1
+	</select>
+	
 	<select id="getStatus" parameterType="Map" resultType="AttendanceVO">
 	<![CDATA[
 		SELECT *

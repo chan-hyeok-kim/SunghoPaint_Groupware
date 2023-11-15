@@ -22,7 +22,7 @@ import com.itextpdf.text.log.SysoCounter;
 
 import lombok.extern.slf4j.Slf4j;
 
-// @SpringBootTest
+@SpringBootTest
 @Slf4j
 class Gdj68FinalProjectApplicationTests {
 	@Autowired

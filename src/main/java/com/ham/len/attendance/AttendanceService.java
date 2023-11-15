@@ -38,6 +38,13 @@ public class AttendanceService {
 		return commuteWhether;
 	}
 	
+	public AttendanceVO getCurrentAttendance(Map<String, Boolean> commuteWhether) {
+		if(!commuteWhether.get("goWork") && !commuteWhether.get("leaveWork")) // 미등록
+			return new AttendanceVO();
+		
+		return attendanceDAO.getCurrentAttendance();
+	}
+	
 	public List<AttendanceVO> getStatus(Map<String, String> params) {
 		return attendanceDAO.getStatus(params);
 	}

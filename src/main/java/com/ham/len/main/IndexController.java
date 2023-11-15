@@ -32,12 +32,8 @@ public class IndexController {
 	@Autowired
 	private ApprovalService approvalService;
 	
-	@Autowired
-	private AttendanceService attendanceService;
-	
 	@GetMapping("/")
 	public String getIndex(Model model,Pager pager,@AuthenticationPrincipal HumanResourceVO humanResourceVO)throws Exception{
-		
 		List<MaterialProductVO> ml=mainService.getMaterial();
 		List<ToDoListVO> tl=mainService.getList();
 		
@@ -57,8 +53,7 @@ public class IndexController {
 		}
 	    
 	    model.addAttribute("list", al);
-	    model.addAttribute("commuteWhether", attendanceService.getCommuteWhether(humanResourceVO.getEmployeeID()));
-		
+	    
 		return "index";
 	}
 	
@@ -93,6 +88,4 @@ public class IndexController {
 	public void goResult() throws Exception{
 		
 	}
-	
-	
 }
