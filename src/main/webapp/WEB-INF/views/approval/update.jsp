@@ -168,11 +168,11 @@
 				</table>
 
 				<!-- add button -->
-				<div style="">
+				<div style="float:left;">
 				<button type="button" class="btn btn-info" id="text-delete-btn"
-					style="margin-left: 20px;">지우기</button>
+					style="margin: 20px 0 0 20px;">지우기</button>
 					</div>
-				<div id="form-add-btn-box" style="justify-content: flex-end; display: flex">
+				<div id="form-add-btn-box" style="float:right;">
 					<button type="button" id="update-confirm-btn" class="btn btn-info" style="margin-right:30px">수정</button>
 				</div>
 		</div>

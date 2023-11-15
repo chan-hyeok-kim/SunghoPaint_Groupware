@@ -2,6 +2,7 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <link rel="stylesheet" href="/css/index.css" />
+<link rel="stylesheet" href="/css/myCustomStyle/todolist.css">
 
 <!-- partial:partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -164,4 +165,9 @@
           </button>
         </div>
         
+        
       </nav>
+      
+      
+    
+   

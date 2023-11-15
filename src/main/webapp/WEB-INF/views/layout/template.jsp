@@ -34,14 +34,20 @@
 
 	<script type="text/javascript" src="/js/ztree/jquery-1.4.4.min.js"></script>
 	<script type="text/javascript" src="/js/ztree/jquery.ztree.core.js"></script>
+ 
+    
+   
  </head>
 <body>
     <div class="container-scroller">
       <tiles:insertAttribute name="navbar"/>
       <div class="container-fluid page-body-wrapper">
         <tiles:insertAttribute name="sidebar"/>
+        
+        
         <div class="main-panel">
           <div class="content-wrapper">
+          
             <tiles:insertAttribute name="body"/>
           </div>
           <tiles:insertAttribute name="footer"/>
@@ -68,16 +74,19 @@
    
     <!-- End custom js for this page -->
     
-     <!-- sockjs -->
+    <!-- sockjs -->
    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
    
-    
+  
+   
     <script src="https://cdn.jsdelivr.net/npm/ztree@3.5.24/js/jquery.ztree.all.min.js"></script>
     
     <!-- jQuery UI -->
-   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> -->
+   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
    
-    <script src="/js/todolist.js"></script>
+   <tiles:insertAttribute name="todolist"/>
+    
+    
 	  <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

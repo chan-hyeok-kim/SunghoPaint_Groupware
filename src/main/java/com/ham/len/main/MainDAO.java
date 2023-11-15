@@ -10,9 +10,9 @@ import com.ham.len.materialProduct.MaterialProductVO;
 @Mapper
 public interface MainDAO {
 
-	public List<MaterialProductVO> getMaterial() throws Exception;
+	public List<MaterialProductVO> getMaterial(String category) throws Exception;
 	
-	public List<ToDoListVO> getList() throws Exception;
+	public List<ToDoListVO> getToDoList(String id) throws Exception;
 	
 	public int setAdd(ToDoListVO toDoListVO) throws Exception;
 	

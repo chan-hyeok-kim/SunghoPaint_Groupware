@@ -82,7 +82,7 @@
 	      
 	      customButtons: {
 	    	    myCustomButton: {
-	    	      text: '차량 예약',
+	    	      text: '새로고침',
 	    	      click: function() {
 	    	    	  $("#calendarAddModal").modal("show");
 	    	    	  

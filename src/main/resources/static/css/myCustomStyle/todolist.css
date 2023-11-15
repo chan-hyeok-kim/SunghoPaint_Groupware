@@ -14,6 +14,10 @@
   
 }
 
+/* .toggle-slide-List .card,.card-bdy{
+	width: 400px;
+} */
+
 /* 마우스 인식 시 원래의 위치로 이동 */
 .toggle-slide-List.active {
   transform: translate(-55px, 0);   /* 둥근 모서리의 너비만큼 X축 이동, Y축 고정 */

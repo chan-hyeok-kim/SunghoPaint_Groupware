@@ -50,7 +50,7 @@ public class ApprovalController {
 	public String getList(Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
 		List<ApprovalVO> ar = approvalService.getMyList(pager);
 		
-		approvalService.getMyList(ar, model, humanResourceVO);
+		approvalService.getMyList(ar, model, humanResourceVO,pager);
 		
 		
         model.addAttribute("member", humanResourceVO);
@@ -74,7 +74,7 @@ public class ApprovalController {
 	public String getStatusList(ApprovalVO approvalVO,Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
         List<ApprovalVO> ar = approvalService.getStatusList(approvalVO,pager,humanResourceVO);
 		
-		approvalService.getMyList(ar, model, humanResourceVO);
+		approvalService.getMyList(ar, model, humanResourceVO,pager);
 		
 		
         model.addAttribute("member", humanResourceVO);
@@ -122,7 +122,7 @@ public class ApprovalController {
 	    approvalVO.setApprovalStatusCd("R032");
 		int result = approvalService.setAdd(approvalVO);
          
-		return "redirect:approval/list";
+		return "redirect:/approval/list";
 	}
 
 	@ResponseBody

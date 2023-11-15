@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ham.len.approval.ApprovalService;
 import com.ham.len.approval.ApprovalVO;
@@ -36,32 +37,57 @@ public class IndexController {
 	@GetMapping("/")
 	public String getIndex(Model model,Pager pager,@AuthenticationPrincipal HumanResourceVO humanResourceVO)throws Exception{
 		
-		List<MaterialProductVO> ml=mainService.getMaterial();
-		List<ToDoListVO> tl=mainService.getList();
+		List<MaterialProductVO> ml=mainService.getMaterial("제품");
 		
 		model.addAttribute("materList", ml);
-		model.addAttribute("toDoList", tl);
+		
 		
 //		결재 리스트 세팅
 		List<ApprovalVO> al=approvalService.getMyList(pager);
-		approvalService.getMyList(al, model, humanResourceVO);
-	    List<ApprovalVO> myList=(List<ApprovalVO>)model.getAttribute("list");
-		
-	    for(ApprovalVO m: myList) {
-			if(!m.getApprovalStatusCd().equals("R031")) {
-		        al=new ArrayList<>();
-		        al.add(m);
+	
+		//내가 올린 결재리스트
+		List<ApprovalVO> myList=new ArrayList<>();
+	    for(ApprovalVO a: al) {
+			if(!a.getApprovalStatusCd().equals("R031") &&
+			    a.getEmployeeID().equals(humanResourceVO.getEmployeeID())) {
+		        
+		        myList.add(a);
 			}
 		}
-	    log.warn("마이리스트{}",myList.size());
+	    
+	    //다른 사람들이 올린 결재 리스트(내가 결재해줘야 되는)
+	    List<ApprovalVO> approvalList=new ArrayList<>();
+	    for(ApprovalVO ap: al) {
+			if(ap.getApprovalStatusCd().equals("R032") &&
+			    !(ap.getEmployeeID().equals(humanResourceVO.getEmployeeID()))) {
+		        
+		        approvalList.add(ap);
+			}
+		}
+	   
 	    log.warn("마이리스트{}",al.size());
-	    model.addAttribute("list", al);
-		
+	    model.addAttribute("list", myList);
+		model.addAttribute("approvalList", approvalList);
 		
 		
 		
 		
 		return "index";
+	}
+	
+	@GetMapping("/home/getMaterial")
+	@ResponseBody
+	public List<MaterialProductVO> getMaterial() throws Exception{
+		List<MaterialProductVO> ml2=mainService.getMaterial("원료");
+		
+		return ml2;
+	}
+	
+	
+	@RequestMapping("/todolist")
+	public void getToDoList(Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception{
+		List<ToDoListVO> tl=mainService.getToDoList(humanResourceVO.getEmployeeID());
+		model.addAttribute("toDoList", tl);
 	}
 	
 	@PostMapping("/toDo/add")

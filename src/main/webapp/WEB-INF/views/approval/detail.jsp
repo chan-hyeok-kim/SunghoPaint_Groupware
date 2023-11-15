@@ -207,7 +207,7 @@
 let admonitionCheck=${not empty vo.admonition}
 
 /* 얘는 싸인 값 받기 */
-console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.username}')
+
 const formSign='${sign}';
 </script>
 

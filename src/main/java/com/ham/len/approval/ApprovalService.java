@@ -128,7 +128,7 @@ public class ApprovalService {
 	
 	
 //	자기 결재 가져오는 메서드
-	public void getMyList(List<ApprovalVO> ar,Model model,HumanResourceVO humanResourceVO)throws Exception{
+	public void getMyList(List<ApprovalVO> ar,Model model,HumanResourceVO humanResourceVO,Pager pager)throws Exception{
 		List<ApprovalVO> forLast=new ArrayList<>();
 		List<ApprovalVO> forMid=new ArrayList<>();
 		List<ApprovalVO> forAdd=new ArrayList<>();
@@ -155,7 +155,7 @@ public class ApprovalService {
 	    	//승인완료 문서
 	    	boolean check34=(a.getApprovalStatusCd().equals("R034"));
 	    	//반려된 문서. 본인이랑 반려시킨 사람이 볼수 있어야됨
-	    	boolean check4=(a.getAddApprover()==null);
+	    	boolean check4=(a.getAddApprover()==null || a.getAddApprover().length()==0);
 	    	
 	    	
 		    	if((check0)|| (check0 && check31) || (check1 && check42 && check4 ) || (check1 && check43) 
@@ -198,14 +198,21 @@ public class ApprovalService {
 		if((check1 ^ check2) ^ check3) {
 			if(check1) {
 			    model.addAttribute("list", forLast);
+				pager.makePageNum(Long.valueOf(forLast.size()));
 			}else if(check2) {
 				model.addAttribute("list", forMid);
+				pager.makePageNum(Long.valueOf(forMid.size()));
 			}else if(check3) {
 				model.addAttribute("list", forAdd);
+				pager.makePageNum(Long.valueOf(forAdd.size()));
 			}
 			log.warn("********{}******",forLast);
 		}else{
 			model.addAttribute("list", ar);
+			
 		}
+		
+		
+		
 	}
 }
