@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -9,7 +10,7 @@
 <title>Insert title here</title>
 
 
-
+<link rel="stylesheet" href="/css/purchase/">
 
 
 <style type="text/css">
@@ -162,14 +163,7 @@ ul.nav-tabs {
 						</div>
 					</div>
 
-					<ul class="nav-tabs">
-						<li><a class="link-tab">전체</a></li>
-						<li><a class="link-tab">결재중</a></li>
-						<li><a class="link-tab">진행중</a></li>
-						<li><a class="link-tab">미확인</a></li>
-						<li><a class="link-tab">확인</a></li>
-						<li><a class="link-tab">완료</a></li>
-					</ul>
+					<ul class="nav-tabs"></ul>
 
 
 					<div
@@ -181,7 +175,7 @@ ul.nav-tabs {
 							<table class="table-bordered mt-2" id="approval-table">
 								<thead>
 									<tr>
-										<th>#</th>
+										<th>NO.#</th>
 										<th>일자</th>
 										<th>거래처명</th>
 										<th>품목명</th>
@@ -193,22 +187,14 @@ ul.nav-tabs {
 								<tbody>
 				        <c:forEach items="${list}" var="vo" varStatus="i">
 				           <tr>
-				             <td><input type="checkbox" value="${vo.purchaseNo}"></td>
+				             <td><input type="checkbox" name="CheckDelete" value="${vo.purchaseNo}"></td>
 				             <td>${vo.purchaseDate}</td>
-				             <td style="cursor: pointer;" onclick="location.href='/purchase/update?purchaseNo=${vo.purchaseNo}'">${vo.clientVO.clientName}</td>
-				             <td>${vo.materialProductVO.materialProductCategory}</td>
-				             <td>${vo.totalPrice}</td>
-				             <td>${vo.employeeVO.name}</td>
-				             
-				             <%-- <td>${vo.purchaseNo}</td>
-				             <td id="check" data-check="${vo.purchaseCd}">${vo.purchaseNo}</td>
-				             <c:choose>
-				             <c:when test="${vo.purchaseCd eq 'P011'}">
-				             <td>결재중</td>
-				             </c:when>
-				             </c:choose> --%>
-				             
-				             <td><a>발주서 확인</a></td>
+				             <td><a href="/purchase/update?purchaseNo=${vo.purchaseNo}">${vo.salesClientVO.clientName}</a></td>
+				             <%-- style="cursor: pointer;" onclick="location.href='/purchase/update?purchaseNo=${vo.purchaseNo}'">${vo.salesClientVO.clientName} --%>
+				             <td>${vo.codeName}</td>
+				             <td><fmt:formatNumber value="${vo.totalPrice}" pattern="###,###,###" />원</td>
+				             <td>${vo.humanResourceVO.name}</td>
+				             <td><a style="cursor: pointer;" onclick="location.href='/order/list'">발주서 확인</a></td>
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -249,27 +235,8 @@ ul.nav-tabs {
 			</ul>
 		</nav>
 					
-							
-					<!-- <div style="text-align: center; margin: 20px 20px">
-						<nav aria-label="Page navigation example"
-							style="display: inline-block;">
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous"> <i
-										class="mdi mdi-arrow-left-drop-circle"></i>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"									aria-label="Next"> <i
-										class="mdi mdi-arrow-right-drop-circle"></i>
-								</a></li>
-							</ul>
-						</nav> -->
-						
-						<!-- Button List  -->
-						
 						<div style="float: right;">
+							<button type="button" class="btn btn-danger" id="delete-btn">삭제하기</button>
 							<button class="btn btn-info" onclick="location.href='/purchase/add'">신규 구매 추가</button>
 						</div>
 					</div>
@@ -277,5 +244,6 @@ ul.nav-tabs {
 			</div>
 		</div>
 		<script src="/js/commons/list-date.js"></script>
+		<script src="/js/purchase/delete-check.js"></script>
 </body>
 </html>

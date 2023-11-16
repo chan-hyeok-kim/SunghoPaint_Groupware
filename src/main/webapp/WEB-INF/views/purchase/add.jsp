@@ -69,39 +69,51 @@
 			<br><br>
 			
 			<table class="table table-bordered">
+			
 				<form action="add" method="post">
+					
 				    <tr>
-				        <td	>일자</td>
-				        <td><input type="date" class="form-control" name="purchaseDate"></td>
 				        <td>거래처</td>
-				        <td><input
-							class="form-control" type="text" name="clientName"
-							placeholder="거래처 입력">
+				        <td>
+						<select class="form-control" type="text" name="clientNo">
+					    <c:forEach items="${client}" var="vo">
+					    <option value="${vo.clientNo}">${vo.clientName}</option>
+					    </c:forEach>
+					    </select>
+						</td>
+						<td>원료명</td>
+						<td>
+							<select class="form-control" type="text" name="materialProductNo">
+						 	<c:forEach items="${material}" var="f">
+						 	<c:if test="${f.materialProductCategory eq '원료'}">
+							<option value=${f.materialProductNo}>${f.codeName}</option>	
+						 	</c:if>						
+					 		</c:forEach>
+							</select>
 						</td>
 				    </tr>
 				    <tr>
-				        <td>담당자</td>
-				        <td><input
-							class="form-control" type="text" name="name"
-							placeholder="담당자 입력">
-						</td>
-				        <td>입고창고</td>
-				        <td>				        
-					        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-							  <input type="radio" class="btn-check" name="btnradio" value="" id="btnradio1" autocomplete="off" checked>
-							  <label class="btn btn-outline-primary" for="btnradio1">원료 창고</label>
-							
-							  <input type="radio" class="btn-check" name="btnradio" value="" id="btnradio2" autocomplete="off">
-							  <label class="btn btn-outline-primary" for="btnradio2">제품 창고</label>
-							</div>
+				        <td>총액</td>
+				        <td>
+				        <input class="form-control" type="number" name="totalPrice" placeholder="금액을 입력해주세요">
+				        </td>
+				          <td>입고창고</td>
+				        <td>
+				        <select class="form-control" type="text" name="factoryStorageNo">
+				        <c:forEach items="${factory}" var="vo">
+				        <option value=${vo.factoryStorageNo}>${vo.codeName}</option>
+				        </c:forEach>
+				        </select>
 						</td>
 				    </tr>
 				    <tr>
 				        <td>납기일자</td>
-				        <td><input type="date" class="form-control"></td>
+				        <td><input type="date" class="form-control" name="purchaseInDate"></td>
 				    </tr>
 			</table>
+			
 			<br><br><br><br><br>
+			
 		<div style="float: right;">
 			<button class="btn btn-danger" type="reset">지우기</button>
 			<button class="btn btn-info" type="submit">입력완료</button>
