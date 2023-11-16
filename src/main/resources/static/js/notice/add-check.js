@@ -29,11 +29,18 @@ $('.category').each(function(){
 
         if(dropdown2.innerText.trim()=='문의 게시판'){
             categoryCd='B013';
+            dropdown1.setAttribute("disabled","disabled");
+            dropdown1.innerText='우선순위 선택';
+            prior.value='B002';
         }else if(dropdown2.innerText.trim()=='익명 게시판'){
             categoryCd='B012';
+            dropdown1.setAttribute("disabled","disabled");
+            dropdown1.innerText='우선순위 선택';
+            prior.value='B002';
         }else{
             categoryCd='B011'; 
-        }
+            dropdown1.removeAttribute("disabled");
+        } 
         category.value=categoryCd;
     })
 })
@@ -41,7 +48,8 @@ $('.category').each(function(){
 // 유효성
 $('#notice-add-btn').click(function(){
 
-
+    oEditors.getById["approvalForm"].exec("UPDATE_CONTENTS_FIELD", []);
+    
 
 
     $("#frm").submit();

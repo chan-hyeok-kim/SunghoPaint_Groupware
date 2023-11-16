@@ -157,7 +157,7 @@ ul.nav-tabs {
 
 					<div
 						style="text-align: right; padding-top: 20px; padding-right: 10px">
-						<div id="grid-top-date"></div>
+						
 					</div>
 					<div id="content">
 
@@ -166,7 +166,7 @@ ul.nav-tabs {
 
 
 
-							<form action="./update" method="post">
+							<form action="./update" method="post" id="frm">
 							<table class="table-bordered mt-2" id="approval-table">
 								<tbody>
 									<tr>
@@ -179,15 +179,40 @@ ul.nav-tabs {
 									</tr>
 									<tr>
 										<td>구매 가격</td>
-										<td><input type="text" name="instrumentPrice" value="${dto.instrumentPrice}"></td>
+										<td><input type="text" name="instrumentPrice" value="${dto.instrumentPrice}" id="price"></td>
 									</tr>
 									<tr>
 										<td>제조사</td>
-										<td><input type="text" name="instrumentMaker" value="${dto.instrumentMaker}"></td>
+										<td><input type="text" name="instrumentMaker" value="${dto.instrumentMaker}" id="maker"></td>
 									</tr>	
 									<tr>
 										<td>기기 상태</td>
-										<td><input type="text" id="myInput" name="instrumentCondition" value="${dto.instrumentCondition}"> <button class="btn btn-info" onclick="changeInputValue()">고장등록</button></td>
+										<td>
+												<c:choose>
+												<c:when test="${dto.instrumentCondition eq '정상'}">
+												
+												
+												  <input type="radio" name="instrumentCondition" value="정상" id="정상" checked>
+												  <label for="정상">정상</label>
+												
+												  <input type="radio" name="instrumentCondition" value="고장" id="고장">
+												  <label for="고장">고장</label>
+																						  
+												</c:when>
+												
+												<c:otherwise>
+												
+										
+												  <input type="radio" name="instrumentCondition" value="정상" id="정상">
+												  <label for="정상">정상</label>
+												
+												  <input type="radio" name="instrumentCondition" value="고장" id="고장" checked>
+												  <label for="고장">고장</label>
+													
+												  </c:otherwise>
+												  </c:choose>
+										</td>
+																				
 									</tr>
 
 									
@@ -197,42 +222,19 @@ ul.nav-tabs {
 		
 							</table>
 							<br>
-							<button type="submit" class="btn btn-info">수정</button>
+							<div style="margin-left:1345px;">
+							<button type="button" class="btn btn-info" id="update">수정</button>
+							</div>
 						</form>
 						</div>
-					
-
 						<br>
-			
-
 					</div>
-
-
-
-
-
-
-
-
-
-
 				</div>
 			</div>
 		</div>
 
-
-
-
 		<script src="/js/commons/list-date.js"></script>
+		<script src="/js/general/instrument/update-check.js"></script>
 
-		<script>
-			function changeInputValue() {
-			// 입력 필드의 값을 변경
-			document.getElementById("myInput").value = "고장";
-			}
-
-
-		</script>
-		
 </body>
 </html>

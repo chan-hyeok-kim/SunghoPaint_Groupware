@@ -17,7 +17,7 @@ var humanSetting = {
 	,data: {
 		simpleData: {
 			enable: true,
-
+			pIdKey: "pid",
 		}
 	},
 
@@ -27,15 +27,21 @@ var humanSetting = {
 
 /**
  * 인사코드 가져오기*/
-$.ajax({
-	type: 'POST',
-	url: 'getList',
-	success: function() {
+var humanNodes=new Array();
 
+
+
+$.ajax({
+	type: 'GET',
+	url: '/code/approvalLineDept',
+	success: function(result) {
+		console.log(result);
+             humanNodes=result;
+			 humanNodes.push({name: "페인트 오피스", id:'0', open: true, pid: 'root'}); 
 	}
 })
 
-
+console.log(humanNodes)
 
 /**
    * 체크 시 데이터 표시*/
@@ -44,6 +50,7 @@ var employeeNum;
 var employeeName = '';
 var rank;
 var dept;
+var empId;
 
 var zNodesList;
 function myOnCheck(event, treeId, treeNode) {
@@ -100,14 +107,16 @@ function myOnCheck(event, treeId, treeNode) {
 			if (result=='' || result==undefined || result.length<=0) {
 				zNodesList = null;
 			}
+			
 			var resultArr=new Array();
-			let emp=new Array();
 			for (r of result) {
 				
+				let emp=new Array();
 				emp.who=r.name
 				emp.name=r.positionCd+' '+r.name;
 				emp.dept=r.departmentCd;
                 emp.rank=r.positionCd;
+				emp.empId=r.employeeID;
 				/*		delete r.employeeName;
 						delete r.deptCode;*/
                 console.log(emp);
@@ -130,6 +139,7 @@ function myOnCheck(event, treeId, treeNode) {
 				dept=treeNode.dept;
 				rank=treeNode.rank;
 				employeeName = treeNode.name;
+				empId=treeNode.empId
 			}
 
 
@@ -150,14 +160,7 @@ function myOnCheck(event, treeId, treeNode) {
 })
 */
 
-// zTree data attributes, refer to the API documentation (treeNode data details)
-var humanNodes = [
-	{name: "페인트 오피스", id:0, open: true, pId: 'root'}, 
-			{ name: "인사부", id:1, pId:0 }, { name: "총무부", id:1, pId:0 },
-			{ name: "구매부", id:1, pId:0 }, { name: "생산부", id:1, pId:0 }, 
-			{ name: "영업부", id:1, pId:0 }
-	
-];
+
 $(document).ready(function() {
 	zTreeObj1 = $.fn.zTree.init($("#tree"), humanSetting, humanNodes);
 });
@@ -168,25 +171,51 @@ let appStr = '<tr style="height: 20%"><td>추가 검토자</td><td class="add-ap
 /** 결재 버튼 누르면 맨 우측에 결재자로 설정*/
 $('#tree-last-app').click(function() {
 	console.log(employeeName)
+	if(!appMeCheck()){
+		return;
+	}
+
 	if (employeeName != '') {
 		$('#last-app').text(employeeName);
+		$('#last-app').attr("data-id",empId);
 	}
 })
 
 
 $('#tree-mid-app').click(function() {
 	console.log(employeeName)
+	if(!appMeCheck()){
+		return;
+	}
+
 	if (employeeName != '') {
 		$('#mid-app').text(employeeName);
+		$('#mid-app').attr("data-id",empId);
 	}
 })
 
 $('#tree-add-app').click(function() {
 	console.log(employeeName)
+	if(!appMeCheck()){
+		return;
+	}
+
 	if (employeeName != '') {
 		$('#add-app').text(employeeName);
+		$('#add-app').attr("data-id",empId);
 	}
 })
+
+function appMeCheck(){
+	if(empId===me){
+		swal('기안자 본인은 결재선에 추가할 수 없습니다.')
+		return false;
+	}else{
+		return true;
+	}
+    
+}
+
 
 /**
  * 
@@ -196,6 +225,10 @@ $('#tree-line-btn').click(function() {
 	const last = $('#last-app').text();
 	const mid = $('#mid-app').text();
 	const add = $('#add-app').text();
+
+    const lastId = $('#last-app').attr("data-id"); 
+	const midId = $('#mid-app').attr("data-id"); 
+	const addId = $('#add-app').attr("data-id"); 
 
 	console.log(last)
 	console.log(mid)
@@ -215,6 +248,10 @@ $('#tree-line-btn').click(function() {
 	$('#mid-approver').val(mid);
 	$('#add-approver').val(add);	
 		
+	$('#last-data-id').val(lastId);
+	$('#mid-data-id').val(midId);
+	$('#add-data-id').val(addId);
+
 	employeeName = '';
 	$('#last-app').text('');
 	$('#mid-app').text('');

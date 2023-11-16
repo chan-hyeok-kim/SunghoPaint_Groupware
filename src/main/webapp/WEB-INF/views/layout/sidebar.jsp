@@ -1,6 +1,8 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
+<sec:authentication property="principal" var="principal" />
+
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
     <li id="attendance" class="nav-item nav-profile">
@@ -28,30 +30,25 @@
         form.submit();
       }
     </script>
-	    <li class="nav-item">
-	      <a class="nav-link" onclick="sendPost('/attendance/status')" style="cursor:pointer;">
-	        <span class="menu-title">근태 관리</span>
-	        <i class="mdi mdi-contacts menu-icon"></i>
-	      </a>
-	    </li>
-    <!-- <sec:authorize access="hasRole('USER')"> -->
-    <!-- </sec:authorize> -->
-    <sec:authorize access="hasRole('ADMIN')">
-    	<li class="nav-item">
-	      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-	        <span class="menu-title">인사 관리</span>
-	        <i class="menu-arrow"></i>
-	        <i class="mdi mdi-medical-bag menu-icon"></i>
-	      </a>
-	      <div class="collapse" id="general-pages">
-	        <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="/humanresource/registration"> 인사 등록 </a></li>
-	          <li class="nav-item"> <a class="nav-link" href="/transfer/registration"> 발령 등록 </a></li>
-	          <li class="nav-item"> <a class="nav-link" onclick="sendPost('/transfer/view')" style="cursor:pointer;"> 발령 조회 </a></li>
-	        </ul>
-	      </div>
-	    </li>
-    </sec:authorize>
+    <li class="nav-item">
+      <a class="nav-link" onclick="sendPost('/attendance/status')" style="cursor:pointer;">
+        <span class="menu-title">근태 관리</span>
+        <i class="mdi mdi-contacts menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#humanresource-general-pages" aria-expanded="false" aria-controls="general-pages">
+        <span class="menu-title">인사 관리</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-file-check menu-icon"></i>
+      </a>
+      <div class="collapse" id="humanresource-general-pages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/humanresource/detail?employeeID=${principal.employeeID}">내 인사 정보</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">내 연차 현황</a></li>
+        </ul>
+      </div>
+    </li>
    
     <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#approval-general-pages" aria-expanded="false" aria-controls="general-pages">
@@ -63,6 +60,7 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="/approval/list">내 결재 관리</a></li>
           <li class="nav-item"> <a class="nav-link" href="/approval/add"> 기안서 작성 </a></li>
+          
           <li class="nav-item"> <a class="nav-link" href="/approval/totalList"> 기안서 통합관리  </a></li>
         </ul>
       </div>
@@ -100,22 +98,19 @@
       </div>
     </li>
     
-            <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#general-affairs-pages" aria-expanded="false" aria-controls="general-pages">
-        <span class="menu-title">총무</span>
+        <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#general-pages-3" aria-expanded="false" aria-controls="general-pages">
+        <span class="menu-title">일정관리</span>
         <i class="menu-arrow"></i>
-        <i class="mdi mdi-sitemap menu-icon"></i>
+        <i class="mdi mdi-medical-bag menu-icon"></i>
       </a>
-      <div class="collapse" id="general-affairs-pages">
+      <div class="collapse" id="general-pages-3">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="/instrument/list">기기 리스트</a></li>
-          <li class="nav-item"> <a class="nav-link" href="/material/list">품목 리스트</a></li>
-          <li class="nav-item"> <a class="nav-link" href="/factory/list">공장/창고 리스트</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/sales/scheduleManagement"> 일정 관리 </a></li>
         </ul>
       </div>
     </li>
     
-
     
         <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#purchase-general-pages" aria-expanded="false" aria-controls="general-pages">
@@ -147,20 +142,7 @@
     </li>  
     
        
-        <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#approval-admin-pages" aria-expanded="false" aria-controls="admin-pages">
-        <span class="menu-title">관리자</span>
-        <i class="menu-arrow"></i>
-        <i class="mdi mdi-folder-lock menu-icon"></i>
-      </a>
-      <div class="collapse" id="approval-admin-pages">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="/code/list">코드 관리</a></li>
-          <li class="nav-item"> <a class="nav-link" href="/document/list">문서 양식함</a></li>
-          
-        </ul>
-      </div>
-    </li>
+      
          
         <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#notice-pages" aria-expanded="false" aria-controls="notice-pages">
@@ -176,8 +158,65 @@
       </div>
     </li>
     
-      
-          </ul>
-       
-     
+    <!-- <sec:authorize access="hasRole('USER')"> -->
+    <!-- </sec:authorize> -->
+    <sec:authorize access="hasRole('ADMIN')">
+    	<li id="sidebar_line" class="nav-item"></li>
+    	
+    	  <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#approval-admin-pages" aria-expanded="false" aria-controls="admin-pages">
+        <span class="menu-title">관리자</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-folder-lock menu-icon"></i>
+      </a>
+      <div class="collapse" id="approval-admin-pages">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="/code/list">코드 관리</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/document/list">문서 양식함</a></li>
+          
+        </ul>
+      </div>
+    </li>
+    	
+    	
+    	<li class="nav-item">
+	      <a class="nav-link" data-bs-toggle="collapse" href="#admin-humanresource-general-pages" aria-expanded="false" aria-controls="general-pages">
+	        <span class="menu-title">전사 인사 관리</span>
+	        <i class="menu-arrow"></i>
+	        <i class="mdi mdi-medical-bag menu-icon"></i>
+	      </a>
+	      <div class="collapse" id="admin-humanresource-general-pages">
+	        <ul class="nav flex-column sub-menu">
+            	<li class="nav-item"> <a class="nav-link" href="/humanresource/registration"> 인사 등록 </a></li>
+            	<li class="nav-item"> <a class="nav-link" href="/humanresource/list"> 인사 조회 </a></li>
+	        </ul>
+	      </div>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" data-bs-toggle="collapse" href="#admin-attendance-general-pages" aria-expanded="false" aria-controls="general-pages">
+	        <span class="menu-title">전사 근태 관리</span>
+	        <i class="menu-arrow"></i>
+	        <i class="mdi mdi-medical-bag menu-icon"></i>
+	      </a>
+	      <div class="collapse" id="admin-attendance-general-pages">
+	        <ul class="nav flex-column sub-menu">
+				<li class="nav-item"> <a class="nav-link" href="/annual/status"> 연차 현황 </a></li>
+	        </ul>
+	      </div>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" data-bs-toggle="collapse" href="#transfer-general-pages" aria-expanded="false" aria-controls="general-pages">
+	        <span class="menu-title">발령 관리</span>
+	        <i class="menu-arrow"></i>
+	        <i class="mdi mdi-medical-bag menu-icon"></i>
+	      </a>
+	      <div class="collapse" id="transfer-general-pages">
+	        <ul class="nav flex-column sub-menu">
+				<li class="nav-item"> <a class="nav-link" href="/transfer/registration"> 발령 등록 </a></li>
+				<li class="nav-item"> <a class="nav-link" href="/transfer/list"> 발령 조회 </a></li>
+	        </ul>
+	      </div>
+	    </li>
+    </sec:authorize>
+  </ul>
 </nav>

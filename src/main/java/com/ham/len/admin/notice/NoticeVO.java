@@ -1,5 +1,7 @@
 package com.ham.len.admin.notice;
 
+import java.util.List;
+
 import com.ham.len.commons.CodeVO;
 import com.ham.len.humanresource.HumanResourceVO;
 
@@ -19,6 +21,9 @@ public class NoticeVO extends CodeVO {
 	private Long noticeHit;
 	private String noticePriorityCd;
 	private String noticeCategoryCd;
+	
+	private String priorCdName;
+	private String categoryCdName;
 	private HumanResourceVO humanResourceVO;
-	private AttachmentVO attachmentVO;
+	private List<AttachmentVO> attachmentVOs;
 }

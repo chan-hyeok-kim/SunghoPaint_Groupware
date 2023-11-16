@@ -32,9 +32,14 @@ public class CommonsVO {
 		Date date = new Date();
 		
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-		String uri = request.getHeader("Referer");
+		String url = request.getHeader("Referer");
 		String menu = "";
-		if(uri != null) menu = uri.substring(uri.lastIndexOf("/") + 1) + ".jsp";
+		if(url != null) {
+			int firstIndex = url.indexOf("/");
+			int secondIndex = url.indexOf("/", firstIndex + 1);
+			int thirdIndex = url.indexOf("/", secondIndex + 1);
+			menu = url.substring(thirdIndex);
+		}
 		
 		this.regId = id;
 		this.regDate = date;

@@ -1,0 +1,172 @@
+/* 차트 */
+.pie-chart {
+  position: relative;
+  display:inline-block;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+span.center{
+  background: #fff;
+  display : block;
+  position: absolute;
+  top:50%; left:50%;
+  width:100px; height:100px;
+  border-radius: 50%;
+  text-align:center; 
+  line-height: 100px;
+  font-size:30px;
+   transform: translate(-50%, -50%);
+}
+
+
+
+
+
+
+/* 동적으로 움직이는 카드바디 */
+  #my-app-list button{
+    padding:6px 10px 6px 10px;
+    background: white;
+  }
+  #my-app-list button:hover{
+    background: rgb(222,226,230);
+  }
+
+  #app-list button{
+    padding:6px 10px 6px 10px;
+    background: white;
+  }
+  #app-list button:hover{
+    background: rgb(222,226,230);
+  }
+
+
+  /* 메인 상단 버튼 */
+  .main-btn,.main-btn-check{
+    padding:0;
+    height: 35.5px;
+    width: 30px;
+    
+    border:white;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    margin-left:2px;
+  }
+  .main-btn-check{
+    border-bottom-right-radius: 0;
+  }
+
+  .main-btn{
+    border-top-right-radius: 0;
+  }
+
+  .main-app-btn{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-left:10px;
+    padding-right:10px;
+    
+  }
+
+  .top-btn-box{
+    width: 25%;
+    display: flex;
+  }
+
+
+  /* 아이콘 */
+  .main-top-icon{
+    background: #fff;
+    border-radius: 50%;
+    padding: 7px;
+    color: #9a55ff;
+    float:left;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+
+
+  .top-btn-box .btn-info{
+    background: #047edf;
+  }
+
+  .top-btn-box .btn-primary{
+    background: #9a55ff;
+  }
+
+  #my-app-list {
+    transform: translateX(-100%);  /* X축 이동, Y축 고정 */
+    transition: .5s;
+    /* width: 392.75px; */
+    position:absolute;
+    left:16%;
+    top:28%;
+    z-index:10;
+  }
+
+  #my-app-list.active {
+    transform: translateX(0); 
+  }
+
+  #material-product-amount.active{
+    transition: .5s;
+    transform: translateX(-100%);
+  }
+  
+  #material-product-amount{
+    transition: .5s;
+    transform: translateX(0%);
+  }
+  
+  
+
+
+
+
+
+  #app-list {
+    transform: translateX(-100%);  /* X축 이동, Y축 고정 */
+    transition: .5s;
+    /* width: 392.75px; */
+    position:absolute;
+    left:16%;
+    top:28%;
+    z-index:10;
+  }
+
+  #app-list.active {
+    transform: translateX(0); 
+  }
+
+
+  #message-list {
+    transform: translateX(-100%);  /* X축 이동, Y축 고정 */
+    transition: .5s;
+    /* width: 392.75px; */
+    position:absolute;
+    left:16%;
+    top:28%;
+    z-index:10;
+  }
+
+  #message-list.active {
+    transform: translateX(0); 
+  }
+
+
+  
+  #notice-list {
+    transform: translateX(-100%);  /* X축 이동, Y축 고정 */
+    transition: .5s;
+    /* width: 392.75px; */
+    position:absolute;
+    left:16%;
+    top:28%;
+    z-index:10;
+  }
+
+  #notice-list.active {
+    transform: translateX(0); 
+  }

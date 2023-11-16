@@ -48,12 +48,12 @@ body{
 }
 
 #attendance_btn > button.on{
-	border:1px solid #A65FFF;
-	color:#A65FFF;
+	border:1px solid #49AEFF;
+	color:#49AEFF;
 }
 
 #attendance_btn > button.on:hover{
-	background-color:#F2E8FF;
+	background-color:#F2F9FF;
 }
 
 #attendance_btn > button.off{
@@ -121,7 +121,7 @@ body{
 
 .component > .time{
 	font-size:25px;
-	color:#A65FFF;
+	color:#49AEFF;
 }
 
 

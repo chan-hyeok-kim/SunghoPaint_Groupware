@@ -32,15 +32,9 @@ public class SignatureService {
     	return signDAO.getDetail(humanResourceVO);
     }
 	    
-	public int setSignUpdate(MultipartFile file, HttpSession session,HumanResourceVO humanResourceVO) throws Exception{
+	public int setSignUpdate(HumanResourceVO humanResourceVO) throws Exception{
 //		session.get이나 security에서 아이디꺼내주면됨
-		
-		String path=uploadPath+sign;
-		String fileName=fileManager.save(path, file);
-		
-		log.warn("********{}*******",fileName);
-		
-		humanResourceVO.setSignature(fileName);
+	
 		int result=signDAO.setSignUpdate(humanResourceVO);
 
 		return result; 

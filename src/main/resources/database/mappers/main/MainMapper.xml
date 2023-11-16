@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ham.len.main.MainDAO">
+
+<select id="getFactory">
+  SELECT *,FN_CODE_NM(LEFT(FACTORY_STORAGE_CD,3),FACTORY_STORAGE_CD) 
+	FROM FACTORY_STORAGE
+   WHERE LEFT(FACTORY_STORAGE_CD,3)='M02'
+</select>
+
+<select id="getMaterial" resultType="MaterialProductVO" parameterType="String">
+SELECT *,FN_CODE_NM(LEFT(MATERIAL_PRODUCT_CD,3),MATERIAL_PRODUCT_CD) AS MATERIAL_PRODUCT_NAME
+  FROM MATERIAL_PRODUCT
+ WHERE MATERIAL_PRODUCT_CATEGORY=#{category}
+</select>
+
+<select id="getToDoList" resultType="ToDoListVO" parameterType="String">
+SELECT * FROM TO_DO_LIST
+ WHERE EMPLOYEE_ID=#{id}
+</select>
+
+<insert id="setAdd" parameterType="ToDoListVO">
+ INSERT INTO TO_DO_LIST
+(TO_DO_LIST_NO,EMPLOYEE_ID,TO_DO_LIST_CONTENTS,TO_DO_LIST_CHECK,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+VALUES
+(#{toDoListNo},#{employeeID},#{toDoListContents},0,#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
+</insert>
+
+<update id="setUpdate" parameterType="ToDoListVO">
+  UPDATE TO_DO_LIST
+     SET TO_DO_LIST_CHECK=#{toDoListCheck},MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+   WHERE TO_DO_LIST_NO=#{toDoListNo}
+</update>
+
+<delete id="setDelete" parameterType="ToDoListVO">
+  DELETE FROM TO_DO_LIST
+   WHERE TO_DO_LIST_NO=#{toDoListNo}
+</delete>
+ 
+<select id="getAlarmList" resultType="NotificationVO" parameterType="String">
+  SELECT * 
+    FROM NOTIFICATION
+   WHERE EMPLOYEE_ID=#{id}
+</select> 
+ 
+ <insert id="setAlarmAdd" parameterType="NotificationVO">
+	 INSERT INTO NOTIFICATION
+	(NOTIFICATION_NO,EMPLOYEE_ID,NOTIFICATION_DATE,NOTIFICATION_TITLE,NOTIFICATION_CONTENTS,NOTIFICATION_CHECK,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+	VALUES
+	(#{notificationNo},#{employeeID},NOW(),{notificationTitle},{notificationContents},{notificationCheck} 0,#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
+</insert>
+
+<update id="setAlarmUpdate" parameterType="NotificationVO">
+  UPDATE NOTIFICATION
+     SET NOTIFICATION_CHECK=#{notificationCheck},MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+   WHERE NOTIFICATION_NO=#{notificationNo}
+</update>
+ 
+ <!-- update
+ 
+ UPDATE 
+    SET
+		,MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+		WHERE 
+ 
+  -->
+  
+  <!-- resultMap
+        <result column="REG_ID" property="regId"/>
+		<result column="REG_DATE" property="regDate"/>
+		<result column="REG_MENU" property="regMenu"/>
+		<result column="MOD_ID" property="modId"/>
+		<result column="MOD_DATE" property="modDate"/>
+		<result column="MOD_MENU" property="modMenu"/>
+		<result column="CODE" property="code"/>
+		<result column="UP_CODE" property="upCode"/>
+		<result column="CODE_NAME" property="codeName"/>
+   -->
+</mapper>

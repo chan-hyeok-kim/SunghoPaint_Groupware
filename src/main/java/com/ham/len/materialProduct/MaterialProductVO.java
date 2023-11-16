@@ -1,6 +1,5 @@
 package com.ham.len.materialProduct;
 
-
 import com.ham.len.commons.CodeVO;
 
 import lombok.Getter;
@@ -20,4 +19,5 @@ public class MaterialProductVO extends CodeVO {
 	private Long materialProductStock;
 	private String materialProductCategory;
     
+	private String materialProductName;
 }

@@ -5,15 +5,18 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.ham.len.commons.MakeColumn;
+
 import com.ham.len.commons.Pager;
+import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,10 +28,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
-	@Autowired
-	private MakeColumn makeColumn;
 	
-	private String id="2023001";
 	
 	@GetMapping("detail")
 	public void getDetail(NoticeVO noticeVO,Model model) throws Exception{
@@ -40,6 +40,7 @@ public class NoticeController {
 	public void getList(Pager pager,Model model) throws Exception{
 		List<NoticeVO> ar=noticeService.getList(pager);
 		model.addAttribute("list", ar);
+		log.warn("****리스트{}****",ar);
 	}
 	
 	@GetMapping("add")
@@ -48,12 +49,10 @@ public class NoticeController {
 	}
 	
 	@PostMapping("add")
-	public String setAdd(NoticeVO noticeVO,HttpServletRequest request) throws Exception{
+	public String setAdd(NoticeVO noticeVO,MultipartFile[] files) throws Exception{
 		
-		String path=request.getRequestURI();
 		
-		noticeVO=(NoticeVO)makeColumn.getColumn(noticeVO, path, id);
-		int result=noticeService.setAdd(noticeVO);
+		int result=noticeService.setAdd(noticeVO,files);
 		
 		return "redirect:/notice/list";
 	}
@@ -67,6 +66,11 @@ public class NoticeController {
 	
 	@PostMapping("update")
 	public String setUpdate(NoticeVO noticeVO) throws Exception{
+		
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		noticeVO.setEmployeeID(id);
+	
 		int result=noticeService.setUpdate(noticeVO);
 		
 		return "redirect:/notice/list";
@@ -85,5 +89,13 @@ public class NoticeController {
 		model.addAttribute("result", result);
 		
 		return "commons/ajaxResult";
+	}
+	
+	@GetMapping("fileDown")
+	public String fileDown(AttachmentVO attachmentVO,Model model)throws Exception{
+		attachmentVO=noticeService.getFileDetail(attachmentVO);
+		model.addAttribute("attachmentVO", attachmentVO);
+		
+		return "fileDownView";
 	}
 }

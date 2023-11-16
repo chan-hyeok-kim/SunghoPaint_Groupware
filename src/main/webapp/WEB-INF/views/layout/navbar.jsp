@@ -2,6 +2,7 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <link rel="stylesheet" href="/css/index.css" />
+<link rel="stylesheet" href="/css/myCustomStyle/todolist.css">
 
 <!-- partial:partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -10,7 +11,7 @@
           <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/images/logo-mini.svg" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
-          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <button class="navbar-toggler navbar-toggler align-self-center" id="minimize-toggle" type="button" data-toggle="minimize">
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="search-field d-none d-md-block">
@@ -36,11 +37,11 @@
 	                </div>
 	              </a>
 	              <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-	                <a class="dropdown-item" href="#">
-	                  <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
+	                <a class="dropdown-item" href="#"><i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
 	                <div class="dropdown-divider"></div>
-	                <a class="dropdown-item" href="#">
-	                  <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
+	                <a class="dropdown-item" href="/humanresource/updatePassword"><i class="mdi mdi-cached me-2 text-success"></i> 비밀번호 변경 </a>
+	                <div class="dropdown-divider"></div>
+	                <a class="dropdown-item" href="#"><i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
 	              </div>
 	            </li>
 	            <li class="nav-item d-none d-lg-block full-screen-link">
@@ -95,8 +96,8 @@
 	                <span class="count-symbol bg-danger"></span>
 	              </a>
 	              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-	                <h6 class="p-3 mb-0">Notifications</h6>
-	                <div class="dropdown-divider"></div>
+	                <h6 class="p-3 mb-0">알림</h6>
+	                <div class="dropdown-divider" id="alarmUL"></div>
 	                <a class="dropdown-item preview-item">
 	                  <div class="preview-thumbnail">
 	                    <div class="preview-icon bg-success">
@@ -133,7 +134,7 @@
 	                  </div>
 	                </a>
 	                <div class="dropdown-divider"></div>
-	                <h6 class="p-3 mb-0 text-center">See all notifications</h6>
+	                <h6 class="p-3 mb-0 text-center"><a>모든 알림 확인하기</a></h6>
 	              </div>
 	            </li>
             </sec:authorize>
@@ -152,10 +153,10 @@
             </li>
             
             <sec:authorize access="isAuthenticated()">
-	            <li class="nav-item nav-settings d-none d-lg-block">
-	              <a class="nav-link" href="#">
+	            <li class="nav-item nav-settings d-none d-lg-block" id="toggle">
+	              <button class="navbar-toggler" id="todolist-toggle">
 	                <i class="mdi mdi-format-line-spacing"></i>
-	              </a>
+	              </button>
 	            </li>
             </sec:authorize>
           </ul>
@@ -163,4 +164,10 @@
             <span class="mdi mdi-menu"></span>
           </button>
         </div>
+        
+        
       </nav>
+      
+      
+    
+   

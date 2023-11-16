@@ -179,10 +179,11 @@ ul.nav-tabs {
 							    <tr>
 							      <th scope="col" style="font-weight:bold;">번호</th>
 							      <th scope="col" style="font-weight:bold;">거래처명</th>
+							      <th scope="col" style="font-weight:bold;">구분</th>
 							      <th scope="col" style="font-weight:bold;">대표자명</th>
 							      <th scope="col" style="font-weight:bold;">대표 번호</th>
 							      <th scope="col" style="font-weight:bold;">사업장 주소</th>
-							      <th scope="col" style="font-weight:bold;">거래처 최초 등록자</th>
+							      <th scope="col" style="font-weight:bold;">거래처 등록자</th>
 							      <th scope="col" style="font-weight:bold;">거래처 최초 등록일</th>
 							    </tr>
 							  </thead>
@@ -191,6 +192,17 @@ ul.nav-tabs {
 						           <tr>
 						           	<td>${i.index + 1}</td>
 						             <td><a href="./clientDetail?clientNo=${vo.clientNo}">${vo.clientName}</a></td>
+						             <c:choose>
+							            <c:when test="${vo.clientTypeCd eq 'C021'}">
+							                <td>매출처</td>
+							            </c:when>
+							            <c:when test="${vo.clientTypeCd eq 'C022'}">
+							                <td>매입처</td>
+							            </c:when>
+							            <c:when test="${vo.clientTypeCd eq 'C023'}">
+							                <td>매출/매입처</td>
+							            </c:when>
+							        </c:choose>
 						             <td>${vo.clientRepresent}</td>
 						             <td>${vo.clientNumber}</td>
 						             <td>${vo.clientAddress}</td>

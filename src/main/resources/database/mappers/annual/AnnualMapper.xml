@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ham.len.annual.AnnualDAO">
+	<insert id="setAnnual" parameterType="AnnualVO">
+		INSERT INTO ANNUAL_LEAVE(EMPLOYEE_ID, REG_ID, REG_DATE, REG_MENU, MOD_ID, MOD_DATE, MOD_MENU)
+		VALUES(#{employeeID}, #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu})
+	</insert>
+	
+	<select id="getTotal" parameterType="HumanResourcePager" resultType="Long">
+		SELECT COUNT(*)
+			FROM HUMAN_RESOURCE h LEFT JOIN ANNUAL_LEAVE a
+				ON h.EMPLOYEE_ID = a.EMPLOYEE_ID
+		<include refid="com.ham.len.humanresource.HumanResourceDAO.searchSQL">
+			<property name="dateColumn" value="JOIN_DATE" />
+			<property name="baseTableName" value="h." />
+		</include>
+	</select>
+	
+	<select id="getAnnualList" parameterType="HumanResourcePager" resultType="AnnualVO">
+		SELECT
+		h.EMPLOYEE_ID, FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME,
+		h.NAME, h.JOIN_DATE, h.QUIT_DATE, h.YEARS_OF_SERVICE,
+		a.OCCURRENCE_ANNUAL_LEAVE, a.TOTAL_ANNUAL_LEAVE, a.USED_ANNUAL_LEAVE, a.HAVE_ANNUAL_LEAVE
+			FROM HUMAN_RESOURCE h LEFT JOIN ANNUAL_LEAVE a
+				ON h.EMPLOYEE_ID = a.EMPLOYEE_ID
+		<include refid="com.ham.len.humanresource.HumanResourceDAO.searchSQL">
+			<property name="dateColumn" value="JOIN_DATE" />
+			<property name="baseTableName" value="h." />
+		</include>
+		LIMIT #{startRow}, 10
+	</select>
+	
+	<select id="getDepartmentalAnnualList" parameterType="String" resultType="AnnualExcelVO">
+		SELECT
+		h.EMPLOYEE_ID, FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME,
+		h.NAME, DATE_FORMAT(h.JOIN_DATE, '%Y-%m-%d') AS JOIN_DATE, DATE_FORMAT(h.QUIT_DATE, '%Y-%m-%d') AS QUIT_DATE,
+		h.YEARS_OF_SERVICE, a.OCCURRENCE_ANNUAL_LEAVE, a.TOTAL_ANNUAL_LEAVE, a.USED_ANNUAL_LEAVE, a.HAVE_ANNUAL_LEAVE
+			FROM HUMAN_RESOURCE h LEFT JOIN ANNUAL_LEAVE a
+				ON h.EMPLOYEE_ID = a.EMPLOYEE_ID
+		WHERE DEPARTMENT_CD = #{value}
+	</select>
+	
+	<update id="setUpdate" parameterType="AnnualVO">
+		UPDATE
+			ANNUAL_LEAVE
+		SET
+			OCCURRENCE_ANNUAL_LEAVE = #{occurrenceAnnualLeave},
+			TOTAL_ANNUAL_LEAVE = #{totalAnnualLeave},
+			HAVE_ANNUAL_LEAVE = #{haveAnnualLeave}
+		WHERE
+			EMPLOYEE_ID = #{employeeID}
+	</update>
+</mapper>

@@ -4246,24 +4246,24 @@ textarea.form-control-lg {
 
 .btn-primary {
   color: #000;
-  background-color:#9797ff;
-  border-color:#9797ff; }
+  background-color: #b66dff;
+  border-color: #b66dff; }
   .btn-primary:hover {
     color: #000;
-    background-color:#9797ff;
-    border-color:#9797ff; }
+    background-color: #c183ff;
+    border-color: #bd7cff; }
   .btn-check:focus + .btn-primary, .btn-primary:focus {
     color: #000;
-    background-color:#9797ff;
-    border-color:#9797ff;
+    background-color: #c183ff;
+    border-color: #bd7cff;
     -webkit-box-shadow: 0 0 0 0.25rem rgba(155, 93, 217, 0.5);
     box-shadow: 0 0 0 0.25rem rgba(155, 93, 217, 0.5); }
   .btn-check:checked + .btn-primary,
   .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active,
   .show > .btn-primary.dropdown-toggle {
     color: #000;
-    background-color: #9797ff;
-    border-color:#9797ff; }
+    background-color: #c58aff;
+    border-color: #bd7cff; }
     .btn-check:checked + .btn-primary:focus,
     .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus,
     .show > .btn-primary.dropdown-toggle:focus {
@@ -4271,8 +4271,8 @@ textarea.form-control-lg {
       box-shadow: 0 0 0 0.25rem rgba(155, 93, 217, 0.5); }
   .btn-primary:disabled, .btn-primary.disabled {
     color: #000;
-    background-color:#254FFE;
-    border-color:#254FFE; }
+    background-color: #b66dff;
+    border-color: #b66dff; }
 
 .btn-secondary {
   color: #000;
@@ -12600,7 +12600,7 @@ code {
 
 .btn-gradient-info {
   background: -webkit-gradient(linear, left top, right top, from(#90caf9), color-stop(99%, #047edf));
-  background: linear-gradient(to right, #90caf9, #90caf9 99%);
+  background: linear-gradient(to right, #90caf9, #047edf 99%);
   border: 0;  
   -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease; }
@@ -14471,6 +14471,34 @@ dl {
 	margin: 20px 0 0 0;
 }
 
+.detail-proceed-btn{
+	color: #0D6EFD;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.code-delete-btn{
+	text-align:right;
+    border: 1px solid gainsboro;
+    float: right;
+    margin: 0 0px 10% 0;
+    background:#e6e6e6;
+    text-decoration: none !important;
+    cursor: pointer;
+    padding: 7px 18px 7px 18px;
+}
+
+#code-add-modal-btn{
+	font-weight:bold;
+    border: 1px solid gainsboro;
+    float: left;
+    margin: 0 0px 10% 0;
+    background:#e6e6e6;
+    text-decoration: none !important;
+    cursor: pointer;
+    padding: 7px 18px 7px 18px;
+}
+
 /* textarea */
 #approvalForm{
 	width: 100%;
@@ -14479,7 +14507,24 @@ dl {
 }
 
 
-
+.modal.modal-center {
+   text-align: center;
+ }
+ 
+@media screen and (min-width: 768px) { 
+   .modal.modal-center:before {
+     display: inline-block;
+     vertical-align: middle;
+     content: " ";
+     height: 100%;
+   }
+ }
+ 
+.modal-dialog.modal-center {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
 
 /* div */
 #approval-content{
@@ -14494,6 +14539,18 @@ dl {
 	margin-top: 50px;
 	float:left;
 }
+
+#image-show{
+	overflow: hidden;
+    height: 250px;
+    text-align: center;
+    padding: 5%;
+}
+
+.code-scroll{
+	height: 300px;
+}
+
 
 /* tree ul */
 #form_list{
@@ -14527,6 +14584,9 @@ dl {
 #sign-modal-size{
 	max-width: 700px;
 	background: white;
+}
+.code-modal-size{
+	min-width: 800px;
 }
 
 /* table */
@@ -14618,17 +14678,18 @@ dl {
 
 .nav-tabs>li:after {
 	left: -4px;
-	transform: skew(-25deg, 0deg);
+	transform: skew(339deg, 0deg);
 	box-shadow: #d4d4d4 -1px 1px 0;
 }
 
 .nav-tabs>li {
 	border-radius: 7px 7px 0 0;
+	line-height: 2.0;
 }
 
 .nav-tabs>li:before {
 	right: -4px;;
-	transform: skew(25deg, 0deg);
+	transform: skew(200deg, 0deg);
 	box-shadow: #d4d4d4 1px 1px 0;
 }
 
@@ -14722,4 +14783,26 @@ ul.nav-tabs {
 	float: right;
 }
 
+/* table hover custom*/
+.table-hover > tbody > tr:hover > * {
+    background-color: #EEF1F6;
+    --bs-table-accent-bg: #EEF1F6;
+  
+}
+.table-hover > thead > tr th{
+	border-top: 1px solid #ebedf2;
+}
+
+/*canvas */
+#sign-canvas{
+    background: white;	
+}
+
 /*# sourceMappingURL=style.css.map */
+
+/* sidebar line */
+#sidebar_line{
+	width:75%;
+	margin:10px auto;
+	border-top:1px solid #E7E7E7;
+}

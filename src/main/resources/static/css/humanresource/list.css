@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+#wrapper{
+	width:80%;
+	margin:auto;
+}
+
+
+
+form{
+	float:left;
+	margin-bottom:15px;
+}
+
+form > div:first-of-type{
+	margin-bottom:10px;
+}
+
+form > div:last-of-type{
+	clear:both;
+}
+
+form input,
+form select{
+	height:33px;
+	margin-right:3px;
+	padding:5px;
+	vertical-align:middle;
+	border:1px solid #DBDBDB;
+	border-radius:5px;
+	font-size:13px;
+}
+
+form select{
+	padding:0px 3px;
+}
+
+form button{
+	height:33px;
+	line-height:0px !important;
+	padding:0px 15px !important;
+}
+
+
+
+#buttons{
+    float:right;
+    margin-top:36px; /* form 높이 - button 높이 */
+}
+
+#buttons > button{
+    height:40px;
+    border:none; border-radius:5px;
+    background-color:#6CBDFF;
+    font-size:13px; font-weight:600;
+    color:white;
+    cursor:pointer;
+}
+
+#buttons > button#excelDownload{
+	background-color:#019500;
+}
+
+#buttons > button:hover{
+    background-color:#A8D8FF;
+}
+
+#buttons > button#excelDownload:hover{
+	background-color:#01AD00;
+}
+
+
+
+table{
+	width:100%;
+	margin:auto;
+}
+
+table, th, td{
+	padding:10px 10px;
+	text-align:center;
+	border-collapse:collapse;
+	border-top:1px solid #CDCDCD;
+	border-bottom:1px solid #CDCDCD;
+	font-size:14px;
+}
+
+
+
+nav:has(ul.pagination){
+	display:table;
+	margin:auto;
+	margin-top:50px;
+}
+
+.page-item.disabled > .page-link{
+	
+}
+
+.page-link{
+	color:#58B4FF;
+}
+
+
+
+.btn-gradient-primary {
+	background:linear-gradient(to right, #B3DBfB, #5DB4FD)
+}

@@ -1,6 +1,7 @@
 const appDate=document.getElementById('approvalStartDate')
 const curDate=document.getElementById('currentDate')
 const appStartDate=document.getElementsByClassName('approval-start-date');
+const appTypeRegDate=document.getElementsByClassName('approval-reg-date');
 /**
  * 
  */
@@ -9,25 +10,32 @@ if(curDate){
 curDate.value = new Date().toISOString().substring(0, 10);;
 }
 
+for(a of appTypeRegDate){
+	if(a && a!=0){
+	let date=a.innerText;
+	date1=javaDatetoScript(date);
 
+	a.innerText=date1;
+	}
+}
 
 //Fri Nov 03 22:48:52 KST 2023
-if(appDate && appDate!=''){
-let date=appDate.innerText;
-date1=javaDatetoScript(date);
+// if(appDate && appDate!=''){
+// let date=appDate.innerText;
+// date1=javaDatetoScript(date);
 
-appDate.innerText=date1;
-}
+// appDate.innerText=date1;
+// }
 //detail의 기안일자
 
 
-if(appStartDate && appStartDate!=''){
-for(a of appStartDate){
-	let dateOfList=a.innerText;
-	date2=javaDatetoScript(dateOfList);
-	a.innerText=date2;
-	}
-}
+// if(appStartDate && appStartDate!=''){
+// for(a of appStartDate){
+// 	let dateOfList=a.innerText;
+// 	date2=javaDatetoScript(dateOfList);
+// 	a.innerText=date2;
+// 	}
+// }
 //list의 기안일자
 
 

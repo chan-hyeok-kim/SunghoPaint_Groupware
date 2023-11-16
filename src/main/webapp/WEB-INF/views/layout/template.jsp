@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 <!-- plugins:css -->
     <link rel="stylesheet" href="/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
@@ -29,35 +29,34 @@
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css" rel="stylesheet">
 
- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   
 
 	<script type="text/javascript" src="/js/ztree/jquery-1.4.4.min.js"></script>
 	<script type="text/javascript" src="/js/ztree/jquery.ztree.core.js"></script>
+ 
+    
+   
  </head>
 <body>
-
-
- <div class="container-scroller">
+    <div class="container-scroller">
       <tiles:insertAttribute name="navbar"/>
       <div class="container-fluid page-body-wrapper">
-      
-      <tiles:insertAttribute name="sidebar"/>
-      <div class="main-panel">
-      <div class="content-wrapper">
-      <tiles:insertAttribute name="body"/>
+        <tiles:insertAttribute name="sidebar"/>
+        
+        
+        <div class="main-panel">
+          <div class="content-wrapper">
           
-       
-             </div>
-             <tiles:insertAttribute name="footer"/>
-       </div>
-     
+            <tiles:insertAttribute name="body"/>
+          </div>
+          <tiles:insertAttribute name="footer"/>
         </div>
+      </div>
       <!-- page-body-wrapper ends -->
-      
     </div>
     <!-- container-scroller-ends-->
-    
+   
     <!-- plugins:js -->
 	  <script src="/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
@@ -72,14 +71,21 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="/js/dashboard.js"></script>
-    <script src="/js/todolist.js"></script>
+   
     <!-- End custom js for this page -->
     
+    <!-- sockjs -->
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  
+   
     <script src="https://cdn.jsdelivr.net/npm/ztree@3.5.24/js/jquery.ztree.all.min.js"></script>
     
     <!-- jQuery UI -->
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  
+   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+   
+   <tiles:insertAttribute name="todolist"/>
+    
+    
 	  <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

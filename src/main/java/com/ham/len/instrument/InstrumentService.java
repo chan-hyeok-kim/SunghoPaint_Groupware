@@ -14,7 +14,7 @@ public class InstrumentService {
 	private InstrumentDAO instrumentDAO; 
 	
 	public List<InstrumentVO> getList(Pager pager) throws Exception{
-
+		pager.makeRowNum();
 		pager.makePageNum(instrumentDAO.getTotal(pager));
 		return instrumentDAO.getList(pager);
 	}
@@ -35,11 +35,14 @@ public class InstrumentService {
 		return instrumentDAO.setUpdate(instrumentVO);
 	}
 	
-	public void setDelete(InstrumentVO instrumentVO) throws Exception{
+	public int setDelete(InstrumentVO instrumentVO) throws Exception{
 		
-		instrumentDAO.setDelete(instrumentVO);
+		return instrumentDAO.setDelete(instrumentVO);
 	}
 	
-
+	public Long getInstrumentCheck(InstrumentVO instrumentVO) throws Exception{
+		
+		return instrumentDAO.getInstrumentCheck(instrumentVO);
+	}
 	
 }

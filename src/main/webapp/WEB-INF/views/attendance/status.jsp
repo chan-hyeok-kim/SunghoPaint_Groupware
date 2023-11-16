@@ -184,7 +184,6 @@
 	});
 </script>
 
-<h1 id="title">근태 현황</h1>
 <div id="move_month">
 	<i id="before_month">《</i>
 	<h2>${date.year}.<fmt:formatNumber value="${date.month}" pattern="00" /></h2>

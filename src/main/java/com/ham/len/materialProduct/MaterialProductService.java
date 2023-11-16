@@ -14,7 +14,7 @@ public class MaterialProductService {
 	private MaterialProductDAO materialDAO; 
 	
 	public List<MaterialProductVO> getList(Pager pager) throws Exception{
-		
+		pager.makeRowNum();
 		pager.makePageNum(materialDAO.getTotal(pager));
 		return materialDAO.getList(pager);
 	}
@@ -35,8 +35,13 @@ public class MaterialProductService {
 		return materialDAO.setUpdate(materialVO);
 	}
 	
-	public void setDelete(MaterialProductVO materialVO) throws Exception{
+	public int setDelete(MaterialProductVO materialVO) throws Exception{
 		
-		materialDAO.setDelete(materialVO);
+		return materialDAO.setDelete(materialVO);
+	}
+	
+	public Long getMaterialCheck(MaterialProductVO materialVO) throws Exception{
+		
+		return materialDAO.getMaterialCheck(materialVO);
 	}
 }

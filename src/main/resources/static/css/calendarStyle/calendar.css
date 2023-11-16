@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+#calendar{
+	text-decoration: none;
+	color:black;
+}
+
+#calendar a{
+	text-decoration: none;
+}
+
+.fc-col-header-cell-cushion{
+	color:black;
+}
+
+.fc-daygrid-day a{
+	color:black;
+	
+}
+
+
+#calendar button{
+	background: white;
+	margin-right:10px;
+    border:none;
+}
+
+#calendar .fc-toolbar-chunk:nth-child(3) button{
+	border-radius:10%;
+	color:black;
+}
+
+#calendar .fc-toolbar-chunk:nth-child(3) button:hover{
+	background: rgb(222,226,230);
+}
+
+#calendar .fc-toolbar-chunk:nth-child(1) button{
+	color: gray;
+	background: white;
+	border: none;
+}
+
+#calendar .fc-toolbar-chunk:nth-child(1) button:hover{
+	background: rgb(222,226,230);
+	
+}
+
+
+/* 일요일 날짜 빨간색 */
+.fc-day-sun a {
+  color: red;
+  text-decoration: none;
+}
+
+/* 토요일 날짜 파란색 */
+.fc-day-sat a{
+  color: blue;
+  text-decoration: none;
+}
+
+

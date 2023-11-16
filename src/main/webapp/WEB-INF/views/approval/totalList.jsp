@@ -40,12 +40,12 @@
 						</div>
 					</div>
 
-					<ul class="nav-tabs">
+					<ul class="nav-tabs total-list-tabs">
 						<li onclick="location.href='./totalList'" class="active"><a class="link-tab">전체</a></li>
 						<li data-cd="R031"><a class="link-tab">기안중</a></li>
 						<li data-cd="R032"><a class="link-tab">진행중</a></li>
 						<li data-cd="R034"><a class="link-tab">반려</a></li>
-						<li data-cd="R033"><a class="link-tab">결재</a></li>
+						<li data-cd="R033"><a class="link-tab">승인 완료</a></li>
 					</ul>	
 
 
@@ -62,7 +62,7 @@
 				  
 				  
 				
-				    <table class="table-bordered mt-2" id="approval-table">
+				    <table class="table table-hover mt-2" id="approval-table">
 				        <thead>
 				           <tr>
 				             <th>선택</th>
@@ -75,15 +75,28 @@
 				           </tr>
 				        </thead>
 				        <tbody>
+				        <script>
+				        
+				        console.log('${list[0].approvalNo}')
+				        </script>
 				        <c:forEach items="${list}" var="vo" varStatus="i">
 				           <tr>
 				             <td><input type="checkbox"></td>
 				             <td class="approval-start-date">${vo.approvalStartDate}</td>
 				             <td>${vo.approvalTitle}</td>
 				             <td>${vo.drafter}</td>
-				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
-				             <td>${vo.codeName}</td>
-				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
+				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
+				             <td>${vo.apCodeName}</td>
+				             <c:choose>
+				             <c:when test="${vo.approvalStatusCd eq 'R031'}">
+				             <td><a href="/approval/update?approvalNo=${vo.approvalNo}" class="detail-proceed-btn">기안서 확인</a></td>
+				             </c:when>
+				             <c:otherwise>
+				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}" class="detail-proceed-btn">기안서 확인</a></td>
+				             </c:otherwise>
+				             </c:choose>
+				             
+				             
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -124,16 +137,17 @@
   </div>
 </div>
 
-<!-- Sign -->
+ <!-- Sign -->
 <div style="float:left">
-     <button type="button" class="btn" data-toggle="modal"  data-target="#stampModal">도장/서명 등록</button>
+<div style="margin-left:20px">
+     <button type="button" class="btn btn-gradient-light" data-toggle="modal"  data-target="#stampModal">도장 등록</button>
+  <span style="margin-left:20px;">
+    <button id="sign-modal" type="button" class="btn btn-gradient-light" data-toggle="modal" data-target="#signModal">서명 만들기/등록</button>
+</span> 
   </div> 
+  
  
 <!-- Stamp --> 
-<div>
-    <button type="button" class="btn" data-toggle="modal"  data-target="#signModal">서명 만들기</button>
-</div> 
-  
 
   
   
@@ -141,12 +155,14 @@
 
 <!-- Modal -->
 
+				  
+
 <!-- Stamp-Modal -->
 <div class="modal fade" id="stampModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">도장/서명올리기</h5>
+        <h5 class="modal-title" id="exampleModalLabel">도장 올리기</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -154,7 +170,7 @@
       <div class="modal-body">
       
       
-      <div>* 사인이나 도장이 나오는 이미지를 등록해주세요</div>
+      <div>* 도장이 나오는 이미지를 등록해주세요</div>
       
       
      
@@ -172,7 +188,7 @@
          <div id="fileName"></div>
          
          
-      <div id="image-show" style="padding: 30px 0 0 100px;"></div>
+      <div id="image-show"></div>
      
       
       </div>
@@ -184,10 +200,10 @@
      
      <div style="border: 1px solid gray;">
      <div style="border-bottom: 1px solid gray;">
-      미리보기
+      현재 보유한 서명
      </div>
          
-        <div id="small-image-show" style="padding: 30px 0 0 195px; height: 100px;"></div>  
+        <div id="small-image-show" style="text-align:center; padding-top:25px; height: 100px;"></div>  
         </div>    
        
      
@@ -198,7 +214,7 @@
    
       <div class="modal-footer" style="background: white">
         <button type="button" class="btn btn-secondary" id="sign-close" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-info" id="sign-submit-btn">확인</button>
+        <button type="button" class="btn btn-info" id="sign-submit-btn">등록</button>
         
         </div>
       </div>
@@ -246,6 +262,7 @@
           <div class="column">
             <button type="button" class="button save btn-info" data-action="save-png">PNG로 저장</button>
             <button type="button" class="button save btn-info" data-action="save-jpg">JPG로 저장</button>
+          <!--   <button type="button" class="button save btn-info" data-action="save-svg">SVG로 저장</button>  -->
            
           </div>
         </div>
@@ -270,8 +287,8 @@
   
       </div>
       <div class="modal-footer" style="background: white">
-        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button> -->
-         <button type="button" class="btn btn-info" data-dismiss="modal">확인</button>
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> 
+         <button type="button" id="sign-add-btn" class="btn btn-info" data-dismiss="modal">등록</button>
         </div>
       </div>
     </div>
@@ -287,6 +304,11 @@
 		
 
 	
+			<script type="text/javascript">
+	var formSign='${member.signature}';
+	var username='${member.username}';
+	
+	</script>
 			
 
 

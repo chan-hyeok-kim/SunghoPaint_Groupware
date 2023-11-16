@@ -14,22 +14,21 @@ $('#delete-btn').click(function() {
     Swal.fire({
         text: '정말로 삭제하시겠습니까?',
         showCancelButton: true, 
-        dangerMode: true,
         confirmButtonText: '승인',
         confirmButtonColor: 'red',
-        cancleButtonText:'취소',
+        cancelButtonText:'취소',
         reverseButtons: true,
         icon: 'warning',
     }).then(function(result) {
         if(result.isConfirmed){
         $.ajax({
         type: 'POST',
-        url: '/code/delete',
+        url: '/code/upDelete',
         data: {
             deleteCdArr: arr
         }, success: function(result) {
             
-            location.replace('/code/list');
+            
         }, error: function() {
     
         }
@@ -41,3 +40,4 @@ $('#delete-btn').click(function() {
     
     })
     
+  

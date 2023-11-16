@@ -80,29 +80,29 @@
 				<div id="approval-content">
 					<table class="table table-bordered">
 						<tr>
-							<td>기안일자</td>
+							<th>기안일자</th>
 							<td id="approvalStartDate" colspan="2" 
 							data-date="${vo.approvalStartDate}">${vo.approvalStartDate}</td>
 						</tr>
 						<tr>
-							<td>제목</td>
+							<th>제목</th>
 							<td colspan="2">${vo.approvalTitle}</td>
 						</tr>
 						<tr>
-							<td rowspan="4">결재라인</td>
-							<td>중간검토자</td>
-							<td>${vo.midApprover}</td>
+							<th rowspan="4">결재라인</th>
+							<th>중간검토자</th>
+							<td>${vo.midApproverName}</td>
 						</tr>
 						<tr>
-							<td>추가검토자</td>
-							<td id="add-app" data-no="${vo.approvalNo}">${vo.addApprover}</td>
+							<th>추가검토자</th>
+							<td id="add-app" data-no="${vo.approvalNo}">${vo.addApproverName}</td>
 						</tr>
 						<tr>
-							<td>결재자</td>
-							<td>${vo.lastApprover}</td>
+							<th>결재자</th>
+							<td>${vo.lastApproverName}</td>
 						</tr>
 						<tr>
-							<td>구분(결재양식)</td>
+							<th>구분(결재양식)</th>
 							<td>${vo.approvalTypeVO.codeName}</td>
 						</tr>
 
@@ -132,7 +132,7 @@
 </c:when>
 <c:when test="${empty vo.admonition}">
 
-								<td>첨언</td>
+								<th>첨언</th>
 								<td><textarea rows="5" name="admonition" class="form-control"></textarea>
 								<div style="display:flex; padding:10px 0 0 0; 
 								justify-content: flex-end;">
@@ -149,22 +149,45 @@
 				</table>
 
 <!-- bottom btn-list  -->
+ 				<script type="text/javascript">
+ 				 console.log('${vo.approvalStatusCd}')
+ 				</script>
 				<div id="form-add-btn-box">
+				<c:if test="${vo.approvalStatusCd eq 'R033'}">
+				
 					<button class="btn btn-info" type="button" id="app-pdf-btn"
 					>PDF로 다운로드</button>
+	           
+				</c:if>	
+				<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.username ne vo.employeeID}">
+	
 					<button class="btn btn-info" type="button" style="margin-left: 20px;" id="app-reject-btn"
 					>반려</button>
+					
+					
 					<button class="btn btn-info" type="button" style="margin-left: 20px;"
 					onclick="location.href='/approval/update?approvalNo=${vo.approvalNo}'">수정</button>
 					<button type="button" class="btn btn-info" id="app-delete-btn"
 						style="margin-left: 20px;">삭제</button>
+					
+					
+					
 					<button type="button" class="btn btn-info" id="form-mid-sign"
 					style="margin-left: 400px;"
 					>서명하기</button>
 					<button type="button" id="approval-btn" class="btn btn-info" style="margin-left: 20px;">결재</button>
+				   
 				   </form>
 				</div>
+				 </c:if> 
+<script type="text/javascript">
+					 console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.username}')
+					 console.log('${vo.employeeID}')
+					 console.log('${member}')
+					
+					 </script>
 		</div>
+		
 		<input type="hidden" id="form-add-no" name="approvalTypeNo">
 		
 
@@ -173,176 +196,18 @@
 
 	<!-- Modal -->
 
-	<div class="modal fade" id="approvalModal" tabindex="-1"
-		aria-labelledby="modalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-xl" role="document">
-			<div class="modal-content"
-				style="border-bottom: white; border-radius: 0rem;">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modalLabel">결재선 선택</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-
-					<div>
-						<form action="GET">
-							<input type="radio"> 이름 <input type="radio"> 부서 <input
-								type="search">
-							<button type="submit" class="btn btn-info material-icons">
-								search</button>
-						</form>
-					</div>
-
-
-					<div style="display: flex; float: left; width: 40%;">
-						<div style="float: left;">
-
-							<ul id="tree" class="ztree"></ul>
-						</div>
-
-						<div style="margin-left: 20px;" id="tree_list_empty">
-							<ul id="tree_list" class="ztree"></ul>
-
-						</div>
-					</div>
-
-					<div id="btn-box">
-						<div>
-							<button type="button" class="btn btn-info" id="tree-mid-app">중간
-								검토자 추가</button>
-						</div>
-						<div>
-							<button type="button" class="btn btn-info" id="tree-add-app">추가
-								검토자 추가</button>
-						</div>
-						<div>
-							<button type="button" class="btn btn-info" id="tree-last-app">결재자
-								추가</button>
-						</div>
-					</div>
-
-
-					<div style="overflow: auto; float: left;" id="tree-table-div">
-						<table id="tree-table" class="table table-bordered">
-							<tbody id="tree-table-body">
-								<tr style="height: 20%">
-									<td colspan="2">결재라인 설정</td>
-
-								</tr>
-								<tr style="height: 20%">
-									<td>중간 검토자</td>
-									<td id="mid-app" width="100px"></td>
-								</tr>
-								<tr style="height: 20%">
-									<td>추가 검토자</td>
-									<td id="add-app"></td>
-								</tr>
-								<tr style="height: 20%">
-									<td>결재자</td>
-									<td id="last-app"></td>
-								</tr>
-
-							</tbody>
-						</table>
-					</div>
-				</div>
-
-
-
-
-
-
-
-
-
-				<div class="modal-footer" style="background: white;">
-					<button id="line-confirm-close" type="button"
-						class="btn btn-secondary" data-dismiss="modal">취소</button>
-					<button id="tree-line-btn" type="button" class="btn btn-info">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-
-	<!-- form modal -->
-	<div class="modal fade" id="formModal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-xl" id="form-modal-size"
-			role="document">
-			<div class="modal-content"
-				style="border-bottom: white; border-radius: 0rem;">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">결재양식 선택</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-
-					<div>
-						<form action="GET">
-							<input type="radio"> 이름 <input type="radio"> 부서 <input
-								type="search">
-							<button type="submit" class="btn btn-info material-icons">
-								search</button>
-						</form>
-					</div>
-
-					<div style="display: flex; float: left; width: 40%;">
-						<div style="">
-
-							<ul id="document-tree" class="ztree"></ul>
-						</div>
-
-						<div style="margin-left: 20px;" id="tree_list_empty">
-							<ul id="form_list" class="ztree"></ul>
-						</div>
-						<input type="hidden">
-					</div>
-
-					<!-- 문서 data -->
-					<c:forEach items="${list}" var="vo" varStatus="i">
-						<span class="get-up-code-name"
-							data-up-type-cd="${vo.approvalUpTypeVO.approvalUpTypeCd}"
-							data-code-name="${vo.codeName}"
-							data-up-code-name="${vo.approvalUpTypeVO.codeName}"
-							data-no="${vo.approvalTypeNo}">${vo.approvalForm}</span>
-
-					</c:forEach>
-
-
-
-				</div>
-
-
-
-
-				<div class="modal-footer" style="background: white;">
-					<button id="modal-confirm-close" type="button"
-						class="btn btn-secondary" data-dismiss="modal">취소</button>
-					<button id="modal-confirm-btn" type="button" class="btn btn-info">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
 
 	<!-- modal end -->
 	
+	<!-- PDF 경로 지정 input -->
+	<input type="file" style="display: none;" id="pdf-file">
+	 
 <!-- 첨언 있는지 여부 체크 -->
 <script type="text/javascript">
 let admonitionCheck=${not empty vo.admonition}
 
 /* 얘는 싸인 값 받기 */
-console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.username}')
+
 const formSign='${sign}';
 </script>
 
