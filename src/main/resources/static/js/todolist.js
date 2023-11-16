@@ -33,6 +33,7 @@
 
     todoListItem.on('change', '.checkbox', function() {
       let no=$(this).parent().parent().next().attr('data-no');
+      console.log(no)
       if ($(this).attr('checked')) {
         $(this).removeAttr('checked');
         
@@ -74,6 +75,8 @@
       $(this).parent().remove();
 
       let no=$(this).attr('data-no');
+
+      //숫자조회해오기
       console.log(no);
       $.ajax({
         type:'POST',

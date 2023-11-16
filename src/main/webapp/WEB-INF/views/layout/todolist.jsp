@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-    
+	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-     <!-- todolist start -->
+<link rel="stylesheet" href="/css/myCustomStyle/todolist.css">
 
+
+    	    <!-- todolist start -->
+<div id="to-do-list-div">
 <div class="toggle-slide-List">
 <div class="card">
                   <div class="card-body">
@@ -38,7 +40,10 @@
                   </div>
                 </div>
                 </div> 
+                </div>
+ <!-- todolist end -->
  
-                <!-- todolist end -->
+ 
+ <!-- todolist -->
    <script src='/js/main/toDoList.js'></script>
    <script src="/js/todolist.js"></script>

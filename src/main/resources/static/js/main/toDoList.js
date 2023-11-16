@@ -22,5 +22,14 @@ rightToggle.addEventListener('click',function(){
 
 })
 
-
+$(document).ready(function(){
+    $.ajax({
+        type:'GET',
+         url:'/todolist',
+         success:function(result){
+              $('#to-do-list-div').html(result);
+             console.log(result);
+         }
+    })
+})
 

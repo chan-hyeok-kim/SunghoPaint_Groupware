@@ -90,6 +90,8 @@ public class IndexController {
 	public void getToDoList(Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception{
 		List<ToDoListVO> tl=mainService.getToDoList(humanResourceVO.getEmployeeID());
 		model.addAttribute("toDoList", tl);
+		
+		
 	}
 	
 	@PostMapping("/toDo/add")
