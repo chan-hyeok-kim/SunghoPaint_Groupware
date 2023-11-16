@@ -28,6 +28,7 @@
  		if(event.data.length>0){
  			let newAlarm = '';
  			newAlarm += '<li scope="col">' + event.data + "</li>"
+      console.log(newAlarm);
  			$('#alarmUL').append(newAlarm);
 			// alarmDiv.style.visibility = "visible";
 	}
@@ -86,9 +87,9 @@ mainCheckBtn[0].addEventListener('click',(function(){
 })
 )
 
-mainBtn.addEventListener('click',(function(){
+mainBtn[0].addEventListener('click',(function(){
     $('this').toggleClass('active')
-
+    console.log(이동)
 })
 )
 

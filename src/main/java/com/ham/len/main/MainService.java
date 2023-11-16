@@ -35,12 +35,17 @@ public class MainService {
 	}
 	
 	public int setAlarmAdd(NotificationVO notificationVO) throws Exception{
-		return setAlarmAdd(notificationVO);
+		return mainDAO.setAlarmAdd(notificationVO);
 	}
 	
 	public int setAlarmUpdate(NotificationVO notificationVO) throws Exception{
-		return setAlarmUpdate(notificationVO);
+		return mainDAO.setAlarmUpdate(notificationVO);
 	}
+	
+	public List<NotificationVO> getAlarmList(String id) throws Exception{
+		return mainDAO.getAlarmList(id);
+	}
+	
 	
 	
 	
