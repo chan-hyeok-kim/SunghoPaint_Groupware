@@ -417,23 +417,7 @@
 	</div>
     <!-- notice end -->
 	
-    <!-- doughnut chart -->
-   <div class="row">
-    <div class="col-md-7 grid-margin stretch-card" style="height: 500px;" id="material-product-amount">
-        <div class="card">
-            <div class="card-body">
-                <h4 style="font-weight: bold">주간 원료 생산량</h4>
-                
-                
-                <div>
-  <canvas id="doughnut chart"></canvas>
-</div>
-</div>
-</div>
-</div>
-</div>
-    
-    <!-- doughnut chart end-->
+  
     
 
 
