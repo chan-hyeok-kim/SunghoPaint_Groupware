@@ -243,6 +243,7 @@
 	      </a>
 	      <div class="collapse" id="admin-attendance-general-pages">
 	        <ul class="nav flex-column sub-menu">
+	        	<li class="nav-item"> <a class="nav-link" href="/attendance/list"> 근태 현황 </a></li>
 				<li class="nav-item"> <a class="nav-link" href="/annual/status"> 연차 현황 </a></li>
 	        </ul>
 	      </div>

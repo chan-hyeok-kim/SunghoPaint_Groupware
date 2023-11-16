@@ -54,10 +54,4 @@
 		ATTENDANCE_END = #{attendanceEnd}, MOD_ID = #{modId}, MOD_DATE = #{modDate}, MOD_MENU = #{modMenu}
 		WHERE EMPLOYEE_ID = #{employeeId} AND ATTENDANCE_END IS NULL 
 	</update>
-	
-	<select id="getEmployeeIDList" resultType="String">
-		SELECT EMPLOYEE_ID
-			FROM HUMAN_RESOURCE
-		<include refid="searchSQL" />
-	</select>
 </mapper>

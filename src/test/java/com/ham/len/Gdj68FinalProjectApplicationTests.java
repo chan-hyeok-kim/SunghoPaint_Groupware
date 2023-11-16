@@ -1,7 +1,5 @@
 package com.ham.len;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.Locale;
@@ -17,8 +15,6 @@ import com.ham.len.humanresource.HumanResourceService;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.transfer.TransferDAO;
 import com.ham.len.transfer.TransferVO;
-import com.ham.len.util.SMTP;
-import com.itextpdf.text.log.SysoCounter;
 
 import lombok.extern.slf4j.Slf4j;
 

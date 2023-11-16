@@ -5,8 +5,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ham.len.humanresource.HumanResourcePager;
-
 @Mapper
 public interface AttendanceDAO {
 	public AttendanceVO getCurrentAttendance();
@@ -15,5 +13,4 @@ public interface AttendanceDAO {
 	public int getLeaveWorkWhether(String employeeId);
 	public int setGoWork(AttendanceVO attendanceVO);
 	public int setLeaveWork(AttendanceVO attendanceVO);
-	public List<String> getEmployeeIDList(HumanResourcePager pager);
 }

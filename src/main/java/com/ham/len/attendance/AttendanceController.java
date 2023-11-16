@@ -141,9 +141,19 @@ public class AttendanceController {
 	}
 	
 	@GetMapping("list")
-	public String getList(HumanResourcePager pager, Model model) {
-		List<String> employeeIDList = attendanceService.getEmployeeIDList(pager);
-		model.addAttribute("employeeIDList_json", new Gson().toJson(employeeIDList));
+	public String getList(@RequestParam(value = "year", defaultValue = "0")int year,
+								@RequestParam(value = "month", defaultValue = "0")int month,
+								HumanResourcePager pager, Model model) {
+		
+		if(year == 0 && month == 0) {
+			Calendar calendar = Calendar.getInstance(Locale.KOREA);
+			year = calendar.get(Calendar.YEAR);
+			month = calendar.get(Calendar.MONTH) + 1;
+		}
+		
+		String[][] weeksOfMonthInfo = WeekOfMonthInfoCalculator.getWeeksOfMonthInfo(year, month);
+		model.addAttribute("weeksOfMonthInfo", weeksOfMonthInfo);
+		
 		return "attendance/list";
 	}
 }
