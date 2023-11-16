@@ -237,7 +237,8 @@ public class ApprovalController {
             
             if(result>0) {
         		NotificationVO notificationVO=alarmSetting.setApprovalAlarm();
-        		notificationVO.setEmployeeID(approvalVO.getDrafter());
+        		notificationVO.setEmployeeID(approvalVO.getEmployeeID());
+        		log.warn("알람왜안드감{}",notificationVO);
         		result=mainService.setAlarmAdd(notificationVO);
         		check=result;
         		}

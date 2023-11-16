@@ -22,6 +22,23 @@ const alarmUL = document.querySelector("#alarmUL");
 
  	};
 
+	 $.ajax({
+		type:'GET',
+		url:'/setAlarm',
+		success:function(result){
+			console.log(result);
+			if(result && ws){
+                for(r: result){
+				let message=result.notificationTitle+','+result.notificationContents+','+result.notificationDate;
+				console.log(message);
+				ws.send(message);
+				}
+			}
+		}
+
+
+	})
+
  	ws.onmessage = function(event) {
  		/* 받을 알람이 있을 때 */
  		console.log(event.data);
@@ -37,7 +54,8 @@ const alarmUL = document.querySelector("#alarmUL");
  	ws.onclose = function() {
  	    console.log('close');
  	};
-
+     
+	
  };
 
 

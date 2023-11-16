@@ -9,7 +9,6 @@
       var item = $(this).prevAll('.todo-list-input').val();
 
       if (item) {
-        todoListItem.append("<li><div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox'/>" + item + "<i class='input-helper'></i></label></div><i class='remove mdi mdi-close-circle-outline'></i></li>");
         
       
         let contents=item;
@@ -24,12 +23,14 @@
              console.log('성공')
              $.ajax({
               type:'GET',
-               url:'/todolist',
+               url:'/toDo/lastDetail',
                success:function(result){
-                    $('#to-do-list-div').html(result);
+                   
                    console.log(result);
+                   todoListItem.append("<li><div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox'/>" + item + "<i class='input-helper'></i></label></div><i class='remove mdi mdi-close-circle-outline' data-no="+result+"></i></li>");
+        
                }
-          })
+             })
           }
 
          })

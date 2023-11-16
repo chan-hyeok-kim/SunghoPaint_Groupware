@@ -121,6 +121,7 @@
 						 <input id="check" type="hidden" name="approvalCheckCd" value="${vo.approvalCheckCd}"></td>
 					     <input type="hidden" name="approvalNo" value="${vo.approvalNo}">
 					     <input type="hidden" id="status-cd-check" name="approvalStatusCd" value="${vo.approvalStatusCd}">
+					     <input type="hidden" name="employeeID" value="${vo.employeeID}">
 					     
 					</tr>
 					<tr>

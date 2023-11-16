@@ -119,6 +119,13 @@ public class IndexController {
 		return "commons/ajaxResult";
 	}
 	
+	@GetMapping("/toDo/lastDetail")
+	public String getLastDetail(ToDoListVO toDoListVO,Model model) throws Exception{
+		 Long no=mainService.getLastDetail(toDoListVO);
+		 model.addAttribute("result", no);
+		 
+		 return "commons/ajaxResult";
+	}
 	
 	
 	@RequestMapping("/commons/result")
