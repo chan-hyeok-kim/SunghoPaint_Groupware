@@ -22,6 +22,14 @@
             },
             success:function(){
              console.log('성공')
+             $.ajax({
+              type:'GET',
+               url:'/todolist',
+               success:function(result){
+                    $('#to-do-list-div').html(result);
+                   console.log(result);
+               }
+          })
           }
 
          })

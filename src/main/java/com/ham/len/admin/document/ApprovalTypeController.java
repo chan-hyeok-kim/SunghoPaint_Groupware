@@ -89,6 +89,10 @@ public class ApprovalTypeController {
 		CodeVO codeVO = new CodeVO();
 		codeVO.setUpCode(typeUpCd);
 	    String code=codeService.getLastId(codeVO);
+	    
+	    if(code==null) {
+	    	code="R011";
+	    }
 	    log.warn("&&&&&&&{}&&&&&&&",code);
 	    //이 codeVO에는 코드만 있다. 최신 코드에 +1된 값
 	    approvalTypeVO.setApprovalTypeCd(code);

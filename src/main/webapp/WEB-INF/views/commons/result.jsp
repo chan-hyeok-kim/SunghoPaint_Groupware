@@ -25,6 +25,24 @@
 				location.href = "${url}";		
 			})
 		}
+		
+		if('${appResultCheck}'>0){
+			 $.ajax({
+			        type:'GET',
+			        url:'/setAlarm',
+			        success:function(result){
+			            console.log(result);
+			            if(result && ws){
+
+			                let message=result.notificationTitle+','+result.notificationContents+','+result.notificationDate;
+			                console.log(message);
+			                ws.send(message);
+			            }
+			        }
+
+
+			    })
+		}
 	</script>
 </body>
 </html>

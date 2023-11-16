@@ -230,6 +230,7 @@ public class ApprovalController {
 		
         int result=0;
         String message="검토";
+        int check=0;
 		if (approvalVO.getApprovalStatusCd().equals("R033")) {
             result = approvalService.setEndCheck(approvalVO);
             message="승인";
@@ -238,11 +239,13 @@ public class ApprovalController {
         		NotificationVO notificationVO=alarmSetting.setApprovalAlarm();
         		notificationVO.setEmployeeID(approvalVO.getDrafter());
         		result=mainService.setAlarmAdd(notificationVO);
+        		check=result;
         		}
             //결재 승인
 		} else if (approvalVO.getApprovalStatusCd().equals("R034")) {
             result = approvalService.setReject(approvalVO);
             message="반려";
+            check=result;
             //반려
 		} else {
 			result = approvalService.setCheck(approvalVO);
@@ -255,7 +258,7 @@ public class ApprovalController {
 			model.addAttribute("message", "에러. 결재 실패");
 		}
 	
-		
+		model.addAttribute("appResultCheck", check);
 		model.addAttribute("url", "/approval/list");
 		
 		for(RoleVO r: humanResourceVO.getRoles()) {
