@@ -200,7 +200,12 @@ ul.nav-tabs {
 						<div class="row">
                     		<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">거래처 담당자</label>
-							<input type="text" class="form-control form-control-short" id="clientManager" name="clientManager" value="${getClientDetail.clientManager}">
+							<select class="form-select form-select-sm" aria-label="Small select example" id="clientManager" name="clientManager">
+							  <c:forEach items="${getManager}" var="car">
+						        <option value="${car.name}">${car.name} ${car.codeName}</option>
+						    </c:forEach>
+							</select>
+							
 							</div>
 							<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">담당자 연락처</label>
@@ -221,10 +226,6 @@ ul.nav-tabs {
 							<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">예금주명</label>
 							<input type="text" class="form-control form-control-short" id="clientBankName" name="clientBankName" value="${getClientDetail.clientBankName}">
-							</div>
-							<div class="col-md-4">
-							<label for="carReason" class="form-label" style="font-weight:bold;">매출합계</label>
-							<p>?</p>
 							</div>
 						</div>
 						<br>

@@ -9,7 +9,7 @@
 	<!-- 배차 신청 -->
    <insert id="setCarReservationAdd" parameterType="CarReservationVO">
 		INSERT INTO CAR_RESERVATION 
-		values(0, #{employeeId}, #{carNo}, #{rentalDate}, #{rentalReasonCd}, #{rentalLocation}, #{returnDate}, 'test', sysdate(), 'test', 'test', sysdate(), 'test');
+		values(0, #{employeeId}, #{carNo}, #{rentalDate}, #{rentalReasonCd}, #{rentalLocation}, #{returnDate}, #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu});
    </insert>
    
    <!-- 배차 신청시 CAR_STATUS_CD 업데이트 쿼리 -->
@@ -129,7 +129,7 @@
    <!-- 자산 추가 관련 -->
    <insert id="setCarAdd" parameterType="CarListVO">
    		INSERT INTO CAR_LIST 
-		values(0, #{carModelCd}, #{carModelName}, 'C011', '', sysdate(), '', '', sysdate(), '', '')
+		values(0, #{carModelCd}, #{carModelName}, 'C011', #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu})
    </insert>
    
    <!-- 자산 상세 정보 -->
@@ -157,7 +157,8 @@
 	
 	<!-- 거래처 조회 -->
 	<select id="getClientList" resultType="SalesClientVO">
-		SELECT * FROM CLIENT_LIST 
+		SELECT *, FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS CODE_NAME FROM CLIENT_LIST CL INNER JOIN HUMAN_RESOURCE HR 
+		ON CL.EMPLOYEE_ID = HR.EMPLOYEE_ID
 	</select>
 	
 	<!-- 거래처 추가(구분)  -->
@@ -170,13 +171,14 @@
    		INSERT INTO CLIENT_LIST 
    		VALUES(0, #{clientName}, #{clientTypeCd}, #{clientRepresent}, #{clientNumber}, 
    		#{clientAddress}, #{clientZipCode}, #{clientRefAddress}, #{clientDetailAddress}, 
-   		#{clientDate}, 2023001, '', sysdate(), '', '', sysdate(), '', #{clientIndustry}, 
+   		#{clientDate}, #{employeeId}, #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu}, #{clientIndustry}, 
    		#{clientManager}, #{clientPhone}, #{clientBank}, #{clientAccountNo}, #{clientBankName})
    </insert>
    
    <!-- 거래처 상세 정보 -->
    <select id="getClientDetail" resultType="SalesClientVO">
-   		SELECT * FROM CLIENT_LIST WHERE CLIENT_NO=#{clientNo}
+   		select *, FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS CODE_NAME from CLIENT_LIST CL INNER JOIN HUMAN_RESOURCE HR
+		ON CL.CLIENT_MANAGER = HR.NAME WHERE CLIENT_NO=#{clientNo}
    </select>
    
    <!-- 거래처 상세 수정 -->
@@ -202,7 +204,18 @@
    		ON PM.MATERIAL_PRODUCT_NO = MP.MATERIAL_PRODUCT_NO
    </select>
    
+   <!-- 거래처 등록시 담당자 리스트 -->
+   <select id="getManagerList" resultType="HumanResourceVO">
+   		SELECT *, FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS CODE_NAME FROM HUMAN_RESOURCE
+   </select>
    
+   <!-- 담당자 선택시 연락처 가져오기 -->
+   <select id="getManagerPhone" resultType="HumanResourceVO">
+   		SELECT * FROM HUMAN_RESOURCE
+   </select>
    
-   
+   <!-- 연차 등록 -->
+   <insert id="setAddAnnual" parameterType="AnnualAddVO">
+   		INSERT INTO SCHEDULE VALUES (0, #{employeeId}, #{scheduleDate}, #{scheduleEndDate}, #{scheduleContents}, 1, #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu})
+   </insert>
 </mapper>

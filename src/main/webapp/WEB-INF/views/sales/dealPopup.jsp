@@ -86,8 +86,8 @@
                 <tr>
                     <td><span class="purchaseDate"></span></td>
                     <td><span class="codeName"></span></td>
-                    <td>?</td>
-                    <td>?</td>
+                    <td> </td>
+                    <td> </td>
                     <td><span class="totalPrice"></span> 원</td>
                 </tr>
             </tbody>
@@ -95,9 +95,9 @@
         <br>
         
         <div class="invoice-details" style="text-align: right;">
-            <span>수량: </span> ?<br>
-            <span>공급가액: </span> <span class="supplyPrice"></span><br>
-            <span>부가세 (VAT):</span> <span class="vat"></span><br>
+            <span>수량: </span> <br>
+            <span>공급가액: </span> <span class="supplyPrice"></span> 원<br>
+            <span>부가세 (VAT):</span> <span class="vat"></span> 원<br>
             <span>총 금액: </span> <span class="totalPrice"></span> 원<br>
         </div>
         <div style="text-align: center;">
