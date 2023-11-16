@@ -5,11 +5,22 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.attendance.AttendanceDAO">
+	<sql id="searchSQL">
+		<if test="department != ''">
+			WHERE DEPARTMENT_CD = #{department}
+		</if>
+		<if test="keyword != ''">
+			<if test="department == ''">WHERE</if>
+			<if test="department != ''">AND</if>
+			NAME LIKE CONCAT('%', #{keyword}, '%') 
+		</if>
+	</sql>
+	
 	<select id="getCurrentAttendance" resultType="AttendanceVO">
 		SELECT * FROM ATTENDANCE ORDER BY ATTENDANCE_NO DESC LIMIT 1
 	</select>
 	
-	<select id="getStatus" parameterType="Map" resultType="AttendanceVO">
+	<select id="getMyStatus" parameterType="Map" resultType="AttendanceVO">
 	<![CDATA[
 		SELECT *
 			FROM ATTENDANCE
@@ -43,4 +54,10 @@
 		ATTENDANCE_END = #{attendanceEnd}, MOD_ID = #{modId}, MOD_DATE = #{modDate}, MOD_MENU = #{modMenu}
 		WHERE EMPLOYEE_ID = #{employeeId} AND ATTENDANCE_END IS NULL 
 	</update>
+	
+	<select id="getEmployeeIDList" resultType="String">
+		SELECT EMPLOYEE_ID
+			FROM HUMAN_RESOURCE
+		<include refid="searchSQL" />
+	</select>
 </mapper>

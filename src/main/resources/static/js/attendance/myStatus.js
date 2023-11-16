@@ -145,7 +145,7 @@ function commute(url){
 				
 				let form = $("<form></form>");
 				form.attr("method", "POST");
-				form.attr("action", "./status");
+				form.attr("action", "./myStatus");
 				form.append($("<input/>", {type:"hidden", name:"year", value:year}));
 				form.append($("<input/>",{type:"hidden", name:"month", value:month}));
 				form.append($("<input/>",{type:"hidden", name:"day", value:day}));
@@ -186,7 +186,7 @@ $(function(){
 
 		let form = $("<form></form>");
         form.attr("method", "POST");
-        form.attr("action", "/attendance/status");
+        form.attr("action", "/attendance/myStatus");
 		form.append($("<input/>", {type:"hidden", name:"year", value:year}));
 		form.append($("<input/>", {type:"hidden", name:"month", value:month}));
         form.appendTo("body");

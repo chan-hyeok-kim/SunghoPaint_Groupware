@@ -40,6 +40,17 @@
 		</if>
 	</sql>
 	
+	<sql id="humanResourceListFilterSQL">
+		<if test="department != ''">
+			WHERE DEPARTMENT_CD = #{department}
+		</if>
+		<if test="keyword != ''">
+			<if test="department == ''">WHERE</if>
+			<if test="department != ''">AND</if>
+			NAME LIKE CONCAT('%', #{keyword}, '%') 
+		</if>
+	</sql>
+	
 	<select id="getHumanResource" parameterType="String" resultMap="getHumanResourceResult">
 		SELECT *,
 		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD_NAME,

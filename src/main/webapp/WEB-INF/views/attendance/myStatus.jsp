@@ -4,9 +4,9 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<script type="text/javascript" src="/js/attendance/status.js"></script>
+<script type="text/javascript" src="/js/attendance/myStatus.js"></script>
 <link rel="stylesheet" href="/css/commons.css">
-<link rel="stylesheet" href="/css/attendance/status.css">
+<link rel="stylesheet" href="/css/attendance/myStatus.css">
 
 <sec:authorize access="isAuthenticated()" var="isAuthenticated" />
 

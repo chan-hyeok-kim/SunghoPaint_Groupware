@@ -8,6 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ham.len.humanresource.HumanResourcePager;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -16,14 +18,14 @@ public class AttendanceService {
 	@Autowired
 	private AttendanceDAO attendanceDAO;
 	
-	public Map<String, Boolean> getCommuteWhether(String employeeId) {
+	public Map<String, Boolean> getCommuteWhether(String employeeID) {
 		Map<String, Object> params = new HashMap<>();
-		params.put("employeeId", employeeId);
+		params.put("employeeId", employeeID);
 		params.put("date", new Date());
 		AttendanceVO attendanceVO = attendanceDAO.getAttendance(params);
 		
 		Map<String, Boolean> commuteWhether = new HashMap<>();
-		if(attendanceVO == null && attendanceDAO.getLeaveWorkWhether(employeeId) == 0) {
+		if(attendanceVO == null && attendanceDAO.getLeaveWorkWhether(employeeID) == 0) {
 			commuteWhether.put("goWork", false);
 			commuteWhether.put("leaveWork", true);
 		}else {
@@ -45,8 +47,8 @@ public class AttendanceService {
 		return attendanceDAO.getCurrentAttendance();
 	}
 	
-	public List<AttendanceVO> getStatus(Map<String, String> params) {
-		return attendanceDAO.getStatus(params);
+	public List<AttendanceVO> getMyStatus(Map<String, String> params) {
+		return attendanceDAO.getMyStatus(params);
 	}
 	
 	public AttendanceVO getAttendance(Map<String, Object> params) {
@@ -63,5 +65,9 @@ public class AttendanceService {
 	
 	public int setLeaveWork(AttendanceVO attendanceVO) {
 		return attendanceDAO.setLeaveWork(attendanceVO);
+	}
+	
+	public List<String> getEmployeeIDList(HumanResourcePager pager) {
+		return attendanceDAO.getEmployeeIDList(pager);
 	}
 }

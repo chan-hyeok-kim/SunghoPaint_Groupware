@@ -74,7 +74,7 @@
     </li>
     <li id="sidebar-divider" class="nav-item"></li>
     <li class="nav-item">
-      <a class="nav-link" onclick="sendPost('/attendance/status')" style="cursor:pointer;">
+      <a class="nav-link" onclick="sendPost('/attendance/myStatus')" style="cursor:pointer;">
         <span class="menu-title">근태 관리</span>
         <i class="mdi mdi-contacts menu-icon"></i>
       </a>

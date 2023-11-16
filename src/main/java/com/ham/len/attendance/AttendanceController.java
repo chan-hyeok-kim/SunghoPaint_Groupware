@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ham.len.humanresource.HumanResourcePager;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.util.WeekOfMonthInfoCalculator;
 
@@ -40,11 +41,13 @@ public class AttendanceController {
 		return new Date();
 	}
 	
-	@PostMapping("status")
-	public String getStatus(@RequestParam(value = "year", defaultValue = "0")int year,
-									@RequestParam(value = "month", defaultValue = "0")int month,
-									@RequestParam(value = "day", required = false)Integer day,
-									@AuthenticationPrincipal HumanResourceVO humanResourceVO, Model model) {
+	@PostMapping("myStatus")
+	public String getMyStatus(@RequestParam(value = "year", defaultValue = "0")int year,
+										@RequestParam(value = "month", defaultValue = "0")int month,
+										@RequestParam(value = "day", required = false)Integer day,
+										String employeeID, @AuthenticationPrincipal HumanResourceVO humanResourceVO, Model model) {
+		
+		if(employeeID == null) employeeID = humanResourceVO.getEmployeeID();
 		
 		Calendar cal = Calendar.getInstance(Locale.KOREA);
 		int weekOfMonth = 0;
@@ -72,11 +75,11 @@ public class AttendanceController {
 		String end_date = weeksOfMonthInfo[weeksOfMonthInfo.length - 1][7].split(" ")[0].replaceAll("[ymd]", "-");
 		start_date = start_date.substring(0, start_date.length() - 1) + " " + "00:00:00";
 		end_date = end_date.substring(0, end_date.length() - 1) + " " + "23:59:59";
-		params.put("employeeID", humanResourceVO.getEmployeeID());
+		params.put("employeeID", employeeID);
 		params.put("start_date", start_date);
 		params.put("end_date", end_date);
 		
-		List<AttendanceVO> attendances = attendanceService.getStatus(params);
+		List<AttendanceVO> attendances = attendanceService.getMyStatus(params);
 		
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -86,7 +89,7 @@ public class AttendanceController {
 		date.put("month", month);
 		date.put("weekOfMonth", weekOfMonth);
 		
-		Map<String, Boolean> commuteWhether = attendanceService.getCommuteWhether(humanResourceVO.getEmployeeID());
+		Map<String, Boolean> commuteWhether = attendanceService.getCommuteWhether(employeeID);
 		
 		model.addAttribute("date", date);
 		model.addAttribute("commuteWhether", commuteWhether);
@@ -95,7 +98,7 @@ public class AttendanceController {
 		model.addAttribute("weeksOfMonthInfo_json", gson.toJson(weeksOfMonthInfo));
 		model.addAttribute("attendances_json", gson.toJson(attendances));
 		
-		return "attendance/status";
+		return "attendance/myStatus";
 	}
 	
 	@PostMapping("goWork")
@@ -135,5 +138,12 @@ public class AttendanceController {
 		}
 		
 		return null;
+	}
+	
+	@GetMapping("list")
+	public String getList(HumanResourcePager pager, Model model) {
+		List<String> employeeIDList = attendanceService.getEmployeeIDList(pager);
+		model.addAttribute("employeeIDList_json", new Gson().toJson(employeeIDList));
+		return "attendance/list";
 	}
 }
