@@ -74,26 +74,133 @@
 const mainCheckBtn=document.getElementsByClassName('main-btn-check');
 const mainBtn=document.getElementsByClassName('main-btn');
 
-mainCheckBtn[0].addEventListener('click',(function(){
-    console.log('클릭 확인')
-    $('#my-app-list').toggleClass('active')
 
-    // var con = document.getElementById("my-app-list"); 	
-    // if(con.style.display=='none'){ 		
-    // 	con.style.display = 'block'; 	
-    // }else{ 		
-    // 	con.style.display = 'none'; 	
-    // } 
-})
+//보라
+mainCheckBtn[0].addEventListener('click',(function(){
+    console.log('보라 클릭 확인')
+
+    if($('#app-list').hasClass('active')){
+      $('#app-list').toggleClass('active')
+      $('#my-app-list').toggleClass('active')
+      return;
+    }
+    if($('#message-list').hasClass('active')){
+      $('#message-list').toggleClass('active')
+      $('#my-app-list').toggleClass('active')
+      return;
+    }
+    if($('#notice-list').hasClass('active')){
+      $('#notice-list').toggleClass('active')
+      $('#my-app-list').toggleClass('active')
+      return;
+    }
+
+    $('#my-app-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('active');
+    
+   
+
+
+  })
 )
 
 mainBtn[0].addEventListener('click',(function(){
-    $('this').toggleClass('active')
-    console.log(이동)
+  $(this).parent().parent().parent().remove();
+    console.log(이동);
+    
+})
+)
+
+//초록
+mainCheckBtn[1].addEventListener('click',(function(){
+  console.log('초록 클릭 확인')
+  if($('#my-app-list').hasClass('active')){
+    $('#my-app-list').toggleClass('active')
+    $('#app-list').toggleClass('active')
+    return;
+  }
+  if($('#message-list').hasClass('active')){
+    $('#message-list').toggleClass('active')
+    $('#app-list').toggleClass('active')
+    return;
+  }
+  if($('#notice-list').hasClass('active')){
+    $('#notice-list').toggleClass('active')
+    $('#app-list').toggleClass('active')
+    return;
+  }
+
+
+  $('#app-list').toggleClass('active')
+  $('#material-product-amount').toggleClass('active');
+})
+)
+
+mainBtn[1].addEventListener('click',(function(){
+  $(this).parent().parent().parent().remove();
+    
 })
 )
 
 
+mainCheckBtn[2].addEventListener('click',(function(){
+  console.log('클릭 확인')
+  if($('#my-app-list').hasClass('active')){
+    $('#my-app-list').toggleClass('active')
+    $('#message-list').toggleClass('active')
+    return;
+  }
+  if($('#app-list').hasClass('active')){
+    $('#app-list').toggleClass('active')
+    $('#message-list').toggleClass('active')
+    return;
+  }
+  if($('#notice-list').hasClass('active')){
+    $('#notice-list').toggleClass('active')
+    $('#message-list').toggleClass('active')
+    return;
+  }
+
+  $('#message-list').toggleClass('active')
+  $('#material-product-amount').toggleClass('active');
+})
+)
+
+mainBtn[2].addEventListener('click',(function(){
+  $(this).parent().parent().parent().remove();
+    
+})
+)
+
+
+mainCheckBtn[3].addEventListener('click',(function(){
+  console.log('클릭 확인')
+  if($('#my-app-list').hasClass('active')){
+    $('#my-app-list').toggleClass('active')
+    $('#notice-list').toggleClass('active')
+    return;
+  }
+  if($('#app-list').hasClass('active')){
+    $('#app-list').toggleClass('active')
+    $('#notice-list').toggleClass('active')
+    return;
+  }
+  if($('#message-list').hasClass('active')){
+    $('#message-list').toggleClass('active')
+    $('#notice-list').toggleClass('active')
+    return;
+  }
+
+  $('#app-list').toggleClass('active')
+  $('#material-product-amount').toggleClass('active');
+})
+)
+
+mainBtn[3].addEventListener('click',(function(){
+  $(this).parent().parent().parent().remove();
+    
+})
+)
 
 //chart.js 차트
 
@@ -185,3 +292,26 @@ $.ajax({
       }
     }
   });
+
+
+  // 도넛 차트
+
+  const data = {
+  labels: [
+    'Red',
+    'Blue',
+    'Yellow'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+};
+
+new Chart(doughnutChart,)

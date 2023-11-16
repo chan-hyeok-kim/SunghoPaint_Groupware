@@ -21,6 +21,11 @@ span.center{
 }
 
 
+
+
+
+
+/* 동적으로 움직이는 카드바디 */
   #my-app-list button{
     padding:6px 10px 6px 10px;
     background: white;
@@ -92,12 +97,76 @@ span.center{
   }
 
   #my-app-list {
-    display: none;
-    opacity: 0;
-    transition: opacity 2s ease;
+    transform: translateX(-100%);  /* X축 이동, Y축 고정 */
+    transition: .5s;
+    /* width: 392.75px; */
+    position:absolute;
+    left:16%;
+    top:28%;
+    z-index:10;
   }
 
   #my-app-list.active {
-    display: block;
-    opacity: 1;
+    transform: translateX(0); 
+  }
+
+  #material-product-amount.active{
+    transition: .5s;
+    transform: translateX(-100%);
+  }
+  
+  #material-product-amount{
+    transition: .5s;
+    transform: translateX(0%);
+  }
+  
+  
+
+
+
+
+
+  #app-list {
+    transform: translateX(-100%);  /* X축 이동, Y축 고정 */
+    transition: .5s;
+    /* width: 392.75px; */
+    position:absolute;
+    left:16%;
+    top:28%;
+    z-index:10;
+  }
+
+  #app-list.active {
+    transform: translateX(0); 
+  }
+
+
+  #message-list {
+    transform: translateX(-100%);  /* X축 이동, Y축 고정 */
+    transition: .5s;
+    /* width: 392.75px; */
+    position:absolute;
+    left:16%;
+    top:28%;
+    z-index:10;
+  }
+
+  #message-list.active {
+    transform: translateX(0); 
+  }
+
+
+  
+  #notice-list {
+    transform: translateX(-100%);  /* X축 이동, Y축 고정 */
+    transition: .5s;
+    /* width: 392.75px; */
+    position:absolute;
+    left:16%;
+    top:28%;
+    z-index:10;
+  }
+
+  #notice-list.active {
+    transform: translateX(0); 
   }
