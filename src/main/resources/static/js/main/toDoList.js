@@ -18,6 +18,9 @@ const rightToggle=document.getElementById('todolist-toggle')
 
 rightToggle.addEventListener('click',function(){
     console.log('클릭 확인')
-    $('#toggle-slide-List').toggleClass('slide')
+    $('.toggle-slide-List').toggleClass('active')
+
 })
+
+
 

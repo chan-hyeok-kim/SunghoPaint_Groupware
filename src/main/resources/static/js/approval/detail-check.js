@@ -128,6 +128,12 @@ approvalBtn.addEventListener("click",function(){
 		return;
 	}
 
+	let admon=$('textarea[name=admonition]').val()
+	if(admon || admon.length!=0){
+		swal('반려시에만 첨언 작성이 가능합니다')
+		return;
+	}
+
 	Swal.fire({
 		title:'정말 결재하시겠습니까?',
 	 //   icon:'info',

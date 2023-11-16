@@ -91,7 +91,7 @@
 		OR MID_APPROVER=#{vo.employeeID}
 		OR ADD_APPROVER=#{vo.employeeID}
 		OR LAST_APPROVER=#{vo.employeeID}
-		ORDER BY APPROVAL_NO DESC
+		ORDER BY A.APPROVAL_NO DESC
 		LIMIT
 		#{pager.startRow},#{pager.lastRow} 
     </select>

@@ -12,14 +12,15 @@
    WHERE LEFT(FACTORY_STORAGE_CD,3)='M02'
 </select>
 
-<select id="getMaterial" resultType="MaterialProductVO">
+<select id="getMaterial" resultType="MaterialProductVO" parameterType="String">
 SELECT *,FN_CODE_NM(LEFT(MATERIAL_PRODUCT_CD,3),MATERIAL_PRODUCT_CD) AS MATERIAL_PRODUCT_NAME
   FROM MATERIAL_PRODUCT
- WHERE MATERIAL_PRODUCT_CATEGORY='제품'
+ WHERE MATERIAL_PRODUCT_CATEGORY=#{category}
 </select>
 
-<select id="getList" resultType="ToDoListVO">
+<select id="getToDoList" resultType="ToDoListVO" parameterType="String">
 SELECT * FROM TO_DO_LIST
+ WHERE EMPLOYEE_ID=#{id}
 </select>
 
 <insert id="setAdd" parameterType="ToDoListVO">
@@ -40,6 +41,24 @@ VALUES
    WHERE TO_DO_LIST_NO=#{toDoListNo}
 </delete>
  
+<select id="getAlarmList" resultType="NotificationVO" parameterType="String">
+  SELECT * 
+    FROM NOTIFICATION
+   WHERE EMPLOYEE_ID=#{id}
+</select> 
+ 
+ <insert id="setAlarmAdd" parameterType="NotificationVO">
+	 INSERT INTO NOTIFICATION
+	(NOTIFICATION_NO,EMPLOYEE_ID,NOTIFICATION_DATE,NOTIFICATION_TITLE,NOTIFICATION_CONTENTS,NOTIFICATION_CHECK,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+	VALUES
+	(#{notificationNo},#{employeeID},NOW(),{notificationTitle},{notificationContents},{notificationCheck} 0,#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
+</insert>
+
+<update id="setAlarmUpdate" parameterType="NotificationVO">
+  UPDATE NOTIFICATION
+     SET NOTIFICATION_CHECK=#{notificationCheck},MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+   WHERE NOTIFICATION_NO=#{notificationNo}
+</update>
  
  <!-- update
  

@@ -3,6 +3,7 @@
 
 <sec:authentication property="principal" var="principal" />
 <link rel="stylesheet" href="/css/index.css" />
+<link rel="stylesheet" href="/css/myCustomStyle/todolist.css">
 
 <!-- partial:partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -94,8 +95,8 @@
 	                <span class="count-symbol bg-danger"></span>
 	              </a>
 	              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-	                <h6 class="p-3 mb-0">Notifications</h6>
-	                <div class="dropdown-divider"></div>
+	                <h6 class="p-3 mb-0">알림</h6>
+	                <div class="dropdown-divider" id="alarmUL"></div>
 	                <a class="dropdown-item preview-item">
 	                  <div class="preview-thumbnail">
 	                    <div class="preview-icon bg-success">
@@ -132,7 +133,7 @@
 	                  </div>
 	                </a>
 	                <div class="dropdown-divider"></div>
-	                <h6 class="p-3 mb-0 text-center">See all notifications</h6>
+	                <h6 class="p-3 mb-0 text-center"><a>모든 알림 확인하기</a></h6>
 	              </div>
 	            </li>
             </sec:authorize>
@@ -163,4 +164,9 @@
           </button>
         </div>
         
+        
       </nav>
+      
+      
+    
+   

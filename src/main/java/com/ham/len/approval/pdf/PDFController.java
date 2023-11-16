@@ -27,24 +27,7 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.font.FontProvider;
 
-import com.itextpdf.text.Font;
 
-import com.itextpdf.text.pdf.BaseFont;
-
-import com.itextpdf.tool.xml.XMLWorker;
-import com.itextpdf.tool.xml.XMLWorkerFontProvider;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
-import com.itextpdf.tool.xml.css.CssFile;
-import com.itextpdf.tool.xml.css.StyleAttrCSSResolver;
-import com.itextpdf.tool.xml.html.CssAppliers;
-import com.itextpdf.tool.xml.html.CssAppliersImpl;
-import com.itextpdf.tool.xml.html.Tags;
-import com.itextpdf.tool.xml.parser.XMLParser;
-import com.itextpdf.tool.xml.pipeline.css.CSSResolver;
-import com.itextpdf.tool.xml.pipeline.css.CssResolverPipeline;
-import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
-import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
-import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 
 
 import lombok.RequiredArgsConstructor;

@@ -8,6 +8,7 @@
 		<put-attribute name="navbar" value="/WEB-INF/views/layout/navbar.jsp"/>
 		<put-attribute name="sidebar" value="/WEB-INF/views/layout/sidebar.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/> 
+	    <put-attribute name="todolist" value="/WEB-INF/views/layout/todolist.jsp"/>
 	    <put-attribute name="body" value="" />
 	</definition>
 	
@@ -129,6 +130,9 @@
 	</definition>
 	
 	<definition name="commons/result" template="/WEB-INF/views/commons/result.jsp">
+	</definition>
+	
+	<definition name="todolist" template="/WEB-INF/views/layout/todolist.jsp">
 	</definition>
 	
 	<!-- 장재혁 -->

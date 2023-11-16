@@ -14,12 +14,12 @@ public class MainService {
 	@Autowired 
 	private MainDAO mainDAO;
 	
-    public List<MaterialProductVO> getMaterial() throws Exception{
-    	return mainDAO.getMaterial();
+    public List<MaterialProductVO> getMaterial(String category) throws Exception{
+    	return mainDAO.getMaterial(category);
     }
 	
-	public List<ToDoListVO> getList() throws Exception{
-		return mainDAO.getList();
+	public List<ToDoListVO> getToDoList(String id) throws Exception{
+		return mainDAO.getToDoList(id);
 	}
 	
 	public int setAdd(ToDoListVO toDoListVO) throws Exception{
@@ -33,4 +33,21 @@ public class MainService {
 	public int setDelete(ToDoListVO toDoListVO) throws Exception{
 		return mainDAO.setDelete(toDoListVO);
 	}
+	
+	public int setAlarmAdd(NotificationVO notificationVO) throws Exception{
+		return mainDAO.setAlarmAdd(notificationVO);
+	}
+	
+	public int setAlarmUpdate(NotificationVO notificationVO) throws Exception{
+		return mainDAO.setAlarmUpdate(notificationVO);
+	}
+	
+	public List<NotificationVO> getAlarmList(String id) throws Exception{
+		return mainDAO.getAlarmList(id);
+	}
+	
+	
+	
+	
+	
 }

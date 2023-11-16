@@ -138,6 +138,9 @@
 </nav>
 
   <!-- Button List  -->
+ 
+  
+  
 				  <div style="float: right;">
 				  <button id="add-proceed-btn" class="btn btn-info">새 결재 진행</button>
 				 
@@ -149,17 +152,21 @@
 				  
 				
 
-
-<!-- Sign -->
+ <!-- Sign -->
 <div style="float:left">
-     <button type="button" class="btn" data-toggle="modal"  data-target="#stampModal">도장 등록</button>
+<div style="margin-left:20px">
+     <button type="button" class="btn btn-gradient-light" data-toggle="modal"  data-target="#stampModal">도장 등록</button>
+  <span style="margin-left:20px;">
+    <button id="sign-modal" type="button" class="btn btn-gradient-light" data-toggle="modal" data-target="#signModal">서명 만들기/등록</button>
+</span> 
   </div> 
+  
  
 <!-- Stamp --> 
-<div>
-    <button id="sign-modal" type="button" class="btn" data-toggle="modal" data-target="#signModal">서명 만들기/등록</button>
-</div> 
-  
+
+</div>
+
+
 
   
   
