@@ -96,8 +96,8 @@
         
         <div class="invoice-details" style="text-align: right;">
             <span>수량: </span> ?<br>
-            <span>공급가액: </span> ?<br>
-            <span>부가세 (VAT):</span> ?<br>
+            <span>공급가액: </span> <span class="supplyPrice"></span><br>
+            <span>부가세 (VAT):</span> <span class="vat"></span><br>
             <span>총 금액: </span> <span class="totalPrice"></span> 원<br>
         </div>
         <div style="text-align: center;">
@@ -118,6 +118,8 @@
 		        <input type="hidden" name="empId" value="">
 		        <input type="hidden" name="a" value="">
 		        <input type="hidden" name="result" value="">
+		        <input type="hidden" name="vat" value="">
+		        <input type="hidden" name="supplyPrice" value="">
 		        
     			<button id="submit">엑셀 다운로드</button>
         	</form>
@@ -153,6 +155,25 @@ document.addEventListener('DOMContentLoaded', function() {
     $("input[name='clientDetailAddress']").val(clientDetailAddress);
     let clientNumber = window.opener.clientNumber;
     $("input[name='clientNumber']").val(clientNumber);
+    
+    let vat2 = toPrice/10;
+    let vat = (toPrice/10).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    $("input[name='vat']").val(vat);
+    console.log(vat);
+    console.log("ㅋㅋㅋ");
+    let supplyPrice = (toPrice - vat2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    $("input[name='supplyPrice']").val(supplyPrice);
+    console.log(supplyPrice)
+    console.log("ㅋㅋㅋ");
+    document.querySelectorAll('.vat').forEach(function(element) {
+        element.innerText = vat;
+    });
+    
+    document.querySelectorAll('.supplyPrice').forEach(function(element) {
+        element.innerText = supplyPrice;
+    });
+    
+    
     
     document.querySelectorAll('.purchaseDate').forEach(function(element) {
         element.innerText = purDate;

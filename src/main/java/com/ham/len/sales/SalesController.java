@@ -281,12 +281,13 @@ public class SalesController {
 	}
 	
 	@GetMapping("excelDownload")
-	public void excelDownload(HttpServletRequest request, HttpServletResponse response, ExcelVO excelVO, ModelMap modelMap) throws Exception{
+	public void excelDownload(ExcelVO excelVO) throws Exception{
 		log.info("=-=={}===", excelVO.getA());
 		log.info("=-=={}===", excelVO.getResult());
+		log.info("=-=={}===", excelVO.getPurDate());
 		
 		ExcelWriter writer = new ExcelWriter();
-		writer.write(excelVO, "test.xlsx", "거래 명세서.xlsx");
+		writer.write(excelVO, "FR.xlsx", "거래명세서.xlsx");
 	}
 	
 	@GetMapping("scheduleManagement")

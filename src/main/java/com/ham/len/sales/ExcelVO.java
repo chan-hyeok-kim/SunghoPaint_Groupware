@@ -13,8 +13,8 @@ import lombok.ToString;
 @ToString
 public class ExcelVO{
 
-	private String title = "거래 명세서";
-	private String corporateName;
+	private String title = "거래명세서";
+	private String corporateName = "성호페인트";
 	
 	private String cliName;
 	private String clientZipCode;
@@ -27,5 +27,8 @@ public class ExcelVO{
 	private String codName;
 	private String a;
 	private String result;
+	
+	private String vat;
+	private String supplyPrice;
 	//수량, 단가 나중에 추가
 }
