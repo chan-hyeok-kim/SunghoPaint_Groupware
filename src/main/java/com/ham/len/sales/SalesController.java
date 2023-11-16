@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ham.len.humanresource.HumanResourceVO;
+import com.ham.len.util.ExcelWriter;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -280,10 +281,13 @@ public class SalesController {
 	}
 	
 	@GetMapping("excelDownload")
-	public void excelDownload(HttpServletRequest request, HttpServletResponse response, ExcelVO excelVO, ModelMap modelMap) throws Exception{
+	public void excelDownload(ExcelVO excelVO) throws Exception{
+		log.info("=-=={}===", excelVO.getA());
+		log.info("=-=={}===", excelVO.getResult());
+		log.info("=-=={}===", excelVO.getPurDate());
 		
-		Map<String, Object> beans = new HashMap<String, Object>();
-	
+		ExcelWriter writer = new ExcelWriter();
+		writer.write(excelVO, "FR.xlsx", "거래명세서.xlsx");
 	}
 	
 	@GetMapping("scheduleManagement")
