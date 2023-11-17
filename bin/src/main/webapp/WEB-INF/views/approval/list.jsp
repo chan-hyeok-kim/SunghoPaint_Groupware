@@ -8,53 +8,87 @@
 <title>Insert title here</title>
 
 
- <link rel="stylesheet" href="/css/demo.css" type="text/css">
-  <link rel="stylesheet" href="/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<meta name="description" content="Signature Pad - HTML5 canvas based smooth signature drawing using variable width spline interpolation.">
+   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
   
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
-<style type="text/css">
-  #tree_list_add{
-      margin-left: 20px;
+    <!-- <link rel="stylesheet" href="/css/sign/signature-pad.css">
+   -->
+    <script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script><script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-39365077-1']);
+      _gaq.push(['_trackPageview']);
+  
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script> 
 
-  }
-  #tree-table{
-      border: 1px solid black;
-      height: 360px;
-      width: 220px;
-      padding: 10px;
-  }
-  #tree-table-div{
-      margin: 10px;
-  }
-  #approval-table{
-      text-align: center; 
-      width: 100%
-  }
-  
-</style>
 </head>
 <body id="page-top">
 	<div id="wrapper">
-		
-		
+
+
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
-			<div id="content">
+			<div class="card">
+				<div class="card-body">
+
+					<div class="wrapper-toolbar">
+
+						<div style="float:left">내 결재 관리</div> 
+						<div style="text-align: right;">
+							<form class="form-inline">
+
+								<!-- 검색 설정 -->
+								<select class="btn btn-gradient-light" id="top-search-select">
+									<option selected="selected">제목</option>
+									<option>구분</option>
+									<option>결재자</option>
+								</select> 
+								
+								
+								<input style="display: inline-block;" id="top-search-bar"
+									class="form-control" type="search" placeholder="입력 후 [Enter]"
+									aria-label="Search">
+								<button id="top-search-btn" class="btn btn-info" type="submit">검색</button>
+
+							</form>
+						</div>
+					</div>
+
+					<ul class="nav-tabs">
+						<li onclick="location.href='./list'" class="active"><a class="link-tab">전체</a></li>
+						<li data-cd="R031"><a class="link-tab">기안중</a></li>
+						<li data-cd="R032"><a class="link-tab">진행중</a></li>
+						<li data-cd="R034"><a class="link-tab">반려</a></li>
+						<li data-cd="R033"><a class="link-tab">결재</a></li>
+					</ul>	
 
 
-				<div class="container-fluid">
+					<div
+						style="text-align: right; padding-top: 20px; padding-right: 10px">
+						<div id="grid-top-date"></div>
+					</div>
+					<div id="content">
+
+
+						<div class="container-fluid">
+
+
 				  
-				  <h1>전자 결재 홈</h1>
 				  
-				    <div class="card">
-				  <div class="card-body">
-				    <table class="table-bordered" id="approval-table">
+				
+				    <table class="table-bordered mt-2" id="approval-table">
 				        <thead>
 				           <tr>
 				             <th>선택</th>
 				             <th>기안일자</th>
 				             <th>제목</th>
-				             <th>구분</th>
 				             <th>기안자</th>
 				             <th>결재자</th>
 				             <th>진행상태</th>
@@ -65,65 +99,65 @@
 				        <c:forEach items="${list}" var="vo" varStatus="i">
 				           <tr>
 				             <td><input type="checkbox"></td>
-				             <td>${vo.approvalStartDate}</td>
+				             <td class="approval-start-date">${vo.approvalStartDate}</td>
 				             <td>${vo.approvalTitle}</td>
-				             <td>${vo.approvalContents}</td>
 				             <td>${vo.drafter}</td>
 				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
-				             <c:choose>
-				             <c:when test="${vo.approvalStatusCd eq 'R001'}">
-				             <td>기안중</td>
-				             </c:when>
-				             </c:choose>
-				             <td><a>기안서 확인</a></td>
+				             <td>${vo.codeName}</td>
+				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
 				           </tr>
 				         </c:forEach>
 				        </tbody>
 				      
 				    </table>
 				  </div>
-				  </div>
 				  
 				  
-				  <!-- pagination -->
-				  <div style="text-align: center">
+				  
+				    <!-- pagination -->
+				  <div style="text-align: center; margin: 20px 20px">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
   <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
+    <li class="page-item ${pager.pre?'':'disabled'}">
+      <a class="page-link" href="/approval/list?page=${startNum-1}" aria-label="Previous">
         <i class="mdi mdi-arrow-left-drop-circle"></i>
       </a>
     </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
+    
+    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+    <li class="page-item"><a class="page-link" href="/approval/list?page=${i}">${i}</a></li>
+    </c:forEach>
+    
+    <li class="page-item ${pager.next?'':'disabled'}">
+      <a class="page-link" href="/approval/list?page=${lastNum+1}" aria-label="Next">
         <i class="mdi mdi-arrow-right-drop-circle"></i>
       </a>
     </li>
   </ul>
 </nav>
+
+  <!-- Button List  -->
+				  <div style="float: right;">
+				  <button class="btn btn-info" onclick="location.href='/approval/add'">새 결재 진행</button>
+				 
 				</div>
-				  
-				  
-				  <!-- Button List  -->
-				  <div>
-				  <button> 새 결재 진행</button>
-				  
-				  <!-- Button trigger modal -->
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#approvalModal">
-  결재선 설정
-</button>
 
   </div>
+				  </div>
+				  
+				  
+				
 
 
 <!-- Sign -->
-<div>
-     <button type="button" class="btn" data-toggle="modal"  data-target="#signModal">My 도장/서명</button>
+<div style="float:left">
+     <button type="button" class="btn" data-toggle="modal"  data-target="#stampModal">도장/서명 등록</button>
   </div> 
-  
+ 
+<!-- Stamp --> 
+<div>
+    <button type="button" class="btn" data-toggle="modal"  data-target="#signModal">서명 만들기</button>
+</div> 
   
 
   
@@ -131,72 +165,12 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="approvalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
-    <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">결재양식 선택</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       
-       <div>
-         <input type="search">
-         <input type="radio"> 이름
-         <input type="radio"> 부서 
-       </div>
-       
-  <div style="display: flex; float:left; width:40%;">
-       <div style="">
-       
-       <ul id="tree" class="ztree"></ul>
-       </div>
-       
-       <div style="margin-left: 20px; " id="tree_list_empty">
-         <ul id="tree_list" class="ztree"></ul>
-       
-       </div>
-       </div>
-       <div style="float:right; width: 40%">
-       <div style="float:left;">
-           <button type="button" class="btn btn-primary" id="tree_list_add">결재  > </button>
-       </div>
-       
-       <div style="overflow:auto; float:left;" id="tree-table-div">
-          <table id="tree-table">
-             <tbody id="tree-table-body">
-                 <tr style="height: 10%">
-                    <td>결재</td>
-                    <td>이대리<br>디자인팀 이대리</td>
-                 </tr>
-                 
-             </tbody>
-          </table>
-       </div>
-       </div>
-       
-  
-  
-       
-  </div>     
-  
-  
-       
-      </div>
-      <div class="modal-footer" style="background: white;">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">확인</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 				  
 
-<!-- Sign-Modal -->
-<div class="modal fade" id="signModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+<!-- Stamp-Modal -->
+<div class="modal fade" id="stampModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
     <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">도장/서명올리기</h5>
@@ -206,32 +180,117 @@
       </div>
       <div class="modal-body">
       
-      <div>1. 등록할 이미지를 선택한 후, 사용할 영역을 선택합니다.</div>
+      
+      <div>* 사인이나 도장이 나오는 이미지를 등록해주세요</div>
       
       
-     <div style="display: flex;">
      
-     <div style="border: 1px solid gray">
-     <div style="border: 1px solid gray;">
-      Before: 원본 사진
-      <input type="file" accept="image/*" id="file" name="file" style="display: none;" onchange="loadFile(this)">
-      <div onclick="document.getElementById('file').click()">이미지 삽입</div>
+     
+     <div id="sign-file-reg-div">
+     <div>
+     <form id="sign-frm">
+      <input type="file" accept="image/*" id="file" name="file" onchange="loadFile(this)"> 
+      </form>
+      <div id="sign-file-div" onclick="document.getElementById('file').click()">
+      <span class="material-symbols-outlined">upload</span>이곳을 클릭해서 이미지를 등록하세요
+      
+      </div>
        
          <div id="fileName"></div>
-      <div id="image-show"></div>
+         
+         
+      <div id="image-show" style="padding: 30px 0 0 100px;"></div>
+     
       
       </div>
      </div>
+      
+
      
      
      
      <div style="border: 1px solid gray;">
-     <div style="border: 1px solid gray;">
-      After
+     <div style="border-bottom: 1px solid gray;">
+      미리보기
      </div>
-        <div id="small-image-show" style="align-content: center"></div>  
+         
+        <div id="small-image-show" style="padding: 30px 0 0 195px; height: 100px;"></div>  
         </div>    
+       
+     
+      
+  </div>     
+  
+  
+   
+      <div class="modal-footer" style="background: white">
+        <button type="button" class="btn btn-secondary" id="sign-close" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-info" id="sign-submit-btn">확인</button>
+        
+        </div>
+      </div>
+    </div>
+   </div>
+  
+  
+  <!-- Sign Modal  -->
+  
+  <div class="modal fade" id="signModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" id="sign-modal-size" role="document">
+    <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">도장/서명올리기</h5>
+        <!-- <button type="button" class="close btn-info" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+      <div class="modal-body">
+      
+     
+      <div>*아래에 서명해주세요</div>
+      
+    
+   
+     <div>
+     
+     <!-- Sign Canvas -->
+     
+      <div id="signature-pad" class="signature-pad" style="margin-top: 20px;">
+      <div class="signature-pad--body">
+       <canvas width="664" height="290" id="sign-canvas" style="border: 1px solid gray"></canvas> 
+      
+<%-- <canvas width="664" style="touch-action: none; user-select: none;" height="290"></canvas>  --%>
+      </div>
+      <div class="signature-pad--footer">
+        <div class="description"></div>
+  
+        <div class="signature-pad--actions">
+          <div class="column">
+            <button type="button" class="button clear btn-info" data-action="clear">지우기</button>
+            <button type="button" class="button btn-info" data-action="undo">이전으로</button>
+            
+          </div>
+          <div class="column">
+            <button type="button" class="button save btn-info" data-action="save-png">PNG로 저장</button>
+            <button type="button" class="button save btn-info" data-action="save-jpg">JPG로 저장</button>
+          <!--   <button type="button" class="button save btn-info" data-action="save-svg">SVG로 저장</button>  -->
+           
+          </div>
+        </div>
+      </div>
+    </div>
+     
+     
+  <%--    <canvas id="sign-canvas" style="border: 1px solid gray"></canvas>
      </div>
+     <div style="float:left">
+     <button id="clear-sign" type="button">지우기</button>
+     </div> --%>
+     
+     
+     
+    
+    
       
       
   </div>     
@@ -239,80 +298,41 @@
   
       </div>
       <div class="modal-footer" style="background: white">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">확인</button>
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button> -->
+         <button type="button" class="btn btn-info" data-dismiss="modal">확인</button>
+        </div>
       </div>
     </div>
   </div>
-
-					
+<!-- modal end -->			
 	
 
-
 				</div>
-</div>
+              </div>
 			</div>
-
+</div>
 		
 
 	
 			
 
 
-	<script src="/js/ztree/paint-tree.js"></script>
 	
-<script type="text/javascript">
-function loadFile(input) {
-    var file = input.files[0];	//선택된 파일 가져오기
-
-    //미리 만들어 놓은 div에 text(파일 이름) 추가
-    var name = document.getElementById('fileName');
-    name.textContent = file.name;
-
-  	//새로운 이미지 div 추가
-    var newImage = document.createElement("img");
-    newImage.setAttribute("class", 'img');
-    newImage.setAttribute("id", 'file-img');
+	<script src="/js/commons/list-date.js"></script>
+	<script src="/js/commons/ul-tabs.js"></script>
     
-    //이미지 source 가져오기
-    newImage.src = URL.createObjectURL(file);   
+    <!-- 리스트 ul tabs 이동 -->
+	<script src="/js/approval/list-move.js"></script>
+	<!-- 기안일자 변환 -->
+	<script src="/js/approval/approval-date.js"></script>
+	
+	<!-- Signature_pad -->
+	<script src="/js/commons/signature.js"></script>   
+	<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+	<script src="/js/commons/sign.js"></script> 
+	
+	
 
-    newImage.style.width = "70%";
-    newImage.style.height = "70%";
-      //버튼을 누르기 전까지는 이미지를 숨긴다
-    newImage.style.objectFit = "contain";
 
-    //이미지를 image-show div에 추가
-    var container = document.getElementById('image-show');
-    container.appendChild(newImage);
-    
-    document.getElementById('fileName').textContent = null; 
-    
-    var fileUrl = $('#file-img').attr('src');
-    console.log();
-    $('#small-image-show').append('<img src='+fileUrl+' width="60px" height="40px">')
-    
-};
-    //작은 이미지
-   
-    
-    
-    /* var submit = document.getElementById('submitButton');
-    submit.onclick = showImage;     //Submit 버튼 클릭시 이미지 보여주기
-
-    function showImage() {
-        var newImage = document.getElementById('image-show').lastElementChild;
-      
-        //이미지는 화면에 나타나고
-        newImage.style.visibility = "visible";
-      
-
-           //기존 파일 이름 지우기
-    } */
-
-let cdcheck=$('#check').attr('data-check');
-console.log(cdcheck);
-
-</script>
 </body>
 </html>
