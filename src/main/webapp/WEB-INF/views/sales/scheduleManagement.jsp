@@ -64,6 +64,9 @@
   text-decoration: none;
 }
 
+.modal-header .close {
+        display: none;
+    }
 </style>
 </head>
 <body id="page-top">
@@ -85,10 +88,19 @@
               background-color: transparent; font-weight:bold;" 
               onmouseover="this.style.backgroundColor='transparent'" 
               onmouseout="this.style.backgroundColor='transparent'">연차등록</span></a>
-              
-              <p> 내 캘린더 </p>
-              
-              <p> 팀 캘린더 </p>
+              <br><br><br>
+              <div class="form-check">
+				  <input class="form-check-input" type="radio" name="flexRadioDefault" value="" id="flexCheckDefault" checked>
+				  <label class="form-check-label" for="flexCheckDefault">
+				    내 연차
+				  </label>
+				</div>
+				<div class="form-check">
+				  <input class="form-check-input" type="radio" name="flexRadioDefault" value="" id="flexCheckChecked">
+				  <label class="form-check-label" for="flexCheckChecked">
+				    팀 연차
+				  </label>
+				</div>
             </div>
 
             <!-- 오른쪽 영역 -->
@@ -129,40 +141,19 @@
                 <form id="addForm" action="./addAnnual" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                    	<label for="taskId" class="col-form-label">항목 선택</label>
-                    	
-                        <select class="form-select form-select-sm" aria-label="Small select example" id="carList" name="carNo">
-						  <option selected>항목을 선택하세요</option>
-						  <c:forEach items="${carList}" var="car">
-						  <c:if test="${car.carStatusCd eq 'C011'}">
-					        <option value="${car.carNo}">${car.carModelName}</option>
-					        </c:if>
-					    </c:forEach>
-						</select>
 						
-                        <label for="taskId" class="col-form-label">대여일</label>
-                        <input type="date" class="form-control" id="calendar_start_date" name="rental_Date">
-                        <select class="form-select form-select-sm" id="calendar_start_date_time" name="rental_DateTime" style="padding-left:20px;"></select>
+                        <label for="taskId" class="col-form-label">시작일</label>
+                        <input type="date" class="form-control" id="calendar_start_date" name="scheduleDate">
                         
-                        <label for="taskId" class="col-form-label">반납 예정일</label>
-                        <input type="date" class="form-control" id="calendar_end_date" name="return_Date">
-                        <select class="form-select form-select-sm" id="calendar_end_date_time" name="return_DateTime" style="padding-left:20px;"></select>
+                        <label for="taskId" class="col-form-label">종료일</label>
+                        <input type="date" class="form-control" id="calendar_end_date" name="scheduleEndDate">
                         
-                        <label for="taskId" class="col-form-label">대여자</label>
-                        <input type="text" class="form-control" id="calendar_name" value="${name}" readonly>
-                        <input type="hidden" class="form-control" id="calendar_name" name="employeeId" value=${empId}>
+                        <label for="taskId" class="col-form-label">사용자</label>
+                        <input type="text" class="form-control" id="calendar_name" value="${empName} ${position}" readonly>
+                        <input type="hidden" class="form-control" name="employeeId" value="${empId}">
                         
-                        <label for="taskId" class="col-form-label">대여 용도</label>
-                        <select class="form-select form-select-sm" aria-label="Small select example" id="calendar_content" name="rentalReasonCd">
-						  <option selected>항목을 선택하세요</option>
-						  <option value="C041">외부인 미팅</option>
-						  <option value="C042">제품 홍보</option>
-						  <option value="C043">출장</option>
-						  <option value="C044">외근</option>
-						</select>
-                        
-                        <label for="taskId" class="col-form-label">행선지</label>
-                        <input type="text" class="form-control" id="calendar_location" name="rentalLocation">
+                        <label for="taskId" class="col-form-label">휴가 사유</label>
+                        <input type="text" class="form-control" id="calendar_location" name="scheduleContents">
                         
                     </div>
                 </div>
@@ -180,18 +171,114 @@
  
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 <script type="text/javascript">
+const arr = new Array();
+
+$.ajax({
+	  type: "GET", 
+	  url: "/sales/getAnnualList",
+	  async: false,
+	  success: function (res) {
+	    for (const key in res) {
+	      let obj = new Object();
+	      
+	      obj.id = res[key].scheduleNo;
+	      
+	      obj.title = res[key].scheduleContents;
+	      
+	      obj.name = res[key].name + ' ' + res[key].codeName;
+	      
+	      let scheduleDate = new Date(res[key].scheduleDate);
+	      scheduleDate.setHours(scheduleDate.getHours() + 9);
+	      obj.start = scheduleDate;
+	      
+	      let scheduleEndDate = new Date(res[key].scheduleEndDate);
+	      scheduleEndDate.setHours(scheduleEndDate.getHours() + 9);
+	      obj.end = scheduleEndDate;
+
+	      arr.push(obj);
+	    }
+	    console.log(arr);
+	    
+	
+	  },
+	  error: function (XMLHttpRequest, textStatus, errorThrown) {
+	    console.log('error')
+	  },
+	});
+	
+	
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        // 캘린더 옵션들 설정
-        // ...
-        events: [
-            // 이벤트 데이터 배열
-            // { title: '이벤트 제목', start: '2023-11-14' }
-            // ...
-        ]
+
+
+    	locale: "ko",
+	      timeZone: 'Asia/Seoul',
+	      initialView: 'dayGridMonth',
+	      selectable: true,
+	      select: function(start, end, allDays){
+	    	  $("#calendarAddModal").modal("show");
+	    	  
+	    	  /* 
+	    	  $('#addCalendar').click(function(){
+	    		  console.log("추가")
+	    		})
+	    	  */
+	    	  
+	    	  $('#sprintSettingModalClose').click(function(){
+	    			$('#calendarAddModal').modal('hide')	
+	    		})
+	    		
+	      },
+	      
+	      customButtons: {
+	    	    myCustomButton: {
+	    	      text: '새로고침',
+	    	      click: function() {
+	    	    	  $("#calendarAddModal").modal("show");
+	    	    	  
+	    	    	  /* 
+	    	    	  $('#addCalendar').click(function(){
+
+	    	    		})
+	    	    	   */
+	    	    		
+	    	    	  $('#sprintSettingModalClose').click(function(){
+	    	    			$('#calendarAddModal').modal('hide')	
+	    	    		})
+	    	    	  
+	    	      }
+	    	    },
+				customButton2:{
+					text:'일정 등록',
+				}
+	    	  },
+	    	    	  
+	      headerToolbar: {
+	    	    left: 'prev,next',
+	    	    center: 'title',
+	    	    right: 'myCustomButton,customButton2'
+	    	  },
+			  buttonIcons:{
+				customButton2: '',
+				myCustomButton: '',
+			  }
+	    	  ,
+	      buttonText:{
+	    	  today: '오늘',
+	    	  title: '일정관리'
+	      },
+	      
+	      
+        events: arr
     });
     calendar.render();
+    
+
+	let icon=document.getElementsByClassName('fc-icon');
+	
+	icon[3].innerHTML='<span class="material-symbols-outlined">cached</span>';
+	icon[2].innerHTML='<span class="material-symbols-outlined">edit_square</span>';
 });
 		
 </script>

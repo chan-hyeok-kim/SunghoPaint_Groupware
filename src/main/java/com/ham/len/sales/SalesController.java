@@ -220,12 +220,17 @@ public class SalesController {
 	/*======== 영업 관리 ========*/
 	
 	@GetMapping("clientList")
-	public String getAccountList(Model model) throws Exception{
+	public String getAccountList(Model model, @AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception{
 		List<SalesClientVO> arr = salesService.getClientList();
 		model.addAttribute("getClientList", arr);
 		
 		List<SalesClientVO> arr2 = salesService.getClientDivision();
 		model.addAttribute("getDivision", arr2);
+		
+		List<HumanResourceVO> arr3 = salesService.getManagerList();
+		model.addAttribute("getManager", arr3);
+		
+		model.addAttribute("empId", humanResourceVO.getEmployeeID());
 		
 		return "sales/clientList";
 	}
@@ -248,6 +253,9 @@ public class SalesController {
 	public String setClientUpdate(SalesClientVO salesClientVO, Model model) throws Exception{
 		salesClientVO = salesService.getClientDetail(salesClientVO);
 		model.addAttribute("getClientDetail", salesClientVO);
+		
+		List<HumanResourceVO> arr3 = salesService.getManagerList();
+		model.addAttribute("getManager", arr3);
 		
 		return "sales/clientUpdate";
 	}
@@ -291,8 +299,42 @@ public class SalesController {
 	}
 	
 	@GetMapping("scheduleManagement")
-	public String scheduleManagement() throws Exception{
+	public String scheduleManagement(@AuthenticationPrincipal HumanResourceVO humanResourceVO, Model model) throws Exception{
+		log.info("zzzzzz{}zzzzz", humanResourceVO);
+		model.addAttribute("empId", humanResourceVO.getEmployeeID());
+		model.addAttribute("empName", humanResourceVO.getName());
+		
+		HumanResourceVO humanResourceVO2 = new HumanResourceVO();
+		humanResourceVO2.setEmployeeID(humanResourceVO.getEmployeeID());
+		
+		humanResourceVO2 = salesService.getPosition(humanResourceVO2);
+		
+		log.info("zzzzzz{}zzzzz", humanResourceVO2.getCodeName());
+		
+		model.addAttribute("position", humanResourceVO2.getCodeName());
 		
 		return "sales/scheduleManagement";
+	}
+	
+	@GetMapping("getManagerPhone")
+	@ResponseBody
+	public List<HumanResourceVO> getManagerPhone() throws Exception{
+	    List<HumanResourceVO> events = salesService.getManagerPhone();
+	    return events;
+	}
+	
+	@PostMapping("addAnnual")
+	public String setAddAnnual(AnnualAddVO annualAddVO) throws Exception{
+		int result = salesService.setAddAnnual(annualAddVO);
+		return "redirect:scheduleManagement";
+	}
+	
+	@GetMapping("getAnnualList")
+	@ResponseBody
+	public List<AnnualAddVO> getAnnualList(@AuthenticationPrincipal HumanResourceVO humanResourceVO, AnnualAddVO annualAddVO) throws Exception{
+		annualAddVO.setEmployeeId(humanResourceVO.getEmployeeID());
+		
+	    List<AnnualAddVO> events = salesService.getAnnualList(annualAddVO);
+	    return events;
 	}
 }
