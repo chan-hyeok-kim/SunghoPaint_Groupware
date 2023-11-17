@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+/*modal */
+
+.code-modal-custom-header{
+	background-color: black; padding:0px
+}
+
+.code-modal-custom-title{
+	padding: 20px;color:white; font-weight: bold;
+}

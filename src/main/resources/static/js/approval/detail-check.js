@@ -78,20 +78,17 @@ $('#form-mid-sign').click(function(){
 
 
     //서명시간, 부서 입력
-function setTimeDept(i){
+    function setTimeDept(i){
 	$.ajax({
-		type:'POST',
+		type:'GET',
 		url:'/approval/signTime',
-		data:{
-			approvalNo:appNo
-		},success:function(result){
+		success:function(result){
 			console.log(result.deptName);
 			console.log(result.signTime);
 			topSign[i].innerText=result.deptName;
 			botSign[i].innerText=result.signTime;
 		}
 	})
-	
 	}
 
 
@@ -110,7 +107,8 @@ rejectBtn.addEventListener("click",function(){
 	    reverseButtons: true,
 	}).then(function(result){
 		if(result.isConfirmed){
-			statusCdCheck.value='R034'
+			statusCdCheck.value='R034';
+            modContents.value=originContents;
 			$('#app-check-frm').submit();
 		}
 	})
@@ -130,13 +128,20 @@ approvalBtn.addEventListener("click",function(){
 		return;
 	}
 
+	let admon=$('textarea[name=admonition]').val()
+	if(admon || admon.length!=0){
+		swal('반려시에만 첨언 작성이 가능합니다')
+		return;
+	}
+
 	Swal.fire({
 		title:'정말 결재하시겠습니까?',
 	 //   icon:'info',
 		showCancelButton:true,
 		iconHtml:'<i class="mdi mdi-bell-ring-outline"></i>',
 		confirmButtonColor: 'blue',
-		cancleButtonText:'취소',
+		cancelButtonText:'취소',
+		confirmButtonText:'확인',
 	    reverseButtons: true,
 		customClass: {
 			icon: 'no-border'
@@ -171,22 +176,37 @@ $('#app-pdf-btn').click(function(){
     console.log(xmlString)
 
 	$.ajax({
-		type:"post",
+		type:"POST",
 		 url:"/pdf/down",
 		 data:{
 			approvalContents:xmlString
-		 },success:function(result){
+		 },
+		 xhrFields: {
+			responseType: 'blob' // 서버로부터 Blob 형태의 데이터를 받음
+		},success:function(data){
 			console.log('다운 성공')
-			 filename="sample.pdf"
-			 console.log(result)
-			  const a = document.createElement("a");
-			  a.style = "display: none";
-			  a.href = result;
-			  a.target= '_selt';
-			  a.download = filename;
 
-			  document.body.appendChild(a);
-			  a.click();
+			var blob = new Blob([data], { type: 'application/pdf' });
+			var link = document.createElement('a');
+			link.href = window.URL.createObjectURL(blob);
+			link.download = 'sample.pdf';
+			document.body.appendChild(link);
+
+			// 링크를 클릭하여 다운로드 시작
+			link.click();
+
+			// 링크 제거
+			document.body.removeChild(link);
+
+			//  filename="sample.pdf"
+			//  console.log(result)
+			//   const a = document.createElement("a");
+			//   a.style = "display: none";
+			//   a.href = result;
+			//   a.download = filename;
+
+			//   document.body.appendChild(a);
+			//   a.click();
 		 }
 	})
 })

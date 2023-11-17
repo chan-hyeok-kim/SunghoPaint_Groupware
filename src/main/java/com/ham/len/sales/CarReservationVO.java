@@ -24,5 +24,5 @@ public class CarReservationVO extends CodeVO{
 	private String rentalLocation;
 	private Timestamp returnDate;
 
-    
+    private String name;
 }

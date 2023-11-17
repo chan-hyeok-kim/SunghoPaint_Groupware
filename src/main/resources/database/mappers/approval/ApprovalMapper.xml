@@ -21,12 +21,10 @@
 		SELECT *,A.APPROVAL_TYPE_NO AS A_APPROVAL_TYPE_NO,
 		APT.APPROVAL_TYPE_NO AS
 		APT_APPROVAL_TYPE_NO,
-		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
-		A_CODE_NAME,
-		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS
-		APT_CODE_NAME,
+		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS AP_CODE_NAME,
+		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS APT_CODE_NAME,
 		FN_DEPT_NM(LAST_APPROVER) AS LAST_APPROVER_NAME
-		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
+		FROM APPROVAL A LEFT OUTER JOIN APPROVAL_TYPE APT
 		ON
 		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
 		WHERE <include refid="searchApp"></include>
@@ -59,12 +57,13 @@
 		<result column="MOD_ID" property="modId" />
 		<result column="MOD_DATE" property="modDate" />
 		<result column="MOD_MENU" property="modMenu" />
-		<result column="A_CODE_NAME" property="codeName" />
-
+		<result column="AP_CODE_NAME" property="apCodeName" />
+        <result column="APT_CODE_NAME" property="aptCodeName" />
+        
 		<association property="approvalTypeVO"
 			javaType="ApprovalTypeVO">
 			<id column="APT_APPROVAL_TYPE_NO" property="approvalTypeNo" />
-			<result column="APT_CODE_NAME" property="codeName" />
+			
 
 		</association>
 
@@ -78,21 +77,21 @@
 	</select>
 
     
-    <select id="getMyList" resultType="approvalVO" parameterType="Map">
+    <select id="getMyList" resultType="ApprovalVO" parameterType="Map">
         SELECT *,APT.APPROVAL_TYPE_NO AS
 		APT_APPROVAL_TYPE_NO,
 		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
-		A_CODE_NAME,
+		AP_CODE_NAME,
 		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS
 		APT_CODE_NAME,
 		FN_DEPT_NM(LAST_APPROVER) AS LAST_APPROVER_NAME
-		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
+		FROM APPROVAL A LEFT OUTER JOIN APPROVAL_TYPE APT
 		ON A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
 		WHERE A.EMPLOYEE_ID=#{vo.employeeID} 
 		OR MID_APPROVER=#{vo.employeeID}
 		OR ADD_APPROVER=#{vo.employeeID}
 		OR LAST_APPROVER=#{vo.employeeID}
-		ORDER BY APPROVAL_NO DESC
+		ORDER BY A.APPROVAL_NO DESC
 		LIMIT
 		#{pager.startRow},#{pager.lastRow} 
     </select>
@@ -106,27 +105,32 @@
 		OR LAST_APPROVER=#{employeeID}
 	</select>
     
+    
+    
 
-<select id="getStatusList" resultMap="getSaveList"
+<select id="getStatusList" resultType="ApprovalVO"
 		parameterType="Map">
 		SELECT *,A.APPROVAL_TYPE_NO AS A_APPROVAL_TYPE_NO,
 		APT.APPROVAL_TYPE_NO AS
 		APT_APPROVAL_TYPE_NO,
 		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
-		A_CODE_NAME,
+		AP_CODE_NAME,
 		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS
 		APT_CODE_NAME,
 		FN_DEPT_NM(LAST_APPROVER) AS LAST_APPROVER_NAME
-		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
+		FROM APPROVAL A LEFT OUTER JOIN APPROVAL_TYPE APT
 		ON
 		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
 		WHERE A.APPROVAL_STATUS_CD=#{vo.approvalStatusCd}
-		ORDER BY APPROVAL_NO DESC
-		LIMIT
-		#{pager.startRow},#{pager.lastRow}	
+		AND (A.EMPLOYEE_ID=#{vo.employeeID} 
+		OR A.MID_APPROVER=#{vo.employeeID}
+		OR A.ADD_APPROVER=#{vo.employeeID}
+		OR A.LAST_APPROVER=#{vo.employeeID})
+		ORDER BY A.APPROVAL_NO DESC
+		LIMIT #{pager.startRow},#{pager.lastRow}	
 	</select>
 
-	<resultMap type="ApprovalVO" id="getSaveList">
+<!-- 	<resultMap type="ApprovalVO" id="getSaveList">
 		<id column="APPROVAL_NO" property="approvalNo" />
 		<result column="EMPLOYEE_ID" property="employeeID" />
 		<result column="A_APPROVAL_TYPE_NO" property="approvalTypeNo" />
@@ -148,22 +152,56 @@
 		<result column="MOD_ID" property="modId" />
 		<result column="MOD_DATE" property="modDate" />
 		<result column="MOD_MENU" property="modMenu" />
-		<result column="A_CODE_NAME" property="codeName" />
-
+		<result column="AP_CODE_NAME" property="apCodeName" />
+        <result column="APT_CODE_NAME" property="aptCodeName" />
+        
 		<association property="approvalTypeVO"
 			javaType="ApprovalTypeVO">
 			<id column="APT_APPROVAL_TYPE_NO" property="approvalTypeNo" />
-			<result column="APT_CODE_NAME" property="codeName" />
-
+			
 		</association>
 
-	</resultMap>
+	</resultMap> -->
 
     <select id="getStatusTotal" resultType="Long" parameterType="ApprovalVO">
 	  SELECT COUNT(*)
 	    FROM APPROVAL
 	   WHERE APPROVAL_STATUS_CD=#{approvalStatusCd}
+	   AND (EMPLOYEE_ID=#{employeeID} 
+		OR MID_APPROVER=#{employeeID}
+		OR ADD_APPROVER=#{employeeID}
+		OR LAST_APPROVER=#{employeeID})
 	</select>
+	
+	<select id="getStatusAdminList" resultType="ApprovalVO"
+		parameterType="Map">
+		SELECT *,A.APPROVAL_TYPE_NO AS A_APPROVAL_TYPE_NO,
+		APT.APPROVAL_TYPE_NO AS
+		APT_APPROVAL_TYPE_NO,
+		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
+		AP_CODE_NAME,
+		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS
+		APT_CODE_NAME,
+		FN_DEPT_NM(LAST_APPROVER) AS LAST_APPROVER_NAME
+		FROM APPROVAL A LEFT OUTER JOIN APPROVAL_TYPE APT
+		ON
+		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
+		WHERE A.APPROVAL_STATUS_CD=#{vo.approvalStatusCd}
+		ORDER BY APPROVAL_NO DESC
+		LIMIT
+		#{pager.startRow},#{pager.lastRow}	
+	</select>
+	
+	<select id="getStatusAdmin" resultType="Long" parameterType="ApprovalVO">
+	  SELECT COUNT(*)
+	    FROM APPROVAL
+	   WHERE APPROVAL_STATUS_CD=#{approvalStatusCd}
+	</select>
+	
+	
+	
+	
+	
 
 	<select id="getDetail" resultMap="getDetailResult"
 		parameterType="ApprovalVO">
@@ -177,7 +215,7 @@
 		FN_DEPT_NM(MID_APPROVER) AS MID_APPROVER_NAME,
 		FN_DEPT_NM(ADD_APPROVER) AS ADD_APPROVER_NAME,
 		FN_DEPT_NM(LAST_APPROVER) AS LAST_APPROVER_NAME
-		FROM APPROVAL A INNER JOIN APPROVAL_TYPE APT
+		FROM APPROVAL A LEFT OUTER JOIN APPROVAL_TYPE APT
 		ON
 		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
 		WHERE APPROVAL_NO=#{approvalNo}
@@ -273,7 +311,7 @@
 		REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
 		VALUES
 		(#{approvalNo},#{employeeID},#{approvalTypeNo},#{approvalTitle}
-		,#{approvalContents},'R032','R041',NOW(),NULL,#{drafter},
+		,#{approvalContents},#{approvalStatusCd},'R041',NOW(),NULL,#{drafter},
 		#{midApprover},#{addApprover},#{lastApprover},NULL,
 		#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu})
 	</insert>
@@ -283,7 +321,7 @@
 		SET APPROVAL_TITLE=#{approvalTitle},MID_APPROVER=#{midApprover},
 		ADD_APPROVER=#{addApprover},LAST_APPROVER=#{lastApprover},
 		APPROVAL_CONTENTS=#{approvalContents},
-		APPROVAL_TYPE_NO=#{approvalTypeNo},
+		APPROVAL_TYPE_NO=#{approvalTypeNo},APPROVAL_STATUS_CD=#{approvalStatusCd}
 		ADMONITION=#{admonition},
 		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
 		WHERE APPROVAL_NO=#{approvalNo}
@@ -343,14 +381,14 @@
 	<!-- 서명 시 -->
 	<select id="getSignTime" parameterType="Map" resultType="ApprovalVO">
 	    SELECT NOW() AS SIGN_TIME,FN_DEPT_NM(#{id.employeeID}) AS DEPT_NAME
-		  FROM APPROVAL 
-		 WHERE APPROVAL_NO=#{vo.approvalNo}
+		  FROM DUAL
 	</select>
 	
 	<select id="getMySignTime" parameterType="ApprovalVO" resultType="ApprovalVO">
 	    SELECT *,FN_DEPT_NM(EMPLOYEE_ID) AS DEPT_NAME
-		  FROM APPROVAL 
-		 WHERE APPROVAL_NO=#{approvalNo}
+		  FROM DUAL
 	</select>
+	
+
 	
 </mapper>

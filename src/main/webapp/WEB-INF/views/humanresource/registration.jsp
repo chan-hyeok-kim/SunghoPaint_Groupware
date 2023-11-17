@@ -1,4 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/js/commons/registration.js"></script>
@@ -6,79 +8,116 @@
 <link rel="stylesheet" href="/css/commons.css">
 <link rel="stylesheet" href="/css/humanresource/registration.css">
 
-<h1 id="title">인사 등록</h1>
-<form action="./registration" method="POST" enctype="multipart/form-data" id="registrationForm">
+<script>
+	$(function(){
+		$("input#yearsOfService").attr("type", "number");
+		
+		if("${isUpdate}") $("#registrationForm").attr("action", "./update");
+		
+		if("${isDetail}"){
+			$("*").off("click");
+			$("*:not(#return)").removeAttr("onclick");
+			
+			$("select").attr("disabled", true);
+			$("input[type='file']").attr("disabled", true);
+			$("input").attr("readonly", true);
+			$("input").css("cursor", "default");
+		}
+	});
+</script>
+
+<form:form modelAttribute="humanResourceVO" action="./registration" method="POST" enctype="multipart/form-data" id="registrationForm">
 	<table id="basicInfo">
 		<tr>
 			<td rowspan="4" id="profile">
-				<img src="/images/humanresource/profile.png">
+				<c:if test="${empty humanResourceVO.profile}">
+					<img src="/images/humanresource/profile.png">
+				</c:if>
+				<c:if test="${!empty humanResourceVO.profile}">
+					<img src="${humanResourceVO.profile}">
+				</c:if>
 				<input type="file" name="file" accept="image/*" onchange="validation(this)">
 			</td>
 			<th>이름</th>
+			<th>사번</th>
+			<td>
+				<input type="hidden" name="employeeID" value="${humanResourceVO.employeeID}">
+				${humanResourceVO.employeeID}
+			</td>
 			<th>부서</th>
-			<td colspan="3">
-				<input type="hidden" name="departmentCd">
-				<input type="text" name="departmentCdName" readonly="readonly" data-search-type="department">
+			<td>
+				<form:hidden path="departmentCd" />
+				<form:input path="departmentCdName" readonly="true" data-search-type="department" />
 			</td>
 		</tr>
 		<tr>
-			<td rowspan="3"><input type="text" name="name"></td>
-			<th>사번</th>
-			<td></td>
-			<th>내선번호</th>
-			<td><input type="text" name="extensionNumber"></td>
-		</tr>
-		<tr>
+			<td rowspan="3"><form:input path="name" /></td>
 			<th>이메일</th>
-			<td><input type="text" name="email"></td>
-			<th>휴대폰</th>
-			<td><input type="text" name="phone"></td>
+			<td><form:input path="email" /></td>
+			<th>내선번호</th>
+			<td><form:input path="extensionNumber" /></td>
 		</tr>
 		<tr>
 			<th>직급</th>
 			<td>
-				<input type="hidden" name="positionCd">
-				<input type="text" name="positionCdName" readonly="readonly" data-search-type="position">
+				<form:hidden path="positionCd" />
+				<form:input path="positionCdName" readonly="true" data-search-type="position" />
 			</td>
+			<th>휴대폰</th>
+			<td><form:input path="phone" /></td>
+		</tr>
+		<tr>
+			<th>근속연수</th>
+			<td><form:input path="yearsOfService" /></td>
 			<th>대표번호</th>
-			<td><input type="text" name="mainNumber"></td>
+			<td><form:input path="mainNumber" /></td>
 		</tr>
 	</table>
 	<table id="additionalInfo">
 		<tr>
 			<th>입사일</th>
-			<td><input type="date" name="joinDate"></td>
+			<td><input type="date" name="joinDate" value="${humanResourceVO.joinDate}"></td>
 			<th>주소</th>
-			<td><input type="text" name="address" readonly="readonly" onclick="daumPostcode()"></td>
+			<td><form:input path="address" readonly="true" onclick="daumPostcode()" /></td>
 			<th>은행</th>
-			<td><input type="text" name="bank"></td>
+			<td><form:input path="bank" /></td>
 		</tr>
 		<tr>
 			<th>입사구분</th>
 			<td>
-				<select name="joinType">
-					<option value="0">신입</option>
-					<option value="1">경력</option>
-				</select>
+				<form:select path="joinType">
+					<form:option value="0">신입</form:option>
+					<form:option value="1">경력</form:option>
+				</form:select>
 			</td>
 			<th>퇴사일</th>
-			<td><input type="date" name="quitDate"></td>
+			<td><input type="date" name="quitDate" value="${humanResourceVO.quitDate}"></td>
 			<th>예금주</th>
-			<td><input type="text" name="accountHolder"></td>
+			<td><form:input path="accountHolder" /></td>
 		</tr>
 		<tr>
 			<th>생년월일</th>
-			<td><input type="date" name="birth"></td>
+			<td><input type="date" name="birth" value="${humanResourceVO.birth}"></td>
 			<th>퇴사사유</th>
-			<td><input type="text" name="quitReason"></td>
+			<td><form:input path="quitReason" /></td>
 			<th>계좌번호</th>
-			<td><input type="text" name="accountNumber"></td>
+			<td><form:input path="accountNumber" /></td>
 		</tr>
 	</table>
 
 	<div id="buttons">
-		<button type="button" id="regist">등록</button>
-		<button type="button" id="cancel" onclick="location.href='../'">취소</button>
+		<c:if test="${isRegistration}">
+			<button type="button" id="regist">등록</button>
+		</c:if>
+		<c:if test="${isUpdate}">
+			<button type="button" id="update">수정</button>
+		</c:if>
+		<c:if test="${empty isDetail}">
+			<button type="button" id="cancel" onclick="location.href='./list'">취소</button>
+		</c:if>
+		<c:if test="${isDetail}">
+			<button type="button" id="return" onclick="location.href='../'">돌아가기</button>
+		</c:if>
 	</div>
 	
 	
@@ -88,15 +127,13 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="exampleModalLabel"></h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
+	        <img src="/images/humanresource/close-icon.png" class="close" data-dismiss="modal" aria-label="Close">
 	      </div>
 	      <div class="modal-body">
 	        <form>
 	          <div class="form-group">
 	            <label for="message-text" class="col-form-label">상세주소를 입력해주세요.</label>
-	            <textarea class="form-control" id="message-text"></textarea>
+				<input type="text" id="message-text" class="form-control">
 	          </div>
 	        </form>
 	      </div>
@@ -107,4 +144,4 @@
 	    </div>
 	  </div>
 	</div>
-</form>
+</form:form>

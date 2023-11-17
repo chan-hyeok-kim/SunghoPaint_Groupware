@@ -1,22 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- sockjs -->
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  
+   
 </head>
 <body>
-
 	<script type="text/javascript">
-		if('${result}'>0){
-	        icon='success';
+		if('${result}' > 0){
+	        icon= 'success';
 		}else{
-			icon='warning';	
+			icon= 'warning';
 		}
+		
 		resultSwal(icon);
 		
 		function resultSwal(icon){
@@ -24,11 +27,45 @@
 				text:'${message}',
 				icon:icon
 				}).then(function(){
-				location.href="${url}";		
+				location.href = "${url}";		
 			})
 		}
 		
-	</script>
+	 	var ws = new SockJS("http://localhost:82/echo");
+		
+		ws.onopen = function() {
+	 		console.log("연결완료");
+	 		let id='${drafterId}';
+	 		
+	 		if('${appResultCheck}'>0){
+				 $.ajax({
+				        type:'GET',
+				        url:'/setAlarm',
+				        data:{
+				        	id:id
+				        },
+				        success:function(result){
+				            console.log(result);
+				            if(result && ws){
 
+				            	for(r of result){
+									let message=r.notificationTitle+','+r.notificationContents+','+r.notificationDate;
+									console.log(message);
+									ws.send(message);
+									}
+				            }
+				        }
+
+
+				    })
+			}
+	 	};
+	 	
+		
+		
+		ws.onclose = function() {
+	 	    console.log('close');
+	 	}; 
+	</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.ham.len.transfer;
+package com.ham.len.humanresource;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,10 +7,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class TransferPager {
+public class HumanResourcePager {
 	private String startDate = "";
 	private String endDate = "";
-	
+	private String department = "";
 	private String kind = "";
 	private String keyword = "";
 	
@@ -66,30 +66,4 @@ public class TransferPager {
 		startRow = (getPage() - 1) * getPerPage();
 		// lastRow = getPage() * getPerPage();
 	}
-	
-	/*
-		public String getKeyword() {
-			if(keyword == null) {
-				keyword = "";
-			}
-			
-			return keyword;
-		}
-		
-		public Long getPage() {
-			if(page == null) {
-				page = 1L;
-			}
-			
-			return page;
-		}
-		
-		public Long getPerPage() {
-			if(perPage == null) {
-				perPage = 10L;
-			}
-			
-			return perPage;
-		}
-	*/
 }

@@ -60,7 +60,7 @@ form > #buttons{
 #buttons > button{
     width:5%; height:40px;
     border:none;
-    background-color:#A65FFF;
+    background-color:#90CAF9;
     font-weight:600;
     color:white;
     cursor:pointer;
@@ -68,5 +68,16 @@ form > #buttons{
 
 #buttons > #cancel{
     margin-left:10px;
-    background-color:#707070;
+    background-color:#A1A1A1;
+}
+
+
+
+#addressDetailModal #message-text{
+	text-align:unset;
+}
+
+#addressDetailModal img.close{
+	width:25px;
+	cursor:pointer;
 }

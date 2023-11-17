@@ -262,6 +262,7 @@ ul.nav-tabs {
 							<c:if test="${dto.materialProductCategory == '원료'}">	
 							원료 정보 수정
 							</c:if>
+							
 							<c:if test="${dto.materialProductCategory == '제품'}">	
 							제품 정보 수정
 							</c:if>

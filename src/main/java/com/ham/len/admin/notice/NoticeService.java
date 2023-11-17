@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ham.len.commons.FileManager;
-import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 
@@ -26,8 +25,6 @@ public class NoticeService {
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	@Autowired
-	private MakeColumn makeColumn;
 	
 	@Autowired
 	private FileManager fileManager;
@@ -43,14 +40,12 @@ public class NoticeService {
 		return noticeDAO.getList(pager);
 	}
 	
-	public int setAdd(NoticeVO noticeVO,HttpServletRequest request ,MultipartFile[] multipartFiles) throws Exception{
+	public int setAdd(NoticeVO noticeVO,MultipartFile[] multipartFiles) throws Exception{
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String path=request.getRequestURI();
+		
 		String id=humanResourceVO.getEmployeeID();
 		noticeVO.setEmployeeID(id);
-		noticeVO=(NoticeVO)makeColumn.getColumn(noticeVO, path, id);
 		
-	
 		int result=noticeDAO.setAdd(noticeVO);
 		log.warn("BoardNo: {}", noticeVO.getNoticeNo());
 		for(MultipartFile file: multipartFiles) {
@@ -65,7 +60,6 @@ public class NoticeService {
 			attachmentVO.setNoticeNo(noticeVO.getNoticeNo());
 			attachmentVO.setOriginalName(file.getOriginalFilename());
 			
-			attachmentVO=(AttachmentVO)makeColumn.getColumn(attachmentVO, path, id);
 			result=noticeDAO.setFileAdd(attachmentVO);
 		}
 		

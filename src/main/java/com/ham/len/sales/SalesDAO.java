@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ham.len.humanresource.HumanResourceVO;
+
+
 
 @Mapper
 public interface SalesDAO {
@@ -27,7 +30,7 @@ public interface SalesDAO {
 	
 	public List<CarListVO> getAllReservation(CarListVO carListVO) throws Exception;
 	
-	public List<CarListVO> getMyReservation(CarListVO carListVO) throws Exception;
+	public List<CarListVO> getMyReservation(CarReservationVO carReservationVO) throws Exception;
 	
 	public List<CarListVO> getCarSort() throws Exception;
 	
@@ -46,4 +49,12 @@ public interface SalesDAO {
 	public int setAddClient(SalesClientVO salesClientVO) throws Exception;
 	
 	public SalesClientVO getClientDetail(SalesClientVO salesClientVO) throws Exception;
+	
+	public int setClientUpdate(SalesClientVO salesClientVO) throws Exception;
+	
+	public int setClientDelete(SalesClientVO salesClientVO) throws Exception;
+	
+	public List<SalesPurchaseVO> getPurchaseList() throws Exception;
+	
+	public HumanResourceVO getPosition(HumanResourceVO humanResourceVO) throws Exception;
 }

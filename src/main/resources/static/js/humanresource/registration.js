@@ -31,6 +31,7 @@ function daumPostcode(){
 	            }
 	            
 	            fullAddr = "(" + data.zonecode + ")" + addr + fullAddr;
+
 				$("#message-text").val("");
 	            $("#addressDetailModal").modal("show");
 	        },
@@ -46,14 +47,25 @@ function daumPostcode(){
 }
 
 $(function(){
+	// shown.bs.modal : Modal 창이 화면에 표시된 후 발생하는 이벤트
+	$("#addressDetailModal").on("shown.bs.modal", function(){
+		$("#message-text").focus();
+	});
+	
+	$("[data-dismiss]").click(function(){
+		$("#addressDetailModal").modal("hide");
+	});
+	
 	$("#modal-submit").click(function(){
 		fullAddr = fullAddr + " " + $("#message-text").val();
 		$("input[name='address']").val(fullAddr);
 		$("#addressDetailModal").modal("hide");
 	});
 	
-	$("[data-dismiss]").click(function(){
-		$("#addressDetailModal").modal("hide");
+	$("#message-text").keypress(function(e){
+		if(e.which == 13){
+			$("#modal-submit").trigger("click");
+		}
 	});
 });
 
@@ -121,11 +133,13 @@ $(function(){
 
 
 $(function(){
-	$("#regist").click(function(){
+	$("#regist, #update").click(function(){
 		let quitDate = $("[name='quitDate']");
 		if(quitDate.val() == ""){
 			quitDate.val("1995-07-28"); // 1995-07-28 == NULL
 		}
+		
+		$("body").append("<div id='loading'></div>");
 		
 		$("#registrationForm").submit();
 	});

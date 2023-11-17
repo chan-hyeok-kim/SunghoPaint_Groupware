@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ham.len.humanresource.HumanResourceVO;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -59,8 +61,8 @@ public class SalesService {
 		return salesDAO.getAllReservation(carListVO);
 	}
 	
-	public List<CarListVO> getMyReservation(CarListVO carListVO) throws Exception{
-		return salesDAO.getMyReservation(carListVO);
+	public List<CarListVO> getMyReservation(CarReservationVO carReservationVO) throws Exception{
+		return salesDAO.getMyReservation(carReservationVO);
 	}
 	
 	public List<CarListVO> getCarSort() throws Exception{
@@ -91,12 +93,31 @@ public class SalesService {
 		return salesDAO.getClientDivision();
 	}
 	
-
 	public int setAddClient(SalesClientVO salesClientVO) throws Exception{
 		return salesDAO.setAddClient(salesClientVO);
 	}
 	
 	public SalesClientVO getClientDetail(SalesClientVO salesClientVO) throws Exception{
 		return salesDAO.getClientDetail(salesClientVO);
+	}
+	
+	public int setClientUpdate(SalesClientVO salesClientVO) throws Exception{
+		return salesDAO.setClientUpdate(salesClientVO);
+	}
+	
+	public int setClientDelete(SalesClientVO salesClientVO) throws Exception{
+		return salesDAO.setClientDelete(salesClientVO);
+	}
+	
+	public List<SalesPurchaseVO> getPurchaseList() throws Exception{
+		return salesDAO.getPurchaseList();
+	}
+	
+	public HumanResourceVO getPosition(HumanResourceVO humanResourceVO) throws Exception{
+		return salesDAO.getPosition(humanResourceVO);
+	}
+	
+	public int setCarListUpdateAvailable(CarListVO carListVO) throws Exception{
+		return salesDAO.setCarListUpdateAvailable(carListVO);
 	}
 }

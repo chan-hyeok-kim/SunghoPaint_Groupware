@@ -27,7 +27,7 @@ input[type="checkbox"]{
     margin-bottom:5px;
     vertical-align:middle;
     font-weight:600;
-    color:#A65FFF;
+    color:#3C9CE7;
 }
 
 .component > .inputWrap{
@@ -44,7 +44,7 @@ input[type="checkbox"]{
 }
 
 .component input:focus{
-    outline:2px solid #A65FFF;
+    outline:2px solid #3C9CE7;
 }
 
 .component .search{
@@ -60,7 +60,7 @@ input[type="checkbox"]{
 #buttonWrap > button{
     width:15%; height:40px;
     border:none; border-radius:5px;
-    background-color:#A65FFF;
+    background-color:#3C9CE7;
     font-weight:600;
     color:white;
 }

@@ -3,12 +3,12 @@
         "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-	
 	<!-- layout -->
 	<definition name="layout" template="/WEB-INF/views/layout/template.jsp">
 		<put-attribute name="navbar" value="/WEB-INF/views/layout/navbar.jsp"/>
 		<put-attribute name="sidebar" value="/WEB-INF/views/layout/sidebar.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/> 
+	    <put-attribute name="todolist" value="/WEB-INF/views/layout/todolist.jsp"/>
 	    <put-attribute name="body" value="" />
 	</definition>
 	
@@ -30,6 +30,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/humanresource/registration.jsp"/>
    </definition>
    
+   <definition name="humanresource/list" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/humanresource/list.jsp"/>
+   </definition>
+   
    <definition name="attendance/status" extends="layout">
 		<put-attribute name="body" value="/WEB-INF/views/attendance/status.jsp"/>
    </definition>
@@ -38,13 +42,21 @@
 		<put-attribute name="body" value="/WEB-INF/views/transfer/registration.jsp"/>
    </definition>
    
-   <definition name="transfer/view" extends="layout">
-		<put-attribute name="body" value="/WEB-INF/views/transfer/view.jsp"/>
+   <definition name="transfer/list" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/transfer/list.jsp"/>
    </definition>
-
-
-
-
+   
+   <definition name="humanresource/updatePassword" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/humanresource/updatePassword.jsp"/>
+   </definition>
+   
+   <definition name="annual/status" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/annual/status.jsp"/>
+   </definition>
+   
+   
+   
+   
   <!-- 김찬혁 -->
   <definition name="approval/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
@@ -86,6 +98,10 @@
 	  <put-attribute name="body" value="/WEB-INF/views/code/list.jsp"/>
 	</definition>
 	
+	<definition name="code/test" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/code/test.jsp"/>
+	</definition>
+	
 	<definition name="notice/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/notice/list.jsp"/>
 	</definition>
@@ -103,7 +119,12 @@
 	</definition>
 	
     <definition name="commons/ajaxResult" template="/WEB-INF/views/commons/ajaxResult.jsp">
-	  
+	</definition>
+	
+	<definition name="commons/result" template="/WEB-INF/views/commons/result.jsp">
+	</definition>
+	
+	<definition name="todolist" template="/WEB-INF/views/layout/todolist.jsp">
 	</definition>
 	
 	<!-- 장재혁 -->
@@ -175,6 +196,18 @@
 	
 	<definition name="sales/clientDetail" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/sales/clientDetail.jsp"/>
+	</definition>
+	
+	<definition name="sales/clientUpdate" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/clientUpdate.jsp"/>
+	</definition>
+	
+	<definition name="sales/dealList" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/dealList.jsp"/>
+	</definition>
+	
+	<definition name="sales/scheduleManagement" extends="layout">
+	  <put-attribute name="body" value="/WEB-INF/views/sales/scheduleManagement.jsp"/>
 	</definition>
 	<!-- 성호 -->
 	

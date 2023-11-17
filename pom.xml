@@ -34,9 +34,45 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
-	
+		
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jxls</groupId>
+			<artifactId>jxls-core</artifactId>
+			<version>1.0.6</version>
+		</dependency> 
+		<dependency>
+			<groupId>org.jxls</groupId>
+			<artifactId>jxls</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jxls</groupId>
+			<artifactId>jxls-poi</artifactId>
+			<version>1.0.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jxls</groupId>
+			<artifactId>jxls-jexcel</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.14</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.14</version>
+		</dependency>
+		
 		<!-- ======================================= -->
-	
+		
 		<!--tomcat-embed-jasper -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
@@ -101,17 +137,7 @@
 	</dependency>
 		
 	<!-- PDF -->	
-	<dependency>
-	<groupId>com.itextpdf</groupId>
-	<artifactId>itextpdf</artifactId>
-	<version>5.5.13.3</version>
-</dependency>
-
-<dependency>
-    <groupId>com.itextpdf.tool</groupId>
-    <artifactId>xmlworker</artifactId>
-    <version>5.5.13.3</version>
-</dependency>
+	
 	
  <dependency>
     <groupId>com.itextpdf</groupId>
@@ -126,6 +152,13 @@
     <artifactId>html2pdf</artifactId>
     <version>3.0.3</version>
 </dependency>
+
+<!-- spring-boot-starter-websocket -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-websocket</artifactId>
+</dependency>
+
 
 
 		<dependency>
@@ -211,6 +244,4 @@
 			
 		</plugins>
 	</build>
-	
-
 </project>

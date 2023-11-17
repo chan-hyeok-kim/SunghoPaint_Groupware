@@ -1,7 +1,17 @@
 /**
  * 도장 이미지
  */
+
+if(!formSign){
+  $('#small-image-show').html('현재 등록된 사인이 없습니다');
+}else{
+  
+
+  $('#small-image-show').html('<img src='+formSign+' width="60px" height="40px">');
+}
+
 var file;
+var stampImage;
  function loadFile(input) {
     var file = input.files[0];	//선택된 파일 가져오기
 
@@ -18,10 +28,11 @@ var file;
     newImage.src = URL.createObjectURL(file);   
     console.log(newImage.src);
     
+    stampImage=URL.createObjectURL(file);   
     newImage.style.width = "70%";
     newImage.style.height = "70%";
       //버튼을 누르기 전까지는 이미지를 숨긴다
-    newImage.style.objectFit = "contain";
+    newImage.style.objectFit = "cover";
 
     //이미지를 image-show div에 추가
     var container = document.getElementById('image-show');
@@ -35,7 +46,14 @@ var file;
     
     var fileUrl = $('#file-img').attr('src');
     console.log(fileUrl);
-    $('#small-image-show').html('<img src='+fileUrl+' width="60px" height="40px">')
+
+    console.log(username);
+    
+   
+    
+
+
+   // $('#small-image-show').html('<img src='+fileUrl+' width="60px" height="40px">')
     $('#file').val();
     console.log( $('#file').val())
     console.log(file);
@@ -96,7 +114,7 @@ undoButton.addEventListener("click", () => {
 
 savePNGButton.addEventListener("click", () => {
   if (signaturePad.isEmpty()) {
-    alert("먼저 서명해주세요");
+    swal("먼저 서명해주세요");
   } else {
     const dataURL = signaturePad.toDataURL();
     download(dataURL, "signature.png");
@@ -105,12 +123,49 @@ savePNGButton.addEventListener("click", () => {
 
 saveJPGButton.addEventListener("click", () => {
   if (signaturePad.isEmpty()) {
-    alert("먼저 서명해주세요");
+    swal("먼저 서명해주세요");
   } else {
     const dataURL = signaturePad.toDataURL("image/jpeg");
     download(dataURL, "signature.jpg");
   }
 });
+
+
+signAddBtn=document.querySelector('#sign-add-btn');
+
+signAddBtn.addEventListener("click",()=>{
+
+      if (signaturePad.isEmpty()) {
+        swal("먼저 서명해주세요");
+        return;
+      }
+      const dataURL=signaturePad.toDataURL();
+      console.log(dataURL);
+      
+      $.ajax({
+        type:"POST",
+         url:"/sign/signUpdate",
+         data:{
+          signature: dataURL
+         } 
+         ,success:function(result){
+          
+            swal('서명이 성공적으로 등록되었습니다')
+            
+            console.log(result)
+            formSign=result.signature;
+            $('#small-image-show').html('<img src='+formSign+' width="60px" height="40px">');  
+            
+         },error:function(){
+          swal('서명 등록 실패',{
+            dangerMode:true
+          })
+         }
+
+   })
+  }
+
+)
 
 // saveSVGButton.addEventListener("click", () => {
 //   if (signaturePad.isEmpty()) {
@@ -163,6 +218,7 @@ function dataURLToBlob(dataURL) {
 */
 $('#sign-submit-btn').click(function(){
 	
+
 	var file=document.querySelector('#file')
 	console.log($('#file').val());
 	
@@ -174,7 +230,9 @@ $('#sign-submit-btn').click(function(){
 	var formData=new FormData(form);
 	formData.append('file', $('#file')[0].files[0]);
 	console.log(formData)
-	
+	console.log($('#file')[0].files[0]);
+  data=$('#file')[0].files[0];
+  
 	$.ajax({
 		type:"POST",
 		 url:"/sign/signUpdate",
@@ -183,9 +241,17 @@ $('#sign-submit-btn').click(function(){
 		 contentType: false, 
 		 processData: false
 		 ,success:function(result){
-			if(result.trim()>0){
+			
 				swal('서명이 성공적으로 등록되었습니다')
-			}
+        
+        console.log(result)
+        formSign=result.signature;
+        $('#small-image-show').html('<img src='+formSign+' width="60px" height="40px">');  
+        
+          
+        
+        
+			
 		 },error:function(){
       swal('서명 등록 실패',{
         dangerMode:true
@@ -194,5 +260,69 @@ $('#sign-submit-btn').click(function(){
 		 
 	})
 	$('#sign-close').click();
-	
+
+ 
 })
+
+
+/**
+ *  서명 소지했는지 체크
+ */
+checkbtn1=document.getElementById('add-proceed-btn');
+checkbtn2=document.getElementsByClassName('detail-proceed-btn');
+
+checkbtn1.addEventListener("click",function(){
+   if(!formSign){
+
+      Swal.fire({
+        text: '등록된 사인이 없습니다. 먼저 사인을 등록하시겠습니까?',
+        showCancelButton: true,
+        confirmButtonText: '확인',
+        confirmButtonColor: '#90CAF9',
+        cancelButtonText: '취소',
+        reverseButtons: true,
+        icon: 'question'
+      }).then(function(result) {
+        if (result.isConfirmed) {
+
+              $('#sign-modal').click();
+        }
+      })
+
+
+   }else{
+      location.href='/approval/add';
+   }
+})
+
+for(c of checkbtn2){
+
+    c.addEventListener("click",function(){
+      console.log('클릭 확인')
+        if(!formSign){
+
+          Swal.fire({
+            text: '등록된 사인이 없습니다. 먼저 사인을 등록하시겠습니까?',
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            confirmButtonColor: '#90CAF9',
+            cancelButtonText: '취소',
+            reverseButtons: true,
+            icon: 'question'
+          }).then(function(result) {
+            if (result.isConfirmed) {
+
+                  $('#sign-modal').click();
+            }
+          })
+
+
+        }else{
+          no=this.getAttribute('data-no');
+          location.href='/approval/detail?approvalNo='+no;
+        }
+    })
+
+
+}
+

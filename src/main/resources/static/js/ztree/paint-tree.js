@@ -17,7 +17,7 @@ var humanSetting = {
 	,data: {
 		simpleData: {
 			enable: true,
-
+			pIdKey: "pid",
 		}
 	},
 
@@ -27,15 +27,21 @@ var humanSetting = {
 
 /**
  * 인사코드 가져오기*/
-$.ajax({
-	type: 'POST',
-	url: 'getList',
-	success: function() {
+var humanNodes=new Array();
 
+
+
+$.ajax({
+	type: 'GET',
+	url: '/code/approvalLineDept',
+	success: function(result) {
+		console.log(result);
+             humanNodes=result;
+			 humanNodes.push({name: "페인트 오피스", id:'0', open: true, pid: 'root'}); 
 	}
 })
 
-
+console.log(humanNodes)
 
 /**
    * 체크 시 데이터 표시*/
@@ -154,14 +160,7 @@ function myOnCheck(event, treeId, treeNode) {
 })
 */
 
-// zTree data attributes, refer to the API documentation (treeNode data details)
-var humanNodes = [
-	{name: "페인트 오피스", id:0, open: true, pId: 'root'}, 
-			{ name: "인사부", id:1, pId:0 }, { name: "총무부", id:1, pId:0 },
-			{ name: "구매부", id:1, pId:0 }, { name: "생산부", id:1, pId:0 }, 
-			{ name: "영업부", id:1, pId:0 }
-	
-];
+
 $(document).ready(function() {
 	zTreeObj1 = $.fn.zTree.init($("#tree"), humanSetting, humanNodes);
 });

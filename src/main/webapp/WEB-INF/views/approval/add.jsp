@@ -61,8 +61,8 @@
 }
 
 .content-wrapper {
-	padding-left: 300px;
-	padding-right: 300px;
+	padding-left: 10%;
+	padding-right: 10%;
 }
 </style>
 
@@ -159,13 +159,14 @@
 				</table>
 
 				<!-- add button -->
-				<div id="form-add-btn-box">
-					<!-- <button type="button" class="btn btn-info">임시저장</button> -->
+				<div id="form-add-btn-box" style="float:left;">
+					<button type="button" class="btn btn-info"
+					style="margin-left: 20px;" id="app-save-btn">임시저장</button>
 					<button type="button" class="btn btn-info" id="text-delete-btn"
 					style="margin-left: 20px;">지우기</button>
-					<button type="button" class="btn btn-info" id="form-add-sign"
-					style="margin-left: 20px;">서명하기</button>
-					<button id="app-add-btn" type="button" class="btn btn-info" style="margin-left: 400px;">결재</button>
+				</div>
+				<div style="float:right; margin:20px 20px 0 0;">
+					<button id="app-add-btn" type="button" class="btn btn-info">결재</button>
 				</div>
 		</div>
 		<input type="hidden" id="form-add-no" name="approvalTypeNo">
