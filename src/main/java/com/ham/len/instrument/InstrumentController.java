@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ham.len.commons.MakeColumn;
+
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 
@@ -26,9 +26,7 @@ public class InstrumentController {
 
 	@Autowired
 	private InstrumentService instrumentService;
-	
-	@Autowired
-	private MakeColumn makeColumn;
+
 	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
@@ -49,7 +47,6 @@ public class InstrumentController {
 		String path=request.getRequestURI();
 		//나중에 세션에서 조회
 		instrumentVO.setEmployeeId(id);
-		instrumentVO = (InstrumentVO)makeColumn.getColumn(instrumentVO, path, id);
 		log.warn("====================================기기입력 체크{}",instrumentVO);
 		int result=instrumentService.setAdd(instrumentVO);
 
@@ -84,7 +81,6 @@ public class InstrumentController {
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id=humanResourceVO.getEmployeeID();
 		String path=request.getRequestURI();
-		instrumentVO=(InstrumentVO)makeColumn.getModColumn(instrumentVO, path, id);
 		instrumentService.setUpdate(instrumentVO);
 		return "redirect:/instrument/list";
 		

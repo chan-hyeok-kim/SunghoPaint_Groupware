@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 
@@ -28,8 +27,6 @@ public class MaterialProductController {
 	@Autowired
 	private MaterialProductService materialService;
 	
-	@Autowired
-	private MakeColumn makeColumn;
 	
 	@GetMapping("list")
 	public void getList(Pager pager,Model model) throws Exception{
@@ -47,7 +44,6 @@ public class MaterialProductController {
 		String path=request.getRequestURI();
 		//나중에 세션에서 조회
 		materialVO.setEmployeeId(id);
-		materialVO = (MaterialProductVO)makeColumn.getColumn(materialVO, path, id);
 		log.warn("====================================제품, 원료 체크{}",materialVO);
 		int result=materialService.setAdd(materialVO);
 	   	 if(result>0) {
@@ -82,7 +78,6 @@ public class MaterialProductController {
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id=humanResourceVO.getEmployeeID();
 		String path=request.getRequestURI();
-		materialVO=(MaterialProductVO)makeColumn.getModColumn(materialVO, path, id);
 		materialService.setUpdate(materialVO);
 		return "redirect:/material/list";
 	}

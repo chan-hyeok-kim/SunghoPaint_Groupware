@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 
@@ -26,8 +25,7 @@ public class FactoryStorageController {
 	@Autowired
 	private FactoryStorageService factoryStorageService;
 	
-	@Autowired
-	private MakeColumn makeColumn;
+
 	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
@@ -46,7 +44,7 @@ public class FactoryStorageController {
 		String path=request.getRequestURI();
 		//나중에 세션에서 조회
 		factoryStorageVO.setEmployeeId(id);
-		factoryStorageVO = (FactoryStorageVO)makeColumn.getColumn(factoryStorageVO, path, id);
+	
 		int result=factoryStorageService.setAdd(factoryStorageVO);
 		if(result>0) {
 			 model.addAttribute("message", "코드가 정상 등록되었습니다.");
@@ -79,7 +77,6 @@ public class FactoryStorageController {
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id=humanResourceVO.getEmployeeID();
 		String path=request.getRequestURI();
-		factoryStorageVO=(FactoryStorageVO)makeColumn.getModColumn(factoryStorageVO, path, id);
 		factoryStorageService.setUpdate(factoryStorageVO);
 		return "redirect:/factory/list";
 		

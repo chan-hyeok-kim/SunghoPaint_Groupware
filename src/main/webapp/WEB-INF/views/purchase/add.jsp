@@ -55,7 +55,16 @@
       width: 30px;
 }
 </style>
+<script type="text/javascript">
+    function 총액_업데이트() {
+        var Quantity = parseInt(document.getElementById("purchaseQuantity").value);
+        var Price = parseFloat(document.getElementById("materialProductPrice").value);
+        var TotalPrice = Quantity * Price;
 
+        // 계산된 총액을 표시
+        document.getElementById("totalPrice").value = TotalPrice.toFixed(2);
+    }
+</script>
 
 </head>
 <body>
@@ -83,7 +92,7 @@
 						</td>
 						<td>원료명</td>
 						<td>
-							<select class="form-control" type="text" name="materialProductNo">
+							<select class="form-control" type="text" name="materialProductNo" id="materialProductNo" onchange="총액_업데이트()">
 						 	<c:forEach items="${material}" var="f">
 						 	<c:if test="${f.materialProductCategory eq '원료'}">
 							<option value=${f.materialProductNo}>${f.codeName}</option>	
