@@ -8,6 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ham.len.humanresource.HumanResourcePager;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -63,5 +65,9 @@ public class AttendanceService {
 	
 	public int setLeaveWork(AttendanceVO attendanceVO) {
 		return attendanceDAO.setLeaveWork(attendanceVO);
+	}
+	
+	public List<AttendanceAccrueVO> getAttendanceAccrueList(HumanResourcePager pager) {
+		return attendanceDAO.getAttendanceAccrueList(pager);
 	}
 }

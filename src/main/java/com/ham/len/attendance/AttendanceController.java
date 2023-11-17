@@ -1,9 +1,12 @@
 package com.ham.len.attendance;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -41,6 +44,19 @@ public class AttendanceController {
 		return new Date();
 	}
 	
+	private Map<String, String> setDateRange(String startDate, String endDate) {
+		startDate = startDate.split(" ")[0].replaceAll("[ymd]", "-");
+		endDate = endDate.split(" ")[0].replaceAll("[ymd]", "-");
+		startDate = startDate.substring(0, startDate.length() - 1) + " " + "00:00:00";
+		endDate = endDate.substring(0, endDate.length() - 1) + " " + "23:59:59";
+		
+		Map<String, String> params = new HashMap<>();
+		params.put("startDate", startDate);
+		params.put("endDate", endDate);
+		
+		return params;
+	}
+	
 	@PostMapping("myStatus")
 	public String getMyStatus(@RequestParam(value = "year", defaultValue = "0")int year,
 										@RequestParam(value = "month", defaultValue = "0")int month,
@@ -70,15 +86,7 @@ public class AttendanceController {
 		
 		String[][] weeksOfMonthInfo = WeekOfMonthInfoCalculator.getWeeksOfMonthInfo(year, month);
 		
-		Map<String, String> params = new HashMap<>();
-		String start_date = weeksOfMonthInfo[1][1].split(" ")[0].replaceAll("[ymd]", "-");
-		String end_date = weeksOfMonthInfo[weeksOfMonthInfo.length - 1][7].split(" ")[0].replaceAll("[ymd]", "-");
-		start_date = start_date.substring(0, start_date.length() - 1) + " " + "00:00:00";
-		end_date = end_date.substring(0, end_date.length() - 1) + " " + "23:59:59";
-		params.put("employeeID", employeeID);
-		params.put("start_date", start_date);
-		params.put("end_date", end_date);
-		
+		Map<String, String> params = setDateRange(weeksOfMonthInfo[1][1], weeksOfMonthInfo[weeksOfMonthInfo.length - 1][7]);
 		List<AttendanceVO> attendances = attendanceService.getMyStatus(params);
 		
 		
@@ -152,6 +160,60 @@ public class AttendanceController {
 		}
 		
 		String[][] weeksOfMonthInfo = WeekOfMonthInfoCalculator.getWeeksOfMonthInfo(year, month);
+		
+		Map<String, String> params = setDateRange(weeksOfMonthInfo[1][1], weeksOfMonthInfo[weeksOfMonthInfo.length - 1][7]);
+		pager.setStartDate(params.get("startDate"));
+		pager.setEndDate(params.get("endDate"));
+		
+		// { 2023001 전체 누적, 2023002 전체 누적, ... }
+		List<AttendanceAccrueVO> weeksOfTotalAttendanceAccrue = attendanceService.getAttendanceAccrueList(pager); // 전체 누적
+		
+		/*
+			{
+				1주차 : { 2023001 1주차 누적, 2023002 1주차 누적, ... }
+				2주차 : { 2023001 2주차 누적, 2023002 2주차 누적, ... }
+				...
+			}
+		*/
+		List<List<AttendanceAccrueVO>> weeksOfAttendanceAccrue = new ArrayList<>(); // 각 주차 누적
+		for(int i = 1; i <= weeksOfMonthInfo.length - 1; i++) {
+			params = setDateRange(weeksOfMonthInfo[i][1], weeksOfMonthInfo[i][weeksOfMonthInfo[i].length - 1]);
+			pager.setStartDate(params.get("startDate"));
+			pager.setEndDate(params.get("endDate"));
+			weeksOfAttendanceAccrue.add(attendanceService.getAttendanceAccrueList(pager));
+		}
+		
+		
+		// 사원별로 데이터 정렬
+		Map<String, AttendanceStatusVO> attendanceStatusMap = new LinkedHashMap<>();
+		
+		for(AttendanceAccrueVO attendanceAccrueVO : weeksOfTotalAttendanceAccrue) {
+			AttendanceStatusVO attendanceStatusVO = new AttendanceStatusVO();
+			attendanceStatusVO.setEmployeeID(attendanceAccrueVO.getEmployeeID());
+			attendanceStatusVO.setName(attendanceAccrueVO.getName());
+			attendanceStatusVO.setDepartmentCdName(attendanceAccrueVO.getDepartmentCdName());
+			attendanceStatusVO.setPositionCdName(attendanceAccrueVO.getPositionCdName());
+			
+			attendanceStatusVO.setAccrues(new AttendanceAccrueVO[weeksOfMonthInfo.length]);
+			attendanceStatusVO.getAccrues()[0] = attendanceAccrueVO;
+			
+			attendanceStatusMap.put(attendanceStatusVO.getEmployeeID(), attendanceStatusVO);
+		}
+		
+		for(int i = 0; i < weeksOfAttendanceAccrue.size(); i++) {
+			List<AttendanceAccrueVO> weekAccrue = weeksOfAttendanceAccrue.get(i);
+			for(AttendanceAccrueVO attendanceAccrueVO : weekAccrue) {
+				AttendanceStatusVO attendanceStatusVO = attendanceStatusMap.get(attendanceAccrueVO.getEmployeeID());
+				attendanceStatusVO.getAccrues()[i + 1] = attendanceAccrueVO;
+			}
+		}
+		
+		List<AttendanceStatusVO> attendanceStatuses = new ArrayList<>();
+		Iterator<String> iterator = attendanceStatusMap.keySet().iterator();
+		while(iterator.hasNext()) {
+			attendanceStatuses.add(attendanceStatusMap.get(iterator.next()));
+		}
+		
 		model.addAttribute("weeksOfMonthInfo", weeksOfMonthInfo);
 		
 		return "attendance/list";

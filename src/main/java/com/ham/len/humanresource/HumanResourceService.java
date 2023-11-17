@@ -205,5 +205,5 @@ public class HumanResourceService implements UserDetailsService {
 		
 		email = localPart + "@" + domain;
 		return email;
-	}	
+	}
 }

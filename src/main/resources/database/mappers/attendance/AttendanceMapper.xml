@@ -7,12 +7,10 @@
 <mapper namespace="com.ham.len.attendance.AttendanceDAO">
 	<sql id="searchSQL">
 		<if test="department != ''">
-			WHERE DEPARTMENT_CD = #{department}
+			AND DEPARTMENT_CD = #{department}
 		</if>
 		<if test="keyword != ''">
-			<if test="department == ''">WHERE</if>
-			<if test="department != ''">AND</if>
-			NAME LIKE CONCAT('%', #{keyword}, '%') 
+			AND NAME LIKE CONCAT('%', #{keyword}, '%') 
 		</if>
 	</sql>
 	
@@ -26,7 +24,7 @@
 			FROM ATTENDANCE
 		WHERE
 			EMPLOYEE_ID = #{employeeID} AND
-			(ATTENDANCE_DATE BETWEEN #{start_date} AND #{end_date})
+			(ATTENDANCE_DATE BETWEEN #{startDate} AND #{endDate})
 	]]>
 	</select>
 	
@@ -54,4 +52,63 @@
 		ATTENDANCE_END = #{attendanceEnd}, MOD_ID = #{modId}, MOD_DATE = #{modDate}, MOD_MENU = #{modMenu}
 		WHERE EMPLOYEE_ID = #{employeeId} AND ATTENDANCE_END IS NULL 
 	</update>
+	
+	<select id="getAttendanceAccrueList" parameterType="HumanResourcePager" resultType="AttendanceAccrueVO">
+	<![CDATA[
+		SELECT
+			EMPLOYEE_ID, NAME, POSITION_CD_NAME, DEPARTMENT_CD_NAME,
+			SEC_TO_TIME(SUM(TOTAL_SECONDS)) AS WEEK_ACCRUE,
+			SEC_TO_TIME
+			(
+				SUM
+				(
+					CASE
+						WHEN TOTAL_SECONDS <= (8 * 3600) THEN
+							TOTAL_SECONDS
+						ELSE (8 * 3600)
+					END
+				)
+			) AS WEEK_DEFAULT,
+			SEC_TO_TIME
+			(
+				SUM
+				(
+					CASE
+						WHEN TOTAL_SECONDS > (8 * 3600) THEN
+							TOTAL_SECONDS - (8 * 3600)
+						ELSE 0
+					END
+				)
+			) AS WEEK_OVER,
+			SEC_TO_TIME
+			(
+				SUM
+				(
+					CASE
+						WHEN TOTAL_SECONDS - (8 * 3600) > (4 * 3600) THEN
+							TOTAL_SECONDS - (8 * 3600) - (4 * 3600)
+						ELSE 0
+					END
+				)
+			) AS WEEK_NIGHT
+		FROM
+			(
+				SELECT
+					a.EMPLOYEE_ID, h.NAME,
+					FN_CODE_NM(LEFT(h.POSITION_CD, 3), h.POSITION_CD) AS POSITION_CD_NAME,
+					FN_CODE_NM(LEFT(h.DEPARTMENT_CD, 3), h.DEPARTMENT_CD) AS DEPARTMENT_CD_NAME,
+					TIMESTAMPDIFF(SECOND, ATTENDANCE_START, FN_TOTAL_ATTENDANCE_TIME(ATTENDANCE_START, ATTENDANCE_END)) AS TOTAL_SECONDS
+				FROM
+					ATTENDANCE a LEFT OUTER JOIN HUMAN_RESOURCE h
+						ON a.EMPLOYEE_ID = h.EMPLOYEE_ID
+				WHERE
+					ATTENDANCE_DATE BETWEEN #{startDate} AND #{endDate}
+	]]>
+					<include refid="searchSQL"></include>
+	<![CDATA[
+			) AS subquery
+		GROUP BY
+			EMPLOYEE_ID
+	]]>
+	</select>
 </mapper>

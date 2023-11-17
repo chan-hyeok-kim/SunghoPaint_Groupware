@@ -76,7 +76,7 @@
 			
 			/*
 				총 근무 시간 구하기
-				※점심 시간 제외(-1시간) : 3시간 이상 근무 시 적용
+				※점심 시간(총 1시간) 제외 : 3시간 이상 근무 시 적용
 			*/
 			let lunch_time;
 			let total = timeDiffToTimeString(attendanceEnd.getTime() - attendanceStart.getTime(), ":");
@@ -84,7 +84,7 @@
 			if(total_timeObj.hours >= 4){
 				lunch_time = 1000 * 60 * 60;
 				total = timeDiffToTimeString(attendanceEnd.getTime() - attendanceStart.getTime() - lunch_time, ":");
-			}else if(total_timeObj.hours == 3){
+			}else if(total_timeObj.hours == 3){ // ex) 9시 출근, 12시 30분 30초 퇴근 : 점심 시간 30분 30초만 제외
 				let minutes = attendanceEnd.getMinutes();
 				let seconds = attendanceEnd.getSeconds();
 				lunch_time = "00:" + minutes + ":" + seconds;
@@ -96,14 +96,19 @@
 
 			month_accrue = hoursToTimeString(timeStringToHours(month_accrue, ":") + timeStringToHours(total, ":"), ":");
 			
-			// 근무 시간 상세 구하기
+			/*
+				근무 시간 상세 구하기
+				-기본 : 8시간
+				-연장 : 8시간 초과 - 기본(8시간)
+				-야간 : 4시간 이상 연장한 시점부터 적용
+			*/
 			let detail = "";
 			let basic = "08:00:00";
 
 			if(parseInt(total.split(":")[0]) < 8) basic = total;
 			detail += "기본 " + basic;
 			
-			let over = hoursToTimeString(timeStringToHours(total, ":") - timeStringToHours("08:00:00", ":"), ":"); // 기본 8시간 초과 시 연장 및 야간 적용
+			let over = hoursToTimeString(timeStringToHours(total, ":") - timeStringToHours("08:00:00", ":"), ":");
 			let over_timeObj = splitTimeString(over, ":");
 
 			if(timeStringToHours(over, ":") - timeStringToHours("00:00:00", ":") > 0){ // 또는 if(over > "00:00:00")

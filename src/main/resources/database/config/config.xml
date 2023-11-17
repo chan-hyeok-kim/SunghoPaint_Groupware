@@ -17,6 +17,7 @@
 	   <typeAlias type="com.ham.len.humanresource.HumanResourcePager" alias="HumanResourcePager" />
 	   <typeAlias type="com.ham.len.humanresource.AccountRoleVO" alias="AccountRoleVO" />
 	   <typeAlias type="com.ham.len.attendance.AttendanceVO" alias="AttendanceVO" />
+	   <typeAlias type="com.ham.len.attendance.AttendanceAccrueVO" alias="AttendanceAccrueVO" />
 	   <typeAlias type="com.ham.len.transfer.TransferVO" alias="TransferVO" />
 	   <typeAlias type="com.ham.len.annual.AnnualVO" alias="AnnualVO" />
 	   <typeAlias type="com.ham.len.annual.AnnualLeaveOccurredHistoryVO" alias="AnnualLeaveOccurredHistoryVO" />

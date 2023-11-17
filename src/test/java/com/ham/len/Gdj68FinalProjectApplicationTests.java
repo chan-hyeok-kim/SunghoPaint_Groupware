@@ -1,8 +1,14 @@
 package com.ham.len;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 import org.junit.jupiter.api.Test;
@@ -10,11 +16,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.ham.len.attendance.AttendanceAccrueVO;
+import com.ham.len.attendance.AttendanceService;
+import com.ham.len.attendance.AttendanceStatusVO;
 import com.ham.len.humanresource.HumanResourceDAO;
+import com.ham.len.humanresource.HumanResourcePager;
 import com.ham.len.humanresource.HumanResourceService;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.transfer.TransferDAO;
 import com.ham.len.transfer.TransferVO;
+import com.ham.len.util.WeekOfMonthInfoCalculator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +39,9 @@ class Gdj68FinalProjectApplicationTests {
 	HumanResourceService humanResourceService;
 	
 	@Autowired
+	AttendanceService attendanceService;
+	
+	@Autowired
 	HumanResourceDAO humanResourceDAO;
 	
 	@Autowired
@@ -37,6 +51,7 @@ class Gdj68FinalProjectApplicationTests {
 	void contextLoads() {
 		
 	}
+	
 	
 	// @Test
 	void setTransfer() {
@@ -60,7 +75,8 @@ class Gdj68FinalProjectApplicationTests {
 		}
 	}
 	
-	@Test
+	
+	// @Test
 	void setRegistrationHumanresource() throws Exception {
 		for(int i = 1; i <= 100; i++) {
 			HumanResourceVO humanResourceVO = new HumanResourceVO();
@@ -94,6 +110,7 @@ class Gdj68FinalProjectApplicationTests {
 		*/
 	}
 	
+	
 	// @Test
 	void generateTemporaryPassword() {
 		String temporaryPassword = "";
@@ -108,5 +125,87 @@ class Gdj68FinalProjectApplicationTests {
 		}
         
         log.info("temporaryPassword : {}" , temporaryPassword);
+	}
+	
+	
+	private Map<String, String> setDateRange(String startDate, String endDate) {
+		startDate = startDate.split(" ")[0].replaceAll("[ymd]", "-");
+		endDate = endDate.split(" ")[0].replaceAll("[ymd]", "-");
+		startDate = startDate.substring(0, startDate.length() - 1) + " " + "00:00:00";
+		endDate = endDate.substring(0, endDate.length() - 1) + " " + "23:59:59";
+		
+		Map<String, String> params = new HashMap<>();
+		params.put("startDate", startDate);
+		params.put("endDate", endDate);
+		
+		return params;
+	}
+	
+	@Test
+	void getAttendanceAccrue() {
+		Calendar calendar = Calendar.getInstance(Locale.KOREA);
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH) + 1;
+		
+		HumanResourcePager pager = new HumanResourcePager();
+		pager.setDepartment("D001");
+		pager.setKeyword("김");
+		
+		String[][] weeksOfMonthInfo = WeekOfMonthInfoCalculator.getWeeksOfMonthInfo(year, month);
+		
+		Map<String, String> params = setDateRange(weeksOfMonthInfo[1][1], weeksOfMonthInfo[weeksOfMonthInfo.length - 1][7]);
+		pager.setStartDate(params.get("startDate"));
+		pager.setEndDate(params.get("endDate"));
+		
+		// { 2023001 전체 누적, 2023002 전체 누적, ... }
+		List<AttendanceAccrueVO> weeksOfTotalAttendanceAccrue = attendanceService.getAttendanceAccrueList(pager); // 전체 누적
+		
+		/*
+			{
+				1주차 : { 2023001 1주차 누적, 2023002 1주차 누적, ... }
+				2주차 : { 2023001 2주차 누적, 2023002 2주차 누적, ... }
+				...
+			}
+		*/
+		List<List<AttendanceAccrueVO>> weeksOfAttendanceAccrue = new ArrayList<>(); // 각 주차 누적
+		for(int i = 1; i <= weeksOfMonthInfo.length - 1; i++) {
+			params = setDateRange(weeksOfMonthInfo[i][1], weeksOfMonthInfo[i][weeksOfMonthInfo[i].length - 1]);
+			pager.setStartDate(params.get("startDate"));
+			pager.setEndDate(params.get("endDate"));
+			weeksOfAttendanceAccrue.add(attendanceService.getAttendanceAccrueList(pager));
+		}
+		
+		
+		// 사원별로 데이터 정렬
+		Map<String, AttendanceStatusVO> attendanceStatusMap = new LinkedHashMap<>();
+		
+		for(AttendanceAccrueVO attendanceAccrueVO : weeksOfTotalAttendanceAccrue) {
+			AttendanceStatusVO attendanceStatusVO = new AttendanceStatusVO();
+			attendanceStatusVO.setEmployeeID(attendanceAccrueVO.getEmployeeID());
+			attendanceStatusVO.setName(attendanceAccrueVO.getName());
+			attendanceStatusVO.setDepartmentCdName(attendanceAccrueVO.getDepartmentCdName());
+			attendanceStatusVO.setPositionCdName(attendanceAccrueVO.getPositionCdName());
+			
+			attendanceStatusVO.setAccrues(new AttendanceAccrueVO[weeksOfMonthInfo.length]);
+			attendanceStatusVO.getAccrues()[0] = attendanceAccrueVO;
+			
+			attendanceStatusMap.put(attendanceStatusVO.getEmployeeID(), attendanceStatusVO);
+		}
+		
+		for(int i = 0; i < weeksOfAttendanceAccrue.size(); i++) {
+			List<AttendanceAccrueVO> weekAccrue = weeksOfAttendanceAccrue.get(i);
+			for(AttendanceAccrueVO attendanceAccrueVO : weekAccrue) {
+				AttendanceStatusVO attendanceStatusVO = attendanceStatusMap.get(attendanceAccrueVO.getEmployeeID());
+				attendanceStatusVO.getAccrues()[i + 1] = attendanceAccrueVO;
+			}
+		}
+		
+		List<AttendanceStatusVO> attendanceStatuses = new ArrayList<>();
+		Iterator<String> iterator = attendanceStatusMap.keySet().iterator();
+		while(iterator.hasNext()) {
+			attendanceStatuses.add(attendanceStatusMap.get(iterator.next()));
+		}
+		
+		log.info("attendanceStatuses : {}", attendanceStatuses);
 	}
 }
