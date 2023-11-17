@@ -1,9 +1,8 @@
-package com.ham.len.factoryStorage;
+package com.ham.len.materialProduct;
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,69 +17,69 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
-@RequestMapping("/factory/*")
-public class FactoryStorageController {
+@Slf4j
+@RequestMapping("/material/*")
+public class MaterialProductController {
 
 	@Autowired
-	private FactoryStorageService factoryStorageService;
+	private MaterialProductService materialService;
 	
-
 	
 	@GetMapping("list")
-	public String getList(Pager pager,Model model) throws Exception{
-		List<FactoryStorageVO> ar = factoryStorageService.getList(pager);	
+	public void getList(Pager pager,Model model) throws Exception{
+		List ar = materialService.getList(pager);	
 		model.addAttribute("list", ar);
-	 	model.addAttribute("pager", pager);
-		 
-		return "factory/list";
+		
 	}
 	
-	
 	@PostMapping(value = "add")
-	public String setAdd(FactoryStorageVO factoryStorageVO, HttpServletRequest request, Model model)throws Exception{
+	public String setAdd(MaterialProductVO materialVO, HttpServletRequest request, Model model)throws Exception{
+		
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id=humanResourceVO.getEmployeeID();
+		
 		String path=request.getRequestURI();
 		//나중에 세션에서 조회
-		factoryStorageVO.setEmployeeId(id);
-	
-		int result=factoryStorageService.setAdd(factoryStorageVO);
-		if(result>0) {
+		materialVO.setEmployeeId(id);
+		log.warn("====================================제품, 원료 체크{}",materialVO);
+		int result=materialService.setAdd(materialVO);
+	   	 if(result>0) {
 			 model.addAttribute("message", "코드가 정상 등록되었습니다.");
 		 }else {
 			 model.addAttribute("message", "코드 등록 실패");	
 		 }
+
     	model.addAttribute("result", result);
-    	model.addAttribute("url", "/factory/list");
+    	model.addAttribute("url", "/material/list");
     	return "commons/result";
     			
 	}
 	
 	@RequestMapping(value = "detail")
-	public ModelAndView getDetail(FactoryStorageVO factoryStorageVO, ModelAndView mv) throws Exception{
-		factoryStorageVO = factoryStorageService.getDetail(factoryStorageVO);
-		mv.addObject("dto", factoryStorageVO);
-		mv.setViewName("factory/detail");
+	public ModelAndView getDetail(MaterialProductVO materialVO, ModelAndView mv) throws Exception{
+		materialVO = materialService.getDetail(materialVO);
+		mv.addObject("dto", materialVO);
+		mv.setViewName("material/detail");
 		return mv;
 	}   
 	
 	//form으로 이동
 	@GetMapping(value = "update")
-	public void setUpdate(FactoryStorageVO factoryStorageVO, Model model) throws Exception {
-		factoryStorageVO = factoryStorageService.getDetail(factoryStorageVO);
-		model.addAttribute("dto", factoryStorageVO);
+	public void setUpdate(MaterialProductVO materialVO, Model model) throws Exception {
+		materialVO = materialService.getDetail(materialVO);
+		model.addAttribute("dto", materialVO);
 	}
 	
 	@PostMapping(value = "update")
-	public String setUpdate(FactoryStorageVO factoryStorageVO, HttpServletRequest request) throws Exception {
+	public String setUpdate(MaterialProductVO materialVO, HttpServletRequest request) throws Exception {
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id=humanResourceVO.getEmployeeID();
 		String path=request.getRequestURI();
-		factoryStorageService.setUpdate(factoryStorageVO);
-		return "redirect:/factory/list";
-		
-
+		materialService.setUpdate(materialVO);
+		return "redirect:/material/list";
 	}
 	
 	@PostMapping(value = "delete")
@@ -88,19 +87,19 @@ public class FactoryStorageController {
 		int result=0;
 		if(deleteCdArr!=null) {
 	    	for(String d: deleteCdArr) {
-	    		FactoryStorageVO factoryStorageVO = new FactoryStorageVO();
-	    		factoryStorageVO.setFactoryStorageCd(d);
+	    		MaterialProductVO materialVO = new MaterialProductVO();
+	    		materialVO.setMaterialProductCd(d);
 	    	    
-	    	    result = factoryStorageService.setDelete(factoryStorageVO);
+	    	    result = materialService.setDelete(materialVO);
 	    	    }
 	    	}
 	    	model.addAttribute("result", result);
 	    	return "commons/ajaxResult";
 	}
 	
-	@PostMapping("factoryCheck")
-	public String getFactoryCheck(FactoryStorageVO factoryStorageVO, Model model) throws Exception{
-		Long result=factoryStorageService.getFactoryCheck(factoryStorageVO);
+	@PostMapping("materialCheck")
+	public String getMaterialCheck(MaterialProductVO materialVO, Model model) throws Exception{
+		Long result=materialService.getMaterialCheck(materialVO);
 		model.addAttribute("result", result);
 		
 		return "commons/ajaxResult";

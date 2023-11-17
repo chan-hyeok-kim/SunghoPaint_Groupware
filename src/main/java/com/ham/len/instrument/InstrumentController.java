@@ -1,10 +1,8 @@
-package com.ham.len.factoryStorage;
+package com.ham.len.instrument;
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,70 +13,76 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
-@RequestMapping("/factory/*")
-public class FactoryStorageController {
+@Slf4j
+@RequestMapping("/instrument/*")
+public class InstrumentController {
 
 	@Autowired
-	private FactoryStorageService factoryStorageService;
-	
+	private InstrumentService instrumentService;
 
 	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
-		List<FactoryStorageVO> ar = factoryStorageService.getList(pager);	
+		List<InstrumentVO> ar = instrumentService.getList(pager);	
+		log.warn("========{}========",ar);
+		log.warn("========{}========",pager);
 		model.addAttribute("list", ar);
 	 	model.addAttribute("pager", pager);
 		 
-		return "factory/list";
+		return "instrument/list";
 	}
 	
 	
 	@PostMapping(value = "add")
-	public String setAdd(FactoryStorageVO factoryStorageVO, HttpServletRequest request, Model model)throws Exception{
+	public String setAdd(InstrumentVO instrumentVO, HttpServletRequest request, Model model)throws Exception{
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id=humanResourceVO.getEmployeeID();
 		String path=request.getRequestURI();
 		//나중에 세션에서 조회
-		factoryStorageVO.setEmployeeId(id);
-	
-		int result=factoryStorageService.setAdd(factoryStorageVO);
-		if(result>0) {
+		instrumentVO.setEmployeeId(id);
+		log.warn("====================================기기입력 체크{}",instrumentVO);
+		int result=instrumentService.setAdd(instrumentVO);
+
+	   	 if(result>0) {
 			 model.addAttribute("message", "코드가 정상 등록되었습니다.");
 		 }else {
 			 model.addAttribute("message", "코드 등록 실패");	
 		 }
     	model.addAttribute("result", result);
-    	model.addAttribute("url", "/factory/list");
+    	model.addAttribute("url", "/instrument/list");
     	return "commons/result";
     			
 	}
 	
 	@RequestMapping(value = "detail")
-	public ModelAndView getDetail(FactoryStorageVO factoryStorageVO, ModelAndView mv) throws Exception{
-		factoryStorageVO = factoryStorageService.getDetail(factoryStorageVO);
-		mv.addObject("dto", factoryStorageVO);
-		mv.setViewName("factory/detail");
+	public ModelAndView getDetail(InstrumentVO instrumentVO, ModelAndView mv) throws Exception{
+		instrumentVO = instrumentService.getDetail(instrumentVO);
+		mv.addObject("dto", instrumentVO);
+		mv.setViewName("instrument/detail");
 		return mv;
 	}   
 	
 	//form으로 이동
 	@GetMapping(value = "update")
-	public void setUpdate(FactoryStorageVO factoryStorageVO, Model model) throws Exception {
-		factoryStorageVO = factoryStorageService.getDetail(factoryStorageVO);
-		model.addAttribute("dto", factoryStorageVO);
+	public void setUpdate(InstrumentVO instrumentVO, Model model) throws Exception {
+		instrumentVO = instrumentService.getDetail(instrumentVO);
+		model.addAttribute("dto", instrumentVO);
 	}
 	
 	@PostMapping(value = "update")
-	public String setUpdate(FactoryStorageVO factoryStorageVO, HttpServletRequest request) throws Exception {
+	public String setUpdate(InstrumentVO instrumentVO, HttpServletRequest request) throws Exception {
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id=humanResourceVO.getEmployeeID();
 		String path=request.getRequestURI();
-		factoryStorageService.setUpdate(factoryStorageVO);
-		return "redirect:/factory/list";
+		instrumentService.setUpdate(instrumentVO);
+		return "redirect:/instrument/list";
 		
 
 	}
@@ -88,21 +92,22 @@ public class FactoryStorageController {
 		int result=0;
 		if(deleteCdArr!=null) {
 	    	for(String d: deleteCdArr) {
-	    		FactoryStorageVO factoryStorageVO = new FactoryStorageVO();
-	    		factoryStorageVO.setFactoryStorageCd(d);
+	    	    InstrumentVO instrumentVO = new InstrumentVO();
+	    	    instrumentVO.setInstrumentCd(d);
 	    	    
-	    	    result = factoryStorageService.setDelete(factoryStorageVO);
+	    	    result = instrumentService.setDelete(instrumentVO);
 	    	    }
 	    	}
 	    	model.addAttribute("result", result);
 	    	return "commons/ajaxResult";
 	}
 	
-	@PostMapping("factoryCheck")
-	public String getFactoryCheck(FactoryStorageVO factoryStorageVO, Model model) throws Exception{
-		Long result=factoryStorageService.getFactoryCheck(factoryStorageVO);
+	@PostMapping("instrumentCheck")
+	public String getInstrumentCheck(InstrumentVO instrumentVO, Model model) throws Exception{
+		Long result=instrumentService.getInstrumentCheck(instrumentVO);
 		model.addAttribute("result", result);
 		
 		return "commons/ajaxResult";
 	}
+	
 }

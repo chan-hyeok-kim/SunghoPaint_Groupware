@@ -11,6 +11,8 @@ public interface MaterialProductDAO {
 
 	public List<MaterialProductVO> getList(Pager pager) throws Exception;
 	
+	public List<MaterialProductVO> getList2() throws Exception;
+	
 	public Long getTotal(Pager pager) throws Exception;
 	
 	public int add(MaterialProductVO materialVO) throws Exception;

@@ -15,6 +15,7 @@ public class FactoryStorageVO extends CodeVO{
 	private String employeeId;
 	private String factoryStorageCd;
 	private String factoryStorageUse;
+	private String factoryStorageCategory;
 	
 
 }

@@ -74,6 +74,3 @@ returnStr1=CF_toStringByFormatting(date2)
 
 return returnStr1
 }
-
-
-

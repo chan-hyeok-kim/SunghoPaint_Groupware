@@ -1,6 +1,8 @@
   const code = document.getElementById('code');
   const useYes = document.getElementById('btnradio1');
   const useNo = document.getElementById('btnradio2');
+  const categoryFactory = document.getElementById('btnradio3');
+  const categoryStorage = document.getElementById('btnradio4');
   const add = document.getElementById('add');
 
 let checkResult = [false];
@@ -40,7 +42,8 @@ function checkFactoryCode(code, callback) {
 
 add.addEventListener("click", function(event) {
     // 필수 입력 필드가 모두 입력되었는지 확인
-    if (code.value.trim() === '' || (!useYes.checked && !useNo.checked)) {
+    if (code.value.trim() === '' || (!useYes.checked && !useNo.checked) ||
+        (!categoryFactory.checked && !categoryStorage.checked)) {
       event.preventDefault(); // 저장 버튼의 기본 동작(제출) 막기
       alert('모든 입력사항을 작성해야 합니다.');
     }else{

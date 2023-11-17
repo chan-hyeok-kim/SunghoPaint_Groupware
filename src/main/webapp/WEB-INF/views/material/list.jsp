@@ -141,15 +141,15 @@ ul.nav-tabs {
 				<div class="card-body">
 
 					<div class="wrapper-toolbar">
-						품목 리스트 <span
+						물품 리스트 <span
 							style="margin-left: 700px; text-align: right; width: 700px;">
 							<form class="form-inline"
 								style="width: 700px; display: inline-block;">
 
 								<!-- 검색 설정 -->
 								<select name="kind" class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected" value="code">제품코드</option>
-									<option value="name">제품이름</option>
+									<option selected="selected" value="code">물품코드</option>
+									<option value="name">물품이름</option>
 									<option value="234">품목구분</option>
 								</select> 							
 													
@@ -187,8 +187,9 @@ ul.nav-tabs {
 								<thead>								
 									<tr>
 										<th>선택</th>
-										<th>제품, 원료 코드</th>
-										<th>제품, 원료 이름</th>
+										<th>코드</th>
+										<th>제품명</th>
+										<th>원료명</th>
 										<th>입고가</th>
 										<th>출고가</th>
 										<th>재고</th>
@@ -202,13 +203,30 @@ ul.nav-tabs {
 										<tr>
 											<td><input type="checkbox" name="checkList" value="${vo.materialProductCd}"></td>
 										    <td><a href="./detail?materialProductCd=${vo.materialProductCd}">${vo.materialProductCd}</a></td>
-								            <td>${vo.codeName}</td>
-											<td><c:if test="${vo.materialProductCategory == '원료'}">
-											<fmt:formatNumber value="${vo.materialProductPrice}" pattern="###,###,###" />원
-											</c:if></td>
-											<td><c:if test="${vo.materialProductCategory == '제품'}">
-											<fmt:formatNumber value="${vo.materialProductPrice}" pattern="###,###,###" />원
-											</c:if></td>
+								            
+								            <c:if test="${vo.materialProductCategory == '제품'}">
+								            <td width="200">${vo.codeName}</td>
+								            <td width="200">-</td>
+								            </c:if>
+								            
+								            <c:if test="${vo.materialProductCategory == '원료'}">
+								            <td width="200">-</td>
+								            <td width="200">${vo.codeName}</td>
+								            </c:if>   
+								            
+								            <c:if test="${vo.materialProductCategory == '원료'}">
+											<td><fmt:formatNumber value="${vo.materialProductPrice}" pattern="###,###,###" />원
+											</td>
+											<td>-</td>											
+											</c:if>
+											
+											<c:if test="${vo.materialProductCategory == '제품'}">
+											<td>-</td>
+											<td><fmt:formatNumber value="${vo.materialProductPrice}" pattern="###,###,###" />원
+											</td>
+											</c:if>
+											
+											
 											<td><c:if test="${vo.materialProductCategory == '원료'}">
 											<fmt:formatNumber value="${vo.materialProductStock}" pattern="###,###,###" />kg
 											</c:if>
@@ -278,15 +296,15 @@ ul.nav-tabs {
 					<table class="table-bordered mt-2" id="approval-table" >
 						<tbody>
 							<tr>
-								<td width="200">제품, 원료 코드</td>
+								<td width="200">코드</td>
 								<td width="400"><input type="text" name="materialProductCd" class="form-control" id="code" placeholder="제품, 원료 코드를 입력하세요"></td>
 							</tr>
 							<tr>
-								<td>제품, 원료 가격</td>
+								<td>가격</td>
 								<td><input type="number" name="materialProductPrice" class="form-control" id="price" placeholder="제품, 원료 가격을 입력하세요"></td>
 							</tr>
 							<tr>
-								<td>제품, 원료 사용여부</td>
+								<td>사용여부</td>
 								<td> <div class="btn-group use" role="group" aria-label="Basic radio toggle button group">
 							  <input type="radio" class="btn-check" name="materialProductUse" value="Yes" id="btnradio1" autocomplete="off" >
 							  <label class="btn btn-outline-primary" for="btnradio1">Yes</label>
@@ -296,11 +314,11 @@ ul.nav-tabs {
 							</div></td>
 							</tr>
 							<tr>
-								<td>제품, 원료 재고</td>
+								<td>재고</td>
 								<td><input type="number" name="materialProductStock" class="form-control" id="stock" placeholder="재고를 입력하세요"></td>
 							</tr>
 							<tr>
-								<td>제품, 원료 범주</td>
+								<td>범주</td>
 								<td> <div class="btn-group cate" role="group" aria-label="Basic radio toggle button group">
 								  <input type="radio" class="btn-check" name="materialProductCategory" value="제품" id="btnradio3" autocomplete="off" >
 								  <label class="btn btn-outline-primary" for="btnradio3">제품</label>
