@@ -42,7 +42,7 @@
 				</tr>
 			</tbody>
 			</table>   
-			
+			<a href="./update?noticeNo=${vo.noticeNo}" class="btn btn-info">수정</a>
 			</div>
 			</div> 
 			

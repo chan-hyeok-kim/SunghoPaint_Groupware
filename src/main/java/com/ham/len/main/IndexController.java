@@ -90,6 +90,8 @@ public class IndexController {
 	public void getToDoList(Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception{
 		List<ToDoListVO> tl=mainService.getToDoList(humanResourceVO.getEmployeeID());
 		model.addAttribute("toDoList", tl);
+		
+		
 	}
 	
 	@PostMapping("/toDo/add")
@@ -117,6 +119,13 @@ public class IndexController {
 		return "commons/ajaxResult";
 	}
 	
+	@GetMapping("/toDo/lastDetail")
+	public String getLastDetail(ToDoListVO toDoListVO,Model model) throws Exception{
+		 Long no=mainService.getLastDetail(toDoListVO);
+		 model.addAttribute("result", no);
+		 
+		 return "commons/ajaxResult";
+	}
 	
 	
 	@RequestMapping("/commons/result")
@@ -124,5 +133,10 @@ public class IndexController {
 		
 	}
 	
+	@RequestMapping("/setAlarm")
+	@ResponseBody
+	public List<NotificationVO> getAlarmList(String id) throws Exception{
+		return mainService.getAlarmList(id);
+	}
 	
 }

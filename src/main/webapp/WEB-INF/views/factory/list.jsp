@@ -141,15 +141,15 @@ ul.nav-tabs {
 
 					<div class="wrapper-toolbar">
 
-						공장 리스트 <span
+						장소 리스트 <span
 							style="margin-left: 700px; text-align: right; width: 700px;">
 							<form class="form-inline"
 								style="width: 700px; display: inline-block;">
 
 								<!-- 검색 설정 -->
 								<select name="kind" class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected" value="code">공장코드</option>
-									<option value="name">공장이름</option>
+									<option selected="selected" value="code">장소코드</option>
+									<option value="name">장소이름</option>
 								</select> 							
 													
 								<input style="display: inline-block;" id="top-search-bar" name="search"
@@ -181,8 +181,9 @@ ul.nav-tabs {
 								<thead>
 									<tr>
 										<th>선택</th>
-										<th>공장, 창고 코드</th>
-										<th>공장, 창고 이름</th>
+										<th>코드</th>
+										<th>공장명</th>
+										<th>창고명</th>
 										<th>사용여부</th>
 									</tr>
 								</thead>
@@ -191,7 +192,17 @@ ul.nav-tabs {
 										<tr>
 											<td><input type="checkbox" name="checkList" value="${vo.factoryStorageCd}"></td>
 										    <td><a href="./detail?factoryStorageCd=${vo.factoryStorageCd}">${vo.factoryStorageCd}</a></td>
-								            <td>${vo.codeName}</td>
+								            
+								            <c:if test="${vo.factoryStorageCategory == '공장'}">
+								            <td width="500">${vo.codeName} 공장</td>
+								            <td width="500">-</td>
+								            </c:if>
+								            
+								            <c:if test="${vo.factoryStorageCategory == '창고'}">
+								            <td width="500">-</td>
+								            <td width="500">${vo.codeName}</td>
+								            </c:if>
+								            
 											<td>${vo.factoryStorageUse}</td>													
 										</tr>
 									</c:forEach>
@@ -251,7 +262,7 @@ ul.nav-tabs {
 					<table class="table-bordered mt-2" id="approval-table">
 						<tbody>
 							<tr>
-								<td>공장, 창고 코드</td>
+								<td>코드</td>
 								<td width="200"><input type="text" name="factoryStorageCd" class="form-control" id="code" placeholder="공장코드를 입력하세요"></td>
 							</tr>
 							<tr>
@@ -262,6 +273,16 @@ ul.nav-tabs {
 								
 								  <input type="radio" class="btn-check" name="factoryStorageUse" value="No" id="btnradio2" autocomplete="off">
 								  <label class="btn btn-outline-primary" for="btnradio2">No</label>
+							</div></td>
+							</tr>
+							<tr>
+								<td>범주</td>
+								<td width="221px"> <div class="btn-group use" role="group" aria-label="Basic radio toggle button group">
+								  <input type="radio" class="btn-check" name="factoryStorageCategory" value="공장" id="btnradio3" autocomplete="off" >
+								  <label class="btn btn-outline-primary" for="btnradio3">공장</label>
+								
+								  <input type="radio" class="btn-check" name="factoryStorageCategory" value="창고" id="btnradio4" autocomplete="off">
+								  <label class="btn btn-outline-primary" for="btnradio4">창고</label>
 							</div></td>
 							</tr>
 			

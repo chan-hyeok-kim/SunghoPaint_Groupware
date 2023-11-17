@@ -31,6 +31,14 @@
 		ORDER BY CODE DESC		
         LIMIT #{startRow},#{lastRow}
 	</select>
+	
+	<select id="getList2" resultType="MaterialProductVO">
+		SELECT M.*, C.* FROM 
+		MATERIAL_PRODUCT M LEFT OUTER JOIN CODE C 
+		ON M.MATERIAL_PRODUCT_CD = C.CODE 
+	</select>
+	
+	
    
 	<insert id="add" parameterType="MaterialProductVO" useGeneratedKeys="true" keyProperty="materialProductNo">
   		INSERT INTO MATERIAL_PRODUCT

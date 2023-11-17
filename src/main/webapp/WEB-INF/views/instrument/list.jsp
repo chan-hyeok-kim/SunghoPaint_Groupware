@@ -188,8 +188,8 @@ ul.nav-tabs {
 								<thead>
 									<tr>
 										<th>선택</th>
-										<th>기기코드</th>
-										<th>기기이름</th>
+										<th>코드</th>
+										<th>기기명</th>
 										<th>기기상태</th>
 										<th>기가가격</th>
 										<th>기기메이커</th>
@@ -207,7 +207,7 @@ ul.nav-tabs {
 											<td><fmt:formatNumber value="${vo.instrumentPrice}" pattern="###,###,###" />원</td>
 								          <%--   <td>${vo.instrumentPrice}</td> --%>
 								            <td>${vo.instrumentMaker}</td>	
-								            <td class="approval-start-date">${vo.instrumentBuyYear}</td>
+								            <td>${vo.instrumentBuyYear}</td>
 								          														
 										</tr>
 									</c:forEach>
@@ -269,7 +269,7 @@ ul.nav-tabs {
 					<table class="table-bordered mt-2" id="approval-table">
 						<tbody>
 							<tr>
-								<td>기기 코드</td>
+								<td>코드</td>
 								<td><input type="text" name="instrumentCd" class="form-control" id="code" placeholder="기기코드를 입력하세요"></td>
 							</tr>
 							<tr>
@@ -315,7 +315,7 @@ ul.nav-tabs {
 
 	<script src="/js/commons/list-date.js"></script>
 	<script src="/js/general/instrument/delete-check.js"></script>
-	<script src="/js/general/instrument/add-check.js"></script>
-	<script src="/js/approval/approval-date.js"></script>
+	<script src="/js/commons/list-date.js"></script>
+	<script src="/js/general/instrument/add-check.js"></script>	
 </body>
 </html>

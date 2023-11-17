@@ -21,11 +21,17 @@ span.center{
 }
 
 
+/* btn */
+
+.top-btn-p{
+  margin-bottom: 0px; 
+  text-align: left; 
+  width: 320px; 
+  vertical-align: middle;
+}
 
 
-
-
-/* 동적으로 움직이는 카드바디 */
+/* 버튼 아이콘 */
   #my-app-list button{
     padding:6px 10px 6px 10px;
     background: white;
@@ -41,6 +47,23 @@ span.center{
   #app-list button:hover{
     background: rgb(222,226,230);
   }
+
+  #message-list button{
+    padding:6px 10px 6px 10px;
+    background: white;
+  }
+  #message-list button:hover{
+    background: rgb(222,226,230);
+  }
+
+  #notice-list button{
+    padding:6px 10px 6px 10px;
+    background: white;
+  }
+  #notice-list button:hover{
+    background: rgb(222,226,230);
+  }
+
 
 
   /* 메인 상단 버튼 */
@@ -96,13 +119,15 @@ span.center{
     background: #9a55ff;
   }
 
+
+/* 동적으로 움직이는 카드바디 */
   #my-app-list {
-    transform: translateX(-100%);  /* X축 이동, Y축 고정 */
+    transform: translateX(-150%);  /* X축 이동, Y축 고정 */
     transition: .5s;
-    /* width: 392.75px; */
+    width: 916.41px; 
     position:absolute;
-    left:16%;
-    top:28%;
+    left:15%;
+    top:26%;
     z-index:10;
   }
 
@@ -112,7 +137,7 @@ span.center{
 
   #material-product-amount.active{
     transition: .5s;
-    transform: translateX(-100%);
+    transform: translateX(-150%);
   }
   
   #material-product-amount{
@@ -127,12 +152,12 @@ span.center{
 
 
   #app-list {
-    transform: translateX(-100%);  /* X축 이동, Y축 고정 */
+    transform: translateX(-150%);  /* X축 이동, Y축 고정 */
     transition: .5s;
-    /* width: 392.75px; */
+    width: 916.41px;  
     position:absolute;
-    left:16%;
-    top:28%;
+    left:15%;
+    top:26%;
     z-index:10;
   }
 
@@ -142,12 +167,12 @@ span.center{
 
 
   #message-list {
-    transform: translateX(-100%);  /* X축 이동, Y축 고정 */
+    transform: translateX(-150%);  /* X축 이동, Y축 고정 */
     transition: .5s;
-    /* width: 392.75px; */
+    width: 916.41px; 
     position:absolute;
-    left:16%;
-    top:28%;
+    left:15%;
+    top:26%;
     z-index:10;
   }
 
@@ -158,12 +183,12 @@ span.center{
 
   
   #notice-list {
-    transform: translateX(-100%);  /* X축 이동, Y축 고정 */
+    transform: translateX(-150%);  /* X축 이동, Y축 고정 */
     transition: .5s;
-    /* width: 392.75px; */
+    width: 916.41px; 
     position:absolute;
-    left:16%;
-    top:28%;
+    left:15%;
+    top:26%;
     z-index:10;
   }
 

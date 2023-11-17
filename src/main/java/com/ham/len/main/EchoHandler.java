@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -65,10 +66,7 @@ public class EchoHandler extends TextWebSocketHandler{
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		
-		TextMessage sendMsg1 = new TextMessage("(테스트)" + "성공");
-        session.sendMessage(sendMsg1);
-		String senderId = getMemberId(session);
-		
+	
 		log.warn("{}",session.getPrincipal());
 		Authentication authentication=(Authentication)session.getPrincipal();
 		
@@ -77,26 +75,19 @@ public class EchoHandler extends TextWebSocketHandler{
 			return;
 		}
 		
-		HumanResourceVO humanResourceVO=(HumanResourceVO)authentication.getPrincipal();
-		String username=humanResourceVO.getUsername();
-	    List<NotificationVO> notifications = mainService.getAlarmList(username);
-	        
-	
-		if(notifications.size()==0) {
-			TextMessage sendMsg = new TextMessage("(테스트)" + "성공");
-            session.sendMessage(sendMsg);
-		}else {
-		for (NotificationVO alarm : notifications) {
-		
-        	
-        	 String contents = alarm.getNotificationContents();
-             String title = alarm.getNotificationTitle();
-             
-         
-             TextMessage sendMsg = new TextMessage("("+title+")" + contents);
-             session.sendMessage(sendMsg);
-             
-        }
+		String msg=message.getPayload();
+		if(msg!=null) {
+		   String[] strs=msg.split(",");
+		   
+		   if(strs!=null && strs.length==3) {
+			   String title=strs[0];
+			   String contents=strs[1];
+			   String time=strs[2];
+			   
+			   log.warn("메시지 받는지 확인");
+			   TextMessage sendMsg = new TextMessage(title+":"+contents);
+	           session.sendMessage(sendMsg);
+		   }
 		}
 		
 
