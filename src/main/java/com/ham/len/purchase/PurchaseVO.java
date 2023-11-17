@@ -19,11 +19,12 @@ public class PurchaseVO extends CodeVO {
 	private Long purchaseNo;
 	private Integer clientNo;
 	private Long materialProductNo;
-	private String employeeId;
 	private Long factoryStorageNo;
+	private String employeeId;
 	private Date purchaseDate;
-	private Date purchaseInDate;
+	private Long purchaseQuantity;
 	private Long totalPrice;
+	private Date purchaseInDate;
 	
 	private SalesClientVO salesClientVO;
 	private MaterialProductVO materialProductVO;

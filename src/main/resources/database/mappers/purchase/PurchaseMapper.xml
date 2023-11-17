@@ -44,8 +44,9 @@
   		<result column="MATERIAL_PRODUCT_NO" property="materialProductNo"/>
   		<result column="EMPLOYEE_ID" property="employeeId"/>
   		<result column="PURCHASE_DATE" property="purchaseDate"/>
-  		<result column="PURCHASE_IN_DATE" property="purchaseInDate"/>
+  		<result column="PURCHASE_QUANTITY" property="purchaseQuantity"/>
   		<result column="TOTAL_PRICE" property="totalPrice"/>
+  		<result column="PURCHASE_IN_DATE" property="purchaseInDate"/>
   		<result column="CODE_NAME" property="codeName"/>
   			
   			<association property="salesClientVO" javaType="SalesClientVO">
@@ -70,9 +71,9 @@
     <insert id="setAdd" parameterType="PurchaseVO">
     
     	INSERT INTO PURCHASE_MANAGEMENT
-			(PURCHASE_NO , PURCHASE_DATE , CLIENT_NO , EMPLOYEE_ID , MATERIAL_PRODUCT_NO , TOTAL_PRICE , FACTORY_STORAGE_NO , PURCHASE_IN_DATE , MOD_MENU , REG_ID , REG_DATE , REG_MENU , MOD_ID , MOD_DATE)
+			(PURCHASE_NO , PURCHASE_DATE , CLIENT_NO , EMPLOYEE_ID , MATERIAL_PRODUCT_NO , PURCHASE_QUANTITY , TOTAL_PRICE , FACTORY_STORAGE_NO , PURCHASE_IN_DATE , MOD_MENU , REG_ID , REG_DATE , REG_MENU , MOD_ID , MOD_DATE)
 		VALUES
-			(#{purchaseNo} , NOW() , #{clientNo} , #{employeeId} , #{materialProductNo} , #{totalPrice} , #{factoryStorageNo} , #{purchaseInDate} , #{modMenu} , #{regId} , NOW() , #{regMenu} , #{modId} , NOW())
+			(#{purchaseNo} , NOW() , #{clientNo} , #{employeeId} , #{materialProductNo} , #{purchaseQuantity} , #{totalPrice} , #{factoryStorageNo} , #{purchaseInDate} , #{modMenu} , #{regId} , NOW() , #{regMenu} , #{modId} , NOW())
     
     </insert>
     
@@ -136,8 +137,9 @@
   		<result column="EMPLOYEE_ID" property="employeeId"/>
   		<result column="FACTORY_STORAGE_NO" property="factoryStorageNo"/>
   		<result column="PURCHASE_DATE" property="purchaseDate"/>
-  		<result column="PURCHASE_IN_DATE" property="purchaseInDate"/>
+  		<result column="PURCHASE_QUANTITY" property="purchaseQuantity"/>
   		<result column="TOTAL_PRICE" property="totalPrice"/>
+  		<result column="PURCHASE_IN_DATE" property="purchaseInDate"/>
   		<result column="CODE_NAME" property="codeName"/>
   		
   			<association property="salesClientVO" javaType="SalesClientVO">

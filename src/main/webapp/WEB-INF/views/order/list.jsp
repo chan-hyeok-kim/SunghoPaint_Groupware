@@ -170,7 +170,6 @@ ul.nav-tabs {
 						<li><a class="link-tab">결재중</a></li>
 						<li><a class="link-tab">진행중</a></li>
 						<li><a class="link-tab">미확인</a></li>
-						<li><a class="link-tab">확인</a></li>
 						<li><a class="link-tab">완료</a></li>
 					</ul>
 

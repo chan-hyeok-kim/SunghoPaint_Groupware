@@ -13303,7 +13303,7 @@ select.form-control {
   padding: .4375rem .75rem;
   border: 0;
   outline: 1px solid #ebedf2;
-  color: #c9c8c8; }
+  color: black; }
   select.form-control:focus {
     outline: 1px solid #ebedf2; }
   select.form-control.border-primary {
