@@ -84,7 +84,8 @@ public class EchoHandler extends TextWebSocketHandler{
 			   String contents=strs[1];
 			   String time=strs[2];
 			   
-			   TextMessage sendMsg = new TextMessage("("+title+")" + contents);
+			   log.warn("메시지 받는지 확인");
+			   TextMessage sendMsg = new TextMessage(title+":"+contents);
 	           session.sendMessage(sendMsg);
 		   }
 		}

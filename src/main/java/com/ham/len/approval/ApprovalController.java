@@ -230,14 +230,16 @@ public class ApprovalController {
 		
         int result=0;
         String message="검토";
+        String drafterId=approvalVO.getEmployeeID();
         int check=0;
 		if (approvalVO.getApprovalStatusCd().equals("R033")) {
             result = approvalService.setEndCheck(approvalVO);
             message="승인";
             
+            //알람            
             if(result>0) {
         		NotificationVO notificationVO=alarmSetting.setApprovalAlarm();
-        		notificationVO.setEmployeeID(approvalVO.getEmployeeID());
+        		notificationVO.setEmployeeID(drafterId);
         		log.warn("알람왜안드감{}",notificationVO);
         		result=mainService.setAlarmAdd(notificationVO);
         		check=result;
@@ -246,7 +248,16 @@ public class ApprovalController {
 		} else if (approvalVO.getApprovalStatusCd().equals("R034")) {
             result = approvalService.setReject(approvalVO);
             message="반려";
-            check=result;
+            
+            //알람            
+            if(result>0) {
+        		NotificationVO notificationVO=alarmSetting.setRejectAlarm();
+        		notificationVO.setEmployeeID(drafterId);
+        		log.warn("알람왜안드감{}",notificationVO);
+        		result=mainService.setAlarmAdd(notificationVO);
+        		check=result;
+        		}
+            
             //반려
 		} else {
 			result = approvalService.setCheck(approvalVO);
@@ -259,7 +270,13 @@ public class ApprovalController {
 			model.addAttribute("message", "에러. 결재 실패");
 		}
 	
+//		알람 모델 세팅
+//		
 		model.addAttribute("appResultCheck", check);
+		if(check>0) {
+			model.addAttribute("drafterId", drafterId);
+		}
+		
 		model.addAttribute("url", "/approval/list");
 		
 		for(RoleVO r: humanResourceVO.getRoles()) {

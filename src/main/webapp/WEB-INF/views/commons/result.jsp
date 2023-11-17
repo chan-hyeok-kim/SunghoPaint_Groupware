@@ -31,34 +31,41 @@
 			})
 		}
 		
-	/* 	var ws = new SockJS("http://localhost:82/echo");
+	 	var ws = new SockJS("http://localhost:82/echo");
 		
 		ws.onopen = function() {
 	 		console.log("연결완료");
+	 		let id='${drafterId}';
+	 		
+	 		if('${appResultCheck}'>0){
+				 $.ajax({
+				        type:'GET',
+				        url:'/setAlarm',
+				        data:{
+				        	id:id
+				        },
+				        success:function(result){
+				            console.log(result);
+				            if(result && ws){
 
+				            	for(r of result){
+									let message=r.notificationTitle+','+r.notificationContents+','+r.notificationDate;
+									console.log(message);
+									ws.send(message);
+									}
+				            }
+				        }
+
+
+				    })
+			}
 	 	};
 	 	
-		if('${appResultCheck}'>0){
-			 $.ajax({
-			        type:'GET',
-			        url:'/setAlarm',
-			        success:function(result){
-			            console.log(result);
-			            if(result && ws){
-
-			                let message=result.notificationTitle+','+result.notificationContents+','+result.notificationDate;
-			                console.log(message);
-			                ws.send(message);
-			            }
-			        }
-
-
-			    })
-		}
+		
 		
 		ws.onclose = function() {
 	 	    console.log('close');
-	 	}; */
+	 	}; 
 	</script>
 </body>
 </html>

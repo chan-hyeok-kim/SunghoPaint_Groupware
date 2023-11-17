@@ -52,7 +52,7 @@ VALUES
 <select id="getAlarmList" resultType="NotificationVO" parameterType="String">
   SELECT * 
     FROM NOTIFICATION
-   WHERE EMPLOYEE_ID=#{id}
+   WHERE EMPLOYEE_ID=#{id} AND NOTIFICATION_CHECK=0
 </select> 
  
  <insert id="setAlarmAdd" parameterType="NotificationVO">

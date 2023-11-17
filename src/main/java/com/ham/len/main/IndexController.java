@@ -135,8 +135,8 @@ public class IndexController {
 	
 	@RequestMapping("/setAlarm")
 	@ResponseBody
-	public List<NotificationVO> getAlarmList(@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception{
-		return mainService.getAlarmList(humanResourceVO.getEmployeeID());
+	public List<NotificationVO> getAlarmList(String id) throws Exception{
+		return mainService.getAlarmList(id);
 	}
 	
 }
