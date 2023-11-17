@@ -218,4 +218,17 @@
    <insert id="setAddAnnual" parameterType="AnnualAddVO">
    		INSERT INTO SCHEDULE VALUES (0, #{employeeId}, #{scheduleDate}, #{scheduleEndDate}, #{scheduleContents}, 1, #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu})
    </insert>
+   
+   <!-- 본인 연차 조회 -->
+   <select id="getAnnualList" resultType="AnnualAddVO" parameterType="AnnualAddVO">
+   		SELECT *,FN_CODE_NM(LEFT(POSITION_CD,3),POSITION_CD) AS CODE_NAME FROM SCHEDULE SC INNER JOIN HUMAN_RESOURCE HR
+   		ON SC.EMPLOYEE_ID = HR.EMPLOYEE_ID WHERE SC.EMPLOYEE_ID=#{employeeId}
+   </select>
+   
+   <!-- 팀 연차 조회 -->
+   <select id="getTeamAnnualList" resultType="AnnualAddVO" parameterType="AnnualAddVO">
+   		SELECT *,FN_CODE_NM(LEFT(POSITION_CD,3),POSITION_CD) AS CODE_NAME FROM SCHEDULE SC INNER JOIN HUMAN_RESOURCE HR
+   		ON SC.EMPLOYEE_ID = HR.EMPLOYEE_ID WHERE (HR.DEPARTMENT_CD = (SELECT DEPARTMENT_CD FROM HUMAN_RESOURCE WHERE EMPLOYEE_ID=#{employeeId))
+   </select>
+   
 </mapper>

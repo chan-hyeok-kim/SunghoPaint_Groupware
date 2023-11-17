@@ -304,6 +304,15 @@ public class SalesController {
 		model.addAttribute("empId", humanResourceVO.getEmployeeID());
 		model.addAttribute("empName", humanResourceVO.getName());
 		
+		HumanResourceVO humanResourceVO2 = new HumanResourceVO();
+		humanResourceVO2.setEmployeeID(humanResourceVO.getEmployeeID());
+		
+		humanResourceVO2 = salesService.getPosition(humanResourceVO2);
+		
+		log.info("zzzzzz{}zzzzz", humanResourceVO2.getCodeName());
+		
+		model.addAttribute("position", humanResourceVO2.getCodeName());
+		
 		return "sales/scheduleManagement";
 	}
 	
@@ -318,5 +327,14 @@ public class SalesController {
 	public String setAddAnnual(AnnualAddVO annualAddVO) throws Exception{
 		int result = salesService.setAddAnnual(annualAddVO);
 		return "redirect:scheduleManagement";
+	}
+	
+	@GetMapping("getAnnualList")
+	@ResponseBody
+	public List<AnnualAddVO> getAnnualList(@AuthenticationPrincipal HumanResourceVO humanResourceVO, AnnualAddVO annualAddVO) throws Exception{
+		annualAddVO.setEmployeeId(humanResourceVO.getEmployeeID());
+		
+	    List<AnnualAddVO> events = salesService.getAnnualList(annualAddVO);
+	    return events;
 	}
 }

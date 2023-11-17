@@ -90,13 +90,13 @@
               onmouseout="this.style.backgroundColor='transparent'">연차등록</span></a>
               <br><br><br>
               <div class="form-check">
-				  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+				  <input class="form-check-input" type="radio" name="flexRadioDefault" value="" id="flexCheckDefault" checked>
 				  <label class="form-check-label" for="flexCheckDefault">
 				    내 연차
 				  </label>
 				</div>
 				<div class="form-check">
-				  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+				  <input class="form-check-input" type="radio" name="flexRadioDefault" value="" id="flexCheckChecked">
 				  <label class="form-check-label" for="flexCheckChecked">
 				    팀 연차
 				  </label>
@@ -148,8 +148,8 @@
                         <label for="taskId" class="col-form-label">종료일</label>
                         <input type="date" class="form-control" id="calendar_end_date" name="scheduleEndDate">
                         
-                        <label for="taskId" class="col-form-label">대여자</label>
-                        <input type="text" class="form-control" id="calendar_name" value="${empName}" readonly>
+                        <label for="taskId" class="col-form-label">사용자</label>
+                        <input type="text" class="form-control" id="calendar_name" value="${empName} ${position}" readonly>
                         <input type="hidden" class="form-control" name="employeeId" value="${empId}">
                         
                         <label for="taskId" class="col-form-label">휴가 사유</label>
@@ -171,6 +171,42 @@
  
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 <script type="text/javascript">
+const arr = new Array();
+
+$.ajax({
+	  type: "GET", 
+	  url: "/sales/getAnnualList",
+	  async: false,
+	  success: function (res) {
+	    for (const key in res) {
+	      let obj = new Object();
+	      
+	      obj.id = res[key].scheduleNo;
+	      
+	      obj.title = res[key].scheduleContents;
+	      
+	      obj.name = res[key].name + ' ' + res[key].codeName;
+	      
+	      let scheduleDate = new Date(res[key].scheduleDate);
+	      scheduleDate.setHours(scheduleDate.getHours() + 9);
+	      obj.start = scheduleDate;
+	      
+	      let scheduleEndDate = new Date(res[key].scheduleEndDate);
+	      scheduleEndDate.setHours(scheduleEndDate.getHours() + 9);
+	      obj.end = scheduleEndDate;
+
+	      arr.push(obj);
+	    }
+	    console.log(arr);
+	    
+	
+	  },
+	  error: function (XMLHttpRequest, textStatus, errorThrown) {
+	    console.log('error')
+	  },
+	});
+	
+	
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -234,11 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	      },
 	      
 	      
-        events: [
-            // 이벤트 데이터 배열
-            // { title: '이벤트 제목', start: '2023-11-14' }
-            // ...
-        ]
+        events: arr
     });
     calendar.render();
     

@@ -132,4 +132,12 @@ public class SalesService {
 	public int setAddAnnual(AnnualAddVO annualAddVO) throws Exception{
 		return salesDAO.setAddAnnual(annualAddVO);
 	}
+	
+	public List<AnnualAddVO> getAnnualList(AnnualAddVO annualAddVO) throws Exception{
+		return salesDAO.getAnnualList(annualAddVO);
+	}
+	
+	public List<AnnualAddVO> getTeamAnnualList(AnnualAddVO annualAddVO) throws Exception{
+		return salesDAO.getTeamAnnualList(annualAddVO);
+	}
 }

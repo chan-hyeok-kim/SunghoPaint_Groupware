@@ -21,4 +21,5 @@ public class AnnualAddVO extends CodeVO{
 	private String scheduleContents;
 	private Integer scheduleType;
 	
+	private String name;
 }
