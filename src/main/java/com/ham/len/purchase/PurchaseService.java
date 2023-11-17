@@ -18,19 +18,15 @@ public class PurchaseService {
 	private PurchaseDAO purchaseDAO;
 	
 	public List<PurchaseVO> getList(Pager pager)throws Exception{
-		
+			
+//		pager.makePageNum(purchaseDAO.getTotal(pager));					
 		return purchaseDAO.getList(pager);
 	}
 	
 	
 	public int setAdd(PurchaseVO purchaseVO)throws Exception{
 		
-		log.info("PurchaseNo : {}", purchaseVO.getPurchaseNo());
-		int result= purchaseDAO.setAdd(purchaseVO);
-		log.info("=====================");
-		log.info("PurchaseNo : {}", purchaseVO.getPurchaseNo());
-	
-		return result;
+		return purchaseDAO.setAdd(purchaseVO);
 	}
 	
 	public PurchaseVO getDetail(PurchaseVO purchaseVO)throws Exception{

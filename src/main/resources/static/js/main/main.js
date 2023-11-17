@@ -1,72 +1,6 @@
-/**
- * notification 
- */
 
- const alarmUL = document.querySelector("#alarmUL");
-//  const alarmI = document.querySelector("#alarmI");
-//  const alarmDiv = document.querySelector("#alarmDiv");
- var sock = null;
 
- $(document).ready(function(){
- 	connectWs();
 
- });
-
-//소켓
- function connectWs(){
- 	var ws = new SockJS("http://localhost:82/echo");
-	sock = ws;
-
- 	ws.onopen = function() {
- 		console.log("연결완료");
-  		ws.send($('#socketuserID').val());
- 	};
-
- 	ws.onmessage = function(event) {
- 		/* 받을 알람이 있을 때 */
- 		console.log(event.data);
- 		if(event.data.length>0){
- 			let newAlarm = '';
- 			newAlarm += '<li scope="col">' + event.data + "</li>"
-      console.log(newAlarm);
- 			$('#alarmUL').append(newAlarm);
-			// alarmDiv.style.visibility = "visible";
-	}
- 	};
-
- 	ws.onclose = function() {
- 	    console.log('close');
- 	};
-
- };
-
-/* 알람창 추가 */
-
-// alarmI.addEventListener('click', function(){
-//  	alarmUL.classList.toggle('visible');
-//  	$(this).stop(false, false);
-//  });
-
-//  alarmUL.addEventListener('click', function(e){
-//  	var endIdx = e.target.textContent.indexOf(")");
-//  	var idx = e.target.textContent.substr(1, endIdx-1);
-
-//  	$.ajax({
-//  		url : '/alarmDel',
-//  		data : {"idx" : idx},
-// 		type : 'post',
-// 		success : function(data){
-//  			console.log(data);
-//  			alert("성공");
-//  		}
-//  	})
-	
-//  	$(e.target).remove();
-//  	if(alarmUL.children.length == 0){
-//  		alarmDiv.style.visibility = "hidden";
-//  	}
-	
-//  })
 
 
 
@@ -74,26 +8,133 @@
 const mainCheckBtn=document.getElementsByClassName('main-btn-check');
 const mainBtn=document.getElementsByClassName('main-btn');
 
-mainCheckBtn[0].addEventListener('click',(function(){
-    console.log('클릭 확인')
-    $('#my-app-list').toggleClass('active')
 
-    // var con = document.getElementById("my-app-list"); 	
-    // if(con.style.display=='none'){ 		
-    // 	con.style.display = 'block'; 	
-    // }else{ 		
-    // 	con.style.display = 'none'; 	
-    // } 
-})
+//보라
+mainCheckBtn[0].addEventListener('click',(function(){
+    console.log('보라 클릭 확인')
+
+    if($('#app-list').hasClass('active')){
+      $('#app-list').toggleClass('active')
+      $('#my-app-list').toggleClass('active')
+      return;
+    }
+    if($('#message-list').hasClass('active')){
+      $('#message-list').toggleClass('active')
+      $('#my-app-list').toggleClass('active')
+      return;
+    }
+    if($('#notice-list').hasClass('active')){
+      $('#notice-list').toggleClass('active')
+      $('#my-app-list').toggleClass('active')
+      return;
+    }
+
+    $('#my-app-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('active');
+    
+   
+
+
+  })
 )
 
 mainBtn[0].addEventListener('click',(function(){
-    $('this').toggleClass('active')
-    console.log(이동)
+  $(this).parent().parent().parent().remove();
+    console.log(이동);
+    
+})
+)
+
+//초록
+mainCheckBtn[1].addEventListener('click',(function(){
+  console.log('초록 클릭 확인')
+  if($('#my-app-list').hasClass('active')){
+    $('#my-app-list').toggleClass('active')
+    $('#app-list').toggleClass('active')
+    return;
+  }
+  if($('#message-list').hasClass('active')){
+    $('#message-list').toggleClass('active')
+    $('#app-list').toggleClass('active')
+    return;
+  }
+  if($('#notice-list').hasClass('active')){
+    $('#notice-list').toggleClass('active')
+    $('#app-list').toggleClass('active')
+    return;
+  }
+
+
+  $('#app-list').toggleClass('active')
+  $('#material-product-amount').toggleClass('active');
+})
+)
+
+mainBtn[1].addEventListener('click',(function(){
+  $(this).parent().parent().parent().remove();
+    
 })
 )
 
 
+mainCheckBtn[2].addEventListener('click',(function(){
+  console.log('클릭 확인')
+  if($('#my-app-list').hasClass('active')){
+    $('#my-app-list').toggleClass('active')
+    $('#message-list').toggleClass('active')
+    return;
+  }
+  if($('#app-list').hasClass('active')){
+    $('#app-list').toggleClass('active')
+    $('#message-list').toggleClass('active')
+    return;
+  }
+  if($('#notice-list').hasClass('active')){
+    $('#notice-list').toggleClass('active')
+    $('#message-list').toggleClass('active')
+    return;
+  }
+
+  $('#message-list').toggleClass('active')
+  $('#material-product-amount').toggleClass('active');
+})
+)
+
+mainBtn[2].addEventListener('click',(function(){
+  $(this).parent().parent().parent().remove();
+    
+})
+)
+
+
+mainCheckBtn[3].addEventListener('click',(function(){
+  console.log('클릭 확인')
+  if($('#my-app-list').hasClass('active')){
+    $('#my-app-list').toggleClass('active')
+    $('#notice-list').toggleClass('active')
+    return;
+  }
+  if($('#app-list').hasClass('active')){
+    $('#app-list').toggleClass('active')
+    $('#notice-list').toggleClass('active')
+    return;
+  }
+  if($('#message-list').hasClass('active')){
+    $('#message-list').toggleClass('active')
+    $('#notice-list').toggleClass('active')
+    return;
+  }
+
+  $('#notice-list').toggleClass('active')
+  $('#material-product-amount').toggleClass('active');
+})
+)
+
+mainBtn[3].addEventListener('click',(function(){
+  $(this).parent().parent().parent().remove();
+    
+})
+)
 
 //chart.js 차트
 
@@ -185,3 +226,5 @@ $.ajax({
       }
     }
   });
+
+

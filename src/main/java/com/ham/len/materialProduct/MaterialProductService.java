@@ -19,6 +19,10 @@ public class MaterialProductService {
 		return materialDAO.getList(pager);
 	}
 	
+	public List<MaterialProductVO> getList2() throws Exception{
+		return materialDAO.getList2();
+	}
+	
 	public int setAdd(MaterialProductVO materialVO)throws Exception{
 		
 		return materialDAO.add(materialVO);

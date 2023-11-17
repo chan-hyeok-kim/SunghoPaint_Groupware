@@ -34,13 +34,14 @@
    
 	<insert id="add" parameterType="FactoryStorageVO" useGeneratedKeys="true" keyProperty="factoryStorageNo">
   		INSERT INTO FACTORY_STORAGE
-  		VALUES (NULL, #{employeeId}, #{factoryStorageCd},  #{factoryStorageUse}, 
+  		VALUES (NULL, #{employeeId}, #{factoryStorageCd},  #{factoryStorageUse}, #{factoryStorageCategory},
   		#{regId}, NOW() , #{regMenu}, #{modId}, NOW(), #{modMenu})  	
 	</insert>
 
 	<update id="setUpdate" parameterType="FactoryStorageVO">
   		UPDATE FACTORY_STORAGE
   		SET FACTORY_STORAGE_USE = #{factoryStorageUse},
+  		SET FACTORY_STORAGE_CATEGORY = #{factoryStorageCategory},
   		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
   		WHERE FACTORY_STORAGE_CD = #{factoryStorageCd}  	
   	</update>

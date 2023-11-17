@@ -26,6 +26,7 @@ public interface MainDAO {
 	
 	public int setAlarmUpdate(NotificationVO notificationVO) throws Exception;
 	
+	public Long getLastDetail(ToDoListVO toDoListVO) throws Exception;
 	
 	
 }

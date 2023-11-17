@@ -145,14 +145,31 @@ ul.nav-tabs {
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div class="card">
 				<div class="card-body">
-
+					<c:if test="${dto.materialProductCategory == '원료'}">
 					<div class="wrapper-toolbar">
 
-						제품, 원료 정보 <span
+					
+						원료 정보 <span
 							style="margin-left: 700px; text-align: right; width: 700px;">
 							
 						</span>
 					</div>
+					</c:if>
+					
+					
+					
+					<c:if test="${dto.materialProductCategory == '제품'}">
+					<div class="wrapper-toolbar">
+
+					
+						제품 정보 <span
+							style="margin-left: 700px; text-align: right; width: 700px;">
+							
+						</span>
+					</div>
+					
+					</c:if>
+
 
 					
 
@@ -171,15 +188,36 @@ ul.nav-tabs {
 							<table class="table-bordered mt-2" id="approval-table">
 								<tbody>
 									<tr>
-										<td width="200">제품, 원료 코드</td>
+									<c:if test="${dto.materialProductCategory == '원료'}">	
+										<td width="200">원료 코드</td>
+									</c:if>
+									<c:if test="${dto.materialProductCategory == '제품'}">	
+										<td width="200">제품 코드</td>
+									</c:if>
 										<td width="400">${dto.materialProductCd}</td>
 									</tr>
 									<tr>
-										<td>제품, 원료 이름</td>
+									<c:if test="${dto.materialProductCategory == '원료'}">	
+									
+										<td>원료 이름</td>
+									</c:if>
+									<c:if test="${dto.materialProductCategory == '제품'}">	
+									
+										<td>제품 이름</td>
+									</c:if>
+									
 										<td>${dto.codeName}</td>
 									</tr>
 									<tr>
-										<td>가격</td>
+									<c:if test="${dto.materialProductCategory == '원료'}">	
+									
+										<td>입고가</td>
+									</c:if>
+									<c:if test="${dto.materialProductCategory == '제품'}">	
+									
+										<td>출고가</td>
+									</c:if>
+										
 										<td><fmt:formatNumber value="${dto.materialProductPrice}" pattern="###,###,###" />원</td>
 									</tr>
 									<tr>
@@ -220,7 +258,15 @@ ul.nav-tabs {
 			
 						<!-- Button List  -->
 						 <div style="margin-left:1250px;">
-							<a href="./update?materialProductCd=${dto.materialProductCd}" class="btn btn-info">제품, 원료 정보 수정</a>
+							<a href="./update?materialProductCd=${dto.materialProductCd}" class="btn btn-info">
+							<c:if test="${dto.materialProductCategory == '원료'}">	
+							원료 정보 수정
+							</c:if>
+							
+							<c:if test="${dto.materialProductCategory == '제품'}">	
+							제품 정보 수정
+							</c:if>
+							</a>
 
 						
 

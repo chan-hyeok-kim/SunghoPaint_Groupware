@@ -1,7 +1,8 @@
 package com.ham.len.purchase;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ham.len.admin.CodeService;
-import com.ham.len.commons.CodeVO;
 import com.ham.len.commons.Pager;
+import com.ham.len.humanresource.HumanResourceDAO;
+import com.ham.len.humanresource.HumanResourceVO;
+import com.ham.len.materialProduct.MaterialProductService;
+import com.ham.len.materialProduct.MaterialProductVO;
+import com.ham.len.sales.SalesClientVO;
+import com.ham.len.sales.SalesService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,26 +30,42 @@ public class PurchaseController {
 	@Autowired
 	private PurchaseService purchaseService;
 	
+	@Autowired
+	private SalesService salesService;
+	
+	@Autowired
+	private MaterialProductService materialProductService;
+	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model)throws Exception{
 		List<PurchaseVO> ar = purchaseService.getList(pager);
-		log.warn("=============={}==============", ar);
-		log.warn("=============={}==============", model);
 		model.addAttribute("list", ar);
+		model.addAttribute("pager", pager);
+		log.warn("여기에요 확인좀여 PurchaseVO : {}+-+-+-+-+-+-+", ar);
 		
 		return "purchase/list";
 	}
 	
 	@GetMapping("add") //입력폼으로 이동시켜주는것
-	public String add()throws Exception{
+	public String add(Model model)throws Exception{
+		List<SalesClientVO> arr = salesService.getClientList();		
+		model.addAttribute("client", arr);	
+		List<MaterialProductVO> arrr = materialProductService.getList2();
+		model.addAttribute("material", arrr);
+		log.warn("여기에요 확인좀여 MaterialProductVO : {}+-+-+-+-+-+-+", arrr);
+		
 		
 		return "purchase/add";
 	}
 	
 	@PostMapping("add")
-	public String add(PurchaseVO purchaseVO)throws Exception{
+	public String add(PurchaseVO purchaseVO, HttpSession httpSession, Model model)throws Exception{
+
+		int result = purchaseService.setAdd(purchaseVO);
 		
-		return "redirect:./list";
+		model.addAttribute("result", result);
+		return "commons/ajaxResult";
+//		return "redirect:./list";
 	}
 	
 	@GetMapping("detail")
