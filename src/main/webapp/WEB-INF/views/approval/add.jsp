@@ -200,6 +200,8 @@
 							<button type="submit" class="btn btn-info material-icons">
 								search</button>
 						</form>
+						<button type="submit" class="btn btn-info material-icons">
+								search</button>
 					</div>
 
 
@@ -295,7 +297,7 @@
 
 					<div>
 						<form action="GET">
-							<input type="radio"> 이름 <input type="radio"> 부서 <input
+							<input type="radio" name="kind"> 이름 <input type="radio" name="kind"> 부서 <input
 								type="search">
 							<button type="submit" class="btn btn-info material-icons">
 								search</button>

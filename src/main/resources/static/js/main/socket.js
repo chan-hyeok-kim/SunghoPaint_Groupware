@@ -6,34 +6,21 @@ const alarmUL = document.querySelector("#alarmUL");
 //  const alarmI = document.querySelector("#alarmI");
 //  const alarmDiv = document.querySelector("#alarmDiv");
  var sock = null;
+ var ws = null;
 
  $(document).ready(function(){
  	connectWs();
-
-	 if (ws && ws.readyState === WebSocket.OPEN) {
-        $.ajax({
-            type: 'GET',
-            url: '/setAlarm',
-            success: function(result){
-                console.log(result);
-                let message = result.notificationTitle + ',' + result.notificationContents + ',' + result.notificationDate;
-                ws.send(message);
-            }
-        });
-    } else {
-        console.error('WebSocket 연결이 완료되지 않았습니다.');
-    }
 
  });
 
 //소켓
  function connectWs(){
- 	var ws = new SockJS("http://localhost:82/echo");
+	ws = new SockJS("http://localhost:82/echo");
 	sock = ws;
 
  	ws.onopen = function() {
  		console.log("연결완료");
-	
+	    setAlarm();
  	};
 
 	 

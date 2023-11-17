@@ -42,13 +42,13 @@
 
 						<div style="float:left">내 결재 관리</div> 
 						<div style="text-align: right;">
-							<form class="form-inline">
+							<form class="form-inline" action="./list">
 
 								<!-- 검색 설정 -->
 								<select class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected">제목</option>
-									<option>구분</option>
-									<option>결재자</option>
+									<option selected="selected" value="">제목</option>
+									<option value="">진행상태</option>
+									<option value="">결재자</option>
 								</select> 
 								
 								
@@ -115,22 +115,22 @@
 				  
 				  
 				  
-				    <!-- pagination -->
-				  <div style="text-align: center; margin: 20px 20px">
+			  <!-- pagination -->
+				  <div style="text-align: center; margin: 20px 20px;">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
   <ul class="pagination">
     <li class="page-item ${pager.pre?'':'disabled'}">
-      <a class="page-link" href="/approval/list?page=${startNum-1}" aria-label="Previous">
+      <a class="page-link" href="/approval/list?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
         <i class="mdi mdi-arrow-left-drop-circle"></i>
       </a>
     </li>
     
     <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-    <li class="page-item"><a class="page-link" href="/approval/list?page=${i}">${i}</a></li>
+    <li class="page-item"><a class="page-link" href="/approval/list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
     </c:forEach>
     
     <li class="page-item ${pager.next?'':'disabled'}">
-      <a class="page-link" href="/approval/list?page=${lastNum+1}" aria-label="Next">
+      <a class="page-link" href="/approval/list?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}" aria-label="Next">
         <i class="mdi mdi-arrow-right-drop-circle"></i>
       </a>
     </li>

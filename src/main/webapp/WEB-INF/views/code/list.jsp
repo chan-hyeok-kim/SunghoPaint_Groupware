@@ -88,7 +88,7 @@
 				        <tbody>
 				        <c:forEach items="${upList}" var="vo" varStatus="i">
 				           <tr>
-				             <td><input type="checkbox" name="checkList" value="${vo.upCode}"></td>
+				             <td><input type="checkbox" name="checkList" value="${vo.upCode}"><i class="input-helper"></i></td>
 				             <td>${vo.upCode}</td>
 				             <td>${vo.upCodeName}</td>
 				             <td class="reg-date">${vo.regDate}</td>
@@ -156,10 +156,10 @@ arrow_left<span style="float:right; display:block; font-size:15px; margin-top: 4
           
           <form action="/code/add" method="post" id="frm">
           <input type="hidden" name="upCode" value="${vo.upCode}">
-          <p><span class="code-input-title">코드 </span>
+          <p><span class="code-input-title" style="padding-left:30px;">코드 </span>
           <input style="width:50%;" type="text" class="form-control" 
           id="code-check" name="code"> </p>
-          <p><span class="code-input-title">코드명</span>
+          <p><span class="code-input-title" style="padding-left:30px;">코드명</span>
           <input style="width:50%;" type="text" class="form-control"
           id="code-name-check" name="codeName"> </p>
   </div>     
@@ -168,7 +168,7 @@ arrow_left<span style="float:right; display:block; font-size:15px; margin-top: 4
       
       <div class="modal-footer" style="background: white">
          <button type="button" class="btn btn-secondary code-close-btn">닫기</button>
-         <button type="submit" class="btn btn-info" id="code-add-btn">확인</button>
+         <button type="button" class="btn btn-info" id="code-add-btn">확인</button>
          </form>
         </div>
         
@@ -185,13 +185,13 @@ arrow_left<span style="float:right; display:block; font-size:15px; margin-top: 4
             
                 <tr>
                    <th class="table-secondary">코드</th>
-                   <td><input style="" type="text" class="form-control" 
+                   <td><input type="text" class="form-control" 
           id="code-update-check${i.index}" name="code">
           <input type="hidden" name="originCode"></td>
                 </tr>
                  <tr>
                    <th class="table-secondary">코드명</th>
-                   <td><input style="" type="text" class="form-control"
+                   <td><input type="text" class="form-control"
           id="code-name-update-check${i.index}" name="codeName"></td>
                 </tr>
              </table>

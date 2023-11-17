@@ -389,6 +389,21 @@
 		  FROM DUAL
 	</select>
 	
+	
+<!-- <sql id="appTypeSearch">
+<choose>
+  <when test="kind==1"></when>
+  <otherwise>FN_CODE_NM(LEFT(APPROVAL_TYPE_CD,3),APPROVAL_TYPE_CD) LIKE '%휴%'</otherwise>
+</choose>
+</sql>	
+
+	<select id="getAppTypeByName" parameterType="ApprovalVO" resultType="A">
+	   SELECT *,FN_CODE_NM(LEFT(APPROVAL_TYPE_CD,3),APPROVAL_TYPE_CD)
+  FROM APPROVAL_TYPE AT INNER JOIN APPROVAL_UP_TYPE AUT
+    ON AT.APPROVAL_UP_TYPE_NO=AUT.APPROVAL_UP_TYPE_NO
+ WHERE
+	</select> -->
+	
 
 	
 </mapper>

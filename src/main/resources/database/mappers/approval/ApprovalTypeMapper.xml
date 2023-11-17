@@ -121,7 +121,13 @@
 		SELECT * FROM APPROVAL_UP_TYPE AU INNER JOIN CODE C ON AU.APPROVAL_UP_TYPE_CD=C.CODE 
 		LEFT OUTER JOIN APPROVAL_TYPE A ON A.APPROVAL_UP_TYPE_NO=AU.APPROVAL_UP_TYPE_NO 
 		ORDER BY AU.APPROVAL_UP_TYPE_NO ASC LIMIT #{startRow},#{lastRow} </select> -->
+<sql id="searchApp">
+<choose>
+ <when test="kind=='codeName'">FN_CODE_NM(LEFT(APPROVAL_TYPE_CD,3),APPROVAL_TYPE_CD)</when>
+ <otherwise>FN_CODE_NM(LEFT(APPROVAL_UP_TYPE_CD,3),APPROVAL_UP_TYPE_CD)</otherwise>
+</choose>
 
+</sql>
 	<select id="getTotalList" resultMap="getTypeList"
 		parameterType="Pager">
 		SELECT *,A.APPROVAL_UP_TYPE_NO AS A_UP_NO,AU.APPROVAL_UP_TYPE_NO AS AU_UP_NO,
@@ -130,7 +136,9 @@
 		FN_CODE_NM(LEFT(AU.APPROVAL_UP_TYPE_CD,3),AU.APPROVAL_UP_TYPE_CD) AS
 		AU_CODE_NAME
 		FROM APPROVAL_TYPE A RIGHT OUTER JOIN APPROVAL_UP_TYPE AU
-		ON A.APPROVAL_UP_TYPE_NO=AU.APPROVAL_UP_TYPE_NO;
+		ON A.APPROVAL_UP_TYPE_NO=AU.APPROVAL_UP_TYPE_NO
+		WHERE <include refid="searchApp"></include>
+		LIKE CONCAT('%',#{search},'%');
 	</select>
 
 	<resultMap type="ApprovalTypeVO" id="getTypeList">
@@ -163,9 +171,12 @@
 		</association>
 	</resultMap>
 
-    <select id="getTotal" resultType="Long">
+    <select id="getTotal" resultType="Long" parameterType="Pager">
         SELECT COUNT(*)
-          FROM APPROVAL_TYPE 
+          FROM APPROVAL_TYPE AT RIGHT OUTER JOIN APPROVAL_UP_TYPE AUT 
+            ON AT.APPROVAL_UP_TYPE_NO=AUT.APPROVAL_UP_TYPE_NO
+          WHERE <include refid="searchApp"></include>
+		LIKE CONCAT('%',#{search},'%');
     </select>
 
 	<select id="getDetailByName" resultType="ApprovalUpTypeVO"
@@ -183,5 +194,9 @@
 	      FROM APPROVAL_UP_TYPE
 	     WHERE APPROVAL_UP_TYPE_CD=#{approvalUpTypeCd}
 	</select>
+	
+	
+	
+	
 
 </mapper>

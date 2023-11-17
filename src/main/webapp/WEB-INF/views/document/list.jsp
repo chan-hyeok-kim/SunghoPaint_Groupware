@@ -31,16 +31,15 @@
 
 						<div style="float: left">문서양식함 관리</div>
 						<div style="text-align: right;">
-							<form class="form-inline">
+							<form class="form-inline" action="./list">
 
 								<!-- 검색 설정 -->
-								<select class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected">제목</option>
-									<option>구분</option>
-									<option>결재자</option>
+								<select name="kind" class="btn btn-gradient-light" id="top-search-select">
+									<option value="upCodeName" selected="selected">상위폴더명</option>
+									<option value="CodeName">양식명</option>
 								</select> <input style="display: inline-block;" id="top-search-bar"
 									class="form-control" type="search" placeholder="입력 후 [Enter]"
-									aria-label="Search">
+									aria-label="Search" name="search">
 								<button id="top-search-btn" class="btn btn-info" type="submit">검색</button>
 
 							</form>
