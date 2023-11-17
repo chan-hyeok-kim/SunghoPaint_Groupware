@@ -73,10 +73,10 @@
 					<input type="hidden" name="purchaseNo" value="${kvo.purchaseNo}">
 					<input type="hidden" name="purchaseDate" value="${kvo.purchaseDate}">
 				
-					    <tr>
+						<tr>
 				        <td>거래처</td>
 				        <td>
-						<select class="form-control" type="text" name="clientNo">
+						<select class="form-control" type="text" name="clientNo" >
 					    <c:forEach items="${client}" var="vo">
 					    <option value="${vo.clientNo}">${vo.clientName}</option>
 					    </c:forEach>
@@ -94,11 +94,9 @@
 						</td>
 				    </tr>
 				    <tr>
-				        <td>총액</td>
-				        <td>
-				        <input class="form-control" type="number" name="totalPrice" placeholder="금액을 입력해주세요">
-				        </td>
-				          <td>입고창고</td>
+				        <td>구매수량</td>
+				        <td><input class="form-control" type="number" name="purchaseQuantity" placeholder="구매 수량 입력해주세요"></td>
+				        <td>입고창고</td>
 				        <td>
 				        <select class="form-control" type="text" name="factoryStorageNo">
 				        <c:forEach items="${factory}" var="vo">
@@ -108,6 +106,19 @@
 						</td>
 				    </tr>
 				    <tr>
+				    	<td>총액</td>
+				        <td>
+				        <input class="form-control" type="number" name="totalPrice" value="result">
+				        <c:set var="quantity" value="${purchaseQuantity}"/>
+				        <c:set var="price" value="${materialProductVO.materialProductPrice}"/>
+				        <c:set var="result" value="${quantity * price}"/>
+				        </td>
+				        
+				        <!-- <td>총액</td>
+				        <td>
+				        <input class="form-control" type="number" name="totalPrice" placeholder="금액을 입력해주세요">
+				        </td> -->
+				        
 				        <td>납기일자</td>
 				        <td><input type="date" class="form-control" name="purchaseInDate"></td>
 				    </tr>
