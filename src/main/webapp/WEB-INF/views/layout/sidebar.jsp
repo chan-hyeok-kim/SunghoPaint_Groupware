@@ -103,7 +103,7 @@
     
             <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#general-affairs-pages" aria-expanded="false" aria-controls="general-pages">
-        <span class="menu-title">총무</span>
+        <span class="menu-title">자산관리</span>
         <i class="menu-arrow"></i>
         <i class="mdi mdi-sitemap menu-icon"></i>
       </a>

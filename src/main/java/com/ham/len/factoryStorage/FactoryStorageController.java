@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
+import com.ham.len.humanresource.HumanResourceVO;
 
 @Controller
 @RequestMapping("/factory/*")
@@ -39,7 +41,8 @@ public class FactoryStorageController {
 	
 	@PostMapping(value = "add")
 	public String setAdd(FactoryStorageVO factoryStorageVO, HttpServletRequest request, Model model)throws Exception{
-		String id = "2023001";
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
 		String path=request.getRequestURI();
 		//나중에 세션에서 조회
 		factoryStorageVO.setEmployeeId(id);
@@ -73,7 +76,8 @@ public class FactoryStorageController {
 	
 	@PostMapping(value = "update")
 	public String setUpdate(FactoryStorageVO factoryStorageVO, HttpServletRequest request) throws Exception {
-		String id = "2023001";
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
 		String path=request.getRequestURI();
 		factoryStorageVO=(FactoryStorageVO)makeColumn.getModColumn(factoryStorageVO, path, id);
 		factoryStorageService.setUpdate(factoryStorageVO);

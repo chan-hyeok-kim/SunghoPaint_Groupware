@@ -1,6 +1,8 @@
 package com.ham.len.instrument;
 
-import java.util.Date;
+
+
+import java.sql.Date;
 
 import com.ham.len.commons.CodeVO;
 
@@ -12,7 +14,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class InstrumentVO extends CodeVO {
-
+	
 	private Long instrumentNo;
 	private String employeeId;
 	private String instrumentCd;

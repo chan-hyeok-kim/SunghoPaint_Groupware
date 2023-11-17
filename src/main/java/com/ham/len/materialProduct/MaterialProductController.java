@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ham.len.commons.MakeColumn;
 import com.ham.len.commons.Pager;
+import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,11 +38,11 @@ public class MaterialProductController {
 		
 	}
 	
-	
 	@PostMapping(value = "add")
 	public String setAdd(MaterialProductVO materialVO, HttpServletRequest request, Model model)throws Exception{
 		
-		String id = "2023002";
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
 		
 		String path=request.getRequestURI();
 		//나중에 세션에서 조회
@@ -77,7 +79,8 @@ public class MaterialProductController {
 	
 	@PostMapping(value = "update")
 	public String setUpdate(MaterialProductVO materialVO, HttpServletRequest request) throws Exception {
-		String id = "2023002";
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
 		String path=request.getRequestURI();
 		materialVO=(MaterialProductVO)makeColumn.getModColumn(materialVO, path, id);
 		materialService.setUpdate(materialVO);

@@ -23,7 +23,7 @@
 			<tbody>
 				<tr>
 					<th scope="row" class="point">제목</th>
-					<td colspan="3" class="subject"><input type="text" name="noticeTitle" class="form-control"></td>
+					<td colspan="3" class="subject"><input type="text" value="${vo.noticeTitle}" name="noticeTitle" class="form-control"></td>
 				</tr>
 				<tr>
 				<th>카테고리 분류</th>
@@ -63,7 +63,7 @@
 					<!-- Smart Editor UI -->
 							<div style="display: flex; justify-content: center;">
 								<textarea name="noticeContents" id="approvalForm" rows="10"
-								 	cols="100" style="width: 100%"></textarea>
+								 	cols="100" style="width: 100%">${vo.noticeContents}</textarea>
 							</div>
 					
 					
@@ -71,7 +71,16 @@
 				</tr>
 				<tr>
 				<th>파일 첨부</th>
-				<td colspan="3"><input type="file" class="form-control"></td>
+				<td colspan="3">
+					<div>
+					<c:forEach items="${vo.attachmentVOs}" var="f">
+						<div class="alert alert-danger" role="alert">
+							${f.fileName}
+						</div>
+					</c:forEach>	
+
+				</div>
+				</td>
 				</tr>
 			</tbody>
 			</table>    

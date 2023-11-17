@@ -144,16 +144,26 @@ ul.nav-tabs {
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div class="card">
 				<div class="card-body">
-
+					
+					<c:if test="${dto.factoryStorageCategory == '공장'}">
 					<div class="wrapper-toolbar">
 
-						공장, 창고 정보 <span
+						공장 정보 <span
 							style="margin-left: 700px; text-align: right; width: 700px;">
 							
 						</span>
 					</div>
+					</c:if>
 
-					
+					<c:if test="${dto.factoryStorageCategory == '창고'}">
+					<div class="wrapper-toolbar">
+
+						창고 정보 <span
+							style="margin-left: 700px; text-align: right; width: 700px;">
+							
+						</span>
+					</div>
+					</c:if>					
 
 					<div
 						style="text-align: right; padding-top: 20px; padding-right: 10px">					
@@ -169,11 +179,25 @@ ul.nav-tabs {
 							<table class="table-bordered mt-2" id="approval-table">
 								<tbody>
 									<tr>
-										<td>공장, 창고 코드</td>
+										<c:if test="${dto.factoryStorageCategory == '공장'}">
+										<td>공장 코드</td>
+										</c:if>
+
+										<c:if test="${dto.factoryStorageCategory == '창고'}">
+										<td>창고 코드</td>
+										</c:if>
+																				
 										<td><input type="text" name="factoryStorageCd" value="${dto.factoryStorageCd}" readonly></td>
 									</tr>
 									<tr>
-										<td>공장, 창고 이름</td>
+										<c:if test="${dto.factoryStorageCategory == '공장'}">
+										<td>공장 이름</td>
+										</c:if>
+										
+										<c:if test="${dto.factoryStorageCategory == '창고'}">
+										<td>창고 이름</td>
+										</c:if>
+																				
 										<td><input type="text" name="codeName" value="${dto.codeName}" readonly></td>
 									</tr>
 									<tr>
@@ -203,7 +227,35 @@ ul.nav-tabs {
 												  </c:otherwise>
 												  </c:choose>
 										</td>
-									</tr>							
+									</tr>			
+										<tr>
+										<td>범주</td>
+										<td>
+												<c:choose>
+												<c:when test="${dto.factoryStorageCategory eq '공장'}">
+												
+											
+												  <input type="radio" name="factoryStorageCategory" value="공장" id="공장" checked>
+												  <label for="공장">공장</label>
+												
+												  <input type="radio" name="materialProductCategory" value="창고" id="창고">
+												  <label for="창고">창고</label>
+																							  
+												</c:when>
+												
+												<c:otherwise>
+												
+												
+												  <input type="radio" name="materialProductCategory" value="공장" id="공장">
+												  <label for="공장">공장</label>
+												
+												  <input type="radio" name="materialProductCategory" value="창고" id="창고" checked>
+												  <label for="창고">창고</label>
+									
+												  </c:otherwise>
+												  </c:choose>
+										</td>
+										</tr>					
 								</tbody>
 		
 							</table>

@@ -144,15 +144,27 @@ ul.nav-tabs {
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div class="card">
 				<div class="card-body">
+					<c:if test="${dto.factoryStorageCategory == '공장'}">
 
 					<div class="wrapper-toolbar">
 
-						공장, 창고 정보 <span
+						공장 정보 <span
 							style="margin-left: 700px; text-align: right; width: 700px;">
 							
 						</span>
 					</div>
+					</c:if>
 
+					<c:if test="${dto.factoryStorageCategory == '창고'}">
+
+					<div class="wrapper-toolbar">
+
+						창고 정보 <span
+							style="margin-left: 700px; text-align: right; width: 700px;">
+							
+						</span>
+					</div>
+					</c:if>
 					
 
 					<div
@@ -170,16 +182,33 @@ ul.nav-tabs {
 							<table class="table-bordered mt-2" id="approval-table">
 								<tbody>
 									<tr>
-										<td width="200">공장, 창고 코드</td>
+										<c:if test="${dto.factoryStorageCategory == '공장'}">	
+										<td width="200">공장 코드</td>
+										</c:if>
+										<c:if test="${dto.factoryStorageCategory == '창고'}">	
+										<td width="200">창고 코드</td>
+										</c:if>
+										
 										<td width="400">${dto.factoryStorageCd}</td>
 									</tr>
 									<tr>
-										<td>공장, 창고 이름</td>
-										<td>${dto.codeName}</td>
+										<c:if test="${dto.factoryStorageCategory == '공장'}">	
+										<td>공장 이름</td>
+										</c:if>
+
+										<c:if test="${dto.factoryStorageCategory == '창고'}">	
+										<td>창고 이름</td>
+										</c:if>
+										
+										<td>${dto.codeName} 공장</td>
 									</tr>
 									<tr>
 										<td>사용여부</td>
 										<td>${dto.factoryStorageUse}</td>
+									</tr>
+									<tr>
+										<td>구분</td>
+										<td>${dto.factoryStorageCategory}</td>
 									</tr>
 								</tbody>
 		
@@ -191,7 +220,14 @@ ul.nav-tabs {
 			
 						<!-- Button List  -->
 						 <div style="margin-left:1250px;">
-							<a href="./update?factoryStorageCd=${dto.factoryStorageCd}" class="btn btn-info">공장, 창고 정보 수정</a>
+							<a href="./update?factoryStorageCd=${dto.factoryStorageCd}" class="btn btn-info">
+							<c:if test="${dto.factoryStorageCategory == '공장'}">	
+							공장 정보 수정
+							</c:if>
+							<c:if test="${dto.factoryStorageCategory == '창고'}">	
+							창고 정보 수정
+							</c:if>							
+							</a>
 
 						
 

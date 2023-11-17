@@ -1,6 +1,7 @@
 const appDate=document.getElementById('approvalStartDate')
 const curDate=document.getElementById('currentDate')
 const appStartDate=document.getElementsByClassName('approval-start-date');
+const appTypeRegDate=document.getElementsByClassName('approval-reg-date');
 /**
  * 
  */
@@ -9,7 +10,14 @@ if(curDate){
 curDate.value = new Date().toISOString().substring(0, 10);;
 }
 
+for(a of appTypeRegDate){
+	if(a && a!=0){
+	let date=a.innerText;
+	date1=javaDatetoScript(date);
 
+	a.innerText=date1;
+	}
+}
 
 //Fri Nov 03 22:48:52 KST 2023
 // if(appDate && appDate!=''){
@@ -66,6 +74,3 @@ returnStr1=CF_toStringByFormatting(date2)
 
 return returnStr1
 }
-
-
-
