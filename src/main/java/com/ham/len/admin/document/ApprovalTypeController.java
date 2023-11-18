@@ -1,5 +1,6 @@
 package com.ham.len.admin.document;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import com.ham.len.commons.CodeVO;
 import com.ham.len.approval.ApprovalService;
 
 import com.ham.len.commons.Pager;
+import com.ham.len.commons.ZtreeVO;
 import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +60,33 @@ public class ApprovalTypeController {
 		
 		
 	}
+	
+	@GetMapping("ajaxFullList")
+	@ResponseBody
+	public List<ZtreeVO> getList(Pager pager) throws Exception{
+		
+		List<ApprovalTypeVO> total=approvalTypeService.getTotalList(pager);
+		
+		log.warn("======={}========",total);
+		List<ZtreeVO> zl=new ArrayList<>();
+		for(ApprovalTypeVO t : total) {
+			ZtreeVO ztreeVO=new ZtreeVO();
+			
+			ztreeVO.setUpCodeName(t.getApprovalUpTypeVO().getCodeName());
+			ztreeVO.setCodeName(t.getCodeName());
+			ztreeVO.setCd(t.getApprovalUpTypeVO().getApprovalUpTypeCd());
+			ztreeVO.setNum(t.getApprovalTypeNo());
+			ztreeVO.setNo(t.getApprovalUpTypeVO().getApprovalUpTypeNo());
+			ztreeVO.setRefNo(t.getApprovalUpTypeNo());
+			ztreeVO.setApprovalForm(t.getApprovalForm());
+			
+			zl.add(ztreeVO);
+		}
+		
+		return zl;
+	}
+	
+	
 	
 	@GetMapping("upList")
 	@ResponseBody
