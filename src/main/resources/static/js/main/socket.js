@@ -22,23 +22,7 @@ const alarmUL = document.querySelector("#alarmUL");
  		console.log("연결완료");
 	     // 결재시 메시지세팅
 
-	 $.ajax({
-        type:'GET',
-        url:'/setAlarm',
-        success:function(result){
-            console.log(result);
-            if(result && ws){
-                
-				for(r of result){
-                let message=r.notificationTitle+','+r.notificationContents+','+r.notificationDate;
-           
-                ws.send(message);
-				}
-            }
-        }
-
-
-    })
+	   setAlarm();
  	};
 
 	
@@ -52,9 +36,9 @@ const alarmUL = document.querySelector("#alarmUL");
 			words=event.data.split(':');
 		    title=words[0];
 			contents=words[1];
-            time=words[2];
-
-			newAlarm='<span class="dropdown-item preview-item"><div class="preview-thumbnail"><div class="preview-icon bg-info"><span class="material-symbols-outlined">task</span></div></div><div class="preview-item-content d-flex align-items-start flex-column justify-content-center"><h6 class="preview-subject font-weight-normal mb-1">'+title+'<i style="margin-left:5px;" class="mdi mdi-close-box alarm-check-icon"></i></h6><p class="text-gray mb-0">'+contents+'</p></div></span><div class="dropdown-divider"></div>';
+            //time=words[2];
+            no=words[2];
+			newAlarm='<span class="dropdown-item preview-item"><div class="preview-thumbnail"><div class="preview-icon bg-info"><span class="material-symbols-outlined">task</span></div></div><div class="preview-item-content d-flex align-items-start flex-column justify-content-center"><h6 class="preview-subject font-weight-normal mb-1">'+title+'<i style="margin-left:5px;" class="mdi mdi-close-box alarm-check-icon" data-no="'+no+'"></i></h6><p class="text-gray mb-0">'+contents+'</p></div></span><div class="dropdown-divider"></div>';
  			
             console.log(newAlarm);
  			$('#alarmUL').after(newAlarm);
@@ -82,9 +66,11 @@ const alarmUL = document.querySelector("#alarmUL");
             console.log(result);
             if(result && ws){
          
-                let message=result.notificationTitle+','+result.notificationContents+','+result.notificationDate;
-           
-                ws.send(message);
+				for(r of result){
+					let message=r.notificationTitle+','+r.notificationContents+','+r.notificationDate+','+r.notificationNo;
+			   
+					ws.send(message);
+					}
             }
         }
 
@@ -94,7 +80,4 @@ const alarmUL = document.querySelector("#alarmUL");
 }
 
 
-$('.alarm-check-icon').click(function(){
-	$(this).parent().parent().parent().remove();
-})
 

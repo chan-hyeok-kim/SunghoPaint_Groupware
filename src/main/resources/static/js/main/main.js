@@ -10,7 +10,7 @@ const mainBtn=document.getElementsByClassName('main-btn');
 
 
 //보라
-mainCheckBtn[0].addEventListener('click',(function(){
+mainCheckBtn[0].addEventListener('click',function(){
     console.log('보라 클릭 확인')
 
     if($('#app-list').hasClass('active')){
@@ -36,17 +36,17 @@ mainCheckBtn[0].addEventListener('click',(function(){
 
 
   })
-)
 
-mainBtn[0].addEventListener('click',(function(){
+
+mainBtn[0].addEventListener('click',function(){
   $(this).parent().parent().parent().remove();
     console.log(이동);
     
 })
-)
+
 
 //초록
-mainCheckBtn[1].addEventListener('click',(function(){
+mainCheckBtn[1].addEventListener('click',function(){
   console.log('초록 클릭 확인')
   if($('#my-app-list').hasClass('active')){
     $('#my-app-list').toggleClass('active')
@@ -68,16 +68,16 @@ mainCheckBtn[1].addEventListener('click',(function(){
   $('#app-list').toggleClass('active')
   $('#material-product-amount').toggleClass('active');
 })
-)
 
-mainBtn[1].addEventListener('click',(function(){
+
+mainBtn[1].addEventListener('click',function(){
   $(this).parent().parent().parent().remove();
     
 })
-)
 
 
-mainCheckBtn[2].addEventListener('click',(function(){
+
+mainCheckBtn[2].addEventListener('click',function(){
   console.log('클릭 확인')
   if($('#my-app-list').hasClass('active')){
     $('#my-app-list').toggleClass('active')
@@ -98,16 +98,16 @@ mainCheckBtn[2].addEventListener('click',(function(){
   $('#message-list').toggleClass('active')
   $('#material-product-amount').toggleClass('active');
 })
-)
 
-mainBtn[2].addEventListener('click',(function(){
+
+mainBtn[2].addEventListener('click',function(){
   $(this).parent().parent().parent().remove();
     
 })
-)
 
 
-mainCheckBtn[3].addEventListener('click',(function(){
+
+mainCheckBtn[3].addEventListener('click',function(){
   console.log('클릭 확인')
   if($('#my-app-list').hasClass('active')){
     $('#my-app-list').toggleClass('active')
@@ -128,13 +128,13 @@ mainCheckBtn[3].addEventListener('click',(function(){
   $('#notice-list').toggleClass('active')
   $('#material-product-amount').toggleClass('active');
 })
-)
 
-mainBtn[3].addEventListener('click',(function(){
+
+mainBtn[3].addEventListener('click',function(){
   $(this).parent().parent().parent().remove();
     
 })
-)
+
 
 //chart.js 차트
 
@@ -228,3 +228,4 @@ $.ajax({
   });
 
 
+  

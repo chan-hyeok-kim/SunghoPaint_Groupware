@@ -51,7 +51,7 @@ format_color_fill
 	           
 	            
 	            <li class="nav-item dropdown" id="notification-toggle-li">
-	              <a style="cursor:pointer;" class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" data-bs-toggle="dropdown">
+	              <a style="cursor:pointer;" class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" data-bs-toggle="dropdown" data-bs-auto-close="false">
 	                <i class="mdi mdi-bell-outline"></i>
 	                <span class="count-symbol bg-danger"></span>
 	              </a>

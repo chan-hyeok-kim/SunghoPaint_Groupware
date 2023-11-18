@@ -216,7 +216,7 @@
 
 					<div id="btn-box">
 						<div>
-							<button type="button" class="btn btn-info" id="tree-mid-app" data-id="">중간
+							<button style="opacity: 50%" type="button" class="btn btn-info" id="tree-mid-app" data-id="">중간
 								검토자 추가</button>
 						</div>
 						<div>
@@ -231,7 +231,7 @@
 
 
 					<div style="overflow: auto; float: left;" id="tree-table-div">
-						<table id="tree-table" class="table table-bordered">
+						<table id="tree-table" class="table table-hover">
 							<tbody id="tree-table-body">
 								<tr style="height: 10%">
 									<td colspan="2">결재라인 설정</td>
@@ -298,7 +298,7 @@
 				ㆍ우측 하단의 '확인' 버튼을 눌러 양식을 가져올 수 있습니다.
 				</div>
 
-					<div style="display: flex; float: left; width: 40%;">
+					<div style="margin-top:20px; display: flex; float: left; width: 40%;">
 						<div style="">
 
 							<ul id="document-tree" class="ztree"></ul>

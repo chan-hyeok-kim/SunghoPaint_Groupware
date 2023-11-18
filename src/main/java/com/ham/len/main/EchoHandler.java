@@ -84,12 +84,13 @@ public class EchoHandler extends TextWebSocketHandler{
 		if(msg!=null) {
 		   String[] strs=msg.split(",");
 		   
-		   if(strs!=null && strs.length==3) {
+		   if(strs!=null && strs.length==4) {
 			   String title=strs[0];
 			   String contents=strs[1];
 			   String time=strs[2];
-			 
-			   TextMessage sendMsg = new TextMessage(title+":"+contents+":"+time);
+			   String no=strs[3];
+			   
+			   TextMessage sendMsg = new TextMessage(title+":"+contents+":"+no);
 	           session.sendMessage(sendMsg);
 		   }
 		}

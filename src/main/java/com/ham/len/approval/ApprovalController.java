@@ -97,9 +97,11 @@ public class ApprovalController {
 	}
 
 	@GetMapping("totalList")
-	public void getTotalList(Pager pager, Model model) throws Exception {
+	public void getTotalList(Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
 		List<ApprovalVO> ar = approvalService.getList(pager);
 		model.addAttribute("list", ar);
+		model.addAttribute("member", humanResourceVO);
+	       
 
 		log.warn("========{}========", ar);
 

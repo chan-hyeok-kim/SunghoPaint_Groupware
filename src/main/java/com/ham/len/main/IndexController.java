@@ -139,4 +139,11 @@ public class IndexController {
 		return mainService.getAlarmList(humanResourceVO.getEmployeeID());
 	}
 	
+	@GetMapping("/alarm/update")
+	public String setAlarmUpdate(NotificationVO notificationVO,Model model) throws Exception{
+		int result=mainService.setAlarmUpdate(notificationVO);
+		
+		model.addAttribute("result", result);
+		return "commons/ajaxResult";
+	}
 }

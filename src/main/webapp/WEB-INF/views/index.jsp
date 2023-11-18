@@ -30,7 +30,7 @@
 									campaign </span>
 								<p
 									class="top-btn-p">
-									New task<br> 결재할 문서가 등록되었습니다
+									New task<br> 검토할 문서가 등록되었습니다
 								</p>
 							</button>
 
@@ -147,57 +147,7 @@
 </div>
 </div>
 
-<%-- <div style="margin-top:50px;">
 
-
- <h4 style="font-weight: bold">재고 현황</h4>
-
-                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div style="display: flex;">
-                                    <c:forEach items="${materList}" var="vo" varStatus="i">
-                                        <c:if test="${i.count lt 4}">
-                                            <div>
-                                                <p><h5>${vo.materialProductName}</h5></p>
-                                                <div class="pie-chart pie-chart${i.count}">
-                                                    <span class="center">${vo.materialProductStock}</span>
-                                                </div>
-                                            </div>
-                                        </c:if>
-                                    </c:forEach>
-                                </div>
-                            </div>
-
-                            <div class="carousel-item">
-                                <div style="display: flex;">
-                                    <c:forEach items="${materList}" var="vo" varStatus="i">
-                                        <c:if test="${i.count gt 3 and i.count lt 7}">
-                                            <div>
-                                                <p><h3>${vo.materialProductName}</h3></p>
-                                                <div class="pie-chart pie-chart${i.count}">
-                                                    <span class="center">${vo.materialProductStock}</span>
-                                                </div>
-                                            </div>
-                                        </c:if>
-                                    </c:forEach>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only" style="color: black;">Previous</span>
-                        </a>
-                        <a style="color: black;" class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --%>
 <!-- stock end -->
 
 
@@ -223,12 +173,9 @@
 		<div class="card">
 			<div class="card-body">
 				<div style="float: left">
-					<h4 class="card-title">내 결재현황</h4>
+					<h4 class="card-title">내 검토 목록</h4>
 				</div>
 				<div style="float: right; margin-bottom: 10px;">
-					<button class="btn btn-light">
-						<span class="material-symbols-outlined"> edit_square </span>
-					</button>
 
 				</div>
 				<table class="table table-hover mt-2" id="approval-table">
@@ -243,16 +190,24 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list}" var="vo" varStatus="i">
+						<c:forEach items="${approvalList}" var="vo" varStatus="i">
 							<c:if test="${i.index lt 4}">
 								<tr>
 									<td class="approval-start-date">${vo.approvalStartDate}</td>
 									<td>${vo.approvalTitle}</td>
 									<td>${vo.drafter}</td>
 									<td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
-									<td>${vo.apCodeName}</td>
+									<td>
+									<c:choose>
+									<c:when test="${vo.apCodeName eq '진행중'}"><label class="badge badge-gradient-info">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '반려'}"><label class="badge badge-gradient-danger">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '승인 완료'}"><label class="badge badge-gradient-success">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '기안중'}"><label class="badge badge-gradient-primary">${vo.apCodeName}</label></c:when>
+																	
+									</c:choose>
+									</td>
 									<td><a data-no="${vo.approvalNo}"
-										class="detail-proceed-btn">기안서 확인</a></td>
+										class="detail-proceed-btn" href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
 								</tr>
 							</c:if>
 						</c:forEach>
@@ -280,10 +235,10 @@
 			<div class="card-body">
 
 				<div style="float: left">
-					<h4 class="card-title">승인 대기중인 결재목록</h4>
+					<h4 class="card-title">내 결재 목록</h4>
 				</div>
 				<div style="float: right; margin-bottom: 10px;">
-					<button class="btn btn-light">
+					<button class="btn btn-light" onclick="location.href='/approval/add'">
 						<span class="material-symbols-outlined"> edit_square </span>
 					</button>
 
@@ -301,16 +256,23 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${approvalList}" var="vo" varStatus="i">
+						<c:forEach items="${list}" var="vo" varStatus="i">
 							<c:if test="${i.index lt 5}">
 								<tr>
 									<td class="approval-start-date">${vo.approvalStartDate}</td>
 									<td>${vo.approvalTitle}</td>
 									<td>${vo.drafter}</td>
 									<td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
-									<td>${vo.apCodeName}</td>
+									<td>
+									<c:choose>
+									<c:when test="${vo.apCodeName eq '진행중'}"><label class="badge badge-gradient-info">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '반려'}"><label class="badge badge-gradient-danger">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '승인 완료'}"><label class="badge badge-gradient-success">${vo.apCodeName}</label></c:when>
+																	
+									</c:choose>
+									</td>
 									<td><a data-no="${vo.approvalNo}"
-										class="detail-proceed-btn">기안서 확인</a></td>
+										class="detail-proceed-btn" href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
 								</tr>
 							</c:if>
 						</c:forEach>
@@ -417,9 +379,15 @@
 	</div>
     <!-- notice end -->
     
-<!-- to do list  -->
+<!--   -->
+<div class="row">
+ <div class="card">
+    <div class="card-body">
 
-<!-- to do list  -->
+    </div>
+ </div>
+</div>
+<!--   -->
   
   
 
@@ -434,7 +402,6 @@
 	<script src='/js/main/mainCalendar.js'></script>
     <script src='/js/main/main.js'></script>
     
-    
-    
+
 </body>
 </html>
