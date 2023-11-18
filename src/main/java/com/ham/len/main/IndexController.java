@@ -3,8 +3,6 @@ package com.ham.len.main;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ham.len.approval.ApprovalService;
 import com.ham.len.approval.ApprovalVO;
+import com.ham.len.attendance.AttendanceService;
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.humanresource.todolist.ToDoListVO;

@@ -12,7 +12,7 @@
 	$(function(){
 		$("input#yearsOfService").attr("type", "number");
 		
-		if("${isUpdate}") $("#registrationForm").attr("action", "./update");
+		if("${isUpdate}") $("form#registrationForm").attr("action", "./update");
 		
 		if("${isDetail}"){
 			$("*").off("click");

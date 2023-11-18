@@ -141,6 +141,6 @@ $(function(){
 		
 		$("body").append("<div id='loading'></div>");
 		
-		$("#registrationForm").submit();
+		$("form#registrationForm").submit();
 	});
 });

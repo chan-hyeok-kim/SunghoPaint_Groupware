@@ -4,43 +4,59 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<script type="text/javascript" src="/js/attendance/status.js"></script>
+<c:if test="${newWindow}">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<style type="text/css">
+		#total{ margin-top:50px; }
+	</style>
+</c:if>
+<script type="text/javascript" src="/js/attendance/myStatus.js"></script>
 <link rel="stylesheet" href="/css/commons.css">
-<link rel="stylesheet" href="/css/attendance/status.css">
+<link rel="stylesheet" href="/css/attendance/myStatus.css">
 
 <sec:authorize access="isAuthenticated()" var="isAuthenticated" />
 
 <script type="text/javascript">
-	// init(${isAuthenticated});
 	let weeksOfMonthInfo_json = ${weeksOfMonthInfo_json};
 	let attendances_json = ${attendances_json};
 	
-	let daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
-
+	let myStatusDaysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+	
 	$(function(){
+		let attendanceStart = "<fmt:formatDate value='${currentAttendance.attendanceStart}' pattern='HH:mm:ss' />";
+		let attendanceEnd = "<fmt:formatDate value='${currentAttendance.attendanceEnd}' pattern='HH:mm:ss' />";
+		attendanceStart = ${!commuteWhether.goWork} ? "미등록" : attendanceStart;
+		attendanceEnd = (${!commuteWhether.goWork || !commuteWhether.leaveWork}) ? "미등록" : attendanceEnd;
+		
 		let startBtn_status = "on";
 		let endBtn_status = "on";
 		if(${commuteWhether.goWork}) startBtn_status = "off";
 		if(${commuteWhether.leaveWork}) endBtn_status = "off";
-
-		let serverDate = getServerDate();
+		
+		let serverDate = myStatusGetServerDate();
 		let cur_time = new Date(serverDate).toTimeString().split(" ")[0];
 		
 		$("#attendance").html("<p id='cur_date'></p>" +
 									   "<p id='cur_time'>" + cur_time + "</p>" +
-									   "<div id='start_time' class='attendance_time'><i>출근 시간</i> <span>미등록</span></div>" +
-									   "<div id='end_time' class='attendance_time'><i>퇴근 시간</i> <span>미등록</span></div>" +
+									   "<div id='start_time' class='attendance_time'><i>출근 시간</i> <span>" + attendanceStart + "</span></div>" +
+									   "<div id='end_time' class='attendance_time'><i>퇴근 시간</i> <span>" + attendanceEnd + "</span></div>" +
 									   "<div id='attendance_btn'>" +
 										   "<button id='start_btn' class='" + startBtn_status + "'>출근하기</button> &nbsp;" +
 										   "<button id='end_btn' class='" + endBtn_status + "'>퇴근하기</button>" +
 									   "</div>");
 		
-		let dayOfWeek = new Date(serverDate).getDay();
 		let cur_date = new Date(serverDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, "-");
-		$("#cur_date").html(cur_date + "(" + daysOfWeek[dayOfWeek] + ")");
+		let dayOfWeek = new Date(serverDate).getDay();
+		$("#cur_date").html(cur_date + "(" + myStatusDaysOfWeek[dayOfWeek] + ")");
 		
 		setInterval(function(){
-			cur_time = new Date(getServerDate()).toTimeString().split(" ")[0];
+			let serverDate = myStatusGetServerDate();
+
+			let cur_date = new Date(serverDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, "-");
+			let dayOfWeek = new Date(serverDate).getDay();
+			$("#cur_date").html(cur_date + "(" + myStatusDaysOfWeek[dayOfWeek] + ")");
+
+			cur_time = new Date(serverDate).toTimeString().split(" ")[0];
 			$("#cur_time").html(cur_time);
 		}, 1000);
 	});
@@ -53,34 +69,27 @@
 
 			let attendanceStart = new Date(element.attendanceStart);
 			let formatted_attendanceStart = formatTime(attendanceStart.getHours(), attendanceStart.getMinutes(), attendanceStart.getSeconds(), ":");
-			let dayOfWeek = "(" + daysOfWeek[attendanceStart.getDay()] + ")";
+			let dayOfWeek = "(" + myStatusDaysOfWeek[attendanceStart.getDay()] + ")";
 			$("[data-date='" + dataDateAttribute + "']").find(".start").html(formatted_attendanceStart + dayOfWeek);
 
 			if(element.attendanceEnd == undefined) return; // 아직 퇴근은 하지 않은 경우
 
 			let attendanceEnd = new Date(element.attendanceEnd);
 			let formatted_attendanceEnd = formatTime(attendanceEnd.getHours(), attendanceEnd.getMinutes(), attendanceEnd.getSeconds(), ":");
-			dayOfWeek = "(" + daysOfWeek[attendanceEnd.getDay()] + ")";
+			dayOfWeek = "(" + myStatusDaysOfWeek[attendanceEnd.getDay()] + ")";
 			$("[data-date='" + dataDateAttribute + "']").find(".end").html(formatted_attendanceEnd + dayOfWeek);
 			
 			/*
 				총 근무 시간 구하기
-				-근무 시간은 09시부터 적용
-				-점심 시간 제외(-1시간) : 3시간 이상 근무 시 적용
+				※점심 시간(총 1시간) 제외 : 3시간 이상 근무 시 적용
 			*/
-			if(attendanceStart.getHours() < 9){
-				attendanceStart.setHours(9);
-				attendanceStart.setMinutes(0);
-				attendanceStart.setSeconds(0);
-			}
-			
 			let lunch_time;
 			let total = timeDiffToTimeString(attendanceEnd.getTime() - attendanceStart.getTime(), ":");
 			let total_timeObj = splitTimeString(total, ":");
 			if(total_timeObj.hours >= 4){
 				lunch_time = 1000 * 60 * 60;
 				total = timeDiffToTimeString(attendanceEnd.getTime() - attendanceStart.getTime() - lunch_time, ":");
-			}else if(total_timeObj.hours == 3){
+			}else if(total_timeObj.hours == 3){ // ex) 9시 출근, 12시 30분 30초 퇴근 : 점심 시간 30분 30초만 제외
 				let minutes = attendanceEnd.getMinutes();
 				let seconds = attendanceEnd.getSeconds();
 				lunch_time = "00:" + minutes + ":" + seconds;
@@ -92,18 +101,22 @@
 
 			month_accrue = hoursToTimeString(timeStringToHours(month_accrue, ":") + timeStringToHours(total, ":"), ":");
 			
-			// 근무 시간 상세 구하기
+			/*
+				근무 시간 상세 구하기
+				-기본 : 8시간
+				-연장 : 8시간 초과 - 기본(8시간)
+				-야간 : 4시간 이상 연장한 시점부터 적용
+			*/
 			let detail = "";
 			let basic = "08:00:00";
 
 			if(parseInt(total.split(":")[0]) < 8) basic = total;
 			detail += "기본 " + basic;
 			
-			let over = hoursToTimeString(timeStringToHours(total, ":") - timeStringToHours("08:00:00", ":"), ":"); // 기본 8시간 초과 시 연장 및 야간 적용
+			let over = hoursToTimeString(timeStringToHours(total, ":") - timeStringToHours("08:00:00", ":"), ":");
 			let over_timeObj = splitTimeString(over, ":");
 
-			if(timeStringToHours(over, ":") - timeStringToHours("00:00:00", ":") > 0){
-			// 또는 if(over > "00:00:00")
+			if(timeStringToHours(over, ":") - timeStringToHours("00:00:00", ":") > 0){ // 또는 if(over > "00:00:00")
 				detail += " / 연장 " + over;
 				if(over_timeObj.hours > 4){
 					detail += "(야간 " + formatTime(over_timeObj.hours - 4, over_timeObj.minutes, over_timeObj.seconds, ":") + ")";
@@ -184,11 +197,13 @@
 	});
 </script>
 
-<div id="move_month">
-	<i id="before_month">《</i>
-	<h2>${date.year}.<fmt:formatNumber value="${date.month}" pattern="00" /></h2>
-	<i id="after_month">》</i>
-</div>
+<c:if test="${!newWindow}">
+	<div id="move_month" data-url="/attendance/myStatus" data-action="POST">
+		<i id="before_month">《</i>
+		<h2>${date.year}.<fmt:formatNumber value="${date.month}" pattern="00" /></h2>
+		<i id="after_month">》</i>
+	</div>
+</c:if>
 <div id="total">
 	<div class="wrap">
 		<div id="week_accrue" class="component">

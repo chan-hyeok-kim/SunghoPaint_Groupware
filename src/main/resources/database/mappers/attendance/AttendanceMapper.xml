@@ -5,13 +5,30 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.attendance.AttendanceDAO">
-	<select id="getStatus" parameterType="Map" resultType="AttendanceVO">
+	<sql id="searchSQL">
+		<if test="department != ''">
+			AND DEPARTMENT_CD = #{department}
+		</if>
+		<if test="keyword != ''">
+			AND NAME LIKE CONCAT('%', #{keyword}, '%') 
+		</if>
+	</sql>
+	
+	<select id="getCurrentAttendance" parameterType="String" resultType="AttendanceVO">
+		SELECT *
+			FROM ATTENDANCE
+		WHERE EMPLOYEE_ID = #{value}
+		ORDER BY ATTENDANCE_NO DESC
+		LIMIT 1
+	</select>
+	
+	<select id="getMyStatus" parameterType="Map" resultType="AttendanceVO">
 	<![CDATA[
 		SELECT *
 			FROM ATTENDANCE
 		WHERE
 			EMPLOYEE_ID = #{employeeID} AND
-			(ATTENDANCE_DATE BETWEEN #{start_date} AND #{end_date})
+			(ATTENDANCE_DATE BETWEEN #{startDate} AND #{endDate})
 	]]>
 	</select>
 	
@@ -19,7 +36,7 @@
 		SELECT *
 			FROM ATTENDANCE
 		WHERE
-			EMPLOYEE_ID = #{employeeId} AND
+			EMPLOYEE_ID = #{employeeID} AND
 			DATE_FORMAT(ATTENDANCE_DATE, '%Y-%m-%d') = DATE_FORMAT(#{date}, '%Y-%m-%d') 
 	</select>
 	
@@ -31,12 +48,71 @@
 	
 	<insert id="setGoWork" parameterType="AttendanceVO">
 		INSERT INTO ATTENDANCE
-		VALUES(NULL, #{employeeId}, #{attendanceDate}, #{attendanceStart}, NULL, #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu})
+		VALUES(NULL, #{employeeID}, #{attendanceDate}, #{attendanceStart}, NULL, #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu})
 	</insert>
 	
 	<update id="setLeaveWork" parameterType="AttendanceVO">
 		UPDATE ATTENDANCE SET
 		ATTENDANCE_END = #{attendanceEnd}, MOD_ID = #{modId}, MOD_DATE = #{modDate}, MOD_MENU = #{modMenu}
-		WHERE EMPLOYEE_ID = #{employeeId} AND ATTENDANCE_END IS NULL 
+		WHERE EMPLOYEE_ID = #{employeeID} AND ATTENDANCE_END IS NULL 
 	</update>
+	
+	<select id="getAttendanceAccrueList" parameterType="HumanResourcePager" resultType="AttendanceAccrueVO">
+	<![CDATA[
+		SELECT
+			EMPLOYEE_ID, NAME, PROFILE, POSITION_CD_NAME, DEPARTMENT_CD_NAME,
+			SEC_TO_TIME(SUM(TOTAL_SECONDS)) AS WEEK_ACCRUE,
+			SEC_TO_TIME
+			(
+				SUM
+				(
+					CASE
+						WHEN TOTAL_SECONDS <= (8 * 3600) THEN
+							TOTAL_SECONDS
+						ELSE (8 * 3600)
+					END
+				)
+			) AS WEEK_DEFAULT,
+			SEC_TO_TIME
+			(
+				SUM
+				(
+					CASE
+						WHEN TOTAL_SECONDS > (8 * 3600) THEN
+							TOTAL_SECONDS - (8 * 3600)
+						ELSE 0
+					END
+				)
+			) AS WEEK_OVER,
+			SEC_TO_TIME
+			(
+				SUM
+				(
+					CASE
+						WHEN TOTAL_SECONDS - (8 * 3600) > (4 * 3600) THEN
+							TOTAL_SECONDS - (8 * 3600) - (4 * 3600)
+						ELSE 0
+					END
+				)
+			) AS WEEK_NIGHT
+		FROM
+			(
+				SELECT
+					a.EMPLOYEE_ID, h.NAME, h.PROFILE,
+					FN_CODE_NM(LEFT(h.POSITION_CD, 3), h.POSITION_CD) AS POSITION_CD_NAME,
+					FN_CODE_NM(LEFT(h.DEPARTMENT_CD, 3), h.DEPARTMENT_CD) AS DEPARTMENT_CD_NAME,
+					TIMESTAMPDIFF(SECOND, ATTENDANCE_START, FN_TOTAL_ATTENDANCE_TIME(ATTENDANCE_START, ATTENDANCE_END)) AS TOTAL_SECONDS
+				FROM
+					ATTENDANCE a LEFT OUTER JOIN HUMAN_RESOURCE h
+						ON a.EMPLOYEE_ID = h.EMPLOYEE_ID
+				WHERE
+					ATTENDANCE_DATE BETWEEN #{startDate} AND #{endDate}
+	]]>
+					<include refid="searchSQL"></include>
+	<![CDATA[
+			) AS subquery
+		GROUP BY
+			EMPLOYEE_ID
+	]]>
+	</select>
 </mapper>

@@ -22,7 +22,7 @@
 	$(function(){
 		$("#searchBtn").click(function(){
 			$("[name='page']").val(1);
-			$("form").submit();
+			$("form#searchForm").submit();
 		});
 	});
 
@@ -31,13 +31,13 @@
 			let page = $(this).attr("data-num");
 			$("[name='page']").val(page);
 			
-			$("form").submit();
+			$("form#searchForm").submit();
 		});
 	});
 </script>
 
 <div id="wrapper">
-	<form action="./list" method="GET">
+	<form action="./list" method="GET" id="searchForm">
 		<input type="hidden" name="page" value="${pager.page}">
 		
 		<div>

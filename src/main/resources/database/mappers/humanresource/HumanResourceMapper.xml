@@ -40,17 +40,6 @@
 		</if>
 	</sql>
 	
-	<select id="getHumanResource" parameterType="String" resultMap="getHumanResourceResult">
-		SELECT *,
-		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD_NAME,
-		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME
-			FROM HUMAN_RESOURCE HR LEFT OUTER JOIN ACCOUNT_ROLE AR
-				ON HR.EMPLOYEE_ID = AR.EMPLOYEE_ID LEFT OUTER JOIN ROLE R
-				ON AR.ROLE_NUM = R.ROLE_NUM LEFT OUTER JOIN CODE C
-				ON R.ROLE_NAME = C.CODE
-		WHERE HR.EMPLOYEE_ID = #{value}
-	</select>
-
 	<select id="getTotal" parameterType="HumanResourcePager" resultType="Long">
 		SELECT COUNT(*)
 			FROM HUMAN_RESOURCE
@@ -90,6 +79,17 @@
 	
 	<select id="getDepartmentList" resultType="CodeVO">
 		SELECT CODE, CODE_NAME FROM CODE WHERE UP_CODE = 'D00'
+	</select>
+	
+	<select id="getHumanResource" parameterType="String" resultMap="getHumanResourceResult">
+		SELECT *,
+		FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS POSITION_CD_NAME,
+		FN_CODE_NM(LEFT(DEPARTMENT_CD, 3), DEPARTMENT_CD) AS DEPARTMENT_CD_NAME
+			FROM HUMAN_RESOURCE HR LEFT OUTER JOIN ACCOUNT_ROLE AR
+				ON HR.EMPLOYEE_ID = AR.EMPLOYEE_ID LEFT OUTER JOIN ROLE R
+				ON AR.ROLE_NUM = R.ROLE_NUM LEFT OUTER JOIN CODE C
+				ON R.ROLE_NAME = C.CODE
+		WHERE HR.EMPLOYEE_ID = #{value}
 	</select>
 	
 	<resultMap id="getHumanResourceResult" type="HumanResourceVO">

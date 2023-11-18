@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class AttendanceVO extends CodeVO {
 	private Long attendanceNo;
-	private String employeeId;
+	private String employeeID;
 	private Timestamp attendanceDate;
 	private Timestamp attendanceStart;
 	private Timestamp attendanceEnd;
