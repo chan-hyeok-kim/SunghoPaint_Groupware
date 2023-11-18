@@ -20,7 +20,7 @@ var humanSetting = {
 			pIdKey: "pid",
 		}
 	},
-
+	
 };
 
 
@@ -37,7 +37,7 @@ $.ajax({
 	success: function(result) {
 		console.log(result);
              humanNodes=result;
-			 humanNodes.push({name: "페인트 오피스", id:'0', open: true, pid: 'root'}); 
+			 humanNodes.push({name: "페인트 오피스", id:'0', open: true, pid: 'root', iconOpen:'/css/zTreeStyle/img/diy/1_open.png',iconClose:'/css/zTreeStyle/img/diy/1_close.png'}); 
 	}
 })
 
@@ -86,7 +86,10 @@ function myOnCheck(event, treeId, treeNode) {
 					
 					callback: {
 						onClick: employeeOnCheck,
+					},view:{
+						showLine: false
 					}
+					,
 				};
 		
 				/**노드에 값 넣어서 표시해주기 */
@@ -164,6 +167,7 @@ function myOnCheck(event, treeId, treeNode) {
 				emp.dept=r.departmentCd;
                 emp.rank=r.positionCd;
 				emp.empId=r.employeeID;
+				emp.icon='/css/zTreeStyle/img/diy/emp.png';
 				/*		delete r.employeeName;
 						delete r.deptCode;*/
             
@@ -178,7 +182,10 @@ function myOnCheck(event, treeId, treeNode) {
 				
 				callback: {
 					onClick: employeeOnCheck,
+				},view:{
+					showLine: false
 				}
+				,
 			};
 
 			/**노드에 값 넣어서 표시해주기 */
@@ -471,6 +478,27 @@ $('#searchTeamList').click(function(){
 })
 
 
+let nowTime=new Date();
 
+let year = nowTime.getFullYear(); // 년도
+let month = nowTime.getMonth() + 1;  // 월
+let date = nowTime.getDate();  // 날짜
+let day = nowTime.getDay();  // 요일
 
+nowDate=year + '/' + month + '/' + date;
 
+let hours = nowTime.getHours(); // 시
+let minutes = nowTime.getMinutes();  // 분
+let seconds = nowTime.getSeconds();  // 초
+let milliseconds = nowTime.getMilliseconds(); // 밀리초
+
+if(hours<10){
+	hours='0'+hours;
+}
+
+if(minutes<10){
+	minutes='0'+minutes;
+}
+appTime=hours + ':' + minutes;
+
+$('#app-date-span').text(nowDate+' '+appTime);

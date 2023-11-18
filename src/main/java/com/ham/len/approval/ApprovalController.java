@@ -339,6 +339,7 @@ public class ApprovalController {
 			    ztreeVO.setDept(h.getDepartmentCd());
 				ztreeVO.setEmpId(h.getEmployeeID());
                 ztreeVO.setRank(h.getPositionCd());
+				ztreeVO.setIcon("/css/zTreeStyle/img/diy/emp.png");
 				
 				zl.add(ztreeVO);
 			}

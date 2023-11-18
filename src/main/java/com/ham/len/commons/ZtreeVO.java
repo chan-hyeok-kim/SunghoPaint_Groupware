@@ -26,6 +26,6 @@ public class ZtreeVO {
 	private Long refNo;
 	private String approvalForm;
 	
-			
+	private String icon;
 	
 }
