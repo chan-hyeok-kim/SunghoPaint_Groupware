@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,27 @@ public class HumanResourceService implements UserDetailsService {
 		new SMTP().send_mail(humanResourceVO);
 		
 		return result;
+	}
+	
+	public boolean getRegistrationError(HumanResourceVO humanResourceVO, BindingResult bindingResult) {
+		boolean hasErrors = false;
+		
+		String extensionNumber = humanResourceVO.getExtensionNumber();
+		String extensionNumberRegExp = "^0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4]|7[0-9]|8[1-4]|9[1-4])\\d{3,4}\\d{4}$";
+		String mainNumber = humanResourceVO.getMainNumber();
+		String mainNumberRegExp = "^0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4]|7[0-9]|8[1-4]|9[1-4])\\d{2,3}\\d{4}$";
+		
+		if(!extensionNumber.isEmpty() && !Pattern.matches(extensionNumberRegExp, extensionNumber)) {
+			hasErrors = true;
+			bindingResult.rejectValue("extensionNumber", "humanResourceVO.extensionNumber.patternCheck");
+		}
+		
+		if(!mainNumber.isEmpty() && !Pattern.matches(mainNumberRegExp, mainNumber)) {
+			hasErrors = true;
+			bindingResult.rejectValue("mainNumber", "humanResourceVO.mainNumber.patternCheck");
+		}
+		
+		return hasErrors;
 	}
 	
 	private String generateTemporaryPassword() {

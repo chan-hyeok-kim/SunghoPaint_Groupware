@@ -42,9 +42,19 @@ public class HumanResourceController {
 	}
 	
 	@PostMapping("/humanresource/registration")
-	public String setRegistration(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
+	public String setRegistration(@Valid HumanResourceVO humanResourceVO, BindingResult bindingResult, MultipartFile file, Model model) throws Exception {
+		boolean hasErrors = humanResourceService.getRegistrationError(humanResourceVO, bindingResult);
+		if(bindingResult.hasErrors() || hasErrors) {
+			model.addAttribute("hasErrors", true);
+			model.addAttribute("isRegistration", true);
+			return "humanresource/registration";
+		}
+		
 		humanResourceService.setRegistration(humanResourceVO, file);
-		return "redirect:/humanresource/list";
+		model.addAttribute("result", 1);
+		model.addAttribute("message", "등록이 완료되었습니다.");
+		model.addAttribute("url", "/humanresource/list");
+		return "commons/result";
 	}
 	
 	@GetMapping("/humanresource/list")
@@ -75,9 +85,18 @@ public class HumanResourceController {
 	}
 	
 	@PostMapping("/humanresource/update")
-	public String setUpdate(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
+	public String setUpdate(@Valid HumanResourceVO humanResourceVO, BindingResult bindingResult, MultipartFile file, Model model) throws Exception {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("hasErrors", true);
+			model.addAttribute("isUpdate", true);
+			return "humanresource/registration";
+		}
+		
 		humanResourceService.setUpdate(humanResourceVO, file);
-		return "redirect:/humanresource/update?employeeID=" + humanResourceVO.getEmployeeID();
+		model.addAttribute("result", 1);
+		model.addAttribute("message", "수정이 완료되었습니다.");
+		model.addAttribute("url", "/humanresource/update?employeeID=" + humanResourceVO.getEmployeeID());
+		return "commons/result";
 	}
 	
 	@GetMapping("/humanresource/delete")
@@ -105,7 +124,7 @@ public class HumanResourceController {
 			if(result > 0) {
 				model.addAttribute("result", 1);
 				model.addAttribute("message", "변경이 완료되었습니다.");
-				model.addAttribute("url", "/logout"); // Security Session에 저장되어 있는 사용자의 정보는 기존 정보이기 때문에 재로그인하여 정보가 갱신될 수 있도록 유도하기 위해 강제 로그아웃 처리
+				model.addAttribute("url", "/logout");
 			}else {
 				model.addAttribute("result", 0);
 				model.addAttribute("message", "비밀번호 변경 실패(서버 내부적 오류)");
