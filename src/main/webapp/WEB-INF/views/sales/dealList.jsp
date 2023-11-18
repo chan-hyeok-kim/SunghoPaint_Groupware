@@ -136,7 +136,7 @@ ul.nav-tabs {
 
 					<div class="wrapper-toolbar">
 
-						<div style="float:left">거래내역 조회 ㅋㅋ</div> 
+						<div style="float:left">거래내역 조회</div> 
 						<div style="text-align: right;">
 							<form class="form-inline">
 
@@ -190,7 +190,7 @@ ul.nav-tabs {
 						             <td id="clientName">${vo.clientName}</td>
 						             <td id="codeName">${vo.codeName}</td>
 						             <td id="totalPrice">${vo.totalPrice}</td>
-						             <td id="employeeId">${vo.employeeId}</td>
+						             <td id="employeeId">${vo.clientManager}</td>
 						             <td id="clientZipCode" hidden>${vo.clientZipCode}</td>
 						             <td id="clientAddress" hidden>${vo.clientAddress}</td>
 						             <td id="clientRefAddress" hidden>${vo.clientRefAddress}</td>

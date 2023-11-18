@@ -57,15 +57,19 @@
 
                             
 <div id="test"></div>
-							<div id="document-add-btn-list">
+							
+							<div style="float:left; margin-top:20px;">
 							<button type="button" class="btn btn-info" id="text-delete-btn"
 					        style="margin-left: 20px;">지우기</button>
 							<button type="button" class="btn btn-info" id="se2-line-add-btn"
 					        style="margin-left: 20px;">결재선 추가</button>
-								<button type="button" class="btn btn-info" style="margin-left: 50%;"
+					        </div>
+					        <div style="float:right; margin-top:20px; margin-right:20px;">
+								<button type="button" class="btn btn-info" style="margin-right:20px;"
 									onclick="location.href='/document/list'">취소</button>
 								<button type="button" class="btn btn-info" id="document-add-btn">등록</button>
 							</div>
+							
 						</div>
 						<!-- Wrapper Toolbar End -->
 					</form>

@@ -25,7 +25,7 @@
 				<div class="card-body">
 					
 						<div class="wrapper-toolbar">
-							<div>문서 양식 등록</div>
+							<div>문서 양식 수정</div>
 						</div>
 						<ul class="nav-tabs">
 						</ul>
@@ -50,6 +50,7 @@
 									<input type="hidden" name="approvalUpTypeNo" value="${vo.approvalUpTypeNo}">
 									<input type="hidden" name="approvalTypeCd" value="${vo.approvalTypeCd}">	
 									<input type="hidden" name="approvalTypeNo" value="${vo.approvalTypeNo}">
+									
 									<tr>
 										<td style="padding: 20px">양식명</td>
 										<td><input class="form-control" name="codeName" data-cd-name="${vo.approvalUpTypeVO.codeName}" 

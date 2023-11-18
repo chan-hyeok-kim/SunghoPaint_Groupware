@@ -154,38 +154,36 @@
       </div>
     </li>
     
-    
-        <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#purchase-general-pages" aria-expanded="false" aria-controls="general-pages">
-        <span class="menu-title">구매 리스트</span>
+     <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#general-affairs-pages" aria-expanded="false" aria-controls="general-pages">
+        <span class="menu-title">자산관리</span>
         <i class="menu-arrow"></i>
-        <i class="mdi mdi-cash-multiple menu-icon"></i>
+        <i class="mdi mdi-sitemap menu-icon"></i>
       </a>
-      <div class="collapse" id="purchase-general-pages">
+      <div class="collapse" id="general-affairs-pages">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="/purchase/list">구매 조회</a></li>
-          <li class="nav-item"> <a class="nav-link" href="/purchase/add">구매서 작성</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/instrument/list">기기 리스트</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/material/list">품목 리스트</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/factory/list">공장/창고 리스트</a></li>
         </ul>
       </div>
     </li>
     
     
         <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#order-general-pages" aria-expanded="false" aria-controls="general-pages">
-        <span class="menu-title">발주서 리스트</span>
+      <a class="nav-link" data-bs-toggle="collapse" href="#purchase-general-pages" aria-expanded="false" aria-controls="general-pages">
+        <span class="menu-title">구매&발주 관련</span>
         <i class="menu-arrow"></i>
-        <i class="mdi mdi-book-open menu-icon"></i>
+        <i class="mdi mdi-cash-multiple menu-icon"></i>
       </a>
-      <div class="collapse" id="order-general-pages">
+      <div class="collapse" id="purchase-general-pages">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="/order/list">발주서 조회</a></li>
-          <li class="nav-item"> <a class="nav-link" href="/order/add">발주서 작성</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/purchase/list">구매 리스트</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/order/list">발주서 리스트</a></li>
         </ul>
       </div>
-    </li>  
+    </li>
     
-       
-      
          
         <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#notice-pages" aria-expanded="false" aria-controls="notice-pages">

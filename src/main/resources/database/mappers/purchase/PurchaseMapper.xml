@@ -5,28 +5,19 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.ham.len.purchase.PurchaseDAO">
-	<!-- 
-	 <sql id="forPager">
-		<choose>
-			<when test="kind=='1'">
-				clientName
-			</when>
-			
-			<when test="kind=='2'">
-				materialProductNo
-			</when>
-			
-			<otherwise>
-				name
-			</otherwise>
-		</choose>
-	</sql> 
+ 
+<sql id="forSearch">
+<choose>
+	<when test="kind=='1'">CLIENT_NAME</when>
+	<when test="kind=='2'">CODE_NAME</when>
+	<otherwise>NAME</otherwise>
+</choose>
+</sql> 
 	
 
 	<select id="getList" resultMap="PurchaseList" parameterType="Pager">
-         SELECT * FROM PURCHASE_MANAGEMENT ORDER BY PURCHASE_NO DESC
         
-        SELECT * 
+        SELECT *, FN_CODE_NM(LEFT(M.MATERIAL_PRODUCT_CD,3),M.MATERIAL_PRODUCT_CD) AS CODE_NAME
           FROM PURCHASE_MANAGEMENT P 
     
     INNER JOIN HUMAN_RESOURCE H
@@ -38,6 +29,9 @@
     INNER JOIN MATERIAL_PRODUCT M
     		ON P.MATERIAL_PRODUCT_NO = M.MATERIAL_PRODUCT_NO
     
+    INNER JOIN FACTORY_STORAGE F
+    		ON P.FACTORY_STORAGE_NO = F.FACTORY_STORAGE_NO
+    	 
          ORDER BY PURCHASE_NO DESC
          LIMIT #{startRow},#{lastRow}
          
@@ -50,18 +44,25 @@
   		<result column="MATERIAL_PRODUCT_NO" property="materialProductNo"/>
   		<result column="EMPLOYEE_ID" property="employeeId"/>
   		<result column="PURCHASE_DATE" property="purchaseDate"/>
+  		<result column="PURCHASE_QUANTITY" property="purchaseQuantity"/>
   		<result column="TOTAL_PRICE" property="totalPrice"/>
+  		<result column="PURCHASE_IN_DATE" property="purchaseInDate"/>
+  		<result column="CODE_NAME" property="codeName"/>
   			
-  			<association property="clientVO" javaType="ClientVO">
+  			<association property="salesClientVO" javaType="SalesClientVO">
   				<result column="CLIENT_NAME" property="clientName"/>
   			</association>
 
-  			<association property="employeeVO" javaType="EmployeeVO">
+  			<association property="humanResourceVO" javaType="HumanResourceVO">
   				<result column="NAME" property="name"/>
   			</association>
 
   			<association property="materialProductVO" javaType="MaterialProductVO">
   				<result column="MATERIAL_PRODUCT_CATEGORY" property="materialProductCategory"/>
+  			</association>
+  			
+  			<association property="factoryStorageVO" javaType="FactoryStorageVO">
+  				<result column="FACTORY_STORAGE_CD" property="factoryStorageCd"/>
   			</association>
   		
   	</resultMap>
@@ -70,9 +71,9 @@
     <insert id="setAdd" parameterType="PurchaseVO">
     
     	INSERT INTO PURCHASE_MANAGEMENT
-			(PURCHASE_DATE, CLIENT_NO, EMPLOYEE_ID, FACTORY_STORAGE_NO,MOD_MENU,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE)
+			(PURCHASE_NO , PURCHASE_DATE , CLIENT_NO , EMPLOYEE_ID , MATERIAL_PRODUCT_NO , PURCHASE_QUANTITY , TOTAL_PRICE , FACTORY_STORAGE_NO , PURCHASE_IN_DATE , MOD_MENU , REG_ID , REG_DATE , REG_MENU , MOD_ID , MOD_DATE)
 		VALUES
-			(#{purchaseDate}, #{clientNo}, #{employeeId}, #{factoryStorageNo}, #{modMenu},#{regId},NOW(),#{regMenu},#{modId},NOW())
+			(#{purchaseNo} , NOW() , #{clientNo} , #{employeeId} , #{materialProductNo} , #{purchaseQuantity} , #{totalPrice} , #{factoryStorageNo} , #{purchaseInDate} , #{modMenu} , #{regId} , NOW() , #{regMenu} , #{modId} , NOW())
     
     </insert>
     
@@ -82,7 +83,7 @@
     	 WHERE CLIENT_NAME LIKE '%'||#{search}||'%'
     </select>
     
-    <select id="humanSearch" resultType="EmployeeVO" parameterType="EmployeeVO">
+    <select id="humanSearch" resultType="HumanResourceVO" parameterType="HumanResourceVO">
     	SELECT *
     	  FROM HUMAN_RESOURCE
     	 WHERE NAME=#{name}
@@ -96,9 +97,21 @@
     	  				  			  WHERE CODE_NAME = #{codeName})
     </select>
     
+    <select id="getList2" resultType="FactoryStorageVO">
+		SELECT F.*, C.* FROM 
+		FACTORY_STORAGE F LEFT OUTER JOIN CODE C 
+		ON F.FACTORY_STORAGE_CD = C.CODE
+	</select>
+
+    <select id="getList3" resultType="MaterialProductVO">
+		SELECT M.*, C.* FROM 
+		MATERIAL_PRODUCT M LEFT OUTER JOIN CODE C 
+		ON M.MATERIAL_PRODUCT_CD = C.CODE
+	</select>
+    
     <select id="getDetail" resultMap="detailList" parameterType="purchaseVO">
     
-    SELECT *, FN_CODE_NM(LEFT(F.FACTORY_STORAGE_CD,3),F.FACTORY_STORAGE_CD) AS FACTORY_NM
+    SELECT *, FN_CODE_NAME(LEFT(F.FACTORY_STORAGE_CD,3),F.FACTORY_STORAGE_CD) AS CODE_NAME
           FROM PURCHASE_MANAGEMENT P 
     
     INNER JOIN HUMAN_RESOURCE H
@@ -106,10 +119,13 @@
     
     INNER JOIN CLIENT_LIST C
     		ON P.CLIENT_NO = C.CLIENT_NO
-    
+
+    INNER JOIN MATERIAL_PRODUCT M
+    		ON P.MATERIAL_PRODUCT_NO = M.MATERIAL_PRODUCT_NO
+
     INNER JOIN FACTORY_STORAGE F
     		ON P.FACTORY_STORAGE_NO = F.FACTORY_STORAGE_NO
-    
+
          WHERE P.PURCHASE_NO=#{purchaseNo}
     
     </select>
@@ -121,47 +137,49 @@
   		<result column="EMPLOYEE_ID" property="employeeId"/>
   		<result column="FACTORY_STORAGE_NO" property="factoryStorageNo"/>
   		<result column="PURCHASE_DATE" property="purchaseDate"/>
+  		<result column="PURCHASE_QUANTITY" property="purchaseQuantity"/>
   		<result column="TOTAL_PRICE" property="totalPrice"/>
-  			<association property="clientVO" javaType="ClientVO">
+  		<result column="PURCHASE_IN_DATE" property="purchaseInDate"/>
+  		<result column="CODE_NAME" property="codeName"/>
+  		
+  			<association property="salesClientVO" javaType="SalesClientVO">
   				<result column="CLIENT_NAME" property="clientName"/>
   			</association>
 
-  			<association property="employeeVO" javaType="EmployeeVO">
+  			<association property="humanResourceVO" javaType="HumanResourceVO">
   				<result column="NAME" property="name"/>
   			</association>
 
+  			<association property="materialProductVO" javaType="MaterialProductVO">
+  				<result column="MATERIAL_PRODUCT_CATEGORY" property="materialProductCategory"/>
+  			</association>
+  			
   			<association property="factoryStorageVO" javaType="FactoryStorageVO">
-  				<result column="FACTORY_NM" property="codeName"/>
+  				<result column="FACTORY_STORAGE_CD" property="factoryStorageCd"/>
   			</association>
   		
   	</resultMap>
   	
   	<update id="setUpdate" parameterType="purchaseVO">  	
   	
-  		UPDATE PURCHASE_MANAGEMENT P 
+  		UPDATE PURCHASE_MANAGEMENT P ,  FN_CODE_NAME(LEFT(F.FACTORY_STORAGE_CD,3),F.FACTORY_STORAGE_CD) AS FACTORY_NAME
 	INNER JOIN HUMAN_RESOURCE H
 	      	ON P.EMPLOYEE_ID = H.EMPLOYEE_ID
 	INNER JOIN CLIENT_LIST C
 	    	ON P.CLIENT_NO = C.CLIENT_NO
 	INNER JOIN FACTORY_STORAGE F
 	    	ON P.FACTORY_STORAGE_NO = F.FACTORY_STORAGE_NO
-    	   SET P.PURCHASE_DATE=#{purchaseDate}, C.CLIENT_NAME=#{clientVO.clientName} , H.NAME=#{employeeVO.name} , P.FACTORY_STORAGE_NO=#{factoryStorageNo},P.MOD_DATE=NOW()
+    	   SET C.CLIENT_NAME=#{salesClientVO.clientName} , H.NAME=#{humanResourceVO.name} , F.FACTORY_STORAGE_CD=#{factoryStorageCd}, P .PURCHASE_IN_DATE=#{purchaseInDate} , P.MOD_DATE=NOW()
   		 WHERE P.PURCHASE_NO=#{purchaseNo}
   		 
   	</update>
   	
-  	<delete id="setDelete" parameterType="purchaseVO"> 
+  	<delete id="setDelete" parameterType="PurchaseVO"> 
   		
-  		DELETE PURCHASE_MANAGEMENT P 
-	INNER JOIN HUMAN_RESOURCE H
-	      	ON P.EMPLOYEE_ID = H.EMPLOYEE_ID
-	INNER JOIN CLIENT_LIST C
-	    	ON P.CLIENT_NO = C.CLIENT_NO
-	INNER JOIN FACTORY_STORAGE F
-	    	ON P.FACTORY_STORAGE_NO = F.FACTORY_STORAGE_NO
-	     WHERE P.PURCHASE_NO=#{purchaseNo}
-  	
+  		DELETE FROM PURCHASE_MANAGEMENT
+  		 WHERE PURCHASE_NO=#{purchaseNo}
+  		
   	</delete> 
-  	 -->
+  	 
 
 </mapper>

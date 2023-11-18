@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ham.len.commons.Pager;
+import com.ham.len.humanresource.HumanResourceVO;
 
 @Controller
 @RequestMapping("/factory/*")
@@ -23,6 +25,7 @@ public class FactoryStorageController {
 	@Autowired
 	private FactoryStorageService factoryStorageService;
 	
+
 	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
@@ -35,11 +38,13 @@ public class FactoryStorageController {
 	
 	
 	@PostMapping(value = "add")
-	public String setAdd(FactoryStorageVO factoryStorageVO, Model model)throws Exception{
-		
-		
+	public String setAdd(FactoryStorageVO factoryStorageVO, HttpServletRequest request, Model model)throws Exception{
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		String path=request.getRequestURI();
 		//나중에 세션에서 조회
-		
+		factoryStorageVO.setEmployeeId(id);
+	
 		int result=factoryStorageService.setAdd(factoryStorageVO);
 		if(result>0) {
 			 model.addAttribute("message", "코드가 정상 등록되었습니다.");
@@ -68,8 +73,10 @@ public class FactoryStorageController {
 	}
 	
 	@PostMapping(value = "update")
-	public String setUpdate(FactoryStorageVO factoryStorageVO) throws Exception {
-		
+	public String setUpdate(FactoryStorageVO factoryStorageVO, HttpServletRequest request) throws Exception {
+		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id=humanResourceVO.getEmployeeID();
+		String path=request.getRequestURI();
 		factoryStorageService.setUpdate(factoryStorageVO);
 		return "redirect:/factory/list";
 		

@@ -6,6 +6,9 @@ checkResultUpdate=[false,false,false];
 $("#document-update-btn").mouseover(function(){
 		if ($('#check-cd').val()!='') {
 		checkResultUpdate[0]=true;
+	}else{
+		swal('양식명을 입력해주세요')
+		checkResultUpdate[0]=false;
 	}
 	console.log(checkResultUpdate)
 	
@@ -14,8 +17,23 @@ $("#document-update-btn").mouseover(function(){
 $('#document-update-btn').mouseover(function(){
 	$('#select-form').val();
 	console.log($('#select-form').val());
-	if($('#select-form').val()!=''){
+	if($('#select-form option:selected').val()!=''){
 		checkResultUpdate[2]=true;
+	}else{
+		swal('양식 내용을 넣어주세요')
+		checkResultUpdate[2]=false;
+		return;
+
+	}
+
+	if($('#select-form option:selected').val().trim().length>10){
+		swal('상위 양식함을 선택해주세요')
+		checkResultUpdate[2]=false;
+		return;
+	
+	}else{
+		checkResultUpdate[2]=true;
+		
 	}
 })
 

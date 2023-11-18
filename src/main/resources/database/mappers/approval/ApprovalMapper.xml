@@ -14,6 +14,15 @@
 </choose>
 
 </sql>
+
+<sql id="myList">
+(A.EMPLOYEE_ID=#{vo.employeeID} 
+		OR (MID_APPROVER=#{vo.employeeID} AND (APPROVAL_STATUS_CD IN ('R032','R033','R034')))
+		OR (ADD_APPROVER=#{vo.employeeID} AND ((APPROVAL_STATUS_CD='R032' AND APPROVAL_CHECK_CD='R042') OR APPROVAL_STATUS_CD='R033' OR (APPROVAL_STATUS_CD='R034' AND APPROVAL_CHECK_CD='R042')))
+		OR (LAST_APPROVER=#{vo.employeeID} AND ((APPROVAL_STATUS_CD='R032' AND APPROVAL_CHECK_CD='R042' AND ADD_APPROVER='') OR APPROVAL_STATUS_CD='R033' OR (APPROVAL_STATUS_CD='R032' AND APPROVAL_CHECK_CD='R043') OR APPROVAL_STATUS_CD='R033' OR (APPROVAL_STATUS_CD='R034' AND APPROVAL_CHECK_CD='R043'))))
+</sql>
+
+
     
 
 	<select id="getList" resultMap="getListResult"
@@ -78,31 +87,28 @@
 
     
     <select id="getMyList" resultType="ApprovalVO" parameterType="Map">
-        SELECT *,APT.APPROVAL_TYPE_NO AS
+SELECT *,APT.APPROVAL_TYPE_NO AS
 		APT_APPROVAL_TYPE_NO,
-		FN_CODE_NM(LEFT((A.APPROVAL_STATUS_CD),3),A.APPROVAL_STATUS_CD) AS
+		FN_CODE_NM(LEFT((APPROVAL_STATUS_CD),3),APPROVAL_STATUS_CD) AS
 		AP_CODE_NAME,
-		FN_CODE_NM(LEFT((APT.APPROVAL_TYPE_CD),3),APT.APPROVAL_TYPE_CD) AS
+		FN_CODE_NM(LEFT((APPROVAL_TYPE_CD),3),APPROVAL_TYPE_CD) AS
 		APT_CODE_NAME,
 		FN_DEPT_NM(LAST_APPROVER) AS LAST_APPROVER_NAME
 		FROM APPROVAL A LEFT OUTER JOIN APPROVAL_TYPE APT
 		ON A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
-		WHERE A.EMPLOYEE_ID=#{vo.employeeID} 
-		OR MID_APPROVER=#{vo.employeeID}
-		OR ADD_APPROVER=#{vo.employeeID}
-		OR LAST_APPROVER=#{vo.employeeID}
-		ORDER BY A.APPROVAL_NO DESC
+		WHERE <include refid="searchApp"></include>
+		LIKE CONCAT('%',#{pager.search},'%')
+        AND <include refid="myList"></include>
+   		ORDER BY A.APPROVAL_NO DESC
 		LIMIT
 		#{pager.startRow},#{pager.lastRow} 
     </select>
     
-    <select id="getMyTotal" resultType="Long" parameterType="HumanResourceVO">
+    <select id="getMyTotal" resultType="Long" parameterType="Map">
 	  SELECT COUNT(*)
-	    FROM APPROVAL
-	   WHERE EMPLOYEE_ID=#{employeeID} 
-		OR MID_APPROVER=#{employeeID}
-		OR ADD_APPROVER=#{employeeID}
-		OR LAST_APPROVER=#{employeeID}
+	    FROM APPROVAL A
+	   WHERE <include refid="searchApp"></include>
+		LIKE CONCAT('%',#{pager.search},'%') AND <include refid="myList"></include> 
 	</select>
     
     
@@ -122,55 +128,22 @@
 		ON
 		A.APPROVAL_TYPE_NO=APT.APPROVAL_TYPE_NO
 		WHERE A.APPROVAL_STATUS_CD=#{vo.approvalStatusCd}
-		AND (A.EMPLOYEE_ID=#{vo.employeeID} 
-		OR A.MID_APPROVER=#{vo.employeeID}
-		OR A.ADD_APPROVER=#{vo.employeeID}
-		OR A.LAST_APPROVER=#{vo.employeeID})
+		AND <include refid="searchApp"></include>
+		LIKE CONCAT('%',#{pager.search},'%')
+		AND <include refid="myList"></include>
 		ORDER BY A.APPROVAL_NO DESC
 		LIMIT #{pager.startRow},#{pager.lastRow}	
 	</select>
 
-<!-- 	<resultMap type="ApprovalVO" id="getSaveList">
-		<id column="APPROVAL_NO" property="approvalNo" />
-		<result column="EMPLOYEE_ID" property="employeeID" />
-		<result column="A_APPROVAL_TYPE_NO" property="approvalTypeNo" />
-		<result column="APPROVAL_TITLE" property="approvalTitle" />
-		<result column="APPROVAL_CONTENTS" property="approvalContents" />
-		<result column="APPROVAL_STATUS_CD" property="approvalStatusCd" />
-		<result column="APPROVAL_START_DATE"
-			property="approvalStartDate" />
-		<result column="APPROVAL_END_DATE" property="approvalEndDate" />
-		<result column="DRAFTER" property="drafter" />
-		<result column="MID_APPROVER" property="midApprover" />
-		<result column="ADD_APPROVER" property="addApprover" />
-		<result column="LAST_APPROVER" property="lastApprover" />
-		<result column="LAST_APPROVER_NAME" property="lastApproverName" />
-		<result column="ADMONITION" property="admonition" />
-		<result column="REG_ID" property="regId" />
-		<result column="REG_DATE" property="regDate" />
-		<result column="REG_MENU" property="regMenu" />
-		<result column="MOD_ID" property="modId" />
-		<result column="MOD_DATE" property="modDate" />
-		<result column="MOD_MENU" property="modMenu" />
-		<result column="AP_CODE_NAME" property="apCodeName" />
-        <result column="APT_CODE_NAME" property="aptCodeName" />
-        
-		<association property="approvalTypeVO"
-			javaType="ApprovalTypeVO">
-			<id column="APT_APPROVAL_TYPE_NO" property="approvalTypeNo" />
-			
-		</association>
 
-	</resultMap> -->
 
-    <select id="getStatusTotal" resultType="Long" parameterType="ApprovalVO">
+    <select id="getStatusTotal" resultType="Long" parameterType="Map">
 	  SELECT COUNT(*)
-	    FROM APPROVAL
+	    FROM APPROVAL A
 	   WHERE APPROVAL_STATUS_CD=#{approvalStatusCd}
-	   AND (EMPLOYEE_ID=#{employeeID} 
-		OR MID_APPROVER=#{employeeID}
-		OR ADD_APPROVER=#{employeeID}
-		OR LAST_APPROVER=#{employeeID})
+	   AND <include refid="searchApp"></include>
+		LIKE CONCAT('%',#{pager.search},'%')
+	   AND <include refid="myList"></include>
 	</select>
 	
 	<select id="getStatusAdminList" resultType="ApprovalVO"
@@ -388,6 +361,60 @@
 	    SELECT *,FN_DEPT_NM(EMPLOYEE_ID) AS DEPT_NAME
 		  FROM DUAL
 	</select>
+	
+
+	<select id="getSearch" resultMap="searchTeamList"
+		parameterType="Pager">
+		SELECT
+		*,FN_CODE_NM(LEFT(POSITION_CD,3),POSITION_CD) AS
+		P_CODE_NAME,
+		FN_CODE_NM(LEFT(DEPARTMENT_CD,3),DEPARTMENT_CD) AS
+		D_CODE_NAME
+		FROM HUMAN_RESOURCE
+		WHERE NAME LIKE CONCAT('%',#{search},'%')
+	</select>
+	
+	<resultMap type="HumanResourceVO" id="searchTeamList">
+		<id column="EMPLOYEE_ID" property="employeeID" />
+		<result column="JOIN_DATE" property="joinDate" />
+		<result column="JOIN_TYPE" property="joinType" />
+		<result column="NAME" property="name" />
+		<result column="BIRTH" property="birth" />
+		<result column="D_CODE_NAME" property="departmentCd" />
+		<result column="P_CODE_NAME" property="positionCd" />
+		<result column="PHONE" property="phone" />
+		<result column="EMAIL" property="email" />
+		<result column="ADDRESS" property="address" />
+		<result column="BANK" property="bank" />
+		<result column="ACCOUNT_NUMBER" property="accountNumber" />
+		<result column="ACCOUNT_HOLDER" property="accountHolder" />
+		<result column="SIGNATURE" property="signature" />
+		<result column="QUIT_DATE" property="quitDate" />
+		<result column="QUIT_REASON" property="quitReason" />
+		<result column="REG_ID" property="regId" />
+		<result column="REG_DATE" property="regDate" />
+		<result column="REG_MENU" property="regMenu" />
+		<result column="MOD_ID" property="modId" />
+		<result column="MOD_DATE" property="modDate" />
+		<result column="MOD_MENU" property="modMenu" />
+
+	</resultMap>
+	
+	
+	
+<!-- <sql id="appTypeSearch">
+<choose>
+  <when test="kind==1"></when>
+  <otherwise>FN_CODE_NM(LEFT(APPROVAL_TYPE_CD,3),APPROVAL_TYPE_CD) LIKE '%휴%'</otherwise>
+</choose>
+</sql>	
+
+	<select id="getAppTypeByName" parameterType="ApprovalVO" resultType="A">
+	   SELECT *,FN_CODE_NM(LEFT(APPROVAL_TYPE_CD,3),APPROVAL_TYPE_CD)
+  FROM APPROVAL_TYPE AT INNER JOIN APPROVAL_UP_TYPE AUT
+    ON AT.APPROVAL_UP_TYPE_NO=AUT.APPROVAL_UP_TYPE_NO
+ WHERE
+	</select> -->
 	
 
 	

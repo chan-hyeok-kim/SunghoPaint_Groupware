@@ -6,6 +6,11 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- sockjs -->
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  
+   
 </head>
 <body>
 	<script type="text/javascript">
@@ -25,6 +30,16 @@
 				location.href = "${url}";		
 			})
 		}
+		
+	 	var ws = new SockJS("http://localhost:82/echo");
+		
+		
+	 	
+		
+		
+		ws.onclose = function() {
+	 	    console.log('close');
+	 	}; 
 	</script>
 </body>
 </html>

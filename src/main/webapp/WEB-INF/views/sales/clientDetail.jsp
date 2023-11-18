@@ -206,7 +206,7 @@ ul.nav-tabs {
 						<div class="row">
 							<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">거래처 담당자</label>
-							<p>${getClientDetail.clientManager}</p>
+							<p>${getClientDetail.clientManager} ${getClientDetail.codeName}</p>
 							</div>
 							<div class="col-md-4">
 							<label for="carReason" class="form-label" style="font-weight:bold;">담당자 연락처</label>
@@ -229,10 +229,7 @@ ul.nav-tabs {
 							<label for="carReason" class="form-label" style="font-weight:bold;">예금주명</label>
 							<p>${getClientDetail.clientBankName}</p>
 							</div>
-							<div class="col-md-4">
-							<label for="carReason" class="form-label" style="font-weight:bold;">매출합계</label>
-							<p>?</p>
-							</div>
+							
 						</div>
 						<br>
 						

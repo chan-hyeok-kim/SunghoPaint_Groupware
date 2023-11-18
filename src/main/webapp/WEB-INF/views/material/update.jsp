@@ -144,15 +144,26 @@ ul.nav-tabs {
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div class="card">
 				<div class="card-body">
-
+					
+					<c:if test="${dto.materialProductCategory == '원료'}">
 					<div class="wrapper-toolbar">
 
-						제품, 원료 정보 <span
+						원료 정보 <span
 							style="margin-left: 700px; text-align: right; width: 700px;">
 							
 						</span>
 					</div>
+					</c:if>
+					
+					<c:if test="${dto.materialProductCategory == '제품'}">
+					<div class="wrapper-toolbar">
 
+						제품 정보 <span
+							style="margin-left: 700px; text-align: right; width: 700px;">
+							
+						</span>
+					</div>
+					</c:if>
 					
 
 					<div
@@ -169,16 +180,33 @@ ul.nav-tabs {
 							<table class="table-bordered mt-2" id="approval-table">
 								<tbody>
 									<tr>
-										<td>제품, 원료 코드</td>
+										<c:if test="${dto.materialProductCategory == '원료'}">
+										<td>원료 코드</td>
+										</c:if>
+										<c:if test="${dto.materialProductCategory == '제품'}">
+										<td>제품 코드</td>
+										</c:if>
 										<td><input type="text" name="materialProductCd" value="${dto.materialProductCd}" readonly></td>
 									</tr>
 									<tr>
-										<td>제품, 원료 이름</td>
+										<c:if test="${dto.materialProductCategory == '원료'}">
+										<td>원료명</td>
+										</c:if>
+										<c:if test="${dto.materialProductCategory == '제품'}">
+										<td>제품명</td>
+										</c:if>
 										<td><input type="text" name="codeName" value="${dto.codeName}" readonly></td>
 									</tr>
 									<tr>
-										<td>가격</td>
-										<td><input type="text" name="materialProductPrice" value="${dto.materialProductPrice}" id="price"></td>
+									<c:if test="${dto.materialProductCategory == '원료'}">	
+									
+										<td>입고가</td>
+									</c:if>
+									<c:if test="${dto.materialProductCategory == '제품'}">	
+									
+										<td>출고가</td>
+									</c:if>
+										<td><input type="text" name="materialProductPrice" value="${dto.materialProductPrice}" id="price">윈</td>
 									</tr>
 									<tr>
 										<td>사용여부</td>

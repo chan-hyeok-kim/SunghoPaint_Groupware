@@ -42,7 +42,16 @@ $('.code-delete-btn').click(function(){
                         code:codeDeleteNo
                     },success:function(result){
                         
-                        
+                        if(result.trim()>0){
+                            swal({
+                                title : '삭제 성공',
+                                    icon  : "success",
+                                    
+                            }).then(function(){
+                                location.replace('/code/list')
+                            });
+                            
+                        }
                     },error:function(){
                         swal('에러 삭제 실패')
                     }

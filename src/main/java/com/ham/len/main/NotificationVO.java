@@ -6,6 +6,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.ham.len.commons.CommonsVO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class NotificationVO {
+public class NotificationVO extends CommonsVO {
 
 	private Long notificationNo;
 	private String employeeID;

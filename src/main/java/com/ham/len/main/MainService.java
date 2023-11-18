@@ -46,6 +46,9 @@ public class MainService {
 		return mainDAO.getAlarmList(id);
 	}
 	
+	public Long getLastDetail(ToDoListVO toDoListVO) throws Exception{
+		return mainDAO.getLastDetail(toDoListVO);
+	}
 	
 	
 	

@@ -57,6 +57,15 @@ codeUpdateBtn.addEventListener("click",function(){
     //코드 체크
     const codeVal=codeUpdateCheck.value;
 
+
+    if(val.trim()==''){
+      swal('빈 내용을 먼저 채워주세요')
+      checkResult[1]=false;
+      return;
+   }else{
+   checkResult[1]=true;
+   
+   }
   
     if(!(codeVal.length==4 || codeVal.length==5)){
     swal('코드는 알파벳 포함 4~5자리까지 가능합니다.\n 다시 입력해주세요.')
@@ -79,14 +88,7 @@ codeUpdateBtn.addEventListener("click",function(){
        return;
     }
 
-    if(val.trim()==''){
-      swal('빈 내용을 채워주세요')
-      checkResult[1]=false;
-      return;
-   }else{
-   checkResult[1]=true;
-   
-   }
+    
 
     console.log(checkResult);
     if(!checkResult.includes(false)){

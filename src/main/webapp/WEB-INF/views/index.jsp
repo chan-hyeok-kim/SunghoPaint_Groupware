@@ -29,7 +29,7 @@
 								<span class="material-symbols-outlined main-top-icon">
 									campaign </span>
 								<p
-									style="margin-bottom: 0px; text-align: left; width: 260px; vertical-align: middle;">
+									class="top-btn-p">
 									New task<br> 결재할 문서가 등록되었습니다
 								</p>
 							</button>
@@ -54,8 +54,8 @@
 
 								<span class="material-symbols-outlined main-top-icon" style="color:#3dd6bf">
 									task </span>
-								<p
-									style="margin-bottom: 0px; text-align: left; width: 260px; vertical-align: middle;">
+								<p class="top-btn-p"
+									>
 									New Approval<br>내 기안서 현황을 확인해보세요
 								</p>
 							</button>
@@ -81,7 +81,7 @@
 								<span class="material-symbols-outlined main-top-icon" style="color:#047edf">
 									notifications_active </span>
 								<p
-									style="margin-bottom: 0px; text-align: left; width: 260px; vertical-align: middle;">
+									class="top-btn-p">
 									New messages<br> 새로운 알림이 도착했습니다
 								</p>
 							</button>
@@ -106,7 +106,7 @@
 								<span class="material-symbols-outlined main-top-icon" style="color:#fe90a6;">
 									list_alt </span>
 								<p
-									style="margin-bottom: 0px; text-align: left; width: 260px; vertical-align: middle;">
+									class="top-btn-p">
 									New Notice<br> 새 공지가 올라왔습니다
 								</p>
 							</button>
@@ -134,10 +134,10 @@
 
 <!-- stock -->
 <div class="row">
-    <div class="col-md-7 grid-margin stretch-card" style="height: 500px;">
+    <div class="col-md-7 grid-margin stretch-card" style="height: 520px;" id="material-product-amount">
         <div class="card">
             <div class="card-body">
-                <h4 style="font-weight: bold">주간 원료 생산량</h4>
+                <h4 style="font-weight: bold">주간 제품 생산량</h4>
                 
                 
                 <div>
@@ -203,7 +203,7 @@
 
 		<!-- calendar start -->
 		
-		<div class="col-md-5 grid-margin stretch-card" style="flex: right; height: 500px;">
+		<div class="col-md-5 grid-margin stretch-card" style="flex: right; height: 520px;">
 
 			<div class="card">
 				<div class="card-body">
@@ -219,7 +219,7 @@
 	<!-- progress start -->
 
 	<div class="col-6 grid-margin stretch-card" id="my-app-list"
-		style="width: 765px; height: 400px;">
+		style=" height: 400px;">
 		<div class="card">
 			<div class="card-body">
 				<div style="float: left">
@@ -275,7 +275,7 @@
 	<!-- pending approval -->
 
 	<div class="col-6 grid-margin stretch-card" id="app-list"
-		style="width: 765px; height: 500px">
+		style=" height: 520px">
 		<div class="card">
 			<div class="card-body">
 
@@ -320,13 +320,108 @@
 		</div>
 	</div>
 	<!-- pending approval end -->
+    
+    <!-- alarm -->
+    <div class="col-6 grid-margin stretch-card" id="message-list"
+		style=" height: 520px">
+		<div class="card">
+			<div class="card-body">
 
-	
-<!--  -->
-	<div class="row">
-	
-	
+				<div style="float: left">
+					<h4 class="card-title">최근 도착한 메시지</h4>
+				</div>
+				<div style="float: right; margin-bottom: 10px;">
+					<button class="btn btn-light">
+						<span class="material-symbols-outlined"> cached </span>
+					</button>
+
+				</div>
+				<div></div>
+				<table class="table table-hover mt-2" id="approval-table">
+					<thead>
+						<tr>
+							<th>기안일자</th>
+							<th>제목</th>
+							<th>기안자</th>
+							<th>결재자</th>
+							<th>진행상태</th>
+							<th>결재 확인</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${approvalList}" var="vo" varStatus="i">
+							<c:if test="${i.index lt 5}">
+								<tr>
+									<td class="approval-start-date">${vo.approvalStartDate}</td>
+									<td>${vo.approvalTitle}</td>
+									<td>${vo.drafter}</td>
+									<td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
+									<td>${vo.apCodeName}</td>
+									<td><a data-no="${vo.approvalNo}"
+										class="detail-proceed-btn">기안서 확인</a></td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
+    <!-- alarm end-->
+    
+    <!-- notice -->
+    <div class="col-6 grid-margin stretch-card" id="notice-list"
+		style=" height: 520px">
+		<div class="card">
+			<div class="card-body">
+
+				<div style="float: left">
+					<h4 class="card-title">공지사항 </h4>
+				</div>
+				<div style="float: right; margin-bottom: 10px;">
+					<button class="btn btn-light">
+						<span class="material-symbols-outlined"> cached </span>
+					</button>
+
+				</div>
+				<div></div>
+				<table class="table table-hover mt-2" id="approval-table">
+					<thead>
+						<tr>
+							<th>기안일자</th>
+							<th>제목</th>
+							<th>기안자</th>
+							<th>결재자</th>
+							<th>진행상태</th>
+							<th>결재 확인</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${approvalList}" var="vo" varStatus="i">
+							<c:if test="${i.index lt 5}">
+								<tr>
+									<td class="approval-start-date">${vo.approvalStartDate}</td>
+									<td>${vo.approvalTitle}</td>
+									<td>${vo.drafter}</td>
+									<td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
+									<td>${vo.apCodeName}</td>
+									<td><a data-no="${vo.approvalNo}"
+										class="detail-proceed-btn">기안서 확인</a></td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+    <!-- notice end -->
+    
+<!-- to do list  -->
+
+<!-- to do list  -->
+  
+  
 
 
  <!-- chart js -->
@@ -338,7 +433,8 @@
 		src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 	<script src='/js/main/mainCalendar.js'></script>
     <script src='/js/main/main.js'></script>
-
-
+    
+    
+    
 </body>
 </html>

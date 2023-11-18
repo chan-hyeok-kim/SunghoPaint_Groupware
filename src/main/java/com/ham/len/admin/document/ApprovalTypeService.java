@@ -1,6 +1,8 @@
 package com.ham.len.admin.document;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +37,9 @@ public class ApprovalTypeService {
 
 	public List<ApprovalTypeVO> getTotalList(Pager pager) throws Exception {
 		pager.makeRowNum();
-		Long total=approvalTypeDAO.getTotal();
+		Long total=approvalTypeDAO.getTotal(pager);
 		pager.makePageNum(total);
+		
 		
 		return approvalTypeDAO.getTotalList(pager);
 	}

@@ -97,12 +97,12 @@ public class CodeController {
 	}
 	
 	@PostMapping("delete")
-	public String setDelete(CodeVO codeVO) throws Exception{
+	public String setDelete(CodeVO codeVO,Model model) throws Exception{
 	    	int result=codeService.setDelete(codeVO);
 	 
+	    	model.addAttribute("result", result);
 	    	
-	    	
-	    	 return "redirect:./list";
+	    	 return "commons/ajaxResult";
 	}
 	
 	@PostMapping("upDelete")

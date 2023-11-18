@@ -69,34 +69,70 @@
 			<br><br>
 			
 			<table class="table table-bordered">
-				<form action="update" method="post">
+				<form action="./update" method="post" id="frm">
 					<input type="hidden" name="purchaseNo" value="${kvo.purchaseNo}">
+					<input type="hidden" name="purchaseDate" value="${kvo.purchaseDate}">
 				
-					    <tr>
-					        <td	>일자</td>
-					        <td><input type="date" class="form-control" name="purchaseDate" value="${kvo.purchaseDate}"></td>
-					        <td>거래처</td>
-					        <td><input type="text" class="form-control" name="clientName" value="${kvo.clientVO.clientName}"></td>
-					    </tr>
-					    <tr>
-	     					<td>담당자</td>
-					        <td><input type="text" class="form-control" name="name" value="${kvo.employeeVO.name}"></td>
-					        <td>입고창고</td>
-					        <td><input type="text" class="form-control" value="${kvo.factoryStorageVO.codeName}"></td>
-					        <input type="hidden" name="factoryStorageNo" value="${kvo.factoryStorageNo}">
-					    </tr>
-					    <tr>
-					        <td>납기일자</td>
-					        <td><input type="date" class="form-control"></td>
-					    </tr>
+						<tr>
+				        <td>거래처</td>
+				        <td>
+						<select class="form-control" type="text" name="clientNo" >
+					    <c:forEach items="${client}" var="vo">
+					    <option value="${vo.clientNo}">${vo.clientName}</option>
+					    </c:forEach>
+					    </select>
+						</td>
+						<td>원료명</td>
+						<td>
+							<select class="form-control" type="text" name="materialProductNo">
+						 	<c:forEach items="${material}" var="f">
+						 	<c:if test="${f.materialProductCategory eq '원료'}">
+							<option value=${f.materialProductNo}>${f.codeName}</option>	
+						 	</c:if>						
+					 		</c:forEach>
+							</select>
+						</td>
+				    </tr>
+				    <tr>
+				        <td>구매수량</td>
+				        <td><input class="form-control" type="number" name="purchaseQuantity" placeholder="구매 수량 입력해주세요"></td>
+				        <td>입고창고</td>
+				        <td>
+				        <select class="form-control" type="text" name="factoryStorageNo">
+				        <c:forEach items="${factory}" var="vo">
+				        <option value=${vo.factoryStorageNo}>${vo.codeName}</option>
+				        </c:forEach>
+				        </select>
+						</td>
+				    </tr>
+				    <tr>
+				    	<td>총액</td>
+				        <td>
+				        <input class="form-control" type="number" name="totalPrice" value="result">
+				        <c:set var="quantity" value="${purchaseQuantity}"/>
+				        <c:set var="price" value="${materialProductVO.materialProductPrice}"/>
+				        <c:set var="result" value="${quantity * price}"/>
+				        </td>
+				        
+				        <!-- <td>총액</td>
+				        <td>
+				        <input class="form-control" type="number" name="totalPrice" placeholder="금액을 입력해주세요">
+				        </td> -->
+				        
+				        <td>납기일자</td>
+				        <td><input type="date" class="form-control" name="purchaseInDate"></td>
+				    </tr>
 			</table>
 			<br><br><br><br><br>
 					<div style="float: right;">
-						<button class="btn btn-info" type="reset" >되돌리기</button>
-						<button class="btn btn-success" type="submit" >수정하기</button>
+						<button class="btn btn-danger" type="reset" >되돌리기</button>
+						<button class="btn btn-info" type="button" id="update-confirm-btn">수정하기</button>
 					</div>
 			    </form>
 		</div>
 	</div>
+	
+	<script src="/js/purchase/update-check.js"></script>
+	
 </body>
 </html>

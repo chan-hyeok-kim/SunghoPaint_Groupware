@@ -9,7 +9,6 @@
       var item = $(this).prevAll('.todo-list-input').val();
 
       if (item) {
-        todoListItem.append("<li><div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox'/>" + item + "<i class='input-helper'></i></label></div><i class='remove mdi mdi-close-circle-outline'></i></li>");
         
       
         let contents=item;
@@ -22,6 +21,16 @@
             },
             success:function(){
              console.log('성공')
+             $.ajax({
+              type:'GET',
+               url:'/toDo/lastDetail',
+               success:function(result){
+                   
+                   console.log(result);
+                   todoListItem.append("<li><div class='form-check'><label class='form-check-label'><input class='checkbox' type='checkbox'/>" + item + "<i class='input-helper'></i></label></div><i class='remove mdi mdi-close-circle-outline' data-no="+result+"></i></li>");
+        
+               }
+             })
           }
 
          })
@@ -33,6 +42,7 @@
 
     todoListItem.on('change', '.checkbox', function() {
       let no=$(this).parent().parent().next().attr('data-no');
+      console.log(no)
       if ($(this).attr('checked')) {
         $(this).removeAttr('checked');
         
@@ -74,6 +84,8 @@
       $(this).parent().remove();
 
       let no=$(this).attr('data-no');
+
+      //숫자조회해오기
       console.log(no);
       $.ajax({
         type:'POST',

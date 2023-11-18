@@ -18,23 +18,40 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		</dependency>
 		
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 	
-  <!--tomcat-embed-jasper -->
+		<!-- ======================================= -->
+	
+		<!--tomcat-embed-jasper -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<!-- 버전 삭제 -->
 		</dependency>
 
-  <!-- javax.servlet/jstl -->
+		<!-- javax.servlet/jstl -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<!-- 버전 삭제, 에러 발생시 버전 적용 -->
 		</dependency>
 
-  <!-- log4jdbc-log4j2-jdbc4.1 -->
+		<!-- log4jdbc-log4j2-jdbc4.1 -->
 		<!-- 버전은 최신 버전으로 -->
 		<dependency>
 			<groupId>org.bgee.log4jdbc-log4j2</groupId>
@@ -83,6 +100,19 @@
 	    <version>3.0.8</version>
 	</dependency>
 		
+	<!-- PDF -->	
+	<dependency>
+	<groupId>com.itextpdf</groupId>
+	<artifactId>itextpdf</artifactId>
+	<version>5.5.13.3</version>
+</dependency>
+
+<dependency>
+    <groupId>com.itextpdf.tool</groupId>
+    <artifactId>xmlworker</artifactId>
+    <version>5.5.13.3</version>
+</dependency>
+	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
@@ -162,7 +192,10 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			
+			
 		</plugins>
 	</build>
+	
 
 </project>

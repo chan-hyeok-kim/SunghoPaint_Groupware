@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,7 +108,6 @@
 						</tr>
 
 
-
 					</table>
 				</div>
 				
@@ -121,17 +121,21 @@
 						 <input id="check" type="hidden" name="approvalCheckCd" value="${vo.approvalCheckCd}"></td>
 					     <input type="hidden" name="approvalNo" value="${vo.approvalNo}">
 					     <input type="hidden" id="status-cd-check" name="approvalStatusCd" value="${vo.approvalStatusCd}">
+					     <input type="hidden" name="employeeID" value="${vo.employeeID}">
 					     
 					</tr>
 					<tr>
+					
+					
 <c:choose>
 <c:when test="${not empty vo.admonition}">
   <td width="20%">대표이사 김성호</td>
   <td><textarea class="form-control"
-  disabled="disabled">[첨언] ${vo.admonition}</textarea></td>
+ readonly="readonly">[첨언] ${vo.admonition}</textarea></td>
 </c:when>
 <c:when test="${empty vo.admonition}">
-
+<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.username ne vo.employeeID}">
+	
 								<th>첨언</th>
 								<td><textarea rows="5" name="admonition" class="form-control"></textarea>
 								<div style="display:flex; padding:10px 0 0 0; 
@@ -139,10 +143,10 @@
 								
 								</div>
 								</td>
-								
+</c:if>									
 </c:when>
 </c:choose>
-						
+					
 						
 					</tr>
 
@@ -164,13 +168,14 @@
 					<button class="btn btn-info" type="button" style="margin-left: 20px;" id="app-reject-btn"
 					>반려</button>
 					
-					
+					</c:if>
+					<sec:authorize access="hasRole('ADMIN')">
 					<button class="btn btn-info" type="button" style="margin-left: 20px;"
 					onclick="location.href='/approval/update?approvalNo=${vo.approvalNo}'">수정</button>
 					<button type="button" class="btn btn-info" id="app-delete-btn"
 						style="margin-left: 20px;">삭제</button>
 					
-					
+					</sec:authorize>
 					
 					<button type="button" class="btn btn-info" id="form-mid-sign"
 					style="margin-left: 400px;"
@@ -179,7 +184,7 @@
 				   
 				   </form>
 				</div>
-				 </c:if> 
+				
 <script type="text/javascript">
 					 console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.username}')
 					 console.log('${vo.employeeID}')

@@ -13303,7 +13303,7 @@ select.form-control {
   padding: .4375rem .75rem;
   border: 0;
   outline: 1px solid #ebedf2;
-  color: #c9c8c8; }
+  color: black; }
   select.form-control:focus {
     outline: 1px solid #ebedf2; }
   select.form-control.border-primary {
@@ -14554,13 +14554,21 @@ dl {
 
 /* tree ul */
 #form_list{
-	width: 700px;
+	width: 920px;
 	height: 770px;
 }
 
+#tree_list span{
+  font-size: 15px;
+}
+
 #document-tree{
-	height: 200px;
+	height: 300px;
 	margin-top: 0px;
+}
+
+#tree span{
+  font-size: 15px;
 }
 
 #sign-file-div{
@@ -14579,7 +14587,7 @@ dl {
 
 /* modal */
 #form-modal-size{
-	max-width: 1000px;
+	max-width: 1200px;
 }
 #sign-modal-size{
 	max-width: 700px;
@@ -14628,10 +14636,11 @@ dl {
 	margin-left: 20px;
 }
 
+
 #tree-table {
 	border: 1px solid black;
 	height: 360px;
-	width: 220px;
+	width: 364.34px;
 	padding: 10px;
 }
 
