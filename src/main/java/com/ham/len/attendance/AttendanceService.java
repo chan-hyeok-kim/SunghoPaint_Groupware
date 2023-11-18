@@ -20,7 +20,7 @@ public class AttendanceService {
 	
 	public Map<String, Boolean> getCommuteWhether(String employeeID) {
 		Map<String, Object> params = new HashMap<>();
-		params.put("employeeId", employeeID);
+		params.put("employeeID", employeeID);
 		params.put("date", new Date());
 		AttendanceVO attendanceVO = attendanceDAO.getAttendance(params);
 		
@@ -40,11 +40,8 @@ public class AttendanceService {
 		return commuteWhether;
 	}
 	
-	public AttendanceVO getCurrentAttendance(Map<String, Boolean> commuteWhether) {
-		if(!commuteWhether.get("goWork") && !commuteWhether.get("leaveWork")) // 미등록
-			return new AttendanceVO();
-		
-		return attendanceDAO.getCurrentAttendance();
+	public AttendanceVO getCurrentAttendance(String employeeID) {
+		return attendanceDAO.getCurrentAttendance(employeeID);
 	}
 	
 	public List<AttendanceVO> getMyStatus(Map<String, String> params) {
@@ -55,8 +52,8 @@ public class AttendanceService {
 		return attendanceDAO.getAttendance(params);
 	}
 	
-	public int getLeaveWorkWhether(String employeeId) {
-		return attendanceDAO.getLeaveWorkWhether(employeeId);
+	public int getLeaveWorkWhether(String employeeID) {
+		return attendanceDAO.getLeaveWorkWhether(employeeID);
 	}
 	
 	public int setGoWork(AttendanceVO attendanceVO) {

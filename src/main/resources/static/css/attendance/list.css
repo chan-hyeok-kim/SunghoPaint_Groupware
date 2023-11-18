@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+form#searchForm{
+	margin-bottom:15px;
+}
+
+form#searchForm input,
+form#searchForm select{
+	height:33px;
+	margin-right:3px;
+	padding:5px;
+	vertical-align:middle;
+	border:1px solid #DBDBDB;
+	font-size:13px;
+}
+
+form#searchForm select{
+	padding:0px 3px;
+}
+
+form#searchForm button{
+	height:33px;
+	line-height:0px !important;
+	padding:0px 15px !important;
+	border-radius:0px;
+	background:linear-gradient(to right, #B3DBfB, #5DB4FD);
+}
+
+
+
+
+
+table{
+	width:100%;
+}
+
+table tr:not(:first-of-type):hover{
+	background-color:#90CAF9;
+	cursor:pointer; 
+}
+
+table th,
+table td{
+	width:14.3%; height:35px;
+	text-align:center;
+	border-collapse:collapse;
+	border-top:1px solid #CDCDCD;
+	border-bottom:1px solid #CDCDCD;
+	font-size:14px;
+}
+
+table h2{
+	font-size:16px;
+}
+
+table p{
+	font-size:13px;
+}
+
+
+.humanresource{
+	height:120px;
+}
+
+.humanresource > .alignWrap{
+	display:inline-block;
+	overflow:hidden;
+}
+
+.humanresource > .alignWrap > div{
+	float:left;
+}
+
+.humanresource > .alignWrap > div:last-of-type{
+	margin-left:7px;
+	text-align:left;
+}
+
+.humanresource img{
+	width:40px; height:40px;
+	border-radius:100%;
+}
+
+.humanresource h2{
+	display:inline-block;
+	font-size:14px; font-weight:bold;
+}
+
+.humanresource p{
+	color:#838383;
+}

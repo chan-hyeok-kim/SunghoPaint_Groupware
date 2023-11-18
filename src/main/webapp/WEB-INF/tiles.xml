@@ -38,6 +38,9 @@
 		<put-attribute name="body" value="/WEB-INF/views/attendance/myStatus.jsp"/>
    </definition>
    
+   <definition name="attendance/myStatus(newWindow)" template="/WEB-INF/views/attendance/myStatus.jsp">
+   </definition>
+   
    <definition name="attendance/list" extends="layout">
 		<put-attribute name="body" value="/WEB-INF/views/attendance/list.jsp"/>
    </definition>

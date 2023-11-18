@@ -1,13 +1,3 @@
-/*
-	function init(isAuthenticated){
-		if(isAuthenticated){ // 로그인 상태
-			
-		}else{ // 비로그인 상태
-			
-		}
-	}
-*/
-
 function dateToDataDateAttribute(date){
 	let y = date.getFullYear();
 	let m = date.getMonth() + 1;
@@ -98,22 +88,19 @@ function hoursToTimeString(hours, format){
 }
 
 
-// move sidebar.js
-/*
-	function getServerDate(){
-		let serverDate;
-		$.ajax({
-			url:"/attendance/getServerDate",
-			type:"GET",
-			async:false,
-			success:function(result){
-				serverDate = result;
-			}
-		});
-		
-		return serverDate;
-	}
-*/
+function myStatusGetServerDate(){
+	let serverDate;
+	$.ajax({
+		url:"/attendance/getServerDate",
+		type:"GET",
+		async:false,
+		success:function(result){
+			serverDate = result;
+		}
+	});
+	
+	return serverDate;
+}
 
 
 // 출퇴근 버튼
@@ -176,17 +163,20 @@ $(function(){
 // 월(Month) 이동
 $(function(){
 	$("#move_month > i").click(function(){
+		let url = $(this).parent().attr("data-url");
+		let action = $(this).parent().attr("data-action");
+				
 		let date = $(this).siblings("h2").html();
 		let year = parseInt(date.split(".")[0]);
 		let month = parseInt(date.split(".")[1]) - 1;
-
+		
 		date = ($(this).attr("id") == "before_month") ? new Date(year, month - 1) : new Date(year, month + 1);
 		year = date.getFullYear();
 		month = date.getMonth() + 1;
-
+		
 		let form = $("<form></form>");
-        form.attr("method", "POST");
-        form.attr("action", "/attendance/myStatus");
+        form.attr("method", action);
+        form.attr("action", url);
 		form.append($("<input/>", {type:"hidden", name:"year", value:year}));
 		form.append($("<input/>", {type:"hidden", name:"month", value:month}));
         form.appendTo("body");

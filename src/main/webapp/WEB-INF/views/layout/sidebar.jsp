@@ -11,14 +11,14 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <%
+  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
 	WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(application);
 	AttendanceService attendanceService = (AttendanceService)ctx.getBean("attendanceService");
-	
-	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	
+
 	Map<String, Boolean> commuteWhether = attendanceService.getCommuteWhether(authentication.getName());
-    request.setAttribute("commuteWhether", commuteWhether);
-    request.setAttribute("currentAttendance", attendanceService.getCurrentAttendance(commuteWhether));
+  request.setAttribute("commuteWhether", commuteWhether);
+  request.setAttribute("currentAttendance", attendanceService.getCurrentAttendance(authentication.getName()));
 %>
 
 <sec:authentication property="principal" var="principal" />
@@ -39,19 +39,19 @@
           </div>
           <div id="start-time">
 			<i>출근 시간</i>
-			<c:if test="${empty currentAttendance.attendanceStart}">
+			<c:if test="${!commuteWhether.goWork}">
 				<span>미등록</span>
 			</c:if>
-			<c:if test="${!empty currentAttendance.attendanceStart}">
+			<c:if test="${commuteWhether.goWork}">
 				<span><fmt:formatDate value="${currentAttendance.attendanceStart}" pattern="HH:mm:ss" /></span>
 			</c:if>
           </div>
           <div id="end-time">
 			<i>퇴근 시간</i>
-			<c:if test="${empty currentAttendance.attendanceEnd}">
+			<c:if test="${!commuteWhether.goWork || !commuteWhether.leaveWork}">
 				<span>미등록</span>
 			</c:if>
-			<c:if test="${!empty currentAttendance.attendanceEnd}">
+			<c:if test="${commuteWhether.goWork && commuteWhether.leaveWork}">
 				<span><fmt:formatDate value="${currentAttendance.attendanceEnd}" pattern="HH:mm:ss" /></span>
 			</c:if>
           </div>

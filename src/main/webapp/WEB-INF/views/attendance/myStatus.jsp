@@ -4,6 +4,12 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
+<c:if test="${newWindow}">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<style type="text/css">
+		#total{ margin-top:50px; }
+	</style>
+</c:if>
 <script type="text/javascript" src="/js/attendance/myStatus.js"></script>
 <link rel="stylesheet" href="/css/commons.css">
 <link rel="stylesheet" href="/css/attendance/myStatus.css">
@@ -11,24 +17,23 @@
 <sec:authorize access="isAuthenticated()" var="isAuthenticated" />
 
 <script type="text/javascript">
-	// init(${isAuthenticated});
 	let weeksOfMonthInfo_json = ${weeksOfMonthInfo_json};
 	let attendances_json = ${attendances_json};
 	
-	// let daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]; // move sidebar.js
+	let myStatusDaysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 	
 	$(function(){
 		let attendanceStart = "<fmt:formatDate value='${currentAttendance.attendanceStart}' pattern='HH:mm:ss' />";
 		let attendanceEnd = "<fmt:formatDate value='${currentAttendance.attendanceEnd}' pattern='HH:mm:ss' />";
-		attendanceStart = attendanceStart ? attendanceStart : "미등록";
-		attendanceEnd = attendanceEnd ? attendanceEnd : "미등록";
+		attendanceStart = ${!commuteWhether.goWork} ? "미등록" : attendanceStart;
+		attendanceEnd = (${!commuteWhether.goWork || !commuteWhether.leaveWork}) ? "미등록" : attendanceEnd;
 		
 		let startBtn_status = "on";
 		let endBtn_status = "on";
 		if(${commuteWhether.goWork}) startBtn_status = "off";
 		if(${commuteWhether.leaveWork}) endBtn_status = "off";
 		
-		let serverDate = getServerDate();
+		let serverDate = myStatusGetServerDate();
 		let cur_time = new Date(serverDate).toTimeString().split(" ")[0];
 		
 		$("#attendance").html("<p id='cur_date'></p>" +
@@ -42,14 +47,14 @@
 		
 		let cur_date = new Date(serverDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, "-");
 		let dayOfWeek = new Date(serverDate).getDay();
-		$("#cur_date").html(cur_date + "(" + daysOfWeek[dayOfWeek] + ")");
+		$("#cur_date").html(cur_date + "(" + myStatusDaysOfWeek[dayOfWeek] + ")");
 		
 		setInterval(function(){
-			let serverDate = getServerDate();
+			let serverDate = myStatusGetServerDate();
 
 			let cur_date = new Date(serverDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, "-");
 			let dayOfWeek = new Date(serverDate).getDay();
-			$("#cur_date").html(cur_date + "(" + daysOfWeek[dayOfWeek] + ")");
+			$("#cur_date").html(cur_date + "(" + myStatusDaysOfWeek[dayOfWeek] + ")");
 
 			cur_time = new Date(serverDate).toTimeString().split(" ")[0];
 			$("#cur_time").html(cur_time);
@@ -64,14 +69,14 @@
 
 			let attendanceStart = new Date(element.attendanceStart);
 			let formatted_attendanceStart = formatTime(attendanceStart.getHours(), attendanceStart.getMinutes(), attendanceStart.getSeconds(), ":");
-			let dayOfWeek = "(" + daysOfWeek[attendanceStart.getDay()] + ")";
+			let dayOfWeek = "(" + myStatusDaysOfWeek[attendanceStart.getDay()] + ")";
 			$("[data-date='" + dataDateAttribute + "']").find(".start").html(formatted_attendanceStart + dayOfWeek);
 
 			if(element.attendanceEnd == undefined) return; // 아직 퇴근은 하지 않은 경우
 
 			let attendanceEnd = new Date(element.attendanceEnd);
 			let formatted_attendanceEnd = formatTime(attendanceEnd.getHours(), attendanceEnd.getMinutes(), attendanceEnd.getSeconds(), ":");
-			dayOfWeek = "(" + daysOfWeek[attendanceEnd.getDay()] + ")";
+			dayOfWeek = "(" + myStatusDaysOfWeek[attendanceEnd.getDay()] + ")";
 			$("[data-date='" + dataDateAttribute + "']").find(".end").html(formatted_attendanceEnd + dayOfWeek);
 			
 			/*
@@ -192,11 +197,13 @@
 	});
 </script>
 
-<div id="move_month">
-	<i id="before_month">《</i>
-	<h2>${date.year}.<fmt:formatNumber value="${date.month}" pattern="00" /></h2>
-	<i id="after_month">》</i>
-</div>
+<c:if test="${!newWindow}">
+	<div id="move_month" data-url="/attendance/myStatus" data-action="POST">
+		<i id="before_month">《</i>
+		<h2>${date.year}.<fmt:formatNumber value="${date.month}" pattern="00" /></h2>
+		<i id="after_month">》</i>
+	</div>
+</c:if>
 <div id="total">
 	<div class="wrap">
 		<div id="week_accrue" class="component">
