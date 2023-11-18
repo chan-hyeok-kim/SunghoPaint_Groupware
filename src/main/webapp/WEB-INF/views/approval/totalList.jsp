@@ -130,7 +130,7 @@
 
   <!-- Button List  -->
 				  <div style="float: right;">
-				  <button class="btn btn-info" onclick="location.href='/approval/add'">새 결재 진행</button>
+				  <button class="btn btn-info" id="add-proceed-btn" onclick="location.href='/approval/add'">새 결재 진행</button>
 				 
 				</div>
 			
@@ -315,6 +315,8 @@
 	
 	<script src="/js/commons/list-date.js"></script>
 	<script src="/js/approval/list-move.js"></script>
+	<script src="/js/approval/ajax-search.js"></script>
+	
 	<!-- 기안일자 변환 -->
 	<script src="/js/approval/approval-date.js"></script>
 	

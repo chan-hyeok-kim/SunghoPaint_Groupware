@@ -5,7 +5,7 @@ var humanSetting = {
 		autoCheckTrigger: false,
 		chkStyle: "checkbox",
 		enable: true,
-		chkboxType: { "Y": "ps", "N": "ps" },
+		chkboxType: { "Y": "p", "N": "ps" },
 		nocheckInherit: false,
 		chkDisabledInherit: false,
 		radioType: "level"
@@ -67,8 +67,48 @@ function myOnCheck(event, treeId, treeNode) {
 	}
 
 	nodes=treeNode.getParentNode();
-
+    if(!nodes && treeNode.checked==true){
+		$.ajax({
+			type:'GET',
+			 url:'/approval/search',
+			 data:{
+				search:''
+			 },success:function(result){
+				console.log(result);
+	
+				
+				zNodesList=result
+				
+				
+				
+				 /** 두번째 트리 세팅*/
+				 var settingList = {
+					
+					callback: {
+						onClick: employeeOnCheck,
+					}
+				};
+		
+				/**노드에 값 넣어서 표시해주기 */
+				function employeeOnCheck(event, treeId, treeNode) {
+					dept=treeNode.dept;
+					rank=treeNode.rank;
+					employeeName = treeNode.name;
+					empId=treeNode.empId
+				}
+		
+		
+		
+		
+		
+				zTreeObj1 = $.fn.zTree.init($("#tree_list"), settingList, zNodesList);
+				
+				return;
+			 }
+			})
+	}
 	let childArr = nodes.children;
+	
 	for (i of childArr) {
 		if (treeNode.name != i.name) {
 			i.checked = false;
@@ -81,6 +121,10 @@ function myOnCheck(event, treeId, treeNode) {
 
 
 
+
+
+    console.log(treeNode.name)
+
 	let deptCode = ''
 	if (treeNode.name=="인사부") {
 		deptCode = 'D001'
@@ -90,8 +134,11 @@ function myOnCheck(event, treeId, treeNode) {
 		deptCode = 'D003'
 	} else if (treeNode.name=="구매부") {
 		deptCode = 'D004'
-	} else {
+	} else if(treeNode.name=="영업부"){
 		deptCode = 'D005'
+	} else {
+
+
 	}
 
 
@@ -119,9 +166,9 @@ function myOnCheck(event, treeId, treeNode) {
 				emp.empId=r.employeeID;
 				/*		delete r.employeeName;
 						delete r.deptCode;*/
-                console.log(emp);
+            
 				resultArr.push(emp)
-				console.log(resultArr)
+			
 
 				zNodesList = resultArr;
 			}
@@ -155,10 +202,7 @@ function myOnCheck(event, treeId, treeNode) {
 };
 
 
-/*$('.checkbox_false_full').mouseover(function(){
-	$(this).attr('class','checkbox_false_full');
-})
-*/
+
 
 
 $(document).ready(function() {
@@ -320,14 +364,113 @@ function formCheck(event, treeId, treeNode) {
 }
 
 
+// 검색
+
+// function searchTeamList(){
+// 	if(keyCode==13){
+// 	let word=$('input[name=search]').val();
+
+// 	$.ajax({
+// 		type:'GET',
+// 		 url:'/approval/search',
+// 		 data:{
+// 	        search:word
+// 		 },success:function(result){
+// 			console.log(result);
+
+			
+// 			zNodesList=result
+			
+            
+			
+// 			 /** 두번째 트리 세팅*/
+// 			 var settingList = {
+				
+// 				callback: {
+// 					onClick: employeeOnCheck,
+// 				}
+// 			};
+	
+// 			/**노드에 값 넣어서 표시해주기 */
+// 			function employeeOnCheck(event, treeId, treeNode) {
+// 				dept=treeNode.dept;
+// 				rank=treeNode.rank;
+// 				employeeName = treeNode.name;
+// 				empId=treeNode.empId
+// 			}
+	
+	
+	
+	
+	
+// 			zTreeObj1 = $.fn.zTree.init($("#tree_list"), settingList, zNodesList);
+	
+// 		 }
+
+
+		
+// 	})
+//   }
+// }
+
+$('input[name=search]').keypress(function(e){
+	if(e.keyCode && e.keyCode==13){
+		let word=$('input[name=search]').val();
+	
+		$('#searchTeamList').click();
+	}
+})
+
+$('#searchTeamList').click(function(){
+  let word=$('input[name=search]').val();
+    
+    if(word.trim()==''){
+       swal('검색어를 입력해주세요')
+	   return;
+	}
+	$.ajax({
+		type:'GET',
+		 url:'/approval/search',
+		 data:{
+	        search:word
+		 },success:function(result){
+			console.log(result);
+
+			
+			zNodesList=result
+			
+            
+			
+			 /** 두번째 트리 세팅*/
+			 var settingList = {
+				
+				callback: {
+					onClick: employeeOnCheck,
+				}
+			};
+	
+			/**노드에 값 넣어서 표시해주기 */
+			function employeeOnCheck(event, treeId, treeNode) {
+				dept=treeNode.dept;
+				rank=treeNode.rank;
+				employeeName = treeNode.name;
+				empId=treeNode.empId
+			}
+	
+	
+	
+	
+	
+			zTreeObj1 = $.fn.zTree.init($("#tree_list"), settingList, zNodesList);
+	
+		 }
+
+
+		
+	})
+})
 
 
 
-/*
-$('#form-modal-btn').click(function() {
-	zTreeObj = $.fn.zTree.init($("#form"), formSetting, formNodes);
-});
-
-*/
 
 

@@ -177,12 +177,12 @@ $.ajax({
     success:function(result){
           console.log(result);
 
-          for(let i=0; i<6; i++){
+          for(let i=0; i<7; i++){
              marArr.push(result[i].materialProductName);
-             marAmountArr.push(result[i].materialProductStock/7);
+             marAmountArr.push(Math.round(result[i].materialProductStock/7));
           }
-          marArr.push(result[9].materialProductName);
-          marAmountArr.push(result[9].materialProductStock/7);
+          // marArr.push(result[9].materialProductName);
+          // marAmountArr.push(Math.round(result[9].materialProductStock/7));
           
     }
 

@@ -375,7 +375,7 @@ arrow_left<span style="float:right; display:block; font-size:15px; margin-top: 4
 	
 	<script src="/js/commons/list-date.js"></script>
 	<script src="/js/approval/list-move.js"></script>
-	
+	<script src="/js/approval/ajax-search.js"></script>
 	<!-- 코드 관련  -->
 	<script src="/js/code/ajax.js"></script>
 	

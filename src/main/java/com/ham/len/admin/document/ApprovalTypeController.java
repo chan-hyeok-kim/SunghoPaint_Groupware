@@ -181,10 +181,12 @@ public class ApprovalTypeController {
     	
     	String code=approvalTypeVO.getApprovalTypeCd();
     	approvalTypeVO.setCode(code);
+    	approvalTypeVO.setOriginCode(code);
     	approvalTypeVO.setUpCode(code.substring(0,3));
     	
     	log.warn("*******{}**********",approvalTypeVO);
     	int result=approvalTypeService.setUpdate(approvalTypeVO);
+    	log.warn("코드네임{}",approvalTypeVO.getCodeName());
     	result=codeService.setUpdate(approvalTypeVO);
     	
     	return "redirect:/document/list";

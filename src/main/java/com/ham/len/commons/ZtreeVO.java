@@ -13,4 +13,8 @@ public class ZtreeVO {
 	private String id;
 	private String pId;
 	private String content;
+	private String dept;
+	private String rank;
+	private String empId;
+	
 }

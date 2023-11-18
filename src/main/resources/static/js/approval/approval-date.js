@@ -6,6 +6,21 @@ const appTypeRegDate=document.getElementsByClassName('approval-reg-date');
  * 
  */
 
+// for(a of appStartDate){
+// 	let date=a.innerText;
+//     console.log(date)
+// 	//날짜 변환
+// 	const now = new Date(date);
+// 	const utcDate = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+// 	const korDate = new Date(utcDate + 9 * 60 * 60 * 1000);
+// 	console.log(korDate)
+//     appStartDate.innerText=korDate;
+// }
+
+
+
+
+
 if(curDate){
 curDate.value = new Date().toISOString().substring(0, 10);;
 }

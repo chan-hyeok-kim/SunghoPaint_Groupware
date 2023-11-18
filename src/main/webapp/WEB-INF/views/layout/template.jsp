@@ -24,6 +24,7 @@
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+   <link rel="stylesheet" href="/css/myCustomStyle/notification.css">
    
    <!-- swal -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>

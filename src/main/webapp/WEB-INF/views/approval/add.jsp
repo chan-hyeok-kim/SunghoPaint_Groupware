@@ -194,14 +194,11 @@
 				<div class="modal-body">
 
 					<div>
-						<form action="GET">
-							<input type="radio"> 이름 <input type="radio"> 부서 <input
-								type="search">
-							<button type="submit" class="btn btn-info material-icons">
+						
+							 <input	type="search" name="search" placeholder="사원명을 검색하세요">
+							<button id="searchTeamList" type="button" class="btn btn-info material-icons">
 								search</button>
-						</form>
-						<button type="submit" class="btn btn-info material-icons">
-								search</button>
+				
 					</div>
 
 
@@ -295,14 +292,11 @@
 				</div>
 				<div class="modal-body">
 
-					<div>
-						<form action="GET">
-							<input type="radio" name="kind"> 이름 <input type="radio" name="kind"> 부서 <input
-								type="search">
-							<button type="submit" class="btn btn-info material-icons">
-								search</button>
-						</form>
-					</div>
+                <div style="background: white; width:; padding: 25px; display: block; border: 1px solid gray;">
+                [사용안내]<br>
+                ㆍ아래 목록에서 기안서를 작성할 양식에 체크해주세요.<br>
+				ㆍ우측 하단의 '확인' 버튼을 눌러 양식을 가져올 수 있습니다.
+				</div>
 
 					<div style="display: flex; float: left; width: 40%;">
 						<div style="">

@@ -6,20 +6,24 @@
 <!-- partial:partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo" href="/"><img src="/images/logo.svg" alt="logo" /></a>
-          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/images/logo-mini.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo" href="/">
+          <img src="/images/humanresource/logo-clear1.png" style="padding-left:20px;height: 55px;">
+          <img src="/images/humanresource/logo-clear2.png" >
+          <a class="navbar-brand brand-logo-mini" href="/"><span class="material-symbols-outlined" style="color:#198ae3">
+format_color_fill
+</span></a>
         </div>
-        <div class="navbar-menu-wrapper d-flex align-items-stretch" style="padding-right:6%;">
+        <div class="navbar-menu-wrapper d-flex align-items-stretch" style="padding-right:6%; padding-left:6%;">
           <button class="navbar-toggler navbar-toggler align-self-center" id="minimize-toggle" type="button" data-toggle="minimize">
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="search-field d-none d-md-block">
-            <form class="d-flex align-items-center h-100" action="#">
+            <form class="d-flex align-items-center h-100" action="/">
               <div class="input-group">
-                <div class="input-group-prepend bg-transparent">
+                  <input type="text" class="form-control bg-transparent border-0" placeholder="무엇이든 검색하세요">
+                  <div class="input-group-prepend bg-transparent">
                   <i class="input-group-text border-0 mdi mdi-magnify"></i>
                 </div>
-                <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
               </div>
             </form>
           </div>
@@ -46,18 +50,26 @@
 	            
 	           
 	            
-	            <li class="nav-item dropdown">
-	              <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+	            <li class="nav-item dropdown" id="notification-toggle-li">
+	              <a style="cursor:pointer;" class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" data-bs-toggle="dropdown">
 	                <i class="mdi mdi-bell-outline"></i>
 	                <span class="count-symbol bg-danger"></span>
 	              </a>
-	              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+	              
+	            <!--    <div id="notification-modal" class="dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
 	                <h6 class="p-3 mb-0">알림</h6>
 	                <div class="dropdown-divider" id="alarmUL"></div>
 	               
 	                <h6 class="p-3 mb-0 text-center"><a>모든 알림 확인하기</a></h6>
-	              </div>
-	            </li>
+	              </div>  -->
+	              
+	               <div style="width: 350px;" class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+	                <h6 class="p-3 mb-0">알림</h6>
+	                <div class="dropdown-divider" id="alarmUL"></div>
+	               
+	                <h6 class="p-3 mb-0 text-center"><a>모든 알림 확인하기</a></h6>
+	              </div> 
+	            </li> 
 	            
 	            
 	            

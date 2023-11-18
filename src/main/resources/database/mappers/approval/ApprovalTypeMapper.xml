@@ -88,7 +88,7 @@
 
 	<update id="setUpdate" parameterType="ApprovalTypeVO">
 		UPDATE APPROVAL_TYPE
-		SET
+		SET 
 		APPROVAL_FORM=#{approvalForm},MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu},
 		APPROVAL_UP_TYPE_NO=#{approvalUpTypeNo}
 		WHERE

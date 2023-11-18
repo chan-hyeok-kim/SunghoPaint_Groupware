@@ -1,10 +1,9 @@
-/**
- * notification 
- */
+// /**
+//  * notification 
+//  */
 
 const alarmUL = document.querySelector("#alarmUL");
-//  const alarmI = document.querySelector("#alarmI");
-//  const alarmDiv = document.querySelector("#alarmDiv");
+
  var sock = null;
  var ws = null;
 
@@ -13,6 +12,7 @@ const alarmUL = document.querySelector("#alarmUL");
 
  });
 
+ 
 //소켓
  function connectWs(){
 	ws = new SockJS("http://localhost:82/echo");
@@ -20,10 +20,28 @@ const alarmUL = document.querySelector("#alarmUL");
 
  	ws.onopen = function() {
  		console.log("연결완료");
-	    setAlarm();
+	     // 결재시 메시지세팅
+
+	 $.ajax({
+        type:'GET',
+        url:'/setAlarm',
+        success:function(result){
+            console.log(result);
+            if(result && ws){
+                
+				for(r of result){
+                let message=r.notificationTitle+','+r.notificationContents+','+r.notificationDate;
+           
+                ws.send(message);
+				}
+            }
+        }
+
+
+    })
  	};
 
-	 
+	
 
  	ws.onmessage = function(event) {
  		/* 받을 알람이 있을 때 */
@@ -34,8 +52,9 @@ const alarmUL = document.querySelector("#alarmUL");
 			words=event.data.split(':');
 		    title=words[0];
 			contents=words[1];
+            time=words[2];
 
-			newAlarm='<a class="dropdown-item preview-item"><div class="preview-thumbnail"><div class="preview-icon bg-info"><span class="material-symbols-outlined">task</span></div></div><div class="preview-item-content d-flex align-items-start flex-column justify-content-center"><h6 class="preview-subject font-weight-normal mb-1">'+title+'</h6><p class="text-gray ellipsis mb-0">'+contents+'</p></div></a><div class="dropdown-divider"></div>';
+			newAlarm='<span class="dropdown-item preview-item"><div class="preview-thumbnail"><div class="preview-icon bg-info"><span class="material-symbols-outlined">task</span></div></div><div class="preview-item-content d-flex align-items-start flex-column justify-content-center"><h6 class="preview-subject font-weight-normal mb-1">'+title+'<i style="margin-left:5px;" class="mdi mdi-close-box alarm-check-icon"></i></h6><p class="text-gray mb-0">'+contents+'</p></div></span><div class="dropdown-divider"></div>';
  			
             console.log(newAlarm);
  			$('#alarmUL').after(newAlarm);
@@ -55,16 +74,14 @@ const alarmUL = document.querySelector("#alarmUL");
 
 
 
-// 결재시 메시지세팅
-
-function setAlarm(){
+ function setAlarm(){
     $.ajax({
         type:'GET',
         url:'/setAlarm',
         success:function(result){
             console.log(result);
             if(result && ws){
-
+         
                 let message=result.notificationTitle+','+result.notificationContents+','+result.notificationDate;
            
                 ws.send(message);
@@ -75,3 +92,9 @@ function setAlarm(){
     })
 
 }
+
+
+$('.alarm-check-icon').click(function(){
+	$(this).parent().parent().parent().remove();
+})
+

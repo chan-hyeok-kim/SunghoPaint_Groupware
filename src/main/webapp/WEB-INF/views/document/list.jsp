@@ -188,6 +188,7 @@
 		    <script src="/js/ztree/up-document-tree.js"></script>
 			<!-- 유효성 검증 -->
 			<script src="/js/document/check-box.js"></script>
+			<script src="/js/approval/ajax-search.js"></script>
 			
 			<!-- 등록일자 변환 -->
 			<script src="/js/approval/approval-date.js"></script>
