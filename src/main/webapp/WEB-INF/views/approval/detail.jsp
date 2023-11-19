@@ -122,7 +122,7 @@
 					     <input type="hidden" name="approvalNo" value="${vo.approvalNo}">
 					     <input type="hidden" id="status-cd-check" name="approvalStatusCd" value="${vo.approvalStatusCd}">
 					     <input type="hidden" name="employeeID" value="${vo.employeeID}">
-					     <input type="hidden" name="approvalTypeCd" value="${vo.approvalTypeVO.codeName}">
+					     <input type="hidden" name="aptCodeName" value="${vo.approvalTypeVO.codeName}">
 					</tr>
 					<tr>
 					
