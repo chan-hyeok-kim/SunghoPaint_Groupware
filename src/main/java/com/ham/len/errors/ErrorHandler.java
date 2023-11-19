@@ -11,11 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ErrorHandler implements org.springframework.boot.web.servlet.error.ErrorController {
 
-	@RequestMapping("/error")
-	public String notFound() throws Exception{
-		log.warn("에러먹는지확인");
-		return "errors/notFound";
-	}
+//	@RequestMapping("/error")
+//	public String notFound() throws Exception{
+//		log.warn("에러먹는지확인");
+//		return "errors/notFound";
+//	}
 	
     
 }
