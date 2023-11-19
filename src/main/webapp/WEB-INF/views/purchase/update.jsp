@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,91 +48,132 @@
 	padding: 10px 0 0 10px;
 }
 
-
-.material-icons{
-      padding: 0px;
-      height: 30px;
-      width: 30px;
+.material-icons {
+	padding: 0px;
+	height: 30px;
+	width: 30px;
 }
 </style>
 
+<script type="text/javascript">
+    function calculateTotal() {
+        var quantity = parseFloat(document.getElementById("purchaseQuantity").value);
+        var materialSelect = document.getElementById("materialProductNo");
+        var price = parseFloat(materialSelect.options[materialSelect.selectedIndex].getAttribute("data-price"));
+
+        // Validate that the quantity is not negative
+        if (quantity < 0) {
+            alert("Purchase quantity cannot be negative.");
+            document.getElementById("purchaseQuantity").value = 0; // Set quantity to 0
+            return;
+        }
+
+        // Validate that the quantity and price are valid numbers
+        if (!isNaN(quantity) && !isNaN(price)) {
+            var totalPrice = quantity * price;
+            document.getElementById("totalPrice").value = Math.round(totalPrice);
+        } else {
+            // Handle invalid inputs
+            document.getElementById("totalPrice").value = '0원';
+        }
+    }
+
+    function updateMaterialPrice() {
+        var materialSelect = document.getElementById("materialProductNo");
+        var priceField = document.getElementById("materialPrice");
+
+        var selectedOption = materialSelect.options[materialSelect.selectedIndex];
+        var price = parseFloat(selectedOption.getAttribute("data-price"));
+
+        // Validate that the price is a valid number
+        if (!isNaN(price)) {
+            priceField.value = Math.round(price) + '원';
+        } else {
+            // Handle invalid input
+            priceField.value = '0원';
+        }
+    }
+</script>
 
 </head>
 <body>
 
+    <div class="card">
+        <div class="card-body">
+            <div class="wrapper-toolbar">구매서 상세</div>
 
+            <br>
+            <br>
 
-	<div class="card">
-		<div class="card-body">
-			<div class="wrapper-toolbar">구매서 상세</div>
-			
-			<br><br>
-			
-			<table class="table table-bordered">
-				<form action="./update" method="post" id="frm">
-					<input type="hidden" name="purchaseNo" value="${kvo.purchaseNo}">
-					<input type="hidden" name="purchaseDate" value="${kvo.purchaseDate}">
-				
-						<tr>
-				        <td>거래처</td>
-				        <td>
-						<select class="form-control" type="text" name="clientNo" >
-					    <c:forEach items="${client}" var="vo">
-					    <option value="${vo.clientNo}">${vo.clientName}</option>
-					    </c:forEach>
-					    </select>
-						</td>
-						<td>원료명</td>
-						<td>
-							<select class="form-control" type="text" name="materialProductNo">
-						 	<c:forEach items="${material}" var="f">
-						 	<c:if test="${f.materialProductCategory eq '원료'}">
-							<option value=${f.materialProductNo}>${f.codeName}</option>	
-						 	</c:if>						
-					 		</c:forEach>
-							</select>
-						</td>
-				    </tr>
-				    <tr>
-				        <td>구매수량</td>
-				        <td><input class="form-control" type="number" name="purchaseQuantity" placeholder="구매 수량 입력해주세요"></td>
-				        <td>입고창고</td>
-				        <td>
-				        <select class="form-control" type="text" name="factoryStorageNo">
-				        <c:forEach items="${factory}" var="vo">
-				        <option value=${vo.factoryStorageNo}>${vo.codeName}</option>
-				        </c:forEach>
-				        </select>
-						</td>
-				    </tr>
-				    <tr>
-				    	<td>총액</td>
-				        <td>
-				        <input class="form-control" type="number" name="totalPrice" value="result">
-				        <c:set var="quantity" value="${purchaseQuantity}"/>
-				        <c:set var="price" value="${materialProductVO.materialProductPrice}"/>
-				        <c:set var="result" value="${quantity * price}"/>
-				        </td>
-				        
-				        <!-- <td>총액</td>
-				        <td>
-				        <input class="form-control" type="number" name="totalPrice" placeholder="금액을 입력해주세요">
-				        </td> -->
-				        
-				        <td>납기일자</td>
-				        <td><input type="date" class="form-control" name="purchaseInDate"></td>
-				    </tr>
-			</table>
-			<br><br><br><br><br>
-					<div style="float: right;">
-						<button class="btn btn-danger" type="reset" >되돌리기</button>
-						<button class="btn btn-info" type="button" id="update-confirm-btn">수정하기</button>
-					</div>
-			    </form>
-		</div>
-	</div>
-	
-	<script src="/js/purchase/update-check.js"></script>
-	
+            <table class="table table-bordered">
+                <form action="./update" method="post" id="frm">
+                    <!-- Existing hidden fields for purchaseNo and purchaseDate -->
+
+                    <tr>
+                        <td>거래처</td>
+                        <td>
+                            <select class="form-control" type="text" name="clientNo">
+                                <c:forEach items="${client}" var="vo">
+                                        <option value="${vo.clientNo}" ${vo.clientNo == kvo.clientNo ? 'selected' : ''}>${vo.clientName}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                        <td>원료명</td>
+                        <td>
+                            <select class="form-control" type="text" name="materialProductNo">
+                                <c:forEach items="${material}" var="f">
+                                    <c:if test="${f.materialProductCategory eq '원료'}">
+                                        <option value="${f.materialProductNo}" ${f.materialProductNo == kvo.materialProductNo ? 'selected' : ''}>${f.codeName}</option>
+                                    </c:if>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>구매수량</td>
+                        <td>
+                            <input class="form-control" type="number" name="purchaseQuantity" value="${kvo.purchaseQuantity}">
+                        </td>
+                        <td>입고창고</td>
+                        <td>
+                            <select class="form-control" name="factoryStorageNo">
+                                <c:forEach items="${factory}" var="vo">
+                                    <c:if test="${vo.factoryStorageCategory eq '창고'}">
+                                        <option value="${vo.factoryStorageNo}" ${vo.factoryStorageNo == kvo.factoryStorageNo ? 'selected' : ''}>${vo.codeName}</option>
+                                    </c:if>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>금액 합계</td>
+                        <td>
+                            <input class="form-control" type="number" name="totalPrice" value="${kvo.totalPrice}" readonly>
+                        </td>
+                        <td>납기일자</td>
+                        <td>
+                            <input type="date" class="form-control" name="purchaseInDate" value="${kvo.purchaseInDate}">
+                        </td>
+                    </tr>
+                    <td>원료 가격</td>
+                        <td>
+                            <input class="form-control" type="text" name="materialPrice" id="materialPrice" readonly>
+                        </td>
+            </table>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div style="float: right;">
+                <button class="btn btn-danger" type="reset">되돌리기</button>
+                <button class="btn btn-info" type="button" id="update-confirm-btn">수정하기</button>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/purchase/update-check.js"></script>
+
 </body>
 </html>
