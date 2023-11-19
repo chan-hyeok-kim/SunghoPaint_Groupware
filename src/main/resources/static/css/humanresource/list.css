@@ -7,21 +7,21 @@
 
 
 
-form{
+form#searchForm{
 	float:left;
 	margin-bottom:15px;
 }
 
-form > div:first-of-type{
+form#searchForm > div:first-of-type{
 	margin-bottom:10px;
 }
 
-form > div:last-of-type{
+form#searchForm > div:last-of-type{
 	clear:both;
 }
 
-form input,
-form select{
+form#searchForm input,
+form#searchForm select{
 	height:33px;
 	margin-right:3px;
 	padding:5px;
@@ -31,11 +31,11 @@ form select{
 	font-size:13px;
 }
 
-form select{
+form#searchForm select{
 	padding:0px 3px;
 }
 
-form button{
+form#searchForm button{
 	height:33px;
 	line-height:0px !important;
 	padding:0px 15px !important;

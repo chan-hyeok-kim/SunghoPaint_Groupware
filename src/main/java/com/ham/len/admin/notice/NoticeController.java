@@ -51,7 +51,6 @@ public class NoticeController {
 	@PostMapping("add")
 	public String setAdd(NoticeVO noticeVO,MultipartFile[] files) throws Exception{
 		
-		
 		int result=noticeService.setAdd(noticeVO,files);
 		
 		return "redirect:/notice/list";
@@ -77,7 +76,7 @@ public class NoticeController {
 	}
 	
 	@PostMapping("delete")
-	public String setDelete(@RequestParam(value = "deleteNo[]",required = false) List<Long> deleteNoList,Model model) throws Exception{
+	public String setDelete(@RequestParam(value = "deleteNoList[]",required = false) List<Long> deleteNoList,Model model) throws Exception{
 		int result=0;
 		if(deleteNoList!=null) {
 			for(Long d: deleteNoList) {
@@ -89,6 +88,15 @@ public class NoticeController {
 		model.addAttribute("result", result);
 		
 		return "commons/ajaxResult";
+	}
+	
+	@GetMapping("deleteOne")
+	public String setDelete(NoticeVO noticeVO,Model model) throws Exception{
+		int result=noticeService.setDelete(noticeVO);
+			
+		model.addAttribute("result", result);
+		
+		return "redirect:./list";
 	}
 	
 	@GetMapping("fileDown")

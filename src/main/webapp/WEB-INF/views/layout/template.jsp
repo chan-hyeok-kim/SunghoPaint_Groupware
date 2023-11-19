@@ -24,6 +24,7 @@
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+   <link rel="stylesheet" href="/css/myCustomStyle/notification.css">
    
    <!-- swal -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
@@ -50,7 +51,7 @@
           
             <tiles:insertAttribute name="body"/>
           </div>
-          <tiles:insertAttribute name="footer"/>
+          <%-- <tiles:insertAttribute name="footer"/> --%>
         </div>
       </div>
       <!-- page-body-wrapper ends -->
@@ -87,6 +88,7 @@
     
     <!-- socket -->
    <script src="/js/main/socket.js"></script>
+   <script src="/js/main/socket2.js"></script>
    
 	  <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

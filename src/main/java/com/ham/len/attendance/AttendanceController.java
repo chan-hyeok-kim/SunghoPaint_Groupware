@@ -1,9 +1,12 @@
 package com.ham.len.attendance;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -22,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ham.len.humanresource.HumanResourcePager;
+import com.ham.len.humanresource.HumanResourceService;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.util.WeekOfMonthInfoCalculator;
 
@@ -34,39 +39,36 @@ public class AttendanceController {
 	@Autowired
 	private AttendanceService attendanceService;
 	
+	@Autowired
+	private HumanResourceService humanResourceService;
+	
 	@GetMapping("getServerDate")
 	@ResponseBody
 	public Date getServerDate() {
 		return new Date();
 	}
 	
-	private Map<String, Boolean> getCommuteWhether(String employeeId) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("employeeId", employeeId);
-		params.put("date", new Date());
-		AttendanceVO attendanceVO = attendanceService.getAttendance(params);
+	private Map<String, String> setDateRange(String startDate, String endDate) {
+		startDate = startDate.split(" ")[0].replaceAll("[ymd]", "-");
+		endDate = endDate.split(" ")[0].replaceAll("[ymd]", "-");
+		startDate = startDate.substring(0, startDate.length() - 1) + " " + "00:00:00";
+		endDate = endDate.substring(0, endDate.length() - 1) + " " + "23:59:59";
 		
-		Map<String, Boolean> commuteWhether = new HashMap<>();
-		if(attendanceVO == null && attendanceService.getLeaveWorkWhether(employeeId) == 0) {
-			commuteWhether.put("goWork", false);
-			commuteWhether.put("leaveWork", true);
-		}else {
-			commuteWhether.put("goWork", true);
-			if(attendanceVO != null) {
-				commuteWhether.put("leaveWork", (attendanceVO.getAttendanceEnd() != null));
-			}else {
-				commuteWhether.put("leaveWork", false);
-			}
-		}
+		Map<String, String> params = new HashMap<>();
+		params.put("startDate", startDate);
+		params.put("endDate", endDate);
 		
-		return commuteWhether;
+		return params;
 	}
 	
-	@PostMapping("status")
-	public String getStatus(@RequestParam(value = "year", defaultValue = "0")int year,
-									@RequestParam(value = "month", defaultValue = "0")int month,
-									@RequestParam(value = "day", required = false)Integer day,
-									@AuthenticationPrincipal HumanResourceVO humanResourceVO, Model model) {
+	@PostMapping("myStatus")
+	public String getMyStatus(@RequestParam(value = "year", defaultValue = "0")int year,
+										@RequestParam(value = "month", defaultValue = "0")int month,
+										@RequestParam(value = "day", required = false)Integer day,
+										@RequestParam(value = "newWindow", defaultValue = "false")boolean newWindow,
+										String employeeID, @AuthenticationPrincipal HumanResourceVO humanResourceVO, Model model) {
+		
+		if(employeeID == null) employeeID = humanResourceVO.getEmployeeID();
 		
 		Calendar cal = Calendar.getInstance(Locale.KOREA);
 		int weekOfMonth = 0;
@@ -89,16 +91,9 @@ public class AttendanceController {
 		
 		String[][] weeksOfMonthInfo = WeekOfMonthInfoCalculator.getWeeksOfMonthInfo(year, month);
 		
-		Map<String, String> params = new HashMap<>();
-		String start_date = weeksOfMonthInfo[1][1].split(" ")[0].replaceAll("[ymd]", "-");
-		String end_date = weeksOfMonthInfo[weeksOfMonthInfo.length - 1][7].split(" ")[0].replaceAll("[ymd]", "-");
-		start_date = start_date.substring(0, start_date.length() - 1) + " " + "00:00:00";
-		end_date = end_date.substring(0, end_date.length() - 1) + " " + "23:59:59";
-		params.put("employeeID", humanResourceVO.getEmployeeID());
-		params.put("start_date", start_date);
-		params.put("end_date", end_date);
-		
-		List<AttendanceVO> attendances = attendanceService.getStatus(params);
+		Map<String, String> params = setDateRange(weeksOfMonthInfo[1][1], weeksOfMonthInfo[weeksOfMonthInfo.length - 1][7]);
+		params.put("employeeID", employeeID);
+		List<AttendanceVO> attendances = attendanceService.getMyStatus(params);
 		
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -109,12 +104,15 @@ public class AttendanceController {
 		date.put("weekOfMonth", weekOfMonth);
 		
 		model.addAttribute("date", date);
+		model.addAttribute("commuteWhether", attendanceService.getCommuteWhether(employeeID));
+		model.addAttribute("currentAttendance", attendanceService.getCurrentAttendance(employeeID));
 		model.addAttribute("weeksOfMonthInfo", weeksOfMonthInfo);
 		model.addAttribute("weeksOfMonthInfo_json", gson.toJson(weeksOfMonthInfo));
 		model.addAttribute("attendances_json", gson.toJson(attendances));
-		model.addAttribute("commuteWhether", getCommuteWhether(humanResourceVO.getEmployeeID()));
+		model.addAttribute("newWindow", newWindow);
 		
-		return "attendance/status";
+		if(!newWindow) return "attendance/myStatus";
+		else return "attendance/myStatus(newWindow)";
 	}
 	
 	@PostMapping("goWork")
@@ -122,11 +120,11 @@ public class AttendanceController {
 	public Timestamp setGoWork(@AuthenticationPrincipal HumanResourceVO humanResourceVO, HttpServletRequest httpServletRequest) throws Exception {
 		String employeeID = humanResourceVO.getEmployeeID();
 		
-		if(getCommuteWhether(employeeID).get("goWork") == false) {
+		if(attendanceService.getCommuteWhether(employeeID).get("goWork") == false) {
 			Timestamp goWorkDate = new Timestamp(new Date().getTime());
 			
 	        AttendanceVO attendanceVO = new AttendanceVO();
-			attendanceVO.setEmployeeId(employeeID);
+			attendanceVO.setEmployeeID(employeeID);
 			attendanceVO.setAttendanceDate(goWorkDate);
 			attendanceVO.setAttendanceStart(goWorkDate);
 			
@@ -142,11 +140,11 @@ public class AttendanceController {
 	public Timestamp setLeaveWork(@AuthenticationPrincipal HumanResourceVO humanResourceVO, HttpServletRequest httpServletRequest) throws Exception {
 		String employeeID = humanResourceVO.getEmployeeID();
 		
-		if(getCommuteWhether(employeeID).get("leaveWork") == false) {
+		if(attendanceService.getCommuteWhether(employeeID).get("leaveWork") == false) {
 			Timestamp leaveWorkDate = new Timestamp(new Date().getTime());
 	        
 	        AttendanceVO attendanceVO = new AttendanceVO();
-			attendanceVO.setEmployeeId(employeeID);
+			attendanceVO.setEmployeeID(employeeID);
 			attendanceVO.setAttendanceEnd(leaveWorkDate);
 			
 			attendanceService.setLeaveWork(attendanceVO);
@@ -154,5 +152,86 @@ public class AttendanceController {
 		}
 		
 		return null;
+	}
+	
+	@GetMapping("list")
+	public String getList(@RequestParam(value = "year", defaultValue = "0")int year,
+								@RequestParam(value = "month", defaultValue = "0")int month,
+								HumanResourcePager pager, Model model) {
+		
+		if(year == 0 && month == 0) {
+			Calendar calendar = Calendar.getInstance(Locale.KOREA);
+			year = calendar.get(Calendar.YEAR);
+			month = calendar.get(Calendar.MONTH) + 1;
+		}
+		
+		String[][] weeksOfMonthInfo = WeekOfMonthInfoCalculator.getWeeksOfMonthInfo(year, month);
+		
+		Map<String, String> params = setDateRange(weeksOfMonthInfo[1][1], weeksOfMonthInfo[weeksOfMonthInfo.length - 1][7]);
+		pager.setStartDate(params.get("startDate"));
+		pager.setEndDate(params.get("endDate"));
+		
+		// { 2023001 전체 누적, 2023002 전체 누적, ... }
+		List<AttendanceAccrueVO> weeksOfTotalAttendanceAccrue = attendanceService.getAttendanceAccrueList(pager); // 전체 누적
+		
+		/*
+			{
+				1주차 : { 2023001 1주차 누적, 2023002 1주차 누적, ... }
+				2주차 : { 2023001 2주차 누적, 2023002 2주차 누적, ... }
+				...
+			}
+		*/
+		List<List<AttendanceAccrueVO>> weeksOfAttendanceAccrue = new ArrayList<>(); // 각 주차 누적
+		for(int i = 1; i <= weeksOfMonthInfo.length - 1; i++) {
+			params = setDateRange(weeksOfMonthInfo[i][1], weeksOfMonthInfo[i][weeksOfMonthInfo[i].length - 1]);
+			pager.setStartDate(params.get("startDate"));
+			pager.setEndDate(params.get("endDate"));
+			weeksOfAttendanceAccrue.add(attendanceService.getAttendanceAccrueList(pager));
+		}
+		
+		
+		// 사원별로 데이터 분류
+		Map<String, AttendanceStatusVO> attendanceStatusMap = new LinkedHashMap<>();
+		
+		for(AttendanceAccrueVO attendanceAccrueVO : weeksOfTotalAttendanceAccrue) {
+			AttendanceStatusVO attendanceStatusVO = new AttendanceStatusVO();
+			attendanceStatusVO.setEmployeeID(attendanceAccrueVO.getEmployeeID());
+			attendanceStatusVO.setName(attendanceAccrueVO.getName());
+			attendanceStatusVO.setProfile(attendanceAccrueVO.getProfile());
+			attendanceStatusVO.setDepartmentCdName(attendanceAccrueVO.getDepartmentCdName());
+			attendanceStatusVO.setPositionCdName(attendanceAccrueVO.getPositionCdName());
+			
+			attendanceStatusVO.setAccrues(new AttendanceAccrueVO[weeksOfMonthInfo.length]);
+			attendanceStatusVO.getAccrues()[0] = attendanceAccrueVO;
+			
+			attendanceStatusMap.put(attendanceStatusVO.getEmployeeID(), attendanceStatusVO);
+		}
+		
+		for(int i = 0; i < weeksOfAttendanceAccrue.size(); i++) {
+			List<AttendanceAccrueVO> weekAccrue = weeksOfAttendanceAccrue.get(i);
+			for(AttendanceAccrueVO attendanceAccrueVO : weekAccrue) {
+				AttendanceStatusVO attendanceStatusVO = attendanceStatusMap.get(attendanceAccrueVO.getEmployeeID());
+				attendanceStatusVO.getAccrues()[i + 1] = attendanceAccrueVO;
+			}
+		}
+		
+		List<AttendanceStatusVO> attendanceStatuses = new ArrayList<>();
+		Iterator<String> iterator = attendanceStatusMap.keySet().iterator();
+		while(iterator.hasNext()) {
+			attendanceStatuses.add(attendanceStatusMap.get(iterator.next()));
+		}
+		
+		
+		Map<String, Integer> date = new HashMap<>();
+		date.put("year", year);
+		date.put("month", month);
+		
+		model.addAttribute("date", date);
+		model.addAttribute("weeksOfMonthInfo", weeksOfMonthInfo);
+		model.addAttribute("attendanceStatuses", attendanceStatuses);
+		model.addAttribute("pager", pager);
+		model.addAttribute("departmentList", humanResourceService.getDepartmentList());
+		
+		return "attendance/list";
 	}
 }

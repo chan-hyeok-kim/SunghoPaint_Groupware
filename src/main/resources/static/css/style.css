@@ -11964,6 +11964,26 @@ code {
   background: linear-gradient(89deg, #5e7188, #3e4b5b);
   color: #ffffff; }
 
+.badge-gradient-drafter{
+  background: #24e8a6;
+  color: #ffffff;
+}
+
+.badge-gradient-line{
+  background: lightyellow;
+  color: black;
+}
+
+.badge-gradient-mid{
+  background: #fe7452;
+  color: #ffffff;
+}
+
+.badge-gradient-last{
+  background: #da8cff;
+  color: #ffffff;
+}
+
 /*Badge outlined variations*/
 .badge-outline-primary {
   color: #b66dff;
@@ -14467,9 +14487,6 @@ dl {
   float: left;
 }
 
-#btn-box button{
-	margin: 20px 0 0 0;
-}
 
 .detail-proceed-btn{
 	color: #0D6EFD;
@@ -14498,6 +14515,7 @@ dl {
     cursor: pointer;
     padding: 7px 18px 7px 18px;
 }
+
 
 /* textarea */
 #approvalForm{
@@ -14533,12 +14551,25 @@ dl {
 }
 
 #btn-box{
-	width: 20%;
-	display: inline-block;
+	width: 11%;
+	display: block;
 	margin-left: 50px;
-	margin-top: 50px;
+	margin-top: 112px;
 	float:left;
 }
+
+
+
+#btn-box div:has(button){
+	text-align:right;
+}
+
+#btn-box button{
+	width: 87px; 
+	margin: 44px 0 0 0;
+	padding: 7px 10px 7px 10px;
+}
+
 
 #image-show{
 	overflow: hidden;
@@ -14554,14 +14585,36 @@ dl {
 
 /* tree ul */
 #form_list{
-	width: 700px;
+  margin-top: 0px;
+	width: 920px;
 	height: 770px;
 }
 
+
+
+#tree_list li{
+  height:22px;
+  
+}
+#tree_list span{
+  font-size: 17px;
+}
+
+#tree span{
+  font-size: 17px;
+}
+
+#tree li{
+  height:22px;
+  
+}
+
 #document-tree{
-	height: 200px;
+	height: 300px;
 	margin-top: 0px;
 }
+
+
 
 #sign-file-div{
 	cursor: pointer;
@@ -14579,7 +14632,7 @@ dl {
 
 /* modal */
 #form-modal-size{
-	max-width: 1000px;
+	max-width: 1200px;
 }
 #sign-modal-size{
 	max-width: 700px;
@@ -14590,14 +14643,7 @@ dl {
 }
 
 /* table */
-#tree-table{
-	border: 1px solid gainsboro;
-	font-size:24px;
-	margin-top: 10px;
-	background: white;
-	width: 365px;
-	height: 360px;
-}
+
 
 #tree-table td{
 	empty-cells: show;
@@ -14628,11 +14674,14 @@ dl {
 	margin-left: 20px;
 }
 
-#tree-table {
-	border: 1px solid black;
-	height: 360px;
-	width: 220px;
+
+.tree-table {
+	/* border: 1px solid black; */
+	height: 80px;
+	width: 364.34px;
 	padding: 10px;
+  border-bottom: 1px dashed gainsboro;
+ 
 }
 
 #tree-table-div {
@@ -14641,7 +14690,8 @@ dl {
 
 #approval-table {
 	text-align: center;
-	width: 100%
+	width: 100%;
+	margin-top: 2rem;
 }
 
 .nav-tabs>li:before, .nav-tabs>li:after {
@@ -14793,16 +14843,101 @@ ul.nav-tabs {
 	border-top: 1px solid #ebedf2;
 }
 
-/*canvas */
+/* canvas */
 #sign-canvas{
     background: white;	
 }
 
 /*# sourceMappingURL=style.css.map */
 
-/* sidebar line */
-#sidebar_line{
+/* navbar profile */
+.nav-profile-text{
+  margin-left:10px !important;
+}
+
+.nav-profile-text > .mb-1{
+  margin-bottom:0px !important;
+}
+
+.mdi.mdi-account-circle.me-2,
+.mdi.mdi-cached.me-2{
+  color:#198AE3;
+}
+
+/* sidebar-divider */
+#sidebar-divider{
 	width:75%;
 	margin:10px auto;
 	border-top:1px solid #E7E7E7;
 }
+
+/* sidebar attendance */
+#main-attendance{
+  margin-bottom:10px;
+}
+
+#profile-wrap{
+  margin-bottom:10px;
+  text-align:center;
+}
+
+#profile-wrap > img#profile{
+  width:150px; height:135px;
+  margin-bottom:10px;
+  border-radius:100%;
+  cursor:default;
+}
+
+#profile-wrap > h2#profile-text{
+  font-size:16px; font-weight:600;
+  margin-bottom:0px;
+}
+
+#commute-wrap{
+  color:#626262;
+}
+
+#commute-wrap > #date-wrap{
+  margin-bottom:10px;
+  text-align:center;
+}
+
+#commute-wrap > #date-wrap > #cur-time{
+	font-size:16px; font-weight:bold;
+}
+
+#commute-wrap > #start-time > i,
+#commute-wrap > #end-time > i{
+  font-size:13px;
+}
+
+#commute-wrap > #start-time > span,
+#commute-wrap > #end-time > span{
+  float:right;
+}
+
+#commute-wrap > #attendance-btns{
+  margin-top:15px;
+}
+
+#attendance-btns > button{
+	width:calc(50% - 5px); height:42px;
+	border:1px solid #198AE3; border-radius:25px;
+	background-color:white;
+	color:#198AE3;
+}
+
+#attendance-btns > button.off{
+	border:1px solid #CDCDCD;
+	color:#CDCDCD;
+	cursor:unset;
+}
+
+#attendance-btns > button.on:hover{
+  background-color:#DAEFFF;
+}
+
+#attendance-btns > button#end-btn{
+  float:right;
+}
+

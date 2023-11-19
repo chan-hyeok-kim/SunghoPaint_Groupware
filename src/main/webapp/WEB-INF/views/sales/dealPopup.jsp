@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>°Å·¡¸í¼¼¼­</title>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<title>ê±°ëž˜ëª…ì„¸ì„œ</title>
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,23 +51,23 @@
 <body>
 <div class="container">
         <div class="header">
-            <h1>°Å·¡¸í¼¼¼­</h1>
+            <h1>ê±°ëž˜ëª…ì„¸ì„œ</h1>
         </div>
         <div class="invoice-details-wrapper2">
         <div class="invoice-details">
-            <p>°Å·¡Ã³¸í : <span class="clientName"></span></p>
-            ÁÖ¼Ò : <span class="clientAddress"></span>
+            <p>ê±°ëž˜ì²˜ëª… : <span class="clientName"></span></p>
+            ì£¼ì†Œ : <span class="clientAddress"></span>
             <span class="clientRefAddress"></span>
             <span class="clientDetailAddress"></span>
             
-            <p><span>¢Ï </span> <span class="clientNumber"></span></p>
+            <p><span>â˜Ž </span> <span class="clientNumber"></span></p>
         </div>
         </div>
 
         <div class="invoice-details-wrapper">
         <div class="invoice-details">
-        <span style="font-weight: bold;">±Ý¾× : <span id="result"></span></span>
-            <span style="float: right; font-weight: bold;">(£Ü<span class="totalPrice"></span>)</span>
+        <span style="font-weight: bold;">ê¸ˆì•¡ : <span id="result"></span></span>
+            <span style="float: right; font-weight: bold;">(ï¿¦<span class="totalPrice"></span>)</span>
         </div>
         </div>
         
@@ -74,42 +75,53 @@
         <table class="items-table">
             <thead>
                 <tr>
-                    <th>ÀÏÀÚ</th>
-                    <th>Ç°¸ñ¸í</th>
-                    <th>¼ö·®</th>
-                    <th>´Ü°¡</th>
-                    <th>ÇÕ°è</th>
+                    <th>ì¼ìž</th>
+                    <th>í’ˆëª©ëª…</th>
+                    <th>ìˆ˜ëŸ‰</th>
+                    <th>ë‹¨ê°€</th>
+                    <th>í•©ê³„</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><span class="purchaseDate"></span></td>
                     <td><span class="codeName"></span></td>
-                    <td>?</td>
-                    <td>?</td>
-                    <td><span class="totalPrice"></span> ¿ø</td>
+                    <td> </td>
+                    <td> </td>
+                    <td><span class="totalPrice"></span> ì›</td>
                 </tr>
             </tbody>
         </table>
         <br>
         
         <div class="invoice-details" style="text-align: right;">
-            <span>¼ö·®: </span> ?<br>
-            <span>°ø±Þ°¡¾×: </span> ?<br>
-            <span>ºÎ°¡¼¼ (VAT):</span> ?<br>
-            <span>ÃÑ ±Ý¾×: </span> <span class="totalPrice"></span> ¿ø<br>
+            <span>ìˆ˜ëŸ‰: </span> <br>
+            <span>ê³µê¸‰ê°€ì•¡: </span> <span class="supplyPrice"></span> ì›<br>
+            <span>ë¶€ê°€ì„¸ (VAT):</span> <span class="vat"></span> ì›<br>
+            <span>ì´ ê¸ˆì•¡: </span> <span class="totalPrice"></span> ì›<br>
         </div>
         <div style="text-align: center;">
         <br>
-            <span style="font-size:xx-large;">¼ºÈ£ÆäÀÎÆ®</span>
+            <span style="font-size:xx-large;">ì„±í˜¸íŽ˜ì¸íŠ¸</span>
             <div style="text-align: right;">
             
             <form action="./excelDownload" method="get">
-            <input type="hidden" name="purDate" value="">
-	        <input type="hidden" name="cliName" value="">
-	        <input type="hidden" name="codName" value="">
-	        <input type="hidden" name="toPrice" value="">
-    			<button id="submit">¿¢¼¿ ´Ù¿î·Îµå</button>
+		        <input type="hidden" name="cliName" value="">
+		        <input type="hidden" name="clientZipCode" value="">
+		        <input type="hidden" name="clientAddress" value="">
+		        <input type="hidden" name="clientRefAddress" value="">
+		        <input type="hidden" name="clientNumber" value="">
+		        <input type="hidden" name="clientDetailAddress" value="">
+	            <input type="hidden" name="purDate" value="">
+		        <input type="hidden" name="codName" value="">
+		        <input type="hidden" name="toPrice" value="">
+		        <input type="hidden" name="empId" value="">
+		        <input type="hidden" name="a" value="">
+		        <input type="hidden" name="result" value="">
+		        <input type="hidden" name="vat" value="">
+		        <input type="hidden" name="supplyPrice" value="">
+		        
+    			<button id="submit">ì—‘ì…€ ë‹¤ìš´ë¡œë“œ</button>
         	</form>
 	</div>
         </div>
@@ -121,18 +133,47 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
     let purDate = window.opener.purDate;
+    $("input[name='purDate']").val(purDate);
     let cliName = window.opener.cliName;
+    $("input[name='cliName']").val(cliName);
     let codName = window.opener.codName;
+    $("input[name='codName']").val(codName);
     let toPrice = window.opener.toPrice;
+    $("input[name='toPrice']").val(toPrice);
     let result = toPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
+    $("input[name='result']").val(result);
+    
     let empId = window.opener.empId;
+    $("input[name='empId']").val(empId);
     let clientZipCode = window.opener.clientZipCode;
-    let clientAddress = window.opener.clientAddress;
+    $("input[name='clientZipCode']").val(clientZipCode);
+	let clientAddress = window.opener.clientAddress;
+    $("input[name='clientAddress']").val(clientAddress);
     let clientRefAddress = window.opener.clientRefAddress;
+    $("input[name='clientRefAddress']").val(clientRefAddress);
     let clientDetailAddress = window.opener.clientDetailAddress;
+    $("input[name='clientDetailAddress']").val(clientDetailAddress);
     let clientNumber = window.opener.clientNumber;
-
+    $("input[name='clientNumber']").val(clientNumber);
+    
+    let vat2 = toPrice/10;
+    let vat = (toPrice/10).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    $("input[name='vat']").val(vat);
+    console.log(vat);
+    console.log("ã…‹ã…‹ã…‹");
+    let supplyPrice = (toPrice - vat2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    $("input[name='supplyPrice']").val(supplyPrice);
+    console.log(supplyPrice)
+    console.log("ã…‹ã…‹ã…‹");
+    document.querySelectorAll('.vat').forEach(function(element) {
+        element.innerText = vat;
+    });
+    
+    document.querySelectorAll('.supplyPrice').forEach(function(element) {
+        element.innerText = supplyPrice;
+    });
+    
+    
     
     document.querySelectorAll('.purchaseDate').forEach(function(element) {
         element.innerText = purDate;
@@ -174,45 +215,46 @@ document.addEventListener('DOMContentLoaded', function() {
         element.innerText = clientNumber;
     });
 
-let a = num2han(toPrice) + '¿ø Á¤';
+let a = num2han(toPrice) + 'ì› ì •';
+$("input[name='a']").val(a);
 document.getElementById('result').innerText=a;
 console.log(a);
 
 console.log(num2han(1234));
 
 function num2han(num) { 
-	num = parseInt((num + '').replace(/[^0-9]/g, ''), 10) + '';  	// ¼ýÀÚ/¹®ÀÚ/µ· À» ¼ýÀÚ¸¸ ÀÖ´Â ¹®ÀÚ¿­·Î º¯È¯  
+	num = parseInt((num + '').replace(/[^0-9]/g, ''), 10) + '';  	// ìˆ«ìž/ë¬¸ìž/ëˆ ì„ ìˆ«ìžë§Œ ìžˆëŠ” ë¬¸ìžì—´ë¡œ ë³€í™˜  
 	
 	if(num == '0')    
-		return '¿µ';  
+		return 'ì˜';  
 	
-	var number = ['¿µ', 'ÀÏ', 'ÀÌ', '»ï', '»ç', '¿À', 'À°', 'Ä¥', 'ÆÈ', '±¸'];  
-	var unit = ['', '¸¸', '¾ï', 'Á¶'];  
-	var smallUnit = ['Ãµ', '¹é', '½Ê', '']; 
+	var number = ['ì˜', 'ì¼', 'ì´', 'ì‚¼', 'ì‚¬', 'ì˜¤', 'ìœ¡', 'ì¹ ', 'íŒ”', 'êµ¬'];  
+	var unit = ['', 'ë§Œ', 'ì–µ', 'ì¡°'];  
+	var smallUnit = ['ì²œ', 'ë°±', 'ì‹­', '']; 
 	
-	var result = [];  //º¯È¯µÈ °ªÀ» ÀúÀåÇÒ ¹è¿­  
+	var result = [];  //ë³€í™˜ëœ ê°’ì„ ì €ìž¥í•  ë°°ì—´  
 	
-	var unitCnt = Math.ceil(num.length / 4);	//´ÜÀ§ °¹¼ö. ¼ýÀÚ 10000Àº ÀÏ´ÜÀ§¿Í ¸¸´ÜÀ§ 2°³ÀÌ´Ù.  
-	num = num.padStart(unitCnt * 4, '0')	//4ÀÚ¸® °ªÀÌ µÇµµ·Ï 0À» Ã¤¿î´Ù  
+	var unitCnt = Math.ceil(num.length / 4);	//ë‹¨ìœ„ ê°¯ìˆ˜. ìˆ«ìž 10000ì€ ì¼ë‹¨ìœ„ì™€ ë§Œë‹¨ìœ„ 2ê°œì´ë‹¤.  
+	num = num.padStart(unitCnt * 4, '0')	//4ìžë¦¬ ê°’ì´ ë˜ë„ë¡ 0ì„ ì±„ìš´ë‹¤  
 
-	var regexp = /[\w\W]{4}/g;  //4ÀÚ¸® ´ÜÀ§·Î ¼ýÀÚ ºÐ¸®  
+	var regexp = /[\w\W]{4}/g;  //4ìžë¦¬ ë‹¨ìœ„ë¡œ ìˆ«ìž ë¶„ë¦¬  
 	var array = num.match(regexp);  
 	
-	//³·Àº ÀÚ¸´¼ö¿¡¼­ ³ôÀº ÀÚ¸´¼ö ¼øÀ¸·Î °ªÀ» ¸¸µç´Ù(±×·¡¾ß ÀÚ¸´¼ö °è»êÀÌ ÆíÇÏ´Ù)  
+	//ë‚®ì€ ìžë¦¿ìˆ˜ì—ì„œ ë†’ì€ ìžë¦¿ìˆ˜ ìˆœìœ¼ë¡œ ê°’ì„ ë§Œë“ ë‹¤(ê·¸ëž˜ì•¼ ìžë¦¿ìˆ˜ ê³„ì‚°ì´ íŽ¸í•˜ë‹¤)  
 	for(var i = array.length - 1, unitCnt = 0; i >= 0; i--, unitCnt++) {  
-		var hanValue = _makeHan(array[i]);	//ÇÑ±Û·Î º¯È¯µÈ ¼ýÀÚ   
-		if(hanValue == '')  //°ªÀÌ ¾øÀ»¶© ÇØ´ç ´ÜÀ§ÀÇ °ªÀÌ ¸ðµÎ 0ÀÌ¶õ ¶æ.       
+		var hanValue = _makeHan(array[i]);	//í•œê¸€ë¡œ ë³€í™˜ëœ ìˆ«ìž   
+		if(hanValue == '')  //ê°’ì´ ì—†ì„ë• í•´ë‹¹ ë‹¨ìœ„ì˜ ê°’ì´ ëª¨ë‘ 0ì´ëž€ ëœ».       
 		continue;
 		
-		result.unshift(hanValue + unit[unitCnt]);  //unshift´Â Ç×»ó ¹è¿­ÀÇ ¾Õ¿¡ ³Ö´Â´Ù.  
+		result.unshift(hanValue + unit[unitCnt]);  //unshiftëŠ” í•­ìƒ ë°°ì—´ì˜ ì•žì— ë„£ëŠ”ë‹¤.  
 	}  
 	
-		//¿©±â·Î µé¾î¿À´Â °ªÀº ¹«Á¶°Ç ³×ÀÚ¸®ÀÌ´Ù. 1234 -> ÀÏÃµÀÌ¹é»ï½Ê»ç  
+		//ì—¬ê¸°ë¡œ ë“¤ì–´ì˜¤ëŠ” ê°’ì€ ë¬´ì¡°ê±´ ë„¤ìžë¦¬ì´ë‹¤. 1234 -> ì¼ì²œì´ë°±ì‚¼ì‹­ì‚¬  
 		function _makeHan(text) {    
 			var str = '';    
 			for(var i = 0; i < text.length; i++) {      
 				var num = text[i];      
-				if(num == '0')  //0Àº ÀÐÁö ¾Ê´Â´Ù        
+				if(num == '0')  //0ì€ ì½ì§€ ì•ŠëŠ”ë‹¤        
 				continue;  
 				
 				str += number[num] + smallUnit[i];    
@@ -223,9 +265,13 @@ function num2han(num) {
 		}
 		
 		
-
+console.log("--------------")
 console.log(cliName)
-console.log("zzz")
+console.log(clientAddress)
+console.log(clientRefAddress)
+console.log(clientDetailAddress)
+
+console.log(toPrice)
 });
 
 

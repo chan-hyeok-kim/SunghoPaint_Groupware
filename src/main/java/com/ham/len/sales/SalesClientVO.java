@@ -30,4 +30,6 @@ public class SalesClientVO extends CodeVO {
 	private String clientBank;
 	private String clientAccountNo;
 	private String clientBankName;
+	
+	private String name;
 }

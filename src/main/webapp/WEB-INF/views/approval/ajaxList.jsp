@@ -29,8 +29,15 @@
 				             <td>${vo.approvalTitle}</td>
 				             <td>${vo.drafter}</td>
 				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
-				             <td>${vo.apCodeName}</td>
-				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
+				             <td>
+				               <c:choose>
+									<c:when test="${vo.apCodeName eq '진행중'}"><label class="badge badge-gradient-info">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '반려'}"><label class="badge badge-gradient-danger">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '승인 완료'}"><label class="badge badge-gradient-success">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '기안중'}"><label class="badge badge-gradient-primary">${vo.apCodeName}</label></c:when>
+									</c:choose>
+				             </td>
+				             <td><a href="/approval/${vo.approvalStatusCd eq 'R031'? 'update': 'detail' }?approvalNo=${vo.approvalNo}" class="detail-proceed-btn">기안서 확인</a></td>
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -38,22 +45,22 @@
 				    </table>
 				  </div>
 				  
-				   <!-- pagination -->
-				  <div style="text-align: center; margin: 20px 20px">
+				  <!-- pagination -->
+				  <div style="text-align: center; margin: 20px 20px;">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
   <ul class="pagination">
     <li class="page-item ${pager.pre?'':'disabled'}">
-      <a class="page-link" href="/approval/list?page=${startNum-1}" aria-label="Previous">
+      <a class="page-link" href="/approval/ajaxList?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
         <i class="mdi mdi-arrow-left-drop-circle"></i>
       </a>
     </li>
     
     <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-    <li class="page-item"><a class="page-link" href="/approval/list?page=${i}">${i}</a></li>
+    <li class="page-item"><a class="page-link" href="/approval/ajaxList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
     </c:forEach>
     
     <li class="page-item ${pager.next?'':'disabled'}">
-      <a class="page-link" href="/approval/list?page=${lastNum+1}" aria-label="Next">
+      <a class="page-link" href="/approval/ajaxList?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}" aria-label="Next">
         <i class="mdi mdi-arrow-right-drop-circle"></i>
       </a>
     </li>
@@ -67,7 +74,9 @@
 				</div>
 
   </div>
+ 
   <!-- 기안일자 변환 -->
   <!-- <script src="/js/approval/approval-date.js"></script> -->
+  
 </body>
 </html>

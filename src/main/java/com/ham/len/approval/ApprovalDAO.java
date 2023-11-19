@@ -18,11 +18,11 @@ public interface ApprovalDAO {
 	
 	public List<ApprovalVO> getMyList(Map<String, Object> map) throws Exception;
 	
-	public Long getMyTotal(HumanResourceVO humanResourceVO) throws Exception;
+	public Long getMyTotal(Map<String, Object> map) throws Exception;
 	
 	public List<ApprovalVO> getStatusList(Map<String, Object> map) throws Exception;
 	
-	public Long getStatusTotal(ApprovalVO approvalVO) throws Exception;
+	public Long getStatusTotal(Map<String, Object> map) throws Exception;
 	
 	public List<ApprovalVO> getStatusAdminList(Map<String, Object> map) throws Exception;
 	
@@ -52,5 +52,5 @@ public interface ApprovalDAO {
 	
 	public ApprovalVO getMySignTime(ApprovalVO approvalVO) throws Exception;
 
-    
+    public List<HumanResourceVO> getSearch(Pager pager) throws Exception;
 }

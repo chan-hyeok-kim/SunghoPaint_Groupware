@@ -6,7 +6,7 @@ var zTreeObj;
 // zTree configuration information, refer to API documentation (setting details)
 
 
-
+var zNodes;
 
 /**
  * 문서 상위분류 리스트 뿌려주기
@@ -17,23 +17,27 @@ var upArr = new Array();
 
 let x = new Array();
 let z = new Array();
+i=0;
+$.ajax({
+	type:'GET',
+	url:'/document/ajaxFullList',
+	success:function(response){
+		console.log(response);
 
-$('.get-up-code-name').each(function(i, item) {
+for(res of response){
 
-	upCodeName = $(this).attr('data-up-code-name');
-	codeName = $(this).attr('data-code-name');
-	cd = $(this).attr('data-up-type-cd');
-	num = $(this).attr('data-no')
-	no = $(this).attr('data-up-up-no');
-	refNo = $(this).attr('data-up-no');
-	approvalForm = $(this).html();
-
-
-
-
+	upCodeName = res.upCodeName;
+	codeName = res.codeName;
+	cd = res.cd;
+	num = res.num;
+	no = res.no;
+	refNo = res.refNo;
+	approvalForm = res.approvalForm;
+    icon=res.icon;
+    
 	//첫번째 자식
 	let r = [];
-	i = i + 1;
+	i++;
 
 
 	r.name = upCodeName;
@@ -88,7 +92,7 @@ $('.get-up-code-name').each(function(i, item) {
 		y.refNo = refNo;
 		y.upCd = upCodeName;
 		y.form = approvalForm;
-
+        y.icon = icon;
 
 
 		if (!unique.includes(y.pId)) {
@@ -104,12 +108,24 @@ $('.get-up-code-name').each(function(i, item) {
 			/*unique.pop();
 			y.pId=unique.at(-1);*/
 		}
-
-
+          
+        if(!y.name){
+           continue;
+		}
 
 		upArr.push(y)
+		
+		zNodes=upArr
+
+		$(document).ready(function() {
+			zTreeObj = $.fn.zTree.init($("#document-tree"), setting, zNodes);
+		
+		})
 	}
-})
+}
+}
+
+});
 
 /*const result=upArr.reduce((acc, v) => {
 	return acc.find(x => x.name === v.name) ? acc : [...acc, v];
@@ -121,11 +137,14 @@ upArr=result;
 
 
 x.name = '성호페인트 문서함';
-x.id = '0';
+x.id = 0;
 x.pId = 'root';
 x.open = 'true';
+x.iconOpen='/css/zTreeStyle/img/diy/1_open.png';
+x.iconClose='/css/zTreeStyle/img/diy/1_close.png';
+			
 upArr.push(x);
-
+console.log(upArr)
 /** 트리 설정
  * 
 */
@@ -277,15 +296,12 @@ function upDocumentCheck(event, treeId, treeNode) {
 
 
 
-var zNodes = upArr;
+
 //[{name:"성호페인트 문서함", id: '0'}]
 
 
 
-$(document).ready(function() {
-	zTreeObj = $.fn.zTree.init($("#document-tree"), setting, zNodes);
 
-})
 
 
 

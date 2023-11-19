@@ -1,5 +1,6 @@
 package com.ham.len.admin.document;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import com.ham.len.commons.CodeVO;
 import com.ham.len.approval.ApprovalService;
 
 import com.ham.len.commons.Pager;
+import com.ham.len.commons.ZtreeVO;
 import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +60,34 @@ public class ApprovalTypeController {
 		
 		
 	}
+	
+	@GetMapping("ajaxFullList")
+	@ResponseBody
+	public List<ZtreeVO> getList(Pager pager) throws Exception{
+		
+		List<ApprovalTypeVO> total=approvalTypeService.getTotalList(pager);
+		
+		log.warn("======={}========",total);
+		List<ZtreeVO> zl=new ArrayList<>();
+		for(ApprovalTypeVO t : total) {
+			ZtreeVO ztreeVO=new ZtreeVO();
+			
+			ztreeVO.setUpCodeName(t.getApprovalUpTypeVO().getCodeName());
+			ztreeVO.setCodeName(t.getCodeName());
+			ztreeVO.setCd(t.getApprovalUpTypeVO().getApprovalUpTypeCd());
+			ztreeVO.setNum(t.getApprovalTypeNo());
+			ztreeVO.setNo(t.getApprovalUpTypeVO().getApprovalUpTypeNo());
+			ztreeVO.setRefNo(t.getApprovalUpTypeNo());
+			ztreeVO.setApprovalForm(t.getApprovalForm());
+			ztreeVO.setIcon("/css/zTreeStyle/img/diy/2.png");
+			
+			zl.add(ztreeVO);
+		}
+		
+		return zl;
+	}
+	
+	
 	
 	@GetMapping("upList")
 	@ResponseBody
@@ -181,10 +211,12 @@ public class ApprovalTypeController {
     	
     	String code=approvalTypeVO.getApprovalTypeCd();
     	approvalTypeVO.setCode(code);
+    	approvalTypeVO.setOriginCode(code);
     	approvalTypeVO.setUpCode(code.substring(0,3));
     	
     	log.warn("*******{}**********",approvalTypeVO);
     	int result=approvalTypeService.setUpdate(approvalTypeVO);
+    	log.warn("코드네임{}",approvalTypeVO.getCodeName());
     	result=codeService.setUpdate(approvalTypeVO);
     	
     	return "redirect:/document/list";
@@ -214,5 +246,9 @@ public class ApprovalTypeController {
     	return "commons/ajaxResult";
     	
     }
+    
+   
+    
+    
 	
 }

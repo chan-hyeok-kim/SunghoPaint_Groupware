@@ -61,8 +61,8 @@ public class HumanResourceController {
 	}
 	
 	@GetMapping("/humanresource/detail")
-	public String getDetail(String employeeID, Model model) {
-		model.addAttribute("humanResourceVO", humanResourceService.getHumanResource(employeeID));
+	public String getDetail(@AuthenticationPrincipal HumanResourceVO humanResourceVO, Model model) {
+		model.addAttribute("humanResourceVO", humanResourceService.getHumanResource(humanResourceVO.getEmployeeID()));
 		model.addAttribute("isDetail", true);
 		return "humanresource/registration";
 	}

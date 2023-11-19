@@ -2,16 +2,16 @@
 
 /* 사이드바 너비의 80%만큼 왼쪽으로 이동 */
 .toggle-slide-List {
-  border-radius: 20px;
+  border-radius: 3px;
   transform: translate(calc(392.75px * +0.8), 0);  /* X축 이동, Y축 고정 */
   transition: .5s;
   width: 392.75px;
   position:fixed;
   right:-80px;
-  top:74px;
-  z-index:10;
+  top:69px;
+  z-index:1030;
   border:1px solid #EEF1F6;
-  
+  box-shadow: 0px 3px 21px 0px rgba(0, 0, 0, 0.2);;
 }
 
 /* .toggle-slide-List .card,.card-bdy{

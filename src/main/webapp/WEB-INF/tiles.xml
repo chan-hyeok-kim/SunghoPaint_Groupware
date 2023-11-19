@@ -34,8 +34,15 @@
 		<put-attribute name="body" value="/WEB-INF/views/humanresource/list.jsp"/>
    </definition>
    
-   <definition name="attendance/status" extends="layout">
-		<put-attribute name="body" value="/WEB-INF/views/attendance/status.jsp"/>
+   <definition name="attendance/myStatus" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/attendance/myStatus.jsp"/>
+   </definition>
+   
+   <definition name="attendance/myStatus(newWindow)" template="/WEB-INF/views/attendance/myStatus.jsp">
+   </definition>
+   
+   <definition name="attendance/list" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/attendance/list.jsp"/>
    </definition>
    
    <definition name="transfer/registration" extends="layout">
@@ -54,16 +61,16 @@
 		<put-attribute name="body" value="/WEB-INF/views/annual/status.jsp"/>
    </definition>
    
+   <definition name="annual/myAnnual" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/annual/myAnnual.jsp"/>
+   </definition>
+   
    
    
    
   <!-- 김찬혁 -->
   <definition name="approval/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
-	</definition>
-
-	<definition name="approval/listEx" extends="layout">
-	  <put-attribute name="body" value="/WEB-INF/views/approval/listEx.jsp"/>
 	</definition>
 	
 	<definition name="approval/totalList" extends="layout">
@@ -118,6 +125,10 @@
 	  <put-attribute name="body" value="/WEB-INF/views/notice/detail.jsp"/>
 	</definition>
 	
+	<definition name="errors/notFound" extends="layout">
+        <put-attribute name="body" value="/WEB-INF/views/errors/notFound.jsp"/>
+    </definition>
+	
     <definition name="commons/ajaxResult" template="/WEB-INF/views/commons/ajaxResult.jsp">
 	</definition>
 	
@@ -126,7 +137,8 @@
 	
 	<definition name="todolist" template="/WEB-INF/views/layout/todolist.jsp">
 	</definition>
-	
+
+   
 	<!-- 장재혁 -->
 	
 	<!-- 발주서 관련 -->

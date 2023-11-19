@@ -29,4 +29,6 @@ public class SalesPurchaseVO extends CodeVO {
 	private String clientRefAddress;
 	private String clientDetailAddress;
 	private String clientNumber;
+	
+	private String clientManager;
 }

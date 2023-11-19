@@ -1,0 +1,3 @@
+function movePeriod(){
+	$("#movePeriod").submit();
+}

@@ -121,77 +121,86 @@ span.center{
 
 
 /* 동적으로 움직이는 카드바디 */
-  #my-app-list {
-    transform: translateX(-150%);  /* X축 이동, Y축 고정 */
+   #my-app-list {
+    transform: translateY(0%);   
     transition: .5s;
-    width: 916.41px; 
-    position:absolute;
-    left:15%;
-    top:26%;
-    z-index:10;
+    /* width: 916.41px;  */
+    /* position:absolute; */
+
   }
 
   #my-app-list.active {
-    transform: translateX(0); 
+     transform: translateY(-107.5%); 
+     transition: .5s;
+    /* position:absolute; 
+    left:15%;
+    top:26%; */
   }
 
   #material-product-amount.active{
     transition: .5s;
-    transform: translateX(-150%);
+    transform: translateY(107.5%);
   }
   
   #material-product-amount{
     transition: .5s;
-    transform: translateX(0%);
+    transform: translate(0,0);
   }
   
+  #material-product-amount.green{
+    transition: .5s;
+    transform: translate(100%,107.5%);
+  }
+
   
 
+ 
 
-
-
-
+ 
   #app-list {
-    transform: translateX(-150%);  /* X축 이동, Y축 고정 */
+    transform: translate(0,0);  
     transition: .5s;
-    width: 916.41px;  
-    position:absolute;
-    left:15%;
-    top:26%;
-    z-index:10;
+  
   }
 
   #app-list.active {
-    transform: translateX(0); 
+    transition: .5s;
+    transform: translate(-100%,-107.5%);
   }
 
 
+
+  #material-product-amount.blue{
+    transition: 0.75s;
+    transform: translateY(215.5%);
+  }
+
   #message-list {
-    transform: translateX(-150%);  /* X축 이동, Y축 고정 */
-    transition: .5s;
-    width: 916.41px; 
-    position:absolute;
-    left:15%;
-    top:26%;
-    z-index:10;
+    transform: translateY(0%);   
+    transition: 0.75s;
   }
 
   #message-list.active {
-    transform: translateX(0); 
+    transform: translateY(-215.5%); 
+    transition: 0.75s;
   }
 
 
-  
+   #material-product-amount.red{
+    transition: 0.75s;
+    transform: translate(100%,215.5%);
+  }
   #notice-list {
-    transform: translateX(-150%);  /* X축 이동, Y축 고정 */
-    transition: .5s;
-    width: 916.41px; 
-    position:absolute;
-    left:15%;
-    top:26%;
-    z-index:10;
+    transform: translate(0,0);  
+    transition: 0.75s;
+   
   }
 
   #notice-list.active {
-    transform: translateX(0); 
-  }
+    transform: translate(-100%,-215.5%); 
+    transition: 0.75s;
+  }  
+ 
+
+
+

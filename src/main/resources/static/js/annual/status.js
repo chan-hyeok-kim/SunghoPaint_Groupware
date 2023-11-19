@@ -83,6 +83,17 @@ $(function(){
 			annual.totalAnnualLeave = total;
 			annual.haveAnnualLeave = have;
 			
+			
+			let annualLeaveOccurredHistorys = new Array();
+			let annualLeaveOccurredHistory = new Object();
+			annualLeaveOccurredHistory.employeeID = employeeID;
+			annualLeaveOccurredHistory.occurredType = ($("#setAnnual option:selected").val() == "sub") ? 1 : 0;
+			annualLeaveOccurredHistory.occurredCount = Math.abs(annualCount);
+			annualLeaveOccurredHistory.description = $("#setAnnual textarea").val();
+			
+			annualLeaveOccurredHistorys.push(annualLeaveOccurredHistory);
+			annual.annualLeaveOccurredHistorys = annualLeaveOccurredHistorys;
+			
 			annuals.push(annual);
 		});
 		

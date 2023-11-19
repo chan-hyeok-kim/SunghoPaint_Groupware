@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
 					<th scope="row">작성자</th>
 					<td>${vo.humanResourceVO.name}</td>
 					<th scope="row">작성일</th>
-					<td>${vo.regDate}</td>
+					<td class="notice-reg-date">${vo.regDate}</td>
 				</tr>
 				<tr>
 					<th scope="row">조회수</th>
@@ -34,17 +35,30 @@
 				<tr>
 					
 					<td colspan="4">
+					${vo.noticeContents}</td>
+					
+				</tr>
+				<tr>
+				<th>파일첨부</th>
+				<td colspan="3">
 					 <c:forEach items="${vo.attachmentVOs}" var="f">
 					    <img alt="" src="../files/${f.fileName}">
 					    <a href="./fileDown?fileNo=${f.fileNo}">${f.originalName}</a>
 					</c:forEach> 
-					${vo.noticeContents}</td>
+					</td>
 				</tr>
 			</tbody>
 			</table>   
-			<a href="./update?noticeNo=${vo.noticeNo}" class="btn btn-info">수정</a>
+			<sec:authorize access="hasRole('ADMIN')"> 
+			<div style="display: flex; justify-content: flex-end">
+			<a style="margin: 20px 0 0 20px;" href="./update?noticeNo=${vo.noticeNo}" class="btn btn-info">수정</a>
+			<a style="margin: 20px 0 0 20px;" href="./deleteOne?noticeNo=${vo.noticeNo}" class="btn btn-info">삭제</a>
+			</div>
+			 </sec:authorize>
 			</div>
 			</div> 
+			
+			<script src="/js/approval/approval-date.js"></script>
 			
 </body>
 </html>

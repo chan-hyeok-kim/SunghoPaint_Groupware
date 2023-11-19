@@ -65,7 +65,7 @@ public class SecurityConfig {
 				*/
 				.antMatchers("/humanresource/checkEmployeeID").permitAll()
 				.antMatchers("/humanresource/findPw").permitAll()
-				.antMatchers("/humanresource/updatePassword").authenticated()
+				.antMatchers("/humanresource/updatePassword").permitAll()
 				// .antMatchers("/attendance/**").hasAnyRole("ADMIN")
 				.antMatchers("/**").hasAnyRole("USER")
 				.and()
@@ -89,6 +89,7 @@ public class SecurityConfig {
 				.tokenValiditySeconds(604800) // 일주일
 				.key(UUID.randomUUID().toString())
 				.userDetailsService(humanResourceService)
+				.useSecureCookie(false) // true : 쿠키는 HTTPS를 통해서만 전송되어야 함, false : HTTP에서도 전송될 수 있음 
 				.and()
 			.headers()
 			    .frameOptions()

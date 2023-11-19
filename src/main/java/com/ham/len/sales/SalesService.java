@@ -120,4 +120,24 @@ public class SalesService {
 	public int setCarListUpdateAvailable(CarListVO carListVO) throws Exception{
 		return salesDAO.setCarListUpdateAvailable(carListVO);
 	}
+	
+	public List<HumanResourceVO> getManagerList() throws Exception{
+		return salesDAO.getManagerList();
+	}
+	
+	public List<HumanResourceVO> getManagerPhone() throws Exception{
+		return salesDAO.getManagerPhone();
+	}
+	
+	public int setAddAnnual(AnnualAddVO annualAddVO) throws Exception{
+		return salesDAO.setAddAnnual(annualAddVO);
+	}
+	
+	public List<AnnualAddVO> getAnnualList(AnnualAddVO annualAddVO) throws Exception{
+		return salesDAO.getAnnualList(annualAddVO);
+	}
+	
+	public List<AnnualAddVO> getTeamAnnualList(AnnualAddVO annualAddVO) throws Exception{
+		return salesDAO.getTeamAnnualList(annualAddVO);
+	}
 }

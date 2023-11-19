@@ -206,7 +206,7 @@ ul.nav-tabs {
 						             <td>${vo.clientRepresent}</td>
 						             <td>${vo.clientNumber}</td>
 						             <td>${vo.clientAddress}</td>
-						             <td>${vo.employeeId}</td>
+						             <td>${vo.name} ${vo.codeName}</td>
 						             <td>${vo.clientDate}</td>
 						           </tr>
 						         </c:forEach>
@@ -293,14 +293,21 @@ ul.nav-tabs {
                         
                         <div class="col-md-6">
                         <label for="taskId" class="col-form-label">거래처 담당자</label><br>
-                        <input type="text" class="form-control" id="client_manager" name="clientManager">
+                        
+                        <select class="form-select form-select-sm" aria-label="Small select example" id="client_manager" name="clientManager">
+						  <option selected>항목을 선택하세요</option>
+						  <c:forEach items="${getManager}" var="car">
+					        <option value="${car.name}">${car.name} ${car.codeName}</option>
+					    </c:forEach>
+						</select>
+						
                         </div>
                     </div>
                     
                     <div class="row">
                     	<div class="col-md-6">
 	                    	<label for="taskId" class="col-form-label">담당자 연락처</label><br>
-	                        <input type="tel" class="form-control" id="client_phone" name="clientPhone">
+	                        <input type="tel" class="form-control" id="client_phone" name="clientPhone" readonly>
                         </div>
                         
                         <div class="col-md-6">
@@ -329,7 +336,7 @@ ul.nav-tabs {
 							<input type="text" class="form-control" id="sample6_extraAddress" name="clientRefAddress" placeholder="참고항목">
                         
                         <input type="hidden" id="clientDate" name="clientDate" value="" >
-                    
+                    	<input type="hidden" id="name" name="employeeId" value="${empId}" >
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-warning" id="addClient">추가</button>
@@ -396,6 +403,58 @@ var formattedDate = currentDate.toISOString().slice(0, 10); // "2023-11-07"
 
 document.getElementById('clientDate').value = formattedDate;
 
+
+const arr = new Array();
+
+
+$(document).ready(function() {
+    // 담당자 선택 시
+    $('#client_manager').change(function() {
+        // 선택된 담당자의 연락처 찾기
+        let selectedManager = $(this).val();
+        let managerInfo = findManagerInfo(selectedManager);
+
+        // 연락처 입력란에 값 채우기
+        $('#client_phone').val(managerInfo.phone);
+    });
+
+    // 담당자 정보 배열
+    let arr = [];
+    
+    
+$.ajax({
+	  type: "GET", 
+	  url: "/sales/getManagerPhone",
+	  async: false,
+	  success: function (res) {
+	    for (const key in res) {
+	      let obj = new Object();
+	      
+	      obj.id = res[key].employeeID;
+	      obj.name = res[key].name;
+	      obj.phone = res[key].phone;
+	      
+	      arr.push(obj);
+	    }
+	    console.log(arr);
+	    console.log(arr[0].phone)
+	
+	  },
+	  error: function (XMLHttpRequest, textStatus, errorThrown) {
+	    console.log('error')
+	  },
+	});
+	
+//담당자 정보 찾기 함수
+function findManagerInfo(managerName) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].name === managerName) {
+            return arr[i];
+        }
+    }
+    return null; // 해당하는 담당자가 없으면 null 반환
+}
+});
     </script>
 </body>
 </html>

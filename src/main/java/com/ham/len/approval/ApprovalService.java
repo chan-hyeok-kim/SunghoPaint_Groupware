@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.ham.len.admin.document.ApprovalTypeVO;
+import com.ham.len.commons.CodeVO;
 import com.ham.len.commons.Pager;
+import com.ham.len.commons.ZtreeVO;
 import com.ham.len.humanresource.HumanResourceVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,15 +37,15 @@ public class ApprovalService {
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		log.warn("******{}*****",humanResourceVO);
 		
-		pager.makeRowNum();
-		Long total=approvalDAO.getMyTotal(humanResourceVO);
-		pager.makePageNum(total);
 		
-		log.warn("몇개나오는데{}",total);
 		
 		Map<String, Object> map=new HashMap<>();
 		map.put("vo", humanResourceVO);
 		map.put("pager", pager);
+		
+		pager.makeRowNum();
+		Long total=approvalDAO.getMyTotal(map);
+		pager.makePageNum(total);
 		
 		return approvalDAO.getMyList(map);
 	}
@@ -51,15 +53,16 @@ public class ApprovalService {
 	public List<ApprovalVO> getStatusList(ApprovalVO approvalVO, Pager pager,HumanResourceVO humanResourceVO) throws Exception{
 		approvalVO.setEmployeeID(humanResourceVO.getEmployeeID());
 		
-		pager.makeRowNum();
-		Long total=approvalDAO.getStatusTotal(approvalVO);
-		pager.makePageNum(total);
-		log.warn("몇개나오는데{}",approvalVO);
-		log.warn("몇개나오는데{}",total);
+	
 		
 		HashMap<String, Object> map=new HashMap();
 		map.put("pager",pager);
 		map.put("vo", approvalVO);
+		
+		pager.makeRowNum();
+		Long total=approvalDAO.getStatusTotal(map);
+		pager.makePageNum(total);
+		
 		return approvalDAO.getStatusList(map);
 	}
 	
@@ -125,6 +128,12 @@ public class ApprovalService {
 	
 	public ApprovalVO getMySignTime(ApprovalVO approvalVO) throws Exception{
 		return approvalDAO.getMySignTime(approvalVO);
+	}
+	
+	public List<HumanResourceVO> getSearch(Pager pager) throws Exception{
+		return approvalDAO.getSearch(pager);
+		
+		
 	}
 	
 	

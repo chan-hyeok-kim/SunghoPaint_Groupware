@@ -3,8 +3,6 @@ package com.ham.len.main;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ham.len.admin.notice.NoticeService;
+import com.ham.len.admin.notice.NoticeVO;
 import com.ham.len.approval.ApprovalService;
 import com.ham.len.approval.ApprovalVO;
+import com.ham.len.attendance.AttendanceService;
 import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.humanresource.todolist.ToDoListVO;
@@ -35,13 +36,20 @@ public class IndexController {
 	@Autowired
 	private ApprovalService approvalService;
 	
+	@Autowired
+	private NoticeService noticeService;
+	
+	
 	@GetMapping("/")
 	public String getIndex(Model model,Pager pager,@AuthenticationPrincipal HumanResourceVO humanResourceVO)throws Exception{
 		
 		List<MaterialProductVO> ml=mainService.getMaterial("제품");
+		List<NotificationVO> nl=mainService.getAlarmList(humanResourceVO.getEmployeeID());
+		List<NoticeVO> noticeList=noticeService.getList(pager);
 		
 		model.addAttribute("materList", ml);
-		
+		model.addAttribute("alarmList", nl);
+		model.addAttribute("noticeList", noticeList);
 		
 //		결재 리스트 세팅
 		List<ApprovalVO> al=approvalService.getMyList(pager);
@@ -80,7 +88,7 @@ public class IndexController {
 	@GetMapping("/home/getMaterial")
 	@ResponseBody
 	public List<MaterialProductVO> getMaterial() throws Exception{
-		List<MaterialProductVO> ml2=mainService.getMaterial("원료");
+		List<MaterialProductVO> ml2=mainService.getMaterial("제품");
 		
 		return ml2;
 	}
@@ -135,8 +143,34 @@ public class IndexController {
 	
 	@RequestMapping("/setAlarm")
 	@ResponseBody
-	public List<NotificationVO> getAlarmList(String id) throws Exception{
-		return mainService.getAlarmList(id);
+	public List<NotificationVO> getAlarmList(@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception{
+		return mainService.getAlarmList(humanResourceVO.getEmployeeID());
 	}
+	
+	@GetMapping("/alarm/update")
+	public String setAlarmUpdate(NotificationVO notificationVO,Model model) throws Exception{
+		int result=mainService.setAlarmUpdate(notificationVO);
+		
+		model.addAttribute("result", result);
+		return "commons/ajaxResult";
+	}
+	
+	@GetMapping("/message/refresh")
+	public String getAjaxAlarmList(@AuthenticationPrincipal HumanResourceVO humanResourceVO,Model model) throws Exception{
+		List<NotificationVO> nl=mainService.getAjaxAlarmList(humanResourceVO.getEmployeeID());
+		model.addAttribute("list", nl);
+		
+		return "commons/message";
+	}
+	
+	@GetMapping("/notice/refresh")
+	public String getAjaxNoticeList(Pager pager,Model model) throws Exception{
+		List<NoticeVO> nl=noticeService.getList(pager);
+		model.addAttribute("list", nl);
+		
+		return "notice/ajaxList";
+	}
+	
+	
 	
 }

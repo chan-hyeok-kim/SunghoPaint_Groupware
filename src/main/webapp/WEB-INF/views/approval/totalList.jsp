@@ -42,7 +42,7 @@
 
 					<ul class="nav-tabs total-list-tabs">
 						<li onclick="location.href='./totalList'" class="active"><a class="link-tab">전체</a></li>
-						<li data-cd="R031"><a class="link-tab">기안중</a></li>
+						<!-- <li data-cd="R031"><a class="link-tab">기안중</a></li> -->
 						<li data-cd="R032"><a class="link-tab">진행중</a></li>
 						<li data-cd="R034"><a class="link-tab">반려</a></li>
 						<li data-cd="R033"><a class="link-tab">승인 완료</a></li>
@@ -86,16 +86,16 @@
 				             <td>${vo.approvalTitle}</td>
 				             <td>${vo.drafter}</td>
 				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
-				             <td>${vo.apCodeName}</td>
+				             <td>
 				             <c:choose>
-				             <c:when test="${vo.approvalStatusCd eq 'R031'}">
-				             <td><a href="/approval/update?approvalNo=${vo.approvalNo}" class="detail-proceed-btn">기안서 확인</a></td>
-				             </c:when>
-				             <c:otherwise>
+									<c:when test="${vo.apCodeName eq '진행중'}"><label class="badge badge-gradient-info">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '반려'}"><label class="badge badge-gradient-danger">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '승인 완료'}"><label class="badge badge-gradient-success">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '기안중'}"><label class="badge badge-gradient-primary">${vo.apCodeName}</label></c:when>
+									</c:choose>
+				             </td>
+				            
 				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}" class="detail-proceed-btn">기안서 확인</a></td>
-				             </c:otherwise>
-				             </c:choose>
-				             
 				             
 				           </tr>
 				         </c:forEach>
@@ -130,7 +130,7 @@
 
   <!-- Button List  -->
 				  <div style="float: right;">
-				  <button class="btn btn-info" onclick="location.href='/approval/add'">새 결재 진행</button>
+				  <button class="btn btn-info" id="add-proceed-btn" onclick="location.href='/approval/add'">새 결재 진행</button>
 				 
 				</div>
 			
@@ -315,6 +315,8 @@
 	
 	<script src="/js/commons/list-date.js"></script>
 	<script src="/js/approval/list-move.js"></script>
+	<script src="/js/approval/ajax-search.js"></script>
+	
 	<!-- 기안일자 변환 -->
 	<script src="/js/approval/approval-date.js"></script>
 	

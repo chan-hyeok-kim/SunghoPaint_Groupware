@@ -18,6 +18,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ham.len.humanresource.HumanResourceVO;
 
 import ch.qos.logback.classic.Logger;
@@ -53,39 +55,34 @@ public class EchoHandler extends TextWebSocketHandler{
 		}
 	}
 	
-//	public void notifyClient(String messageContent, WebSocketSession targetSession) throws Exception {
-//		List<NotificationVO> notifications = mainService.getAlarmList(targetSession.getAttributes().get("user_id").toString());
-//        for (NotificationVO alarm : notifications) {
-//            String contents = alarm.getNotificationContents();
-//            String title = alarm.getNotificationTitle();
-//            TextMessage sendMsg = new TextMessage("("+title+")" + contents);
-//            targetSession.sendMessage(sendMsg);
-//        }
-//	}
+
 	// 클라이언트가 Data 전송 시
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		
 	
-		log.warn("{}",session.getPrincipal());
 		Authentication authentication=(Authentication)session.getPrincipal();
 		
 		if(authentication==null) {
-			log.warn("{}",authentication);
 			return;
 		}
 		
 		String msg=message.getPayload();
+		if (msg == null || msg.length()==0) {
+	        return;
+	    }
+		 
+		  
 		if(msg!=null) {
 		   String[] strs=msg.split(",");
 		   
-		   if(strs!=null && strs.length==3) {
+		   if(strs!=null && strs.length==4) {
 			   String title=strs[0];
 			   String contents=strs[1];
 			   String time=strs[2];
+			   String no=strs[3];
 			   
-			   log.warn("메시지 받는지 확인");
-			   TextMessage sendMsg = new TextMessage(title+":"+contents);
+			   TextMessage sendMsg = new TextMessage(title+":"+contents+":"+no);
 	           session.sendMessage(sendMsg);
 		   }
 		}

@@ -1,6 +1,7 @@
 package com.ham.len.approval;
 
 import java.io.Console;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ham.len.admin.document.ApprovalTypeService;
 import com.ham.len.admin.document.ApprovalTypeVO;
 import com.ham.len.admin.document.ApprovalUpTypeVO;
-
+import com.ham.len.commons.CodeVO;
 import com.ham.len.commons.Pager;
+import com.ham.len.commons.ZtreeVO;
+import com.ham.len.humanresource.HumanResourceService;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.humanresource.RoleVO;
 import com.ham.len.humanresource.sign.SignatureService;
@@ -46,6 +49,9 @@ public class ApprovalController {
 	private ApprovalTypeService approvalTypeService;
 
 	@Autowired
+	private HumanResourceService humanResourceService;
+	
+	@Autowired
 	private SignatureService signatureService;
 
 	@Autowired
@@ -58,15 +64,15 @@ public class ApprovalController {
 	public String getList(Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
 		List<ApprovalVO> ar = approvalService.getMyList(pager);
 		
-		approvalService.getMyList(ar, model, humanResourceVO,pager);
+		//approvalService.getMyList(ar, model, humanResourceVO,pager);
 		
 		
         model.addAttribute("member", humanResourceVO);
-		log.warn("========{}========", ar);
-
+       
 		
-		
-		
+		 model.addAttribute("list", ar);
+		 log.warn("========{}========", ar);
+		 
 		return "approval/list";
 	}
     
@@ -82,9 +88,7 @@ public class ApprovalController {
 	public String getStatusList(ApprovalVO approvalVO,Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
         List<ApprovalVO> ar = approvalService.getStatusList(approvalVO,pager,humanResourceVO);
 		
-		approvalService.getMyList(ar, model, humanResourceVO,pager);
-		
-		
+        model.addAttribute("list", ar);
         model.addAttribute("member", humanResourceVO);
         
 		log.warn("========{}========", ar);
@@ -93,9 +97,11 @@ public class ApprovalController {
 	}
 
 	@GetMapping("totalList")
-	public void getTotalList(Pager pager, Model model) throws Exception {
+	public void getTotalList(Pager pager, Model model,@AuthenticationPrincipal HumanResourceVO humanResourceVO) throws Exception {
 		List<ApprovalVO> ar = approvalService.getList(pager);
 		model.addAttribute("list", ar);
+		model.addAttribute("member", humanResourceVO);
+	       
 
 		log.warn("========{}========", ar);
 
@@ -178,6 +184,15 @@ public class ApprovalController {
 		approvalVO = approvalService.getDetail(approvalVO);
 		List<ApprovalTypeVO> total = approvalTypeService.getTotalList(pager);
 
+		// 사인 값 들고오기
+				SecurityContext context = SecurityContextHolder.getContext();
+				if (!(context.getAuthentication().getPrincipal() instanceof String)) {
+					HumanResourceVO humanResourceVO = (HumanResourceVO) context.getAuthentication().getPrincipal();
+
+					humanResourceVO = signatureService.getDetail(humanResourceVO);
+					model.addAttribute("sign", humanResourceVO.getSignature());
+					model.addAttribute("member", humanResourceVO);
+				}
 		model.addAttribute("vo", approvalVO);
 		model.addAttribute("list", total);
 	}
@@ -320,6 +335,27 @@ public class ApprovalController {
 		return approvalVO;
 	}
 	
+	@GetMapping("search")
+    @ResponseBody
+	public List<ZtreeVO> getSearch(Pager pager) throws Exception{
+		 List<HumanResourceVO> hl=approvalService.getSearch(pager);
+		
+		 List<ZtreeVO> zl=new ArrayList<>();
+			for(HumanResourceVO h: hl) {
+				ZtreeVO ztreeVO=new ZtreeVO();
+				
+				ztreeVO.setName(h.getPositionCd()+' '+h.getName());
+			    ztreeVO.setDept(h.getDepartmentCd());
+				ztreeVO.setEmpId(h.getEmployeeID());
+                ztreeVO.setRank(h.getPositionCd());
+				ztreeVO.setIcon("/css/zTreeStyle/img/diy/emp.png");
+				
+				zl.add(ztreeVO);
+			}
+			
+			return zl;
+	}
 	
+
 	
 }

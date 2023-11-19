@@ -57,4 +57,14 @@ public interface SalesDAO {
 	public List<SalesPurchaseVO> getPurchaseList() throws Exception;
 	
 	public HumanResourceVO getPosition(HumanResourceVO humanResourceVO) throws Exception;
+	
+	public List<HumanResourceVO> getManagerList() throws Exception;
+	
+	public List<HumanResourceVO> getManagerPhone() throws Exception;
+	
+	public int setAddAnnual(AnnualAddVO annualAddVO) throws Exception;
+	
+	public List<AnnualAddVO> getAnnualList(AnnualAddVO annualAddVO) throws Exception;
+	
+	public List<AnnualAddVO> getTeamAnnualList(AnnualAddVO annualAddVO) throws Exception;
 }

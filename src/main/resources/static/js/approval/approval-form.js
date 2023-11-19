@@ -139,10 +139,21 @@ $('#app-add-btn').click(function(){
 	
 })
 
-
+saveCheck=[false];
 // 임시저장
 
 $('#app-save-btn').click(function(){ 
+
+    if(!$('input[name=approvalTypeNo]').val()){
+       swal('결재양식을 선택해야 저장이 가능합니다')
+	   saveCheck[0]=false;
+	   return;
+	}else{
+	   saveCheck[0]=true;
+	}
+
+    
+
 	const check1=$('input[name=approvalTitle]').val();
 	const check2=$('input[name=midApprover]').val();
     const check3=$('input[name=lastApprover]').val();
@@ -153,6 +164,10 @@ $('#app-save-btn').click(function(){
     const check6=$('input[name=addApprover]').val();
 
 	console.log(check1)
+
+	if(saveCheck.includes(false)){
+		return;
+	}
 	$.ajax({
 		type: 'POST',
 		url:'/approval/save',
@@ -171,7 +186,7 @@ $('#app-save-btn').click(function(){
 					text:'임시저장한 내용은 기안중 란에서 확인하실 수 있습니다.',
 					icon:'success'
 				}).then(function(){
-					location.href="/apporval/list";
+					location.href="/approval/list";
 				})
 			}
 		}

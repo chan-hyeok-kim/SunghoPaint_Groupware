@@ -8,18 +8,20 @@
 
 <sql id="searchNotice">
 <choose> 
-    <when test="kind=='writer'">EMPLOYEE_ID</when>
+    <when test="kind=='writer'">NAME</when>
     <when test="kind=='contents'">NOTICE_CONTENTS</when>
     <otherwise>NOTICE_TITLE</otherwise>
 </choose> 
-
 </sql>
 
   <select id="getList" parameterType="Pager" resultMap="getNoticeList">
-     SELECT *,FN_CODE_NM(LEFT(NOTICE_PRIORITY_CD,3),NOTICE_PRIORITY_CD) AS PRIOR_CD_NAME,
-     FN_CODE_NM(LEFT(NOTICE_CATEGORY_CD,3),NOTICE_CATEGORY_CD) AS CATEGORY_CD_NAME
+     SELECT *,FN_CODE_NM(LEFT(NOTICE_PRIORITY_CD,3),NOTICE_PRIORITY_CD) AS PRIOR_CD_NAME
      FROM NOTICE N INNER JOIN HUMAN_RESOURCE HR
        ON N.EMPLOYEE_ID=HR.EMPLOYEE_ID
+     WHERE <include refid="searchNotice"></include>
+     LIKE CONCAT('%',#{search},'%') 
+     ORDER BY NOTICE_NO DESC
+     LIMIT #{startRow},#{lastRow}
   </select>
   
   <resultMap type="NoticeVO" id="getNoticeList">
@@ -29,26 +31,31 @@
      <result column="NOTICE_CONTENTS" property="noticeContents"/>
      <result column="NOTICE_HIT" property="noticeHit"/>
      <result column="PRIOR_CD_NAME" property="priorCdName"/>
-     <result column="CATEGORY_CD_NAME" property="categoryCdName"/>
-     
+    
      <association property="humanResourceVO" javaType="HumanResourceVO">
      <result column="NAME" property="name"/>
      </association>
   
   </resultMap>
   
-  
-  
   <select id="getTotal" parameterType="Pager" resultType="Long">
-     SELECT *
-       FROM NOTICE
+     SELECT COUNT(*)
+       FROM NOTICE N INNER JOIN HUMAN_RESOURCE HR
+       ON N.EMPLOYEE_ID=HR.EMPLOYEE_ID
       WHERE <include refid="searchNotice"></include>
-      LIKE CONCAT('%','#{search}','%')
+     <!--  <choose>
+        <when test="search != null and search != ''"> -->
+            LIKE CONCAT('%', #{search}, '%')
+<!--         </when>
+        <otherwise></otherwise> 
+    </choose>-->
+      
   </select>
+  
+  
 
   <select id="getDetail" parameterType="NoticeVO" resultMap="getNoticeDetail">
-    SELECT *,FN_CODE_NM(LEFT(NOTICE_PRIORITY_CD,3),NOTICE_PRIORITY_CD) AS PRIOR_CD_NAME,
-     FN_CODE_NM(LEFT(NOTICE_CATEGORY_CD,3),NOTICE_CATEGORY_CD) AS CATEGORY_CD_NAME
+    SELECT *,FN_CODE_NM(LEFT(NOTICE_PRIORITY_CD,3),NOTICE_PRIORITY_CD) AS PRIOR_CD_NAME
      FROM NOTICE N INNER JOIN HUMAN_RESOURCE HR
        ON N.EMPLOYEE_ID=HR.EMPLOYEE_ID LEFT OUTER JOIN ATTACHMENT ATC 
        ON N.NOTICE_NO=ATC.NOTICE_NO 
@@ -62,8 +69,7 @@
      <result column="NOTICE_CONTENTS" property="noticeContents"/>
      <result column="NOTICE_HIT" property="noticeHit"/>
      <result column="PRIOR_CD_NAME" property="priorCdName"/>
-     <result column="CATEGORY_CD_NAME" property="categoryCdName"/>
-     
+    
      <association property="humanResourceVO" javaType="HumanResourceVO">
      <result column="NAME" property="name"/>
      </association>
@@ -78,19 +84,26 @@
   </resultMap>
   
   <insert id="setAdd" parameterType="NoticeVO" useGeneratedKeys="true" keyProperty="noticeNo">
-     INSERT INTO NOTICE(NOTICE_NO,EMPLOYEE_ID,NOTICE_TITLE,NOTICE_CONTENTS,NOTICE_HIT,NOTICE_PRIORITY_CD,NOTICE_CATEGORY_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
-     VALUES (#{noticeNo},#{employeeID},#{noticeTitle},#{noticeContents},0,#{noticePriorityCd},#{noticeCategoryCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu}) 
+     INSERT INTO NOTICE(NOTICE_NO,EMPLOYEE_ID,NOTICE_TITLE,NOTICE_CONTENTS,NOTICE_HIT,NOTICE_PRIORITY_CD,REG_ID,REG_DATE,REG_MENU,MOD_ID,MOD_DATE,MOD_MENU)
+     VALUES (#{noticeNo},#{employeeID},#{noticeTitle},#{noticeContents},0,#{noticePriorityCd},#{regId},NOW(),#{regMenu},#{modId},NOW(),#{modMenu}) 
   </insert>
   
   <update id="setUpdate" parameterType="NoticeVO">
      UPDATE NOTICE
         SET EMPLOYEE_ID=#{employeeID},NOTICE_TITLE=#{noticeTitle},
-        NOTICE_CONTENTS=#{noticeContents},NOTICE_CATEGORY_CD=#{noticeCategoryCd}
+        NOTICE_CONTENTS=#{noticeContents},
         NOTICE_PRIORITY_CD=#{noticePriorityCd}
         ,MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
 		WHERE NOTICE_NO=#{noticeNo}
   </update>
 
+  <update id="setHitUpdate" parameterType="NoticeVO">
+     UPDATE NOTICE
+        SET NOTICE_HIT=#{noticeHit}+1
+        ,MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+		WHERE NOTICE_NO=#{noticeNo}
+  </update>
+  
   <delete id="setDelete" parameterType="NoticeVO"> 
      DELETE FROM NOTICE
       WHERE NOTICE_NO=#{noticeNo}

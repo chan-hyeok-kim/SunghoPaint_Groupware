@@ -25,7 +25,6 @@ public class NoticeService {
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	
 	@Autowired
 	private FileManager fileManager;
 	
@@ -33,10 +32,20 @@ public class NoticeService {
 	private String filePath;
 	
 	public NoticeVO getDetail(NoticeVO noticeVO) throws Exception{
-		return noticeDAO.getDetail(noticeVO);
+		noticeVO=noticeDAO.getDetail(noticeVO);
+		
+		noticeDAO.setHitUpdate(noticeVO);
+		
+		return noticeVO;
 	}
 	
 	public List<NoticeVO> getList(Pager pager) throws Exception{
+		pager.makeRowNum();
+		Long total=noticeDAO.getTotal(pager);
+		pager.makePageNum(total);
+		
+		
+		log.warn("몇개나오는데{}",total);
 		return noticeDAO.getList(pager);
 	}
 	
@@ -77,5 +86,8 @@ public class NoticeService {
 	public AttachmentVO getFileDetail(AttachmentVO attachmentVO) throws Exception{
 		return noticeDAO.getFileDetail(attachmentVO);
 	}
+	
+	
+	
 	
 }

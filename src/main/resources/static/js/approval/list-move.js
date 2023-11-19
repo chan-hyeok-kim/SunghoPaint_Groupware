@@ -1,8 +1,8 @@
 /**
  * 
  */
-const linkTabs=document.getElementsByClassName('link-tab')
-const contentDiv=document.getElementById('content');
+linkTabs=document.getElementsByClassName('link-tab')
+contentDiv=document.getElementById('content');
 
 
 
