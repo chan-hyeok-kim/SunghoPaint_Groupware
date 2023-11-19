@@ -72,10 +72,6 @@
   <definition name="approval/list" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/list.jsp"/>
 	</definition>
-
-	<definition name="approval/listEx" extends="layout">
-	  <put-attribute name="body" value="/WEB-INF/views/approval/listEx.jsp"/>
-	</definition>
 	
 	<definition name="approval/totalList" extends="layout">
 	  <put-attribute name="body" value="/WEB-INF/views/approval/totalList.jsp"/>
@@ -129,6 +125,10 @@
 	  <put-attribute name="body" value="/WEB-INF/views/notice/detail.jsp"/>
 	</definition>
 	
+	<definition name="errors/notFound" extends="layout">
+        <put-attribute name="body" value="/WEB-INF/views/errors/notFound.jsp"/>
+    </definition>
+	
     <definition name="commons/ajaxResult" template="/WEB-INF/views/commons/ajaxResult.jsp">
 	</definition>
 	
@@ -137,7 +137,8 @@
 	
 	<definition name="todolist" template="/WEB-INF/views/layout/todolist.jsp">
 	</definition>
-	
+
+   
 	<!-- 장재혁 -->
 	
 	<!-- 발주서 관련 -->

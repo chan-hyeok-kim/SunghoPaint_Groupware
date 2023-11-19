@@ -7,7 +7,9 @@
 <mapper namespace="com.ham.len.humanresource.sign.SignatureDAO">
 
 <select id="getDetail" resultType="HumanResourceVO" parameterType="HumanResourceVO">
-   SELECT *,FN_CODE_NM(LEFT(POSITION_CD,3),POSITION_CD) AS CODE_NAME,NOW() AS APP_DATE 
+   SELECT *,FN_CODE_NM(LEFT(POSITION_CD,3),POSITION_CD) AS CODE_NAME,
+   FN_CODE_NM(LEFT(DEPARTMENT_CD,3),DEPARTMENT_CD) AS DEPARTMENT_CD_NAME,
+   NOW() AS APP_DATE 
      FROM HUMAN_RESOURCE
     WHERE EMPLOYEE_ID=#{employeeID}
 </select>

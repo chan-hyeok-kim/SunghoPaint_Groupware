@@ -33,7 +33,7 @@ for(res of response){
 	no = res.no;
 	refNo = res.refNo;
 	approvalForm = res.approvalForm;
-
+    icon=res.icon;
     
 	//첫번째 자식
 	let r = [];
@@ -92,7 +92,7 @@ for(res of response){
 		y.refNo = refNo;
 		y.upCd = upCodeName;
 		y.form = approvalForm;
-
+        y.icon = icon;
 
 
 		if (!unique.includes(y.pId)) {
@@ -114,7 +114,7 @@ for(res of response){
 		}
 
 		upArr.push(y)
-		console.log(upArr)
+		
 		zNodes=upArr
 
 		$(document).ready(function() {
@@ -126,7 +126,7 @@ for(res of response){
 }
 
 });
-console.log(upArr)
+
 /*const result=upArr.reduce((acc, v) => {
 	return acc.find(x => x.name === v.name) ? acc : [...acc, v];
 }, []);
@@ -140,6 +140,9 @@ x.name = '성호페인트 문서함';
 x.id = 0;
 x.pId = 'root';
 x.open = 'true';
+x.iconOpen='/css/zTreeStyle/img/diy/1_open.png';
+x.iconClose='/css/zTreeStyle/img/diy/1_close.png';
+			
 upArr.push(x);
 console.log(upArr)
 /** 트리 설정

@@ -25,7 +25,6 @@ public class NoticeService {
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	
 	@Autowired
 	private FileManager fileManager;
 	
@@ -37,6 +36,10 @@ public class NoticeService {
 	}
 	
 	public List<NoticeVO> getList(Pager pager) throws Exception{
+		pager.makeRowNum();
+		Long Total=noticeDAO.getTotal(pager);
+		pager.makePageNum(Total);
+		
 		return noticeDAO.getList(pager);
 	}
 	

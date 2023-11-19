@@ -55,15 +55,7 @@ public class EchoHandler extends TextWebSocketHandler{
 		}
 	}
 	
-//	public void notifyClient(String messageContent, WebSocketSession targetSession) throws Exception {
-//		List<NotificationVO> notifications = mainService.getAlarmList(targetSession.getAttributes().get("user_id").toString());
-//        for (NotificationVO alarm : notifications) {
-//            String contents = alarm.getNotificationContents();
-//            String title = alarm.getNotificationTitle();
-//            TextMessage sendMsg = new TextMessage("("+title+")" + contents);
-//            targetSession.sendMessage(sendMsg);
-//        }
-//	}
+
 	// 클라이언트가 Data 전송 시
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
