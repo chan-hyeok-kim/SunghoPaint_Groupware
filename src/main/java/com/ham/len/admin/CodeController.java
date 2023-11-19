@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@RequestMapping("code")
+@RequestMapping("/code/*")
 public class CodeController {
 
 	@Autowired
@@ -192,6 +192,18 @@ public class CodeController {
 			ztreeVO.setId("1");
 			ztreeVO.setName(c.getCodeName());
 			ztreeVO.setPId("0");
+			if(ztreeVO.getName().equals("인사부")) {
+			  ztreeVO.setIcon("/css/zTreeStyle/img/diy/human.png");
+			}else if(ztreeVO.getName().equals("총무부")) {
+			  ztreeVO.setIcon("/css/zTreeStyle/img/diy/money.png");
+			}else if(ztreeVO.getName().equals("생산부")) {
+			  ztreeVO.setIcon("/css/zTreeStyle/img/diy/product2.png");	
+			}else if(ztreeVO.getName().equals("구매부")) {
+			  ztreeVO.setIcon("/css/zTreeStyle/img/diy/buy3.png");
+			}else if(ztreeVO.getName().equals("영업부")) {
+			  ztreeVO.setIcon("/css/zTreeStyle/img/diy/sale.png");				
+			}
+			
 			
 			zl.add(ztreeVO);
 		}

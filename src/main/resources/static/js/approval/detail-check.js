@@ -103,7 +103,7 @@ rejectBtn.addEventListener("click",function(){
 	    icon:'question',
 		showCancelButton:true,
 		confirmButtonColor: 'blue',
-		cancleButtonText:'취소',
+		cancelButtonText:'취소',
 	    reverseButtons: true,
 	}).then(function(result){
 		if(result.isConfirmed){

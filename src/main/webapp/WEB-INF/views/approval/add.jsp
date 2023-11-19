@@ -181,7 +181,7 @@
 
 	<div class="modal fade" id="approvalModal" tabindex="-1"
 		aria-labelledby="modalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg" style="width:1200px" role="document">
+		<div class="modal-dialog modal-lg" style="width:1000px" role="document">
 			<div class="modal-content"
 				style="border-bottom: white; border-radius: 0rem;">
 				<div class="modal-header">
@@ -202,7 +202,7 @@
 					</div>
 
 
-					<div style="display: flex; float: left; width: 40%;">
+					<div style="display: flex; float: left; width: 42%;">
 						<div style="float: left;">
 
 							<ul id="tree" class="ztree"></ul>
@@ -216,34 +216,34 @@
 
 					<div id="btn-box">
 						<div>
-							<button style="opacity: 50%" type="button" class="btn btn-info" id="tree-mid-app" data-id="">중간
-								검토자</button>
+							<button type="button" class="btn btn-secondary btn-icon-text" id="tree-mid-app" data-id="">
+							중간<i class="mdi mdi-file-check btn-icon-append"></i></button>
 						</div>
 						<div>
-							<button type="button" class="btn btn-info" id="tree-add-app" data-id="">추가
-								검토자</button>
+							<button type="button" class="btn btn-secondary btn-icon-text" id="tree-add-app" data-id="">
+							검토<i class="mdi mdi-file-check btn-icon-append"></i></button>
 						</div>
 						<div>
-							<button type="button" class="btn btn-info" id="tree-last-app" data-id="">결재자
-								</button>
+							<button type="button" class="btn btn-secondary btn-icon-text" id="tree-last-app" data-id="">
+							결재<i class="mdi mdi-file-check btn-icon-append"></i></button>
 						</div>
 					</div>
 
 
-					<div style="overflow: auto; float: left;" id="tree-table-div">
-					<label class="badge badge-gradient-line" style="height:32px; width: 100%; text-align: left; font-weight: bold">결재선</label>
+					<div style="overflow: auto; float: left; margin-left:10px" id="tree-table-div">
+					<label class="badge badge-gradient-light" style="color:black; height:32px; width: 100%; text-align: left; font-weight: bold">결재선</label>
 					
 					
 					<div style="background: white;" class="tree-table">
 					<div style="display: flex; ">
 					<div style="display: flex; ">
 					<i class="material-symbols-outlined" style="font-size:50px;">account_circle</i> 
-					<p><span style="font-size:24px; color:gray;">사원</span><br>
-					 김성호 
+					<p><span style="font-size:24px; color:gray;" id="my-rank"></span><br>
+					  <span></span>  
 					 </p>
 					 </div>
 					 <div style="display:flex; justify-content: flex-end; margin-left:auto"> 
-					 <span style="text-align: right">인사팀<br>
+					 <span style="text-align: right"><span id="my-dept"></span><br>
 					 <label class="badge badge-gradient-drafter">기안</label><br>
 					 <span id="app-date-span"></span>
 					 </span></div>
@@ -255,11 +255,11 @@
 					<div style="display: flex; ">
 					<i class="material-symbols-outlined" style="font-size:50px;">account_circle</i> 
 					<p><span style="font-size:24px; color:gray;" id="mid-app"></span><br>
-					 김성호 
+					 <span></span> 
 					 </p>
 					 </div>
 					 <div style="display:flex; justify-content: flex-end; margin-left:auto"> 
-					 <span style="text-align: right">인사팀<br>
+					 <span style="text-align: right"><span id="mid-app-dept"></span><br>
 					 <label class="badge badge-gradient-mid">검토</label><br>
 					 </span></div>
 					  </div>
@@ -270,11 +270,11 @@
 					<div style="display: flex; ">
 					<i class="material-symbols-outlined" style="font-size:50px;">account_circle</i> 
 					<p><span style="font-size:24px; color:gray;" id="add-app"></span><br>
-					 김성호 
+					 <span></span>
 					 </p>
 					 </div>
 					 <div style="display:flex; justify-content: flex-end; margin-left:auto"> 
-					 <span style="text-align: right">인사팀<br>
+					 <span style="text-align: right"><span id="add-app-dept"></span><br>
 					 <label class="badge badge-gradient-mid">검토</label><br>
 					 </span></div>
 					  </div>
@@ -285,11 +285,11 @@
 					<div style="display: flex; ">
 					<i class="material-symbols-outlined" style="font-size:50px;">account_circle</i> 
 					<p><span style="font-size:24px; color:gray;" id="last-app"></span><br>
-					 김성호 
+					 <span></span> 
 					 </p>
 					 </div>
 					 <div style="display:flex; justify-content: flex-end; margin-left:auto"> 
-					 <span style="text-align: right">인사팀<br>
+					 <span style="text-align: right"><span id="last-app-dept"></span><br>
 					 <label class="badge badge-gradient-last">결재</label><br>
 					 </span></div>
 					  </div>
@@ -363,7 +363,7 @@
 				ㆍ우측 하단의 '확인' 버튼을 눌러 양식을 가져올 수 있습니다.
 				</div>
 
-					<div style="margin-top:20px; display: flex; float: left; width: 40%;">
+					<div style="margin-top:20px; display: flex; float: left; width: 42%;">
 						<div style="">
 
 							<ul id="document-tree" class="ztree"></ul>
@@ -412,6 +412,11 @@
 
 const formSign='${sign}';
 const me='${member.username}'
+
+const myDept='${member.departmentCdName}'
+const myRank='${member.codeName}'
+const myName='${member.name}'
+
 </script>
 
 	<!-- approval-form에 html style적용 -->
