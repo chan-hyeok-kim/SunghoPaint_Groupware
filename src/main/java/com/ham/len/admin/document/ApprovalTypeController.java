@@ -79,6 +79,7 @@ public class ApprovalTypeController {
 			ztreeVO.setNo(t.getApprovalUpTypeVO().getApprovalUpTypeNo());
 			ztreeVO.setRefNo(t.getApprovalUpTypeNo());
 			ztreeVO.setApprovalForm(t.getApprovalForm());
+			ztreeVO.setIcon("/css/zTreeStyle/img/diy/2.png");
 			
 			zl.add(ztreeVO);
 		}

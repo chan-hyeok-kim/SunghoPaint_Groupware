@@ -11964,6 +11964,26 @@ code {
   background: linear-gradient(89deg, #5e7188, #3e4b5b);
   color: #ffffff; }
 
+.badge-gradient-drafter{
+  background: #24e8a6;
+  color: #ffffff;
+}
+
+.badge-gradient-line{
+  background: lightyellow;
+  color: black;
+}
+
+.badge-gradient-mid{
+  background: #fe7452;
+  color: #ffffff;
+}
+
+.badge-gradient-last{
+  background: #da8cff;
+  color: #ffffff;
+}
+
 /*Badge outlined variations*/
 .badge-outline-primary {
   color: #b66dff;
@@ -14467,9 +14487,6 @@ dl {
   float: left;
 }
 
-#btn-box button{
-	margin: 20px 0 0 0;
-}
 
 .detail-proceed-btn{
 	color: #0D6EFD;
@@ -14498,6 +14515,7 @@ dl {
     cursor: pointer;
     padding: 7px 18px 7px 18px;
 }
+
 
 /* textarea */
 #approvalForm{
@@ -14533,12 +14551,25 @@ dl {
 }
 
 #btn-box{
-	width: 20%;
-	display: inline-block;
+	width: 11%;
+	display: block;
 	margin-left: 50px;
-	margin-top: 50px;
+	margin-top: 112px;
 	float:left;
 }
+
+
+
+#btn-box div:has(button){
+	text-align:right;
+}
+
+#btn-box button{
+	width: 87px; 
+	margin: 44px 0 0 0;
+	padding: 7px 10px 7px 10px;
+}
+
 
 #image-show{
 	overflow: hidden;
@@ -14559,8 +14590,23 @@ dl {
 	height: 770px;
 }
 
+
+
+#tree_list li{
+  height:22px;
+  
+}
 #tree_list span{
-  font-size: 15px;
+  font-size: 17px;
+}
+
+#tree span{
+  font-size: 17px;
+}
+
+#tree li{
+  height:22px;
+  
 }
 
 #document-tree{
@@ -14568,9 +14614,7 @@ dl {
 	margin-top: 0px;
 }
 
-#tree span{
-  font-size: 15px;
-}
+
 
 #sign-file-div{
 	cursor: pointer;
@@ -14599,14 +14643,7 @@ dl {
 }
 
 /* table */
-#tree-table{
-	border: 1px solid gainsboro;
-	font-size:24px;
-	margin-top: 10px;
-	background: white;
-	width: 365px;
-	height: 360px;
-}
+
 
 #tree-table td{
 	empty-cells: show;
@@ -14638,11 +14675,13 @@ dl {
 }
 
 
-#tree-table {
+.tree-table {
 	/* border: 1px solid black; */
-	height: 360px;
+	height: 80px;
 	width: 364.34px;
 	padding: 10px;
+  border-bottom: 1px dashed gainsboro;
+ 
 }
 
 #tree-table-div {
@@ -14651,7 +14690,8 @@ dl {
 
 #approval-table {
 	text-align: center;
-	width: 100%
+	width: 100%;
+	margin-top: 6rem;
 }
 
 .nav-tabs>li:before, .nav-tabs>li:after {
@@ -14900,3 +14940,4 @@ ul.nav-tabs {
 #attendance-btns > button#end-btn{
   float:right;
 }
+

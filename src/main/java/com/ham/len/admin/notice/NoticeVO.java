@@ -20,10 +20,8 @@ public class NoticeVO extends CodeVO {
 	private String noticeContents;
 	private Long noticeHit;
 	private String noticePriorityCd;
-	private String noticeCategoryCd;
 	
 	private String priorCdName;
-	private String categoryCdName;
 	private HumanResourceVO humanResourceVO;
 	private List<AttachmentVO> attachmentVOs;
 }

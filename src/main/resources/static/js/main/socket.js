@@ -38,7 +38,16 @@ const alarmUL = document.querySelector("#alarmUL");
 			contents=words[1];
             //time=words[2];
             no=words[2];
-			newAlarm='<span class="dropdown-item preview-item"><div class="preview-thumbnail"><div class="preview-icon bg-info"><span class="material-symbols-outlined">task</span></div></div><div class="preview-item-content d-flex align-items-start flex-column justify-content-center"><h6 class="preview-subject font-weight-normal mb-1">'+title+'<i style="margin-left:5px;" class="mdi mdi-close-box alarm-check-icon" data-no="'+no+'"></i></h6><p class="text-gray mb-0">'+contents+'</p></div></span><div class="dropdown-divider"></div>';
+			icon='';
+			backColor='';
+			if(title=='승인 완료'){
+				icon='task'
+				backColor='info';
+			}else if(title=='반려'){
+				icon='free_cancellation'
+				backColor='danger';
+			}
+			newAlarm='<span class="dropdown-item preview-item"><div class="preview-thumbnail"><div class="preview-icon bg-'+backColor+'"><span class="material-symbols-outlined">'+icon+'</span></div></div><div class="preview-item-content d-flex align-items-start flex-column justify-content-center"><h6 class="preview-subject font-weight-normal mb-1">'+title+'<i style="margin-left:5px;" class="mdi mdi-close-box alarm-check-icon" data-no="'+no+'"></i></h6><p class="text-gray mb-0">'+contents+'</p></div></span><div class="dropdown-divider"></div>';
  			
             console.log(newAlarm);
  			$('#alarmUL').after(newAlarm);

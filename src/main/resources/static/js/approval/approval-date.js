@@ -2,6 +2,8 @@ const appDate=document.getElementById('approvalStartDate')
 const curDate=document.getElementById('currentDate')
 const appStartDate=document.getElementsByClassName('approval-start-date');
 const appTypeRegDate=document.getElementsByClassName('approval-reg-date');
+const noticeRegDate=document.getElementsByClassName('notice-reg-date');
+
 /**
  * 
  */
@@ -18,7 +20,15 @@ const appTypeRegDate=document.getElementsByClassName('approval-reg-date');
 // }
 
 
+for(n of noticeRegDate){
 
+	if(n && n!=0){
+		let date=n.innerText;
+		date1=javaDatetoScript(date);
+	
+		n.innerText=date1;
+		}
+}
 
 
 if(curDate){
