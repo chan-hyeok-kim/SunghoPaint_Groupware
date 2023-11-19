@@ -167,10 +167,15 @@ $(window).ready(function(){
 
 
 
+
+
   const ctx = document.getElementById('myChart');
 
 var marArr=new Array();
 var marAmountArr=new Array();
+
+$(document).ready(function(){
+
 $.ajax({
     type:'GET',
     url:'/home/getMaterial',
@@ -184,17 +189,17 @@ $.ajax({
           // marArr.push(result[9].materialProductName);
           // marAmountArr.push(Math.round(result[9].materialProductStock/7));
           
-    }
 
-})
 
+          
   new Chart(ctx, {
     type: 'bar',
     data: {
         labels: marArr,
         datasets: [
           {
-            label: '주간 생산량',
+            label: '주간 도료 생산량',
+          
             data: marAmountArr,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -225,7 +230,97 @@ $.ajax({
         }
       }
     }
-  });
+  })
 
+
+    }
+
+})
+
+
+
+
+
+})
+
+
+
+// 공지 작성일자
+
+const noticeRegDate=document.getElementsByClassName('notice-reg-date');
+for(n of noticeRegDate){
+
+	if(n && n!=0){
+		let date=n.innerText;
+		date1=javaDatetoScript(date);
+	
+		n.innerText=date1;
+		}
+}
+
+
+function javaDatetoScript(date){
+
+  date=date.split(' ');
+  
+  //['Fri', 'Nov', '03', '22:48:52', 'KST', '2023']
+  
+  let param1=date[1]+' '+date[2]
+  let param2=date[5]+' '+date[3]
+  let param3=param1+', '+param2
+  
+  //var date2 = new Date('Jan 06, 2023 16:20:00');
+  
+  date2=new Date(param3);
+  
+  function CF_toStringByFormatting(source){
+    var date = new Date(source);
+    const year = date.getFullYear();
+    const month = CF_leftPad(date.getMonth() + 1);
+    const day = CF_leftPad(date.getDate());
+    return [year, month, day].join('/');
+  }
+  
+  function CF_leftPad(value){
+    if (Number(value) >= 10) {
+      return value;
+    }
+    return "0" + value;
+  }
+  
+  returnStr1=CF_toStringByFormatting(date2)
+  
+  return returnStr1
+  }
+
+
+
+// 새로고침
+
+
+
+$('#notice-refresh-btn').click(function(){
+  
+  $.ajax({
+    type:'GET',
+     url:'/notice/refresh',
+     success:function(result){
+      $('#notice-ajax-list').html(result);
+     }
+  })
 
   
+})
+
+$('#message-refresh-btn').click(function(){
+  
+
+$.ajax({
+  type:'GET',
+   url:'/message/refresh',
+    success:function(result){
+      $('#message-ajax-list').html(result);
+   }
+})
+
+})
