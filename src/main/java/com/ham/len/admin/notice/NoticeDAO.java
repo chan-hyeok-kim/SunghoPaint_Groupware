@@ -25,4 +25,6 @@ public interface NoticeDAO {
 	
 	public AttachmentVO getFileDetail(AttachmentVO attachmentVO) throws Exception;
 	
+	public int setHitUpdate(NoticeVO noticeVO) throws Exception;
+	
 }

@@ -46,7 +46,8 @@ ul.log li.dark {background-color: #E3E3E3;}
 
 /* div */
 #document-tree-wrapper-div{
-	margin-left: 200px;
+	display: flex;
+    justify-content: center;
 }
 #document-tree span{
 	font-size:15px;

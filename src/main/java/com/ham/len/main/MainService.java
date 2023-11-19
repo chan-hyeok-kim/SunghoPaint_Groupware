@@ -50,6 +50,11 @@ public class MainService {
 		return mainDAO.getLastDetail(toDoListVO);
 	}
 	
+	public List<NotificationVO> getAjaxAlarmList(String id) throws Exception{
+		return mainDAO.getAjaxAlarmList(id);
+	}
+	
+	
 	
 	
 	

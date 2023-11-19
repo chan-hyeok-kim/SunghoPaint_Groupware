@@ -133,7 +133,7 @@
 
 
 <!-- stock -->
-<div class="row">
+
     <div class="col-md-7 grid-margin stretch-card" style="height: 520px;" id="material-product-amount">
         <div class="card">
             <div class="card-body">
@@ -162,14 +162,14 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	
 	
 	<!-- calendar end -->
 
 	<!-- progress start -->
 
 	<div class="col-6 grid-margin stretch-card" id="my-app-list"
-		style=" height: 400px;">
+		style=" height: 520px;">
 		<div class="card">
 			<div class="card-body">
 				<div style="float: left">
@@ -249,7 +249,7 @@
 						<tr>
 							<th>기안일자</th>
 							<th>제목</th>
-							<th>기안자</th>
+							
 							<th>결재자</th>
 							<th>진행상태</th>
 							<th>결재 확인</th>
@@ -261,7 +261,7 @@
 								<tr>
 									<td class="approval-start-date">${vo.approvalStartDate}</td>
 									<td>${vo.approvalTitle}</td>
-									<td>${vo.drafter}</td>
+									
 									<td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
 									<td>
 									<c:choose>
@@ -293,39 +293,13 @@
 					<h4 class="card-title">최근 도착한 메시지</h4>
 				</div>
 				<div style="float: right; margin-bottom: 10px;">
-					<button class="btn btn-light">
+					<button class="btn btn-light" id="message-refresh-btn">
 						<span class="material-symbols-outlined"> cached </span>
 					</button>
 
 				</div>
-				<div></div>
-				<table class="table table-hover mt-2" id="approval-table">
-					<thead>
-						<tr>
-							<th>기안일자</th>
-							<th>제목</th>
-							<th>기안자</th>
-							<th>결재자</th>
-							<th>진행상태</th>
-							<th>결재 확인</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${approvalList}" var="vo" varStatus="i">
-							<c:if test="${i.index lt 5}">
-								<tr>
-									<td class="approval-start-date">${vo.approvalStartDate}</td>
-									<td>${vo.approvalTitle}</td>
-									<td>${vo.drafter}</td>
-									<td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
-									<td>${vo.apCodeName}</td>
-									<td><a data-no="${vo.approvalNo}"
-										class="detail-proceed-btn">기안서 확인</a></td>
-								</tr>
-							</c:if>
-						</c:forEach>
-					</tbody>
-				</table>
+				<div id="message-ajax-list"></div>
+				
 			</div>
 		</div>
 	</div>
@@ -341,53 +315,38 @@
 					<h4 class="card-title">공지사항 </h4>
 				</div>
 				<div style="float: right; margin-bottom: 10px;">
-					<button class="btn btn-light">
+					<button class="btn btn-light" id="notice-refresh-btn">
 						<span class="material-symbols-outlined"> cached </span>
 					</button>
 
 				</div>
-				<div></div>
+				<div id="notice-ajax-list">
 				<table class="table table-hover mt-2" id="approval-table">
 					<thead>
 						<tr>
-							<th>기안일자</th>
+							<th>작성일자</th>
 							<th>제목</th>
-							<th>기안자</th>
-							<th>결재자</th>
-							<th>진행상태</th>
-							<th>결재 확인</th>
+							<th>작성자</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${approvalList}" var="vo" varStatus="i">
+						<c:forEach items="${noticeList}" var="vo" varStatus="i">
 							<c:if test="${i.index lt 5}">
 								<tr>
-									<td class="approval-start-date">${vo.approvalStartDate}</td>
-									<td>${vo.approvalTitle}</td>
-									<td>${vo.drafter}</td>
-									<td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
-									<td>${vo.apCodeName}</td>
-									<td><a data-no="${vo.approvalNo}"
-										class="detail-proceed-btn">기안서 확인</a></td>
+									<td class="notice-reg-date">${vo.regDate}</td>
+									<td><a href="/notice/detail?noticeNo=${vo.noticeNo}">${vo.noticeTitle}</a></td>
+									<td>${vo.humanResourceVO.name}</td>
 								</tr>
 							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>
+				</div>
 			</div>
 		</div>
 	</div>
     <!-- notice end -->
-    
-<!--   -->
-<div class="row">
- <div class="card">
-    <div class="card-body">
 
-    </div>
- </div>
-</div>
-<!--   -->
   
   
 

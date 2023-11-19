@@ -8,16 +8,7 @@ const noticeRegDate=document.getElementsByClassName('notice-reg-date');
  * 
  */
 
-// for(a of appStartDate){
-// 	let date=a.innerText;
-//     console.log(date)
-// 	//날짜 변환
-// 	const now = new Date(date);
-// 	const utcDate = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-// 	const korDate = new Date(utcDate + 9 * 60 * 60 * 1000);
-// 	console.log(korDate)
-//     appStartDate.innerText=korDate;
-// }
+
 
 
 for(n of noticeRegDate){
@@ -44,24 +35,7 @@ for(a of appTypeRegDate){
 	}
 }
 
-//Fri Nov 03 22:48:52 KST 2023
-// if(appDate && appDate!=''){
-// let date=appDate.innerText;
-// date1=javaDatetoScript(date);
 
-// appDate.innerText=date1;
-// }
-//detail의 기안일자
-
-
-// if(appStartDate && appStartDate!=''){
-// for(a of appStartDate){
-// 	let dateOfList=a.innerText;
-// 	date2=javaDatetoScript(dateOfList);
-// 	a.innerText=date2;
-// 	}
-// }
-//list의 기안일자
 
 
 

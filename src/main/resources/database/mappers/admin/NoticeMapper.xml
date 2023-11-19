@@ -8,7 +8,7 @@
 
 <sql id="searchNotice">
 <choose> 
-    <when test="kind=='writer'">EMPLOYEE_ID</when>
+    <when test="kind=='writer'">NAME</when>
     <when test="kind=='contents'">NOTICE_CONTENTS</when>
     <otherwise>NOTICE_TITLE</otherwise>
 </choose> 
@@ -19,7 +19,7 @@
      FROM NOTICE N INNER JOIN HUMAN_RESOURCE HR
        ON N.EMPLOYEE_ID=HR.EMPLOYEE_ID
      WHERE <include refid="searchNotice"></include>
-     LIKE CONCAT('%',#{search},'%')
+     LIKE CONCAT('%',#{search},'%') 
      ORDER BY NOTICE_NO DESC
      LIMIT #{startRow},#{lastRow}
   </select>
@@ -38,14 +38,21 @@
   
   </resultMap>
   
-  
-  
   <select id="getTotal" parameterType="Pager" resultType="Long">
      SELECT COUNT(*)
-       FROM NOTICE
+       FROM NOTICE N INNER JOIN HUMAN_RESOURCE HR
+       ON N.EMPLOYEE_ID=HR.EMPLOYEE_ID
       WHERE <include refid="searchNotice"></include>
-      LIKE CONCAT('%','#{search}','%')
+     <!--  <choose>
+        <when test="search != null and search != ''"> -->
+            LIKE CONCAT('%', #{search}, '%')
+<!--         </when>
+        <otherwise></otherwise> 
+    </choose>-->
+      
   </select>
+  
+  
 
   <select id="getDetail" parameterType="NoticeVO" resultMap="getNoticeDetail">
     SELECT *,FN_CODE_NM(LEFT(NOTICE_PRIORITY_CD,3),NOTICE_PRIORITY_CD) AS PRIOR_CD_NAME
@@ -90,6 +97,13 @@
 		WHERE NOTICE_NO=#{noticeNo}
   </update>
 
+  <update id="setHitUpdate" parameterType="NoticeVO">
+     UPDATE NOTICE
+        SET NOTICE_HIT=#{noticeHit}+1
+        ,MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
+		WHERE NOTICE_NO=#{noticeNo}
+  </update>
+  
   <delete id="setDelete" parameterType="NoticeVO"> 
      DELETE FROM NOTICE
       WHERE NOTICE_NO=#{noticeNo}
