@@ -337,4 +337,13 @@ public class SalesController {
 	    List<AnnualAddVO> events = salesService.getAnnualList(annualAddVO);
 	    return events;
 	}
+	
+	@GetMapping("getTeamAnnualList")
+	@ResponseBody
+	public List<AnnualAddVO> getTeamAnnualList(@AuthenticationPrincipal HumanResourceVO humanResourceVO, AnnualAddVO annualAddVO) throws Exception{
+		annualAddVO.setEmployeeId(humanResourceVO.getEmployeeID());
+		
+	    List<AnnualAddVO> events = salesService.getTeamAnnualList(annualAddVO);
+	    return events;
+	}
 }
