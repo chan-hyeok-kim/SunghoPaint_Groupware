@@ -181,7 +181,7 @@
 
 	<div class="modal fade" id="approvalModal" tabindex="-1"
 		aria-labelledby="modalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg" style="width:1000px" role="document">
+		<div class="modal-dialog modal-lg" style="width:1050px" role="document">
 			<div class="modal-content"
 				style="border-bottom: white; border-radius: 0rem;">
 				<div class="modal-header">

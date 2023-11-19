@@ -297,7 +297,13 @@ function javaDatetoScript(date){
 
 // 새로고침
 
-
+$.ajax({
+  type:'GET',
+   url:'/notice/refresh',
+   success:function(result){
+    $('#notice-ajax-list').html(result);
+   }
+})
 
 $('#notice-refresh-btn').click(function(){
   

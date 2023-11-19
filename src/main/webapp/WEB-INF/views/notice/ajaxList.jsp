@@ -9,7 +9,7 @@
 </head>
 <body>
 	
-				     <table class="table-bordered mt-2" id="approval-table">
+				     <table class="table table-hover mt-2" id="approval-table">
 				        <thead>
 				           <tr>
 				             <th>작성일자</th>
@@ -19,11 +19,13 @@
 				        </thead>
 				        <tbody>
 				        <c:forEach items="${list}" var="vo" varStatus="i">
+				        <c:if test="${i.index lt 5}">
 				           <tr>
-				             <td class="approval-start-date">${vo.regDate}</td>
+				             <td class="notice-reg-date">${vo.regDate}</td>
 				             <td><a style="text-decoration: none;" href="/notice/detail?noticeNo=${vo.noticeNo}">${vo.noticeTitle}</a></td>
 				             <td>${vo.humanResourceVO.name}</td>
 				           </tr>
+				           </c:if>
 				         </c:forEach>
 				        </tbody>
 				      
