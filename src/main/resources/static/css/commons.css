@@ -86,6 +86,36 @@ i{
 
 
 
+#errorsDetailModal .modal-content{
+    border:none;
+}
+
+#errorsDetailModal .modal-header{
+    background-color:#FF6767;
+    color:white;
+}
+
+#errorsDetailModal .modal-header > .modal-title{
+    font-size:15px; font-weight:bold;
+}
+
+#errorsDetailModal .modal-header > img.close{
+	width:25px;
+	cursor:pointer;
+}
+
+#errorsDetailModal .modal-body li{
+    margin:7px 0px;
+}
+
+#errorsDetailModal .modal-body li:not(:has(span)){
+    display:none;
+}
+
+
+
+
+
 #loading{
 	width:100%; height:100%;
 	position:fixed;

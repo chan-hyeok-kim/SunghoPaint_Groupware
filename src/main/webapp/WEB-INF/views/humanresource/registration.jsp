@@ -162,15 +162,18 @@
 	    </div>
 	  </div>
 	</div>
-
-
-
+	
+	
+	
 	<div class="modal fade" id="errorsDetailModal" tabindex="-1" role="dialog" aria-labelledby="errorsDetailModalTitle" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-				<h5 class="modal-title" id="errorsDetailModalTitle">등록 실패</h5>
-				<img src="/images/humanresource/close-icon.png" class="close" data-dismiss="modal" aria-label="Close">
+					<h5 class="modal-title" id="errorsDetailModalTitle">
+						<c:if test="${isRegistration}">등록 실패</c:if>
+						<c:if test="${isUpdate}">수정 실패</c:if>
+					</h5>
+					<img src="/images/humanresource/close-icon.png" class="close" data-dismiss="modal" aria-label="Close">
 				</div>
 				<div class="modal-body">
 					<ul>
@@ -191,7 +194,7 @@
 					</ul>
 				</div>
 				<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
 		</div>

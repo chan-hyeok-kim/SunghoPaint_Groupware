@@ -15,4 +15,5 @@ public interface TransferDAO {
 	public int setTransfer(TransferVO transferVO);
 	public Long getTotal(HumanResourcePager pager);
 	public List<TransferVO> getTransferList(HumanResourcePager pager);
+	public TransferVO getTransfer(String employeeID);
 }

@@ -34,4 +34,8 @@ public class TransferService {
 		pager.makePageNum(transferDAO.getTotal(pager));
 		return transferDAO.getTransferList(pager);
 	}
+	
+	public TransferVO getTransfer(String employeeID){
+		return transferDAO.getTransfer(employeeID);
+	}
 }

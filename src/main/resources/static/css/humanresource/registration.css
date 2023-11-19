@@ -73,8 +73,7 @@ form#registrationForm > #buttons{
 
 
 
-#addressDetailModal img.close,
-#errorsDetailModal img.close{
+#addressDetailModal img.close{
 	width:25px;
 	cursor:pointer;
 }
@@ -86,27 +85,4 @@ form#registrationForm > #buttons{
 #addressDetailModal #modal-submit{
 	background-color:#90CAF9;
 	border-color:unset;
-}
-
-
-
-#errorsDetailModal .modal-content{
-    border:none;
-}
-
-#errorsDetailModal .modal-header{
-    background-color:#FF6767;
-    color:white;
-}
-
-#errorsDetailModal .modal-header > .modal-title{
-    font-size:15px; font-weight:bold;
-}
-
-#errorsDetailModal .modal-body li{
-    margin:7px 0px;
-}
-
-#errorsDetailModal .modal-body li:not(:has(span)){
-    display:none;
 }
