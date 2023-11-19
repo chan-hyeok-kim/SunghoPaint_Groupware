@@ -150,6 +150,24 @@ public class HumanResourceService implements UserDetailsService {
 		excelWriter.write(data, "humanresource.xlsx", "전사 인사 정보.xlsx");
 	}
 	
+	public List<String> getAccountRole(String employeeID) {
+		return humanResourceDAO.getAccountRole(employeeID);
+	}
+	
+	@Transactional
+	public int setUpdateAccountRole(List<AccountRoleVO> accountRoles) {
+		int result = 0;
+		
+		result = humanResourceDAO.setDeleteAccountRole(accountRoles.get(0).getEmployeeID());
+		if(accountRoles.get(0).getRoleNum() == -1) return result;
+		
+		for(AccountRoleVO accountRoleVO : accountRoles) {
+			result = humanResourceDAO.setAccountRole(accountRoleVO);
+		}
+		
+		return result;
+	}
+	
 	public int setUpdate(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
 		humanResourceVO.setProfile(encodeImageToBase64(file));
 		int result = humanResourceDAO.setUpdate(humanResourceVO);

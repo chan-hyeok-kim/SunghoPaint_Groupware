@@ -44,6 +44,9 @@
 	});
 </script>
 
+<c:if test="${isUpdate}">
+	<button id="updateRole" onclick="updateRole('${humanResourceVO.employeeID}')">권한 수정</button>
+</c:if>
 <form:form modelAttribute="humanResourceVO" action="./registration" method="POST" enctype="multipart/form-data" id="registrationForm">
 	<table id="basicInfo">
 		<tr>

@@ -1,3 +1,95 @@
+function updateRole(employeeID){
+	if($("#updateRoleWindow").length > 0) $("#updateRoleWindow").remove();
+	
+	$.ajax({
+		url:"/humanresource/getAccountRole",
+		type:"GET",
+		data:{
+			employeeID:employeeID
+		},
+		success:function(result){
+			$("body").append("<div id='updateRoleWindow'>" +
+										"<div id='titleBar'>" +
+											"<p>권한 변경</p>" +
+											"<img id='close' src='/images/commons/close-icon.png'>" +
+										"</div>" +
+										"<div id='list'>" +
+											"<table>" +
+												"<tr>" +
+													"<th></th>" +
+													"<th>권한명</th>" +
+												"</tr>" +
+												"<tr>" +
+													"<td><input type='checkbox' id='R001' value='1'></td>" +
+													"<td>관리자</td>" +
+												"</tr>" +
+												"<tr>" +
+													"<td><input type='checkbox' id='R002' value='2'></td>" +
+													"<td>결재자</td>" +
+												"</tr>" +
+												"<tr>" +
+													"<td><input type='checkbox' id='R003' value='3'></td>" +
+													"<td>일반</td>" +
+												"</tr>" +
+											"</table>" +
+										"</div>" +
+										"<div id='footer'>" +
+											"<button id='update'>변경</button>" +
+										"</div>" +
+									"</div>");
+			
+			result.forEach(function(element, index){
+				$("#" + element).prop("checked", true);
+			});
+			
+			$("#updateRoleWindow").draggable({
+				handle:"#titleBar",
+				cancel:"#close",
+				containment:"document"
+			});
+			
+			$("#updateRoleWindow #close").click(function(){
+				$("#updateRoleWindow").remove();
+			});
+			
+			$("#updateRoleWindow #update").click(function(){
+				let accountRoles = new Array();
+				$.each($("#updateRoleWindow input[type='checkbox']:checked"), function(index, element){
+					let accountRole = new Object();
+					accountRole.roleNum = $(element).attr("value");
+					accountRole.employeeID = employeeID;
+					
+					accountRoles.push(accountRole);
+				});
+				
+				if(accountRoles.length == 0){
+					let accountRole = new Object();
+					accountRole.roleNum = -1;
+					accountRole.employeeID = employeeID;
+					
+					accountRoles.push(accountRole);
+				}
+				
+				$.ajax({
+					url:"/humanresource/setUpdateAccountRole",
+					type:"POST",
+					contentType:"application/json",
+					data:JSON.stringify(accountRoles),
+					success:function(result){
+						console.log(result);
+					}
+				});
+				
+				$("#updateRoleWindow").remove();
+			});
+		}
+	});
+}
+
+
+
+
+
 let postcodePopup;
 let fullAddr;
 function daumPostcode(){
