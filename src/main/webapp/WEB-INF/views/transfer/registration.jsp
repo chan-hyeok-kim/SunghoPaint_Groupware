@@ -25,6 +25,8 @@
 </script>
 
 <form:form modelAttribute="transferVO" action="./registration" method="POST" id="registrationForm">
+	<form:hidden path="transferNo" />
+
 	<div class="component">
 		<form:label path="transferDate">발령 일자</form:label>
 		<input type="date" name="transferDate" value="${transferVO.transferDate}" id="transferDate">
@@ -98,6 +100,7 @@
 				<div class="modal-body">
 					<ul>
 						<li id="transferDateErrors"><form:errors path="transferDate" /></li>
+						<li><form:errors path="employeeID" /></li>
 						<li><form:errors path="name" /></li>
 						<li><form:errors path="transferTypeCd" /></li>
 						<li><form:errors path="beforePositionCd" /></li>

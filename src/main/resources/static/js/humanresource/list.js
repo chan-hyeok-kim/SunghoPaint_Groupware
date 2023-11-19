@@ -1,10 +1,12 @@
-function del(employeeID, event){
-	if(confirm("'" + employeeID + "' 사원의 정보를 삭제하시겠습니까?")){
-		location.href = "./delete?employeeID=" + employeeID;
+/*
+	function del(employeeID, event){
+		if(confirm("'" + employeeID + "' 사원의 정보를 삭제하시겠습니까?")){
+			location.href = "./delete?employeeID=" + employeeID;
+		}
+		
+		event.stopPropagation();
 	}
-	
-	event.stopPropagation();
-}
+*/
 
 $(function(){
 	$("#excelDownload").click(function(){

@@ -35,7 +35,15 @@ public class TransferService {
 		return transferDAO.getTransferList(pager);
 	}
 	
-	public TransferVO getTransfer(String employeeID){
-		return transferDAO.getTransfer(employeeID);
+	public TransferVO getTransfer(String transferNo){
+		return transferDAO.getTransfer(transferNo);
+	}
+	
+	public int updateTransfer(TransferVO transferVO) {
+		return transferDAO.updateTransfer(transferVO);
+	}
+	
+	public int setDelete(String transferNo) {
+		return transferDAO.setDelete(transferNo);
 	}
 }

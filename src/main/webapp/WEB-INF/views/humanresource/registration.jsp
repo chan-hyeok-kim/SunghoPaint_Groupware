@@ -18,7 +18,7 @@
 		
 		if("${isDetail}"){
 			$("*").off("click");
-			$("*:not(#return)").removeAttr("onclick");
+			$("*:not(.nav-link, #return)").removeAttr("onclick");
 			
 			$("select").attr("disabled", true);
 			$("input[type='file']").attr("disabled", true);

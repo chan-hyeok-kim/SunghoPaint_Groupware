@@ -7,18 +7,20 @@
 		background-color:#90CAF9;
 		cursor:pointer; 
 	}
+	
+	/*
+		button.del{
+			width:50px; height:30px;
+			background-color:#8D8D8D;
+			border:none; border-radius:5px;
+			font-size:13px;
+			color:white;
+		}
 
-	button.del{
-		width:50px; height:30px;
-		background-color:#8D8D8D;
-		border:none; border-radius:5px;
-		font-size:13px;
-		color:white;
-	}
-
-	button.del:hover{
-		background-color:rgb(255, 90, 90);
-	}
+		button.del:hover{
+			background-color:rgb(255, 90, 90);
+		}
+	*/
 </style>
 
 <%@include file="/WEB-INF/views/humanresource/search.jsp"%>
@@ -46,7 +48,7 @@
 				<td>${humanResource.positionCdName}</td>
 				<td>${humanResource.email}</td>
 				<td>${humanResource.mainNumber}</td>
-				<td><button class="del" onclick="del('${humanResource.employeeID}', event)">삭제</button></td>
+				<!-- <td><button class="del" onclick="del('${humanResource.employeeID}', event)">삭제</button></td> -->
 			</tr>
 		</c:forEach>
 	</table>

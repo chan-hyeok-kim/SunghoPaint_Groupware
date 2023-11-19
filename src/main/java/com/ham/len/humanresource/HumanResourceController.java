@@ -99,11 +99,13 @@ public class HumanResourceController {
 		return "commons/result";
 	}
 	
-	@GetMapping("/humanresource/delete")
-	public String setDelete(String employeeID) {
-		humanResourceService.setDelete(employeeID);
-		return "redirect:/humanresource/list";
-	}
+	/*
+		@GetMapping("/humanresource/delete")
+		public String setDelete(String employeeID) {
+			humanResourceService.setDelete(employeeID);
+			return "redirect:/humanresource/list";
+		}
+	*/
 	
 	@GetMapping("/humanresource/updatePassword")
 	public String setUpdatePassword(@ModelAttribute UpdatePasswordVO updatePasswordVO) {

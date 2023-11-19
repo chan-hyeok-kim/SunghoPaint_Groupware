@@ -249,7 +249,11 @@ public class ApprovalController {
         		log.warn("알람왜안드감{}",notificationVO);
         		result=mainService.setAlarmAdd(notificationVO);
         		check=result;
-        		}
+        		
+        		// ===== 휴가 신청 결재 완료 =====
+        		// R011
+        		
+        	}
             //결재 승인
 		} else if (approvalVO.getApprovalStatusCd().equals("R034")) {
             result = approvalService.setReject(approvalVO);

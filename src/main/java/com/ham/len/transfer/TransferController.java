@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.ham.len.commons.CodeVO;
 import com.ham.len.humanresource.HumanResourcePager;
@@ -55,8 +54,8 @@ public class TransferController {
 	}
 	
 	@GetMapping("update")
-	public String setUpdate(String employeeID, Model model) {
-		model.addAttribute("transferVO", transferService.getTransfer(employeeID));
+	public String setUpdate(String transferNo, Model model) {
+		model.addAttribute("transferVO", transferService.getTransfer(transferNo));
 		model.addAttribute("isUpdate", true);
 		return "transfer/registration";
 	}
@@ -69,13 +68,18 @@ public class TransferController {
 			return "transfer/registration";
 		}
 		
-		/*
-			humanResourceService.setUpdate(humanResourceVO, file);
-			model.addAttribute("result", 1);
-			model.addAttribute("message", "수정이 완료되었습니다.");
-			model.addAttribute("url", "/transfer/update?employeeID=" + humanResourceVO.getEmployeeID());
-		*/
+		transferService.updateTransfer(transferVO);
+		model.addAttribute("result", 1);
+		model.addAttribute("message", "수정이 완료되었습니다.");
+		model.addAttribute("url", "/transfer/list");
+		// model.addAttribute("url", "/transfer/update?transferNo=" + transferVO.getTransferNo());
 		return "commons/result";
+	}
+	
+	@GetMapping("delete")
+	public String setDelete(String transferNo) {
+		transferService.setDelete(transferNo);
+		return "redirect:/transfer/list";
 	}
 	
 	@GetMapping("list")

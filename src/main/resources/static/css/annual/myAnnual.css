@@ -63,6 +63,23 @@ table td{
 	font-size:18px; font-weight:600;
 }
 
+#usedList > h1{
+	height:35px;
+	line-height:35px;
+	float:left;
+	margin-bottom:0px;
+}
+
+#usedList > button{
+	width:70px; height:35px;
+	float:right;
+	margin-bottom:8px;
+	background-color:#56B3FF;
+	border:none;
+	font-size:13px;
+	color:white;
+}
+
 #usedList > table th,
 #usedList > table td,
 #generatedList > table th,

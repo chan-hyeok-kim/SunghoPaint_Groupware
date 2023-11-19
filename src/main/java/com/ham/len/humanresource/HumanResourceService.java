@@ -169,9 +169,11 @@ public class HumanResourceService implements UserDetailsService {
 		return newAuthentication;
 	}
 	
-	public int setDelete(String employeeID) {
-		return humanResourceDAO.setDelete(employeeID);
-	}
+	/*
+		public int setDelete(String employeeID) {
+			return humanResourceDAO.setDelete(employeeID);
+		}
+	*/
 	
 	public boolean getUpdatePasswordError(UpdatePasswordVO updatePasswordVO, BindingResult bindingResult, HumanResourceVO humanResourceVO) {
 		boolean hasErrors = false;
