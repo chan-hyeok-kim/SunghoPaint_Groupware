@@ -106,7 +106,12 @@
 							<th>구분(결재양식)</th>
 							<td>${vo.approvalTypeVO.codeName}</td>
 						</tr>
-
+<%-- <c:if test="${vo.approvalTypVO.codeName eq '휴가신청서'}">
+<tr id="annualTr"><th>연차사용갯수</th><td><input type="number" min="1" class="form-control" name="usedAnnualLeaveCount"></td>
+	<th>연차 시작일</th><td><input type="date" class="form-control" name="annualLeaveStart" value=""></td></tr>
+			<tr><th>연차 종료일</th><td><input type="date" class="form-control" name="annualLeaveEnd"></td>
+		<th>연차 사유</th><td><input type="text" class="form-control" name="reason"></td></tr>
+</c:if> --%>
 
 					</table>
 				</div>

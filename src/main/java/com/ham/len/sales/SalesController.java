@@ -206,7 +206,7 @@ public class SalesController {
 	@PostMapping("carUpdate")
 	public String setCarUpdate(CarListVO carListVO) throws Exception{
 		int result = salesService.setCarUpdate(carListVO);
-		log.info("--------------{}--------zz", result);
+
 		return "redirect:assetManagement";
 	}
 	
@@ -336,5 +336,28 @@ public class SalesController {
 		
 	    List<AnnualAddVO> events = salesService.getAnnualList(annualAddVO);
 	    return events;
+	}
+	
+	@GetMapping("getTeamAnnualList")
+	@ResponseBody
+	public List<AnnualAddVO> getTeamAnnualList(@AuthenticationPrincipal HumanResourceVO humanResourceVO, AnnualAddVO annualAddVO) throws Exception{
+		annualAddVO.setEmployeeId(humanResourceVO.getEmployeeID());
+		
+	    List<AnnualAddVO> events = salesService.getTeamAnnualList(annualAddVO);
+	    return events;
+	}
+	
+	@PostMapping("updateAnnual")
+	public String setAnnualUpdate(AnnualAddVO annualAddVO) throws Exception{
+		int result = salesService.setUpdateAnnual(annualAddVO);
+
+		return "redirect:scheduleManagement";
+	}
+	
+	@PostMapping("deleteAnnual")
+	public String setAnnualDelete(AnnualAddVO annualAddVO) throws Exception{
+		int result = salesService.setDeleteAnnual(annualAddVO);
+
+		return "redirect:scheduleManagement";
 	}
 }
