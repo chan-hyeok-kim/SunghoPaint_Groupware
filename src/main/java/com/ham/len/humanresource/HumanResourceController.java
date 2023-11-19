@@ -1,5 +1,7 @@
 package com.ham.len.humanresource;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -75,6 +78,18 @@ public class HumanResourceController {
 		model.addAttribute("humanResourceVO", humanResourceService.getHumanResource(humanResourceVO.getEmployeeID()));
 		model.addAttribute("isDetail", true);
 		return "humanresource/registration";
+	}
+	
+	@GetMapping("/humanresource/getAccountRole")
+	@ResponseBody
+	public List<String> getAccountRole(String employeeID) {
+		return humanResourceService.getAccountRole(employeeID);
+	}
+	
+	@PostMapping("/humanresource/setUpdateAccountRole")
+	@ResponseBody
+	public int setUpdateAccountRole(@RequestBody List<AccountRoleVO> accountRoles) {
+		return humanResourceService.setUpdateAccountRole(accountRoles);
 	}
 	
 	@GetMapping("/humanresource/update")
