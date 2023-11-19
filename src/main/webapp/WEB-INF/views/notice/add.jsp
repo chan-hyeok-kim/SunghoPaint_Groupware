@@ -26,7 +26,7 @@
 					<td colspan="3" class="subject"><input type="text" name="noticeTitle" class="form-control"></td>
 				</tr>
 				<tr>
-				<th>카테고리 분류</th>
+			<!-- 	<th>카테고리 분류</th>
 					<td>
 					<div class="dropdown">
   <button class="btn btn-warning dropdown-toggle" type="button" id="dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,7 +37,7 @@
     <a class="category dropdown-item" >익명 게시판</a>
     <a class="category dropdown-item" >문의 게시판</a>
     <input type="hidden" id="category" name="noticeCategoryCd">
-  </div>
+  </div> -->
 </div>
 					</td>
 					<th scope="row">우선순위</th>

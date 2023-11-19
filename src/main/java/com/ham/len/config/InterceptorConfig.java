@@ -35,11 +35,12 @@ public class InterceptorConfig implements WebMvcConfigurer {
 				.addPathPatterns("/apporval/delete")
 				.addPathPatterns("/sales/assetManagement")
 				.addPathPatterns("/sales/assetManagementDetail")
+				.addPathPatterns("/notice/**")
 				
 		//제외할 URL등록
-				.excludePathPatterns("/qna/detail")
-				.excludePathPatterns("/qna/write");
-		
+				.excludePathPatterns("/notice/list")
+				.excludePathPatterns("/notice/detail");
+			
 	
 	}
 

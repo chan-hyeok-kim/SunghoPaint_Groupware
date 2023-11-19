@@ -4,8 +4,8 @@
 const dropdown1=document.getElementById('dropdown1');
 const dropdown2=document.getElementById('dropdown2');
 const prior=document.getElementById('prior');
-const category=document.getElementById('category');
-
+/*const category=document.getElementById('category');
+*/
 
 $('.prior').each(function(){
     $(this).click(function(){
@@ -22,28 +22,7 @@ $('.prior').each(function(){
 })
 
 
-$('.category').each(function(){
-    $(this).click(function(){
-        dropdown2.innerText=$(this).text();
-        let categoryCd='';
 
-        if(dropdown2.innerText.trim()=='문의 게시판'){
-            categoryCd='B013';
-            dropdown1.setAttribute("disabled","disabled");
-            dropdown1.innerText='우선순위 선택';
-            prior.value='B002';
-        }else if(dropdown2.innerText.trim()=='익명 게시판'){
-            categoryCd='B012';
-            dropdown1.setAttribute("disabled","disabled");
-            dropdown1.innerText='우선순위 선택';
-            prior.value='B002';
-        }else{
-            categoryCd='B011'; 
-            dropdown1.removeAttribute("disabled");
-        } 
-        category.value=categoryCd;
-    })
-})
 
 // 유효성
 $('#notice-add-btn').click(function(){
@@ -54,3 +33,52 @@ $('#notice-add-btn').click(function(){
 
     $("#frm").submit();
 })
+
+
+$('#notice-delete-btn').click(function(){
+	console.log('삭제버튼')
+	let arr = new Array();
+    $('input[name=checkList]:checked').each(function() {
+        arr.push($(this).val());
+        
+    })
+    console.log(arr);
+    if (!arr || arr.length==0 || arr=='') {
+        swal('반드시 한개 이상 체크해주세요');
+        return;
+    }
+	
+	Swal.fire({
+		text: '정말로 삭제하시겠습니까?',
+		showCancelButton: true,
+		confirmButtonText: '승인',
+		confirmButtonColor: 'red',
+		cancelButtonText: '취소',
+		reverseButtons: true,
+		icon: 'warning',
+	}).then(function(result) {
+		if (result.isConfirmed) {
+			
+            
+			$.ajax({
+				type: 'POST',
+				url: '/notice/delete',
+				data: {
+					deleteNoList: arr
+				}, success: function(result) {
+					if (result.trim() > 0) {
+						swal('삭제 성공')
+						location.replace('/notice/list')
+					}
+					
+
+				}, error: function() {
+					console.log('삭제 실패')
+				}
+			})
+		}
+	})
+	
+	
+})
+
