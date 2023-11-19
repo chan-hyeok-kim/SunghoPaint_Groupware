@@ -3,65 +3,50 @@
  */
 
 
-		const arr = new Array();
-		
-		function timeFormat(time){
-		      return String(time).padStart(2, "0");
-		   }
-		
-		$.ajax({
-			  type: "GET", 
-			  url: "/sales/getList",
-			  async: false,
-			  success: function (res) {
-			    for (const key in res) {
-			      let obj = new Object();
-			      
-			      obj.id = res[key].rentalNo;
-			      
-			      obj.title = res[key].employeeId;
-			      
-			      obj.location = res[key].rentalLocation;
-			      
-			      let rentalDate = new Date(res[key].rentalDate);
-			      rentalDate.setHours(rentalDate.getHours() + 9);
-			      obj.start = rentalDate;
-			      
-			      let returnDate = new Date(res[key].returnDate);
-			      returnDate.setHours(returnDate.getHours() + 9);
-			      obj.end = returnDate;
+const arr = new Array();
+const arr2 = new Array();
+let currentEvents = arr;
+$.ajax({
+	  type: "GET", 
+	  url: "/sales/getAnnualList",
+	  async: false,
+	  success: function (res) {
+	    for (const key in res) {
+	      let obj = new Object();
+	      
+	      obj.id = res[key].scheduleNo;
+	      
+	      obj.title = res[key].scheduleContents;
+	      
+	      obj.name = res[key].name + ' ' + res[key].codeName;
+	      
+	      let scheduleDate = new Date(res[key].scheduleDate);
+	      scheduleDate.setHours(scheduleDate.getHours() + 9);
+	      obj.start = scheduleDate;
+	      
+	      let scheduleEndDate = new Date(res[key].scheduleEndDate);
+	      scheduleEndDate.setHours(scheduleEndDate.getHours() + 9);
+	      obj.end = scheduleEndDate;
 
-			      let originalRentalDate = new Date(res[key].rentalDate);
-			      let hoursStart = originalRentalDate.getHours();
-			      let minutesStart = rentalDate.getMinutes();
-			      let timeStart = timeFormat(hoursStart) + ':' + timeFormat(minutesStart);
-			      obj.timeStart = timeStart;
-			      
-			      let originalReturnDate = new Date(res[key].returnDate);
-			      let hoursEnd = originalReturnDate.getHours();
-			      let minutesEnd = returnDate.getMinutes();
-			      let timeEnd = timeFormat(hoursEnd) + ':' + timeFormat(minutesEnd);
-			      obj.timeEnd = timeEnd;
-			      
-			      obj.carCategory = res[key].carNo;
-			      
-			      obj.rentalReason = res[key].rentalReasonCd;
-			      
-			      arr.push(obj);
-			    }
-			    console.log(arr);
-			
-			  },
-			  error: function (XMLHttpRequest, textStatus, errorThrown) {
-			    console.log('error')
-			  },
-			});
+	      arr.push(obj);
+	    }
+	    console.log(arr);
+	    
+	
+	  },
+	  error: function (XMLHttpRequest, textStatus, errorThrown) {
+	    console.log('error')
+	  },
+	});
 
-
+	   
+	
 	document.addEventListener('DOMContentLoaded', function() {
-	    var calendarEl = document.getElementById('calendar');
-	    var calendar = new FullCalendar.Calendar(calendarEl, {
-	      locale: "ko",
+	var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+
+
+    	locale: "ko",
 	      timeZone: 'Asia/Seoul',
 	      initialView: 'dayGridMonth',
 	      selectable: true,
@@ -82,7 +67,7 @@
 	      
 	      customButtons: {
 	    	    myCustomButton: {
-	    	      text: '새로고침',
+	    	      text: '일정 등록',
 	    	      click: function() {
 	    	    	  $("#calendarAddModal").modal("show");
 	    	    	  
@@ -99,7 +84,7 @@
 	    	      }
 	    	    },
 				customButton2:{
-					text:'일정 등록',
+					text:'새로고침',
 				}
 	    	  },
 	    	    	  
@@ -117,111 +102,35 @@
 	    	  today: '오늘',
 	    	  title: '일정관리'
 	      },
-		  
 	      
-	      /* events:[ // 일정 데이터 추가 , DB의 event를 가져오려면 JSON 형식으로 변환해 events에 넣어주면된다.
-              {
-                  title:'일정',
-                  start:'2023-10-26',
-                  end:'2023-10-28'
-              },
-          ], */
-        	events:arr,
+	      
+        events: currentEvents,
+        
+        eventClick:function(event) {
+        	console.log("제목", event.event.title);
+        	console.log("시작일", event.event.start);
+        	console.log("종료일", event.event.end);
+        	console.log("pk", event.event.id);
         	
-        	eventClick:function(event) {
- 				console.log("클릭한 이벤트", event.event.extendedProps.location);
-        		console.log("클릭한 이벤트", event.event.title);
-        		console.log("클릭한 이벤트", event.event.start);
-        		console.log("클릭한 이벤ddd트", event.event.extendedProps.carCategory);
-        		
-        		let modal = $("#calendarUpdateModal");
-        		$("#calendarUpdateModal").modal("show");
-        		
-        		$("#rental_no_delete_rentalNo").val(event.event.id);
-        		$("#rental_no_delete_carNo").val(event.event.extendedProps.carCategory);
-        		$("#rental_no_update").val(event.event.id);
-        		$("#rental_reason_update").val(event.event.extendedProps.rentalReason).prop("selected", true);
-        		$("#car_update").val(event.event.extendedProps.carCategory).prop("selected", true);
-        		$("#calendar_start_date_time_update").val(event.event.extendedProps.timeStart).prop("selected", true);
-        		$("#calendar_end_date_time_update").val(event.event.extendedProps.timeEnd).prop("selected", true);
-        		$("#calendar_start_date_update").val(event.event.start.toISOString().slice(0,10));
-        		$("#calendar_end_date_update").val(event.event.end.toISOString().slice(0,10));
-        		$("#calendar_name_update").val(event.event.title);
-        		$("#calendar_location_update").val(event.event.extendedProps.location);
-        		
-        		$('#modalClose').click(function(){
-	    			$('#calendarUpdateModal').modal('hide')	
-	    		})
-            }
-        	
-	    	  
-	    });
+    		$("#calendarUpdateModal").modal("show");
+    		
+    		$("#calendar_start_date_update").val(event.event.start.toISOString().slice(0,10));
+    		$("#calendar_end_date_update").val(event.event.end.toISOString().slice(0,10));
+    		$("#calendar_name_update").val(event.event.extendedProps.name);
+    		$("#calendar_location_update").val(event.event.title);
+    		
+    		$("#rental_no_delete_rentalNo").val(event.event.id);
+        }
+    });
 
-		
-	    calendar.render();
+    
+    
+    calendar.render();
+    
 
-		let icon=document.getElementsByClassName('fc-icon');
-		
-		icon[2].innerHTML='<span class="material-symbols-outlined">cached</span>';
-		icon[3].innerHTML='<span class="material-symbols-outlined">edit_square</span>';
-      //  $('.fc-toolbar-title').html('2023/11 일정관리');
-	  });
+	let icon=document.getElementsByClassName('fc-icon');
 	
-	
-	
-	var startElement = document.getElementById('calendar_start_date_time');
-	for (var hour = 0; hour < 24; hour++) {
-	    for (var minute = 0; minute < 60; minute += 30) {
-	        var optionElement = document.createElement('option');
-	        var formattedHour = hour.toString().padStart(2, '0');
-	        var formattedMinute = minute.toString().padStart(2, '0');
-	        optionElement.value = formattedHour + ':' + formattedMinute;
-	        optionElement.text = formattedHour + ':' + formattedMinute;
-	        startElement.appendChild(optionElement);
-	        
-	    }
-	}
-	startElement.value = "09:00";
-	
-	var endElement = document.getElementById('calendar_end_date_time');
-	for (var hour = 0; hour < 24; hour++) {
-	    for (var minute = 0; minute < 60; minute += 30) {
-	        var optionElement = document.createElement('option');
-	        var formattedHour = hour.toString().padStart(2, '0');
-	        var formattedMinute = minute.toString().padStart(2, '0');
-	        optionElement.value = formattedHour + ':' + formattedMinute;
-	        optionElement.text = formattedHour + ':' + formattedMinute;
-	        endElement.appendChild(optionElement);
-	        
-	    }
-	}
-	endElement.value = "09:00";
-	
-	var updateStartElement = document.getElementById('calendar_start_date_time_update');
-	for (var hour = 0; hour < 24; hour++) {
-	    for (var minute = 0; minute < 60; minute += 30) {
-	        var optionElement = document.createElement('option');
-	        var formattedHour = hour.toString().padStart(2, '0');
-	        var formattedMinute = minute.toString().padStart(2, '0');
-	        optionElement.value = formattedHour + ':' + formattedMinute;
-	        optionElement.text = formattedHour + ':' + formattedMinute;
-	        updateStartElement.appendChild(optionElement);
-	        
-	    }
-	}
-
-	
-	var updateEndElement = document.getElementById('calendar_end_date_time_update');
-	for (var hour = 0; hour < 24; hour++) {
-	    for (var minute = 0; minute < 60; minute += 30) {
-	        var optionElement = document.createElement('option');
-	        var formattedHour = hour.toString().padStart(2, '0');
-	        var formattedMinute = minute.toString().padStart(2, '0');
-	        optionElement.value = formattedHour + ':' + formattedMinute;
-	        optionElement.text = formattedHour + ':' + formattedMinute;
-	        updateEndElement.appendChild(optionElement);
-	        
-	    }
-	}
-
+	icon[3].innerHTML='<span class="material-symbols-outlined">cached</span>';
+	icon[2].innerHTML='<span class="material-symbols-outlined">edit_square</span>';
+});
 	

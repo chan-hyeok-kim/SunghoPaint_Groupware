@@ -129,7 +129,7 @@
    <!-- 자산 추가 관련 -->
    <insert id="setCarAdd" parameterType="CarListVO">
    		INSERT INTO CAR_LIST 
-		values(0, #{carModelCd}, #{carModelName}, 'C011', #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu})
+		values(0, #{carModelCd}, #{carModelName}, 'C011', #{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu}, #{carReason})
    </insert>
    
    <!-- 자산 상세 정보 -->
@@ -177,7 +177,7 @@
    
    <!-- 거래처 상세 정보 -->
    <select id="getClientDetail" resultType="SalesClientVO">
-   		select *, FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS CODE_NAME from CLIENT_LIST CL INNER JOIN HUMAN_RESOURCE HR
+   		select DISTINCT CL.CLIENT_NO, CL.*, FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS CODE_NAME from CLIENT_LIST CL INNER JOIN HUMAN_RESOURCE HR
 		ON CL.CLIENT_MANAGER = HR.NAME WHERE CLIENT_NO=#{clientNo}
    </select>
    
@@ -231,4 +231,15 @@
    		ON SC.EMPLOYEE_ID = HR.EMPLOYEE_ID WHERE (HR.DEPARTMENT_CD = (SELECT DEPARTMENT_CD FROM HUMAN_RESOURCE WHERE EMPLOYEE_ID=#{employeeId}))
    </select>
    
+   <!-- 연차 수정 -->
+   <update id="setUpdateAnnual" parameterType="AnnualAddVO">
+   		UPDATE SCHEDULE SET 
+   		SCHEDULE_DATE=#{scheduleDate}, SCHEDULE_END_DATE=#{scheduleEndDate}, SCHEDULE_CONTENTS=#{scheduleContents}
+   		WHERE EMPLOYEE_ID=#{employeeId}
+   </update>
+   
+   <!-- 연차 삭제 -->
+   <delete id="setDeleteAnnual" parameterType="AnnualAddVO">
+   		DELETE FROM SCHEDULE WHERE SCHEDULE_NO=#{scheduleNo}
+   </delete>
 </mapper>

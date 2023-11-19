@@ -178,6 +178,8 @@ ul.nav-tabs {
 							      <th scope="col" style="font-weight:bold;">구매일자</th>
 							      <th scope="col" style="font-weight:bold;">거래처명</th>
 							      <th scope="col" style="font-weight:bold;">품목명</th>
+							      <th scope="col" style="font-weight:bold;">수량</th>
+							      <th scope="col" style="font-weight:bold;">단가</th>
 							      <th scope="col" style="font-weight:bold;">금액합계</th>
 							      <th scope="col" style="font-weight:bold;">영업 담당자</th>
 							      <th scope="col" style="font-weight:bold;">엑셀</th>
@@ -189,6 +191,8 @@ ul.nav-tabs {
 						            <td id="purchaseDate">${vo.purchaseDate}</td>
 						             <td id="clientName">${vo.clientName}</td>
 						             <td id="codeName">${vo.codeName}</td>
+						             <td id="purchaseQuantity">${vo.purchaseQuantity}</td>
+						             <td id="unitPrice">${vo.materialProductPrice}</td>
 						             <td id="totalPrice">${vo.totalPrice}</td>
 						             <td id="employeeId">${vo.clientManager}</td>
 						             <td id="clientZipCode" hidden>${vo.clientZipCode}</td>
@@ -220,7 +224,7 @@ ul.nav-tabs {
     </li>
     
     <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-    <li class="page-item"><a class="page-link" href="/approval/getList?page=${i}">${i}</a></li>
+    <li class="page-item"><a class="page-link" href="/approval/getList?page=${i}"><%-- ${i} --%>1</a></li>
     </c:forEach>
     
     <li class="page-item ${pager.next?'':'disabled'}">
@@ -262,7 +266,8 @@ $('.showInvoiceButton').click(function() {
     window.clientRefAddress = $(this).siblings("#clientRefAddress").html();
     window.clientDetailAddress = $(this).siblings("#clientDetailAddress").html();
     window.clientNumber = $(this).siblings("#clientNumber").html();
-     
+    window.purchaseQuantity = $(this).siblings("#purchaseQuantity").html();
+    window.unitPrice = $(this).siblings("#unitPrice").html();
     console.log($(this).siblings("#clientAddress").html());
     console.log("zz");
    

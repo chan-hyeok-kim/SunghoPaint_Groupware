@@ -226,7 +226,7 @@ ul.nav-tabs {
     </li>
     
     <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-    <li class="page-item"><a class="page-link" href="/approval/getList?page=${i}">${i}</a></li>
+    <li class="page-item"><a class="page-link" href="/approval/getList?page=${i}"><%-- ${i} --%>1</a></li>
     </c:forEach>
     
     <li class="page-item ${pager.next?'':'disabled'}">

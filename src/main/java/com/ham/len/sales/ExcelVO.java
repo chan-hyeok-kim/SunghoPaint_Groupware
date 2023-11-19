@@ -31,4 +31,6 @@ public class ExcelVO{
 	private String vat;
 	private String supplyPrice;
 	//수량, 단가 나중에 추가
+	private String purchaseQuantity;
+	private String unitPrice;
 }
