@@ -20,7 +20,7 @@
 						<c:forEach items="${list}" var="vo" varStatus="i">
 							<c:if test="${i.index lt 5}">
 								<tr>
-									<td class="approval-start-date">${vo.regDate}</td>
+									<td class="message-reg-date">${vo.regDate}</td>
 									<td>${vo.notificationTitle}</td>
 									<td>${vo.notificationContents}</td>
 								</tr>
