@@ -63,7 +63,7 @@
 
 					<ul class="nav-tabs my-list-tabs">
 						<li onclick="location.href='./list'" class="active"><a class="link-tab">전체</a></li>
-						<li data-cd="R031"><a class="link-tab">기안중</a></li>
+						<!-- <li data-cd="R031"><a class="link-tab">기안중</a></li> -->
 						<li data-cd="R032"><a class="link-tab">진행중</a></li>
 						<li data-cd="R034"><a class="link-tab">반려</a></li>
 						<li data-cd="R033"><a class="link-tab">승인 완료</a></li>
