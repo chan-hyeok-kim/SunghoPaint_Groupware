@@ -90,13 +90,13 @@
               onmouseout="this.style.backgroundColor='transparent'">연차등록</span></a>
               <br><br><br>
               <div class="form-check">
-				  <input class="form-check-input" type="radio" name="flexRadioDefault" value="" id="flexCheckDefault" checked>
+				  <input class="form-check-input" type="radio" name="flexRadioDefault" value="내연차" id="flexCheckDefault" checked>
 				  <label class="form-check-label" for="flexCheckDefault">
 				    내 연차
 				  </label>
 				</div>
 				<div class="form-check">
-				  <input class="form-check-input" type="radio" name="flexRadioDefault" value="" id="flexCheckChecked">
+				  <input class="form-check-input" type="radio" name="flexRadioDefault" value="팀연차" id="flexCheckChecked">
 				  <label class="form-check-label" for="flexCheckChecked">
 				    팀 연차
 				  </label>
@@ -172,7 +172,8 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 <script type="text/javascript">
 const arr = new Array();
-
+const arr2 = new Array();
+let currentEvents = arr;
 $.ajax({
 	  type: "GET", 
 	  url: "/sales/getAnnualList",
@@ -206,7 +207,50 @@ $.ajax({
 	  },
 	});
 	
+$.ajax({
+	  type: "GET", 
+	  url: "/sales/getTeamAnnualList",
+	  async: false,
+	  success: function (res) {
+	    for (const key in res) {
+	      let obj = new Object();
+	      
+	      obj.id = res[key].scheduleNo;
+	      
+	      obj.title = res[key].name + ' ' + res[key].codeName;
+	      
+	      obj.scheduleContents = res[key].scheduleContents;
+	      let scheduleDate = new Date(res[key].scheduleDate);
+	      scheduleDate.setHours(scheduleDate.getHours() + 9);
+	      obj.start = scheduleDate;
+	      
+	      let scheduleEndDate = new Date(res[key].scheduleEndDate);
+	      scheduleEndDate.setHours(scheduleEndDate.getHours() + 9);
+	      obj.end = scheduleEndDate;
+
+	      arr2.push(obj);
+	    }
+	    console.log(arr2);
+	    
 	
+	  },
+	  error: function (XMLHttpRequest, textStatus, errorThrown) {
+	    console.log('error')
+	  },
+	});
+
+$('input[type=radio][name=flexRadioDefault]').change(function() {
+    if (this.value === '내연차') {
+    	console.log("asd")
+      currentEvents = arr;
+    } else if (this.value === '팀연차') {
+      currentEvents = arr2;
+      console.log("zz");
+      console.log(currentEvents);
+    }
+
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -270,8 +314,17 @@ document.addEventListener('DOMContentLoaded', function() {
 	      },
 	      
 	      
-        events: arr
+        events: currentEvents,
+        
+        eventClick:function(event) {
+        	console.log("하하")
+        	console.log("제목", event.event.title);
+    		console.log("시작일", event.event.start);
+        }
     });
+
+    
+    
     calendar.render();
     
 
