@@ -13,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ham.len.admin.document.ApprovalTypeService;
 import com.ham.len.admin.document.ApprovalTypeVO;
 import com.ham.len.admin.document.ApprovalUpTypeVO;
+import com.ham.len.annual.AnnualLeaveUsedHistoryVO;
+import com.ham.len.annual.AnnualService;
 import com.ham.len.commons.CodeVO;
 import com.ham.len.commons.Pager;
 import com.ham.len.commons.ZtreeVO;
@@ -50,6 +53,9 @@ public class ApprovalController {
 
 	@Autowired
 	private HumanResourceService humanResourceService;
+	
+	@Autowired
+	private AnnualService annualService;
 	
 	@Autowired
 	private SignatureService signatureService;
@@ -238,7 +244,8 @@ public class ApprovalController {
 	}
 
 	@PostMapping("check")
-	public String setCheck(ApprovalVO approvalVO, Model model) throws Exception {
+	@Transactional
+	public String setCheck(ApprovalVO approvalVO, AnnualLeaveUsedHistoryVO annualLeaveUsedHistoryVO, Model model) throws Exception {
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		log.warn("들어오는지확인");
@@ -259,9 +266,12 @@ public class ApprovalController {
         		result=mainService.setAlarmAdd(notificationVO);
         		check=result;
         		
-        		// ===== 휴가 신청 결재 완료 =====
-        		// R011
-        		
+        		// ========== 휴가 신청 결재 완료 이후 처리 ==========
+        		if(approvalVO.getApCodeName().equals("R011")) {
+        			// require employeeID
+        			annualService.setUpdateByUseAnnualLeave(annualLeaveUsedHistoryVO);
+        			annualService.setAnnualLeaveUsedHistory(annualLeaveUsedHistoryVO);
+        		}
         	}
             //결재 승인
 		} else if (approvalVO.getApprovalStatusCd().equals("R034")) {

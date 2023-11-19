@@ -104,4 +104,28 @@
 			#{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu}
 		)
 	</insert>
+	
+	<update id="setUpdateByUseAnnualLeave" parameterType="AnnualLeaveUsedHistoryVO">
+		UPDATE
+			ANNUAL_LEAVE
+		SET
+			USED_ANNUAL_LEAVE = USED_ANNUAL_LEAVE + #{usedAnnualLeaveCount},
+			HAVE_ANNUAL_LEAVE = HAVE_ANNUAL_LEAVE - #{usedAnnualLeaveCount}
+		WHERE
+			EMPLOYEE_ID = #{employeeID}
+	</update>
+	
+	<insert id="setAnnualLeaveUsedHistory" parameterType="AnnualLeaveUsedHistoryVO">
+		INSERT INTO
+		ANNUAL_LEAVE_USED_HISTORY
+		(
+			ANNUAL_LEAVE_USED_HISTORY_NO, EMPLOYEE_ID, ANNUAL_LEAVE_START, ANNUAL_LEAVE_END,
+			USED_ANNUAL_LEAVE_COUNT, REASON, REG_ID, REG_DATE, REG_MENU, MOD_ID, MOD_DATE, MOD_MENU
+		)
+		VALUES
+		(
+			NULL, #{employeeID}, #{annualLeaveStart}, #{annualLeaveEnd}, #{usedAnnualLeaveCount}, #{reason},
+			#{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu}
+		)
+	</insert>
 </mapper>
