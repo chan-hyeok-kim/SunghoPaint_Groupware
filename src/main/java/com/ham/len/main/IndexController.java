@@ -20,6 +20,8 @@ import com.ham.len.commons.Pager;
 import com.ham.len.humanresource.HumanResourceVO;
 import com.ham.len.humanresource.todolist.ToDoListVO;
 import com.ham.len.materialProduct.MaterialProductVO;
+import com.ham.len.sales.AnnualAddVO;
+import com.ham.len.sales.SalesService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +35,9 @@ public class IndexController {
 	
 	@Autowired
 	private ApprovalService approvalService;
+	
+	@Autowired
+	private SalesService salesService;
 	
 	@GetMapping("/")
 	public String getIndex(Model model,Pager pager,@AuthenticationPrincipal HumanResourceVO humanResourceVO)throws Exception{
@@ -71,7 +76,14 @@ public class IndexController {
 		model.addAttribute("approvalList", approvalList);
 		
 		
-		
+		/* 성호 캘린더 */
+		model.addAttribute("empId", humanResourceVO.getEmployeeID());
+		model.addAttribute("empName", humanResourceVO.getName());
+		HumanResourceVO humanResourceVO2 = new HumanResourceVO();
+		humanResourceVO2.setEmployeeID(humanResourceVO.getEmployeeID());
+		humanResourceVO2 = salesService.getPosition(humanResourceVO2);
+		model.addAttribute("position", humanResourceVO2.getCodeName());
+		/* 성호 캘린더 */
 		
 		return "index";
 	}
@@ -145,4 +157,12 @@ public class IndexController {
 		model.addAttribute("result", result);
 		return "commons/ajaxResult";
 	}
+	
+	/* 성호 캘린더 */
+	@PostMapping("addAnnual")
+	public String setAddAnnual(AnnualAddVO annualAddVO) throws Exception{
+		int result = salesService.setAddAnnual(annualAddVO);
+		return "redirect:/";
+	}
+	/* 성호 캘린더 */
 }

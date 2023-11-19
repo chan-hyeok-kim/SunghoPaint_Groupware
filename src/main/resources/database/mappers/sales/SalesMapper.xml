@@ -177,7 +177,7 @@
    
    <!-- 거래처 상세 정보 -->
    <select id="getClientDetail" resultType="SalesClientVO">
-   		select *, FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS CODE_NAME from CLIENT_LIST CL INNER JOIN HUMAN_RESOURCE HR
+   		select DISTINCT CL.CLIENT_NO, CL.*, FN_CODE_NM(LEFT(POSITION_CD, 3), POSITION_CD) AS CODE_NAME from CLIENT_LIST CL INNER JOIN HUMAN_RESOURCE HR
 		ON CL.CLIENT_MANAGER = HR.NAME WHERE CLIENT_NO=#{clientNo}
    </select>
    
