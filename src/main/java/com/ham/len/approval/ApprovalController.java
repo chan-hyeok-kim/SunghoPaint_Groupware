@@ -184,6 +184,15 @@ public class ApprovalController {
 		approvalVO = approvalService.getDetail(approvalVO);
 		List<ApprovalTypeVO> total = approvalTypeService.getTotalList(pager);
 
+		// 사인 값 들고오기
+				SecurityContext context = SecurityContextHolder.getContext();
+				if (!(context.getAuthentication().getPrincipal() instanceof String)) {
+					HumanResourceVO humanResourceVO = (HumanResourceVO) context.getAuthentication().getPrincipal();
+
+					humanResourceVO = signatureService.getDetail(humanResourceVO);
+					model.addAttribute("sign", humanResourceVO.getSignature());
+					model.addAttribute("member", humanResourceVO);
+				}
 		model.addAttribute("vo", approvalVO);
 		model.addAttribute("list", total);
 	}

@@ -15,24 +15,44 @@ mainCheckBtn[0].addEventListener('click',function(){
 
     if($('#app-list').hasClass('active')){
       $('#app-list').toggleClass('active')
+      $('#material-product-amount').toggleClass('green')
+
       $('#my-app-list').toggleClass('active')
+      $('#material-product-amount').toggleClass('active');
       return;
     }
     if($('#message-list').hasClass('active')){
       $('#message-list').toggleClass('active')
+      $('#material-product-amount').toggleClass('blue')
+
       $('#my-app-list').toggleClass('active')
+      $('#material-product-amount').toggleClass('active');
       return;
     }
     if($('#notice-list').hasClass('active')){
       $('#notice-list').toggleClass('active')
+      $('#material-product-amount').toggleClass('red')
+
       $('#my-app-list').toggleClass('active')
+      $('#material-product-amount').toggleClass('active');
       return;
     }
 
     $('#my-app-list').toggleClass('active')
     $('#material-product-amount').toggleClass('active');
     
-   
+    if($('#material-product-amount').hasClass("col-md-7")){
+    // $('#my-app-list').addClass("col-md-7");
+    // $('#my-app-list').removeClass("col-6");
+    $('#material-product-amount').removeClass('col-md-7');
+    $('#material-product-amount').addClass('col-6');
+    
+    }else{
+    // $('#my-app-list').addClass("col-6");
+    // $('#my-app-list').removeClass("col-md-7");
+    $('#material-product-amount').removeClass('col-6');
+    $('#material-product-amount').addClass('col-md-7');
+    }
 
 
   })
@@ -50,23 +70,44 @@ mainCheckBtn[1].addEventListener('click',function(){
   console.log('초록 클릭 확인')
   if($('#my-app-list').hasClass('active')){
     $('#my-app-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('active')
     $('#app-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('green');
+
     return;
+   
+
   }
   if($('#message-list').hasClass('active')){
     $('#message-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('blue')
     $('#app-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('green');
     return;
   }
   if($('#notice-list').hasClass('active')){
     $('#notice-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('red')
     $('#app-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('green');
     return;
   }
 
-
+ 
+  if($('#material-product-amount').hasClass("col-md-7")){
+   
+    $('#material-product-amount').removeClass('col-md-7');
+    $('#material-product-amount').addClass('col-6');
+    
+    }else{
+  
+    $('#material-product-amount').removeClass('col-6');
+    $('#material-product-amount').addClass('col-md-7');
+    }
   $('#app-list').toggleClass('active')
-  $('#material-product-amount').toggleClass('active');
+  $('#material-product-amount').toggleClass('green');
+
+  
 })
 
 
@@ -78,25 +119,45 @@ mainBtn[1].addEventListener('click',function(){
 
 
 mainCheckBtn[2].addEventListener('click',function(){
-  console.log('클릭 확인')
+  console.log('블루 클릭 확인')
   if($('#my-app-list').hasClass('active')){
     $('#my-app-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('active')
+
     $('#message-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('blue');
     return;
   }
   if($('#app-list').hasClass('active')){
     $('#app-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('green')
+
     $('#message-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('blue');
     return;
   }
   if($('#notice-list').hasClass('active')){
     $('#notice-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('red')
+
     $('#message-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('blue');
     return;
   }
 
+  if($('#material-product-amount').hasClass("col-md-7")){
+   
+    $('#material-product-amount').removeClass('col-md-7');
+    $('#material-product-amount').addClass('col-6');
+    
+    }else{
+  
+    $('#material-product-amount').removeClass('col-6');
+    $('#material-product-amount').addClass('col-md-7');
+    }
+
   $('#message-list').toggleClass('active')
-  $('#material-product-amount').toggleClass('active');
+  $('#material-product-amount').toggleClass('blue');
 })
 
 
@@ -111,22 +172,42 @@ mainCheckBtn[3].addEventListener('click',function(){
   console.log('클릭 확인')
   if($('#my-app-list').hasClass('active')){
     $('#my-app-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('active')
+
     $('#notice-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('red');
     return;
   }
   if($('#app-list').hasClass('active')){
     $('#app-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('green')
+
     $('#notice-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('red');
     return;
   }
   if($('#message-list').hasClass('active')){
     $('#message-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('blue')
+
     $('#notice-list').toggleClass('active')
+    $('#material-product-amount').toggleClass('red');
     return;
   }
 
+  if($('#material-product-amount').hasClass("col-md-7")){
+   
+    $('#material-product-amount').removeClass('col-md-7');
+    $('#material-product-amount').addClass('col-6');
+    
+    }else{
+  
+    $('#material-product-amount').removeClass('col-6');
+    $('#material-product-amount').addClass('col-md-7');
+    }
+
   $('#notice-list').toggleClass('active')
-  $('#material-product-amount').toggleClass('active');
+  $('#material-product-amount').toggleClass('red');
 })
 
 
@@ -245,18 +326,8 @@ $.ajax({
 
 
 
-// 공지 작성일자
 
-const noticeRegDate=document.getElementsByClassName('notice-reg-date');
-for(n of noticeRegDate){
 
-	if(n && n!=0){
-		let date=n.innerText;
-		date1=javaDatetoScript(date);
-	
-		n.innerText=date1;
-		}
-}
 
 
 function javaDatetoScript(date){
@@ -294,11 +365,35 @@ function javaDatetoScript(date){
   }
 
 
+function regDateToScript(){
+  const noticeRegDate=document.getElementsByClassName('notice-reg-date');
+  for(n of noticeRegDate){
+  
+  if(n && n!=0){
+  let date=n.innerText;
+  date1=javaDatetoScript(date);
 
+  n.innerText=date1;
+  }
+}
+}
+
+function regDateToScript1(){
+  const messageRegDate=document.getElementsByClassName('message-reg-date');
+  for(m of messageRegDate){
+ 
+  if(m && m!=0){
+  let date=m.innerText;
+  date1=javaDatetoScript(date);
+
+  m.innerText=date1;
+  }
+}
+}
 // 새로고침
 
 
-
+regDateToScript();
 $('#notice-refresh-btn').click(function(){
   
   $.ajax({
@@ -306,11 +401,24 @@ $('#notice-refresh-btn').click(function(){
      url:'/notice/refresh',
      success:function(result){
       $('#notice-ajax-list').html(result);
+      regDateToScript();
      }
   })
 
   
 })
+
+
+
+$.ajax({
+  type:'GET',
+   url:'/message/refresh',
+    success:function(result){
+      $('#message-ajax-list').html(result);
+      regDateToScript1();
+   }
+})
+
 
 $('#message-refresh-btn').click(function(){
   
@@ -320,6 +428,7 @@ $.ajax({
    url:'/message/refresh',
     success:function(result){
       $('#message-ajax-list').html(result);
+      regDateToScript1();
    }
 })
 
