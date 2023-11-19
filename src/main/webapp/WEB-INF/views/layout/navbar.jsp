@@ -8,8 +8,8 @@
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
           <a class="navbar-brand brand-logo" href="/">
-          <img src="/images/humanresource/logo-clear1.png" style="padding-left:20px;height: 55px;">
-          <img src="/images/humanresource/logo-clear2.png" >
+          <img src="/images/humanresource/logo3.png" style="width:300px;height: 55px;">
+          
           <a class="navbar-brand brand-logo-mini" href="/"><span class="material-symbols-outlined" style="color:#198ae3">
 format_color_fill
 </span></a>

@@ -24,7 +24,7 @@
 
 						<div style="float:left">공지사항 리스트</div> 
 						<div style="text-align: right;">
-							<form class="form-inline" action="/notice/search" method="get">
+							<form class="form-inline" action="/notice/list" method="get">
 
 								<!-- 검색 설정 -->
 								<select name="kind" class="btn btn-gradient-light" id="top-search-select">

@@ -294,7 +294,7 @@ SELECT *,APT.APPROVAL_TYPE_NO AS
 		SET APPROVAL_TITLE=#{approvalTitle},MID_APPROVER=#{midApprover},
 		ADD_APPROVER=#{addApprover},LAST_APPROVER=#{lastApprover},
 		APPROVAL_CONTENTS=#{approvalContents},
-		APPROVAL_TYPE_NO=#{approvalTypeNo},APPROVAL_STATUS_CD=#{approvalStatusCd}
+		APPROVAL_TYPE_NO=#{approvalTypeNo},APPROVAL_STATUS_CD=#{approvalStatusCd},
 		ADMONITION=#{admonition},
 		MOD_ID=#{modId},MOD_DATE=NOW(),MOD_MENU=#{modMenu}
 		WHERE APPROVAL_NO=#{approvalNo}

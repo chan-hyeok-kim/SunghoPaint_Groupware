@@ -94,7 +94,7 @@
 						</tr>
 						<tr>
 							<td>제목</td>
-							<td colspan="2"><span class="input-date"><input
+							<td colspan="2"><span class="input-date"></span><input
 							value="${vo.approvalTitle}"
 									style="display: inline-block; margin-left: 4px"
 									class="form-control approval-line-search" type="search"
@@ -118,7 +118,7 @@
 							value="${vo.midApproverName}"
 							id="mid-approver" style="display: inline-block;"
 								class="form-control approval-line-search" type="search"
-								name="midApprover" placeholder="" aria-label="Search"></td>
+								 placeholder="" aria-label="Search"></td>
 						</tr>
 						<tr>
 							<td>추가검토자</td>
@@ -126,17 +126,17 @@
 							style="display: inline-block; margin-left: 4px"
 								id="add-approver" class="form-control approval-line-search"
 								type="search" placeholder="" aria-label="Search"
-								name="addApprover"></td>
+								></td>
 						</tr>
 						<tr>
 							<td>결재자</td>
 							<td><input id="last-approver" value="${vo.lastApproverName}"
 								style="display: inline-block; margin-left: 4px"
 								class="form-control approval-line-search" type="search"
-								placeholder="" aria-label="Search" name="lastApprover"></td>
-								<input type="hidden" value="${lastApprover}" name="lastApprover" id="last-data-id">
-								<input type="hidden" value="${midApprover}" name="midApprover" id="mid-data-id">
-								<input type="hidden" value="${addApprover}" name="addApprover" id="add-data-id">
+								placeholder="" aria-label="Search" ></td>
+							 	<input type="hidden" value="${vo.lastApprover}" name="lastApprover" id="last-data-id">
+								<input type="hidden" value="${vo.midApprover}" name="midApprover" id="mid-data-id">
+								<input type="hidden" value="${vo.addApprover}" name="addApprover" id="add-data-id"> 
 						</tr>
 						<tr>
 							<td>구분(결재양식)</td>
@@ -177,6 +177,7 @@
 				</div>
 		</div>
 		<input type="hidden" value="${vo.approvalTypeNo}" id="form-add-no" name="approvalTypeNo">
+		<input type="hidden" value="${vo.approvalStatusCd}" name="approvalStatusCd">
 		</form>
 
 	</div>
@@ -207,7 +208,8 @@
 					</div>
 
 
-					<div style="display: flex; float: left; width: 40%;">
+
+					<div style="display: flex; float: left; width: 42%;">
 						<div style="float: left;">
 
 							<ul id="tree" class="ztree"></ul>
@@ -221,47 +223,88 @@
 
 					<div id="btn-box">
 						<div>
-							<button type="button" class="btn btn-info" id="tree-mid-app">중간
-								검토자 추가</button>
+							<button type="button" class="btn btn-secondary btn-icon-text" id="tree-mid-app" data-id="">
+							중간<i class="mdi mdi-file-check btn-icon-append"></i></button>
 						</div>
 						<div>
-							<button type="button" class="btn btn-info" id="tree-add-app">추가
-								검토자 추가</button>
+							<button type="button" class="btn btn-secondary btn-icon-text" id="tree-add-app" data-id="">
+							검토<i class="mdi mdi-file-check btn-icon-append"></i></button>
 						</div>
 						<div>
-							<button type="button" class="btn btn-info" id="tree-last-app">결재자
-								추가</button>
+							<button type="button" class="btn btn-secondary btn-icon-text" id="tree-last-app" data-id="">
+							결재<i class="mdi mdi-file-check btn-icon-append"></i></button>
 						</div>
 					</div>
 
 
-					<div style="overflow: auto; float: left;" id="tree-table-div">
-						<table id="tree-table" class="table table-bordered">
-							<tbody id="tree-table-body">
-								<tr style="height: 10%">
-									<td colspan="2">결재라인 설정</td>
-
-								</tr>
-								<tr style="height: 20%">
-									<td>중간 검토자</td>
-									<td id="mid-app" width="158px"></td>
-								</tr>
-								<tr style="height: 20%">
-									<td>추가 검토자</td>
-									<td id="add-app"></td>
-								</tr>
-								<tr style="height: 20%">
-									<td>결재자</td>
-									<td id="last-app"></td>
-								</tr>
-
-							</tbody>
-						</table>
+					<div style="overflow: auto; float: left; margin-left:10px" id="tree-table-div">
+						<label class="badge badge-gradient-light" style="color:black; height:32px; width: 100%; text-align: left; font-weight: bold">결재선</label>
+					
+					
+					<div style="background: white;" class="tree-table">
+					<div style="display: flex; ">
+					<div style="display: flex; ">
+					<i class="material-symbols-outlined" style="font-size:50px;">account_circle</i> 
+					<p><span style="font-size:24px; color:gray;" id="my-rank"></span><br>
+					  <span></span>  
+					 </p>
+					 </div>
+					 <div style="display:flex; justify-content: flex-end; margin-left:auto"> 
+					 <span style="text-align: right"><span id="my-dept"></span><br>
+					 <label class="badge badge-gradient-drafter">기안</label><br>
+					 <span id="app-date-span"></span>
+					 </span></div>
+					  </div>
 					</div>
-				</div>
+					
+					<div style="background: white;" class="tree-table">
+					<div style="display: flex; ">
+					<div style="display: flex; ">
+					<i class="material-symbols-outlined" style="font-size:50px;">account_circle</i> 
+					<p><span style="font-size:24px; color:gray;" id="mid-app"></span><br>
+					 <span></span> 
+					 </p>
+					 </div>
+					 <div style="display:flex; justify-content: flex-end; margin-left:auto"> 
+					 <span style="text-align: right"><span id="mid-app-dept"></span><br>
+					 <label class="badge badge-gradient-mid">검토</label><br>
+					 </span></div>
+					  </div>
+					</div>
+					
+					<div style="background: white;" class="tree-table">
+					<div style="display: flex; ">
+					<div style="display: flex; ">
+					<i class="material-symbols-outlined" style="font-size:50px;">account_circle</i> 
+					<p><span style="font-size:24px; color:gray;" id="add-app"></span><br>
+					 <span></span>
+					 </p>
+					 </div>
+					 <div style="display:flex; justify-content: flex-end; margin-left:auto"> 
+					 <span style="text-align: right"><span id="add-app-dept"></span><br>
+					 <label class="badge badge-gradient-mid">검토</label><br>
+					 </span></div>
+					  </div>
+					</div>
+					
+					<div style="background: white;" class="tree-table">
+					<div style="display: flex; ">
+					<div style="display: flex; ">
+					<i class="material-symbols-outlined" style="font-size:50px;">account_circle</i> 
+					<p><span style="font-size:24px; color:gray;" id="last-app"></span><br>
+					 <span></span> 
+					 </p>
+					 </div>
+					 <div style="display:flex; justify-content: flex-end; margin-left:auto"> 
+					 <span style="text-align: right"><span id="last-app-dept"></span><br>
+					 <label class="badge badge-gradient-last">결재</label><br>
+					 </span></div>
+					  </div>
+					</div>
+					
 
 
-
+</div></div>
 
 
 
@@ -315,7 +358,7 @@
 					</div>
 
 					<!-- 문서 data -->
-					<c:forEach items="${list}" var="vo" varStatus="i">
+				<%-- 	<c:forEach items="${list}" var="vo" varStatus="i">
 						<span class="get-up-code-name"
 							data-up-type-cd="${vo.approvalUpTypeVO.approvalUpTypeCd}"
 							data-code-name="${vo.codeName}"
@@ -323,7 +366,7 @@
 							data-no="${vo.approvalTypeNo}">${vo.approvalForm}</span>
 
 					</c:forEach>
-					
+					 --%>
 
 
 
@@ -350,7 +393,13 @@
 
 const formSign='${sign}';
 const me='${member.username}'
+
+const myDept='${member.departmentCdName}'
+const myRank='${member.codeName}'
+const myName='${member.name}'
+
 </script>
+
 
 
 	<!-- approval-form에 html style적용 -->

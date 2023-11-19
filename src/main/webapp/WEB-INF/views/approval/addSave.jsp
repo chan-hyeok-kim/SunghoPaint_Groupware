@@ -87,7 +87,7 @@
 							<td>기안일자</td>
 							<td colspan="2"><input id="currentDate" readonly="readonly"
 								style="display: inline-block; margin-left: 4px"
-								class="form-control approval-line-search" type="date"
+							value="${vo.approvalStartDate}"	class="form-control approval-line-search" type="date"
 								name="approvalStartDate"></td>
 						</tr>
 						<tr>
@@ -160,8 +160,8 @@
 
 				<!-- add button -->
 				<div id="form-add-btn-box" style="float:left;">
-					<!-- <button type="button" class="btn btn-info"
-					style="margin-left: 20px;" id="app-save-btn">임시저장</button> -->
+					<button type="button" class="btn btn-info"
+					style="margin-left: 20px;" id="app-save-btn">임시저장</button>
 					<button type="button" class="btn btn-info" id="text-delete-btn"
 					style="margin-left: 20px;">지우기</button>
 				</div>
