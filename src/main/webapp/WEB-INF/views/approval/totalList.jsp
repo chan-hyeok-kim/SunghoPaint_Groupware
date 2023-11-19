@@ -42,7 +42,7 @@
 
 					<ul class="nav-tabs total-list-tabs">
 						<li onclick="location.href='./totalList'" class="active"><a class="link-tab">전체</a></li>
-						<li data-cd="R031"><a class="link-tab">기안중</a></li>
+						<!-- <li data-cd="R031"><a class="link-tab">기안중</a></li> -->
 						<li data-cd="R032"><a class="link-tab">진행중</a></li>
 						<li data-cd="R034"><a class="link-tab">반려</a></li>
 						<li data-cd="R033"><a class="link-tab">승인 완료</a></li>
@@ -95,7 +95,7 @@
 									</c:choose>
 				             </td>
 				            
-				             <td><a href="/approval/${vo.approvalStatusCd eq 'R031'? 'update': 'detail' }?approvalNo=${vo.approvalNo}" class="detail-proceed-btn">기안서 확인</a></td>
+				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}" class="detail-proceed-btn">기안서 확인</a></td>
 				             
 				           </tr>
 				         </c:forEach>
