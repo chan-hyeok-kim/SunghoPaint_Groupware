@@ -20,7 +20,7 @@
 		INSERT INTO TRANSFER
 		VALUES
 		(
-			NULL, #{employeeId}, #{name}, #{transferDate}, #{transferTypeCd},
+			NULL, #{employeeID}, #{name}, #{transferDate}, #{transferTypeCd},
 			#{beforePositionCd}, #{transferPositionCd},
 			#{beforeDepartmentCd}, #{transferDepartmentCd},
 			#{regId}, #{regDate}, #{regMenu}, #{modId}, #{modDate}, #{modMenu}
@@ -51,4 +51,27 @@
 		ORDER BY TRANSFER_NO DESC
 		LIMIT #{startRow}, 10
 	</select>
+	
+	<select id="getTransfer" parameterType="String" resultType="TransferVO">
+		SELECT *,
+				   FN_CODE_NM(LEFT(TRANSFER_TYPE_CD, 3), TRANSFER_TYPE_CD) AS TRANSFER_TYPE_CD_NAME,
+				   FN_CODE_NM(LEFT(BEFORE_POSITION_CD, 3), BEFORE_POSITION_CD) AS BEFORE_POSITION_CD_NAME,
+				   FN_CODE_NM(LEFT(TRANSFER_POSITION_CD, 3), TRANSFER_POSITION_CD) AS TRANSFER_POSITION_CD_NAME,
+				   FN_CODE_NM(LEFT(BEFORE_DEPARTMENT_CD, 3), BEFORE_DEPARTMENT_CD) AS BEFORE_DEPARTMENT_CD_NAME,
+				   FN_CODE_NM(LEFT(TRANSFER_DEPARTMENT_CD, 3), TRANSFER_DEPARTMENT_CD) AS TRANSFER_DEPARTMENT_CD_NAME
+			FROM TRANSFER
+		WHERE TRANSFER_NO = #{value}
+	</select>
+	
+	<update id="updateTransfer" parameterType="TransferVO">
+		UPDATE TRANSFER SET
+			NAME = #{name}, TRANSFER_DATE = #{transferDate}, TRANSFER_TYPE_CD = #{transferTypeCd},
+			BEFORE_POSITION_CD = #{beforePositionCd}, TRANSFER_POSITION_CD = #{transferPositionCd},
+			BEFORE_DEPARTMENT_CD = #{beforeDepartmentCd}, TRANSFER_DEPARTMENT_CD = #{transferDepartmentCd}
+		WHERE TRANSFER_NO = #{transferNo}
+	</update>
+	
+	<delete id="setDelete" parameterType="String">
+		DELETE FROM TRANSFER WHERE TRANSFER_NO = #{value}
+	</delete>
 </mapper>

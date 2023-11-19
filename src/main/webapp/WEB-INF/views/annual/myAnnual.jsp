@@ -56,6 +56,7 @@
 
 <div id="usedList">
 	<h1>사용 내역</h1>
+	<button onclick="location.href='/approval/add'">신청</button>
 	<table>
 		<tr>
 			<th>성명</th>

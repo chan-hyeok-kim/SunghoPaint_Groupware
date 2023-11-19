@@ -75,13 +75,7 @@ var lightColor = getComputedStyle(document.body).getPropertyValue('--light');
       }
     }
 
-    $('[data-toggle="minimize"]').on("click", function() {
-      if ((body.hasClass('sidebar-toggle-display')) || (body.hasClass('sidebar-absolute'))) {
-        body.toggleClass('sidebar-hidden');
-      } else {
-        body.toggleClass('sidebar-icon-only');
-      }
-    });
+    
 
     //checkbox and radios
     $(".form-check label,.form-radio label").append('<i class="input-helper"></i>');

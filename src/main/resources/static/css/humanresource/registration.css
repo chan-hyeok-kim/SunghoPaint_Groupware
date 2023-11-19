@@ -73,11 +73,16 @@ form#registrationForm > #buttons{
 
 
 
-#addressDetailModal #message-text{
-	text-align:unset;
-}
-
 #addressDetailModal img.close{
 	width:25px;
 	cursor:pointer;
+}
+
+#addressDetailModal #message-text{
+	height:35px;
+}
+
+#addressDetailModal #modal-submit{
+	background-color:#90CAF9;
+	border-color:unset;
 }

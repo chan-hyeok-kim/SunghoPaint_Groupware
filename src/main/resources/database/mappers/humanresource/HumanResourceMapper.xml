@@ -167,9 +167,11 @@
 		WHERE EMPLOYEE_ID = #{employeeID}
 	</update>
 	
-	<delete id="setDelete">
-		DELETE FROM HUMAN_RESOURCE WHERE EMPLOYEE_ID = #{value}
-	</delete>
+	<!-- 
+		<delete id="setDelete">
+			DELETE FROM HUMAN_RESOURCE WHERE EMPLOYEE_ID = #{value}
+		</delete>
+	 -->
 	
 	<update id="setUpdatePassword" parameterType="HumanResourceVO">
 		UPDATE HUMAN_RESOURCE SET PASSWORD = #{password} WHERE EMPLOYEE_ID = #{employeeID}
