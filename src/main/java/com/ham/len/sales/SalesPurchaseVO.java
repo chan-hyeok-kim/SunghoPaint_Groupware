@@ -31,4 +31,7 @@ public class SalesPurchaseVO extends CodeVO {
 	private String clientNumber;
 	
 	private String clientManager;
+	
+	private String purchaseQuantity;
+	private String materialProductPrice;
 }

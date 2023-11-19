@@ -54,9 +54,30 @@ $('#modal-confirm-btn').click(function() {
     
     $('#form-add-name').val(formName);
     
+	
+	// if(formName=='휴가신청서'){
+
+		
+	// 	let count='<th>연차사용갯수</th><td><input type="number" min="1" class="form-control" name="usedAnnualLeaveCount"></td>';
+	// 	let start='<th>연차 시작일</th><td><input type="date" class="form-control" name="annualLeaveStart"></td>';
+	// 	let end='<th>연차 종료일</th><td><input type="date" class="form-control" name="annualLeaveEnd"></td>';
+	// 	let reason='<th>연차 사유</th><td><input type="text" class="form-control" name="reason"></td>';
+	
+	// 	$('#annualTr').html(count+start)
+	// 	$('#annualTr').next().html(end+reason)
+		
+	// }else{
+		
+	// 	$('#annualTr').html('');
+	// 	$('#annualTr').next().html('');
+	// }
+	
+
+
 	$('#modal-confirm-close').click();
 
 });
+
 
 
 var drafterSignCheck=0

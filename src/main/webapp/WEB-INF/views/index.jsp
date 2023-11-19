@@ -350,7 +350,47 @@
   
   
 
-
+<!------------------------------------------------- Add modal ------------------------------------------------->
+ <div class="modal fade" id="calendarAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">연차 등록</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <form id="addForm" action="./addAnnual" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+						
+                        <label for="taskId" class="col-form-label">시작일</label>
+                        <input type="date" class="form-control" id="calendar_start_date" name="scheduleDate">
+                        
+                        <label for="taskId" class="col-form-label">종료일</label>
+                        <input type="date" class="form-control" id="calendar_end_date" name="scheduleEndDate">
+                        
+                        <label for="taskId" class="col-form-label">사용자</label>
+                        <input type="text" class="form-control" id="calendar_name" value="${empName} ${position}" readonly>
+                        <input type="hidden" class="form-control" name="employeeId" value="${empId}">
+                        
+                        <label for="taskId" class="col-form-label">휴가 사유</label>
+                        <input type="text" class="form-control" id="calendar_location" name="scheduleContents">
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-warning" id="addCalendar">추가</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        id="sprintSettingModalClose">취소</button>
+                </div>
+    			</form>
+            </div>
+        </div>
+    </div>
+<!------------------------------------------------- Add modal ------------------------------------------------->
  <!-- chart js -->
    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    

@@ -86,8 +86,8 @@
                 <tr>
                     <td><span class="purchaseDate"></span></td>
                     <td><span class="codeName"></span></td>
-                    <td> </td>
-                    <td> </td>
+                    <td><span class="purchaseQuantity"></span></td>
+                    <td><span class="unitPrice"></span></td>
                     <td><span class="totalPrice"></span> 원</td>
                 </tr>
             </tbody>
@@ -95,7 +95,7 @@
         <br>
         
         <div class="invoice-details" style="text-align: right;">
-            <span>수량: </span> <br>
+            <span>수량: </span> <span class="purchaseQuantity"></span> ea<br>
             <span>공급가액: </span> <span class="supplyPrice"></span> 원<br>
             <span>부가세 (VAT):</span> <span class="vat"></span> 원<br>
             <span>총 금액: </span> <span class="totalPrice"></span> 원<br>
@@ -120,6 +120,8 @@
 		        <input type="hidden" name="result" value="">
 		        <input type="hidden" name="vat" value="">
 		        <input type="hidden" name="supplyPrice" value="">
+		        <input type="hidden" name="purchaseQuantity" value="">
+		        <input type="hidden" name="unitPrice" value="">
 		        
     			<button id="submit">엑셀 다운로드</button>
         	</form>
@@ -155,6 +157,11 @@ document.addEventListener('DOMContentLoaded', function() {
     $("input[name='clientDetailAddress']").val(clientDetailAddress);
     let clientNumber = window.opener.clientNumber;
     $("input[name='clientNumber']").val(clientNumber);
+    
+    let purchaseQuantity = window.opener.purchaseQuantity;
+    $("input[name='purchaseQuantity']").val(purchaseQuantity);
+    let unitPrice = window.opener.unitPrice;
+    $("input[name='unitPrice']").val(unitPrice);
     
     let vat2 = toPrice/10;
     let vat = (toPrice/10).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -213,6 +220,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.querySelectorAll('.clientNumber').forEach(function(element) {
         element.innerText = clientNumber;
+    });
+    
+    document.querySelectorAll('.purchaseQuantity').forEach(function(element) {
+        element.innerText = purchaseQuantity;
+    });
+    
+    document.querySelectorAll('.unitPrice').forEach(function(element) {
+        element.innerText = unitPrice;
     });
 
 let a = num2han(toPrice) + '원 정';
