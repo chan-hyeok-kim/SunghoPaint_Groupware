@@ -30,9 +30,9 @@
 		<input type="date" name="transferDate" value="${transferVO.transferDate}" id="transferDate">
 	</div>
 	<div class="component">
-		<label for="employeeId">사번</label>
+		<label for="employeeID">사번</label>
 		<div class="inputWrap">
-			<form:input path="employeeId" data-search-type="existing" />
+			<form:input path="employeeID" data-search-type="existing" />
 			<img id="search_existing" class="search" src="/images/transfer/search-icon.png">
 		</div>
 	</div>

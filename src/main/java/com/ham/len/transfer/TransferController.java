@@ -62,17 +62,19 @@ public class TransferController {
 	}
 	
 	@PostMapping("update")
-	public String setUpdate(@Valid HumanResourceVO humanResourceVO, BindingResult bindingResult, MultipartFile file, Model model) throws Exception {
+	public String setUpdate(@Valid TransferVO transferVO, BindingResult bindingResult, Model model) throws Exception {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("hasErrors", true);
 			model.addAttribute("isUpdate", true);
 			return "transfer/registration";
 		}
 		
-		humanResourceService.setUpdate(humanResourceVO, file);
-		model.addAttribute("result", 1);
-		model.addAttribute("message", "수정이 완료되었습니다.");
-		model.addAttribute("url", "/humanresource/update?employeeID=" + humanResourceVO.getEmployeeID());
+		/*
+			humanResourceService.setUpdate(humanResourceVO, file);
+			model.addAttribute("result", 1);
+			model.addAttribute("message", "수정이 완료되었습니다.");
+			model.addAttribute("url", "/transfer/update?employeeID=" + humanResourceVO.getEmployeeID());
+		*/
 		return "commons/result";
 	}
 	

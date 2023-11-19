@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 public class TransferVO extends CodeVO {
 	private String transferNo;
-	private String employeeId;
+	private String employeeID;
 	@NotBlank(message = "'이름'은 필수입니다.")
 	private String name;
 	private Date transferDate;

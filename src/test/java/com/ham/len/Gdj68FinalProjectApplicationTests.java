@@ -63,7 +63,7 @@ class Gdj68FinalProjectApplicationTests {
 			cal.set(Calendar.DATE, i);
 			
 			TransferVO transferVO = new TransferVO();
-			transferVO.setEmployeeId("2023001");
+			transferVO.setEmployeeID("2023001");
 			transferVO.setName("테스트" + i);
 			transferVO.setTransferDate(new Date(cal.getTimeInMillis()));
 			transferVO.setTransferTypeCd("U013");
