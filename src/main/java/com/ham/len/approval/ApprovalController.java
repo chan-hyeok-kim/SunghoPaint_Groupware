@@ -136,7 +136,7 @@ public class ApprovalController {
 	    approvalVO.setApprovalStatusCd("R032");
 		int result = approvalService.setAdd(approvalVO);
 		
-		return "redirect:/approval/list";
+		return "redirect:/approval/list";	
 	}
 
 	@ResponseBody
