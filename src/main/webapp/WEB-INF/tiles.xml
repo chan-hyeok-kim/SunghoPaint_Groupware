@@ -135,8 +135,8 @@
 	<definition name="commons/result" template="/WEB-INF/views/commons/result.jsp">
 	</definition>
 	
-	<definition name="todolist" template="/WEB-INF/views/layout/todolist.jsp">
-	</definition>
+	<!-- <definition name="todolist" template="/WEB-INF/views/layout/todolist.jsp">
+	</definition> -->
 
    
 	<!-- 장재혁 -->
