@@ -255,10 +255,8 @@
   <div class="modal-dialog" id="sign-modal-size" role="document">
     <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">도장/서명올리기</h5>
-        <!-- <button type="button" class="close btn-info" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> -->
+        <h5 class="modal-title" id="exampleModalLabel">서명 등록</h5>
+        
       </div>
       <div class="modal-body">
       

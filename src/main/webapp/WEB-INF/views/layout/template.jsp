@@ -84,9 +84,9 @@
     
     <!-- jQuery UI -->
    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-     <sec:authorize access="hasRole('USER')">
+     <sec:authorize access="hasRole('USER')"> 
    <tiles:insertAttribute name="todolist"/>
-    </sec:authorize>
+     </sec:authorize> 
     <!-- socket -->
     <sec:authorize access="hasRole('USER')">
    <script src="/js/main/socket.js"></script>

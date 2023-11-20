@@ -43,8 +43,8 @@
 					</div>
 
 					<ul class="nav-tabs">
-						<li onclick="location.href='./list'" class="active"><a class="link-tab">전체</a></li>
-					<!-- 	<li data-cd="B011"><a class="link-tab">공지</a></li>
+					<!--	<li onclick="location.href='./list'" class="active"><a class="link-tab">전체</a></li>
+					 	<li data-cd="B011"><a class="link-tab">공지</a></li>
 						<li data-cd="B012"><a class="link-tab">문의</a></li>
 						<li data-cd="B013"><a class="link-tab">익명</a></li> -->
 					</ul>	
@@ -76,7 +76,7 @@
 				        <tbody>
 				        <c:forEach items="${list}" var="vo" varStatus="i">
 				           <tr>
-				             <td><input name="checkList" type="checkbox" data-no="${vo.noticeNo}"></td>
+				             <td><input name="checkList" type="checkbox" value="${vo.noticeNo}"></td>
 				             <td class="notice-reg-date">${vo.regDate}</td>
 				             <td><a style="text-decoration: none;" href="/notice/detail?noticeNo=${vo.noticeNo}">${vo.noticeTitle}</a></td>
 				             <td>${vo.humanResourceVO.name}</td>
