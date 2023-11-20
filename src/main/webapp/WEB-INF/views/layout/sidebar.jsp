@@ -200,8 +200,6 @@
       </div>
     </li>
     
-    <!-- <sec:authorize access="hasRole('USER')"> -->
-    <!-- </sec:authorize> -->
     <sec:authorize access="hasRole('ADMIN')">
     	<li id="sidebar-divider" class="nav-item"></li>
     	<li class="nav-item">

@@ -44,7 +44,7 @@ public class HumanResourceService implements UserDetailsService {
 	
 	@Autowired
 	private ExcelWriter excelWriter;
-
+	
 	@Override
 	public UserDetails loadUserByUsername(String employeeID) throws UsernameNotFoundException {
 		HumanResourceVO humanResourceVO = humanResourceDAO.getHumanResource(employeeID);
@@ -214,10 +214,12 @@ public class HumanResourceService implements UserDetailsService {
 		humanResourceVO.setPassword(passwordEncoder.encode(password));
 		int result = humanResourceDAO.setUpdatePassword(humanResourceVO);
 		
-		AccountRoleVO accountRoleVO = new AccountRoleVO();
-		accountRoleVO.setRoleNum(ROLE_USER);
-		accountRoleVO.setEmployeeID(humanResourceVO.getEmployeeID());
-		humanResourceDAO.setAccountRole(accountRoleVO);
+		if(humanResourceVO.getRoles().size() == 0) {
+			AccountRoleVO accountRoleVO = new AccountRoleVO();
+			accountRoleVO.setRoleNum(ROLE_USER);
+			accountRoleVO.setEmployeeID(humanResourceVO.getEmployeeID());
+			humanResourceDAO.setAccountRole(accountRoleVO);
+		}
 		
 		return result;
 	}
