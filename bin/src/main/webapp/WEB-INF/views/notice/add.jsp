@@ -16,7 +16,7 @@
 <div class="card">
 <div class="card-body">
 
-<form action="notice/add" method="post" id="frm">
+<form action="/notice/add" method="post" id="frm" enctype="multipart/form-data">
   <table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 			
@@ -26,6 +26,20 @@
 					<td colspan="3" class="subject"><input type="text" name="noticeTitle" class="form-control"></td>
 				</tr>
 				<tr>
+				<th>카테고리 분류</th>
+					<td>
+					<div class="dropdown">
+  <button class="btn btn-warning dropdown-toggle" type="button" id="dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    카테고리 선택
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdown2">
+    <a class="category dropdown-item" >공지 게시판</a>
+    <a class="category dropdown-item" >익명 게시판</a>
+    <a class="category dropdown-item" >문의 게시판</a>
+    <input type="hidden" id="category" name="noticeCategoryCd">
+  </div>
+</div>
+					</td>
 					<th scope="row">우선순위</th>
 					<td>
 					<div class="dropdown">
@@ -33,26 +47,13 @@
     우선순위 선택
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdown1">
-    <a class="prior dropdown-item" href="#">중요공지(필독)</a>
-    <a class="prior dropdown-item" href="#">일반공지</a>
+    <a class="prior dropdown-item" >중요공지(필독)</a>
+    <a class="prior dropdown-item" >일반공지</a>
     <input type="hidden" id="prior" name="noticePriorityCd">
   </div>
 </div>
 					</td>
-					<th>카테고리 분류</th>
-					<td>
-					<div class="dropdown">
-  <button class="btn btn-warning dropdown-toggle" type="button" id="dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    카테고리 선택
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdown2">
-    <a class="category dropdown-item" href="#">공지 게시판</a>
-    <a class="category dropdown-item" href="#">익명 게시판</a>
-    <a class="category dropdown-item" href="#">문의 게시판</a>
-    <input type="hidden" id="category" name="noticeCategoryCd">
-  </div>
-</div>
-					</td>
+					
 				</tr>
 				<tr>
 					
@@ -61,7 +62,7 @@
 					
 					<!-- Smart Editor UI -->
 							<div style="display: flex; justify-content: center;">
-								<textarea name="approvalContents" id="approvalForm" rows="10"
+								<textarea name="noticeContents" id="approvalForm" rows="10"
 								 	cols="100" style="width: 100%"></textarea>
 							</div>
 					
@@ -70,7 +71,7 @@
 				</tr>
 				<tr>
 				<th>파일 첨부</th>
-				<td colspan="3"><input type="file" class="form-control"></td>
+				<td colspan="3"><input name="files" type="file" class="form-control"></td>
 				</tr>
 			</tbody>
 			</table>    

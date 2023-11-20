@@ -59,4 +59,12 @@ public class AnnualService {
 		
 		return result;
 	}
+	
+	public int setUpdateByUseAnnualLeave(AnnualLeaveUsedHistoryVO annualLeaveUsedHistoryVO) {
+		return annualDAO.setUpdateByUseAnnualLeave(annualLeaveUsedHistoryVO);
+	}
+	
+	public int setAnnualLeaveUsedHistory(AnnualLeaveUsedHistoryVO annualLeaveUsedHistoryVO) {
+		return annualDAO.setAnnualLeaveUsedHistory(annualLeaveUsedHistoryVO);
+	}
 }

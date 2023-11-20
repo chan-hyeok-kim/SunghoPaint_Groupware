@@ -204,62 +204,28 @@
     <!-- </sec:authorize> -->
     <sec:authorize access="hasRole('ADMIN')">
     	<li id="sidebar-divider" class="nav-item"></li>
-    	
-    	  <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="collapse" href="#approval-admin-pages" aria-expanded="false" aria-controls="admin-pages">
-        <span class="menu-title">관리자</span>
-        <i class="menu-arrow"></i>
-        <i class="mdi mdi-folder-lock menu-icon"></i>
-      </a>
-      <div class="collapse" id="approval-admin-pages">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="/code/list">코드 관리</a></li>
-          <li class="nav-item"> <a class="nav-link" href="/document/list">문서 양식함</a></li>
-          
-        </ul>
-      </div>
-    </li>
-    	
-    	
     	<li class="nav-item">
-	      <a class="nav-link" data-bs-toggle="collapse" href="#admin-humanresource-general-pages" aria-expanded="false" aria-controls="general-pages">
-	        <span class="menu-title">전사 인사 관리</span>
-	        <i class="menu-arrow"></i>
-	        <i class="mdi mdi-medical-bag menu-icon"></i>
-	      </a>
-	      <div class="collapse" id="admin-humanresource-general-pages">
-	        <ul class="nav flex-column sub-menu">
-            	<li class="nav-item"> <a class="nav-link" href="/humanresource/registration"> 인사 등록 </a></li>
-            	<li class="nav-item"> <a class="nav-link" href="/humanresource/list"> 인사 조회 </a></li>
-	        </ul>
-	      </div>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" data-bs-toggle="collapse" href="#admin-attendance-general-pages" aria-expanded="false" aria-controls="general-pages">
-	        <span class="menu-title">전사 근태 관리</span>
-	        <i class="menu-arrow"></i>
-	        <i class="mdi mdi-medical-bag menu-icon"></i>
-	      </a>
-	      <div class="collapse" id="admin-attendance-general-pages">
-	        <ul class="nav flex-column sub-menu">
-	        	<li class="nav-item"> <a class="nav-link" href="/attendance/list"> 근태 현황 </a></li>
-				<li class="nav-item"> <a class="nav-link" href="/annual/status"> 연차 현황 </a></li>
-	        </ul>
-	      </div>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" data-bs-toggle="collapse" href="#transfer-general-pages" aria-expanded="false" aria-controls="general-pages">
-	        <span class="menu-title">발령 관리</span>
-	        <i class="menu-arrow"></i>
-	        <i class="mdi mdi-medical-bag menu-icon"></i>
-	      </a>
-	      <div class="collapse" id="transfer-general-pages">
-	        <ul class="nav flex-column sub-menu">
-				<li class="nav-item"> <a class="nav-link" href="/transfer/registration"> 발령 등록 </a></li>
-				<li class="nav-item"> <a class="nav-link" href="/transfer/list"> 발령 조회 </a></li>
-	        </ul>
-	      </div>
-	    </li>
+        <a class="nav-link" data-bs-toggle="collapse" href="#approval-admin-pages" aria-expanded="false" aria-controls="admin-pages">
+          <span class="menu-title">관리자</span>
+          <i class="menu-arrow"></i>
+          <i class="mdi mdi-folder-lock menu-icon"></i>
+        </a>
+        <div class="collapse" id="approval-admin-pages">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a class="nav-link" href="/code/list">코드 관리</a></li>
+            <li class="nav-item"><a class="nav-link" href="/document/list">문서 양식함</a></li>
+            <li id="sidebar-divider" class="nav-item"></li>
+            <li class="nav-item"><a class="nav-link" href="/humanresource/registration">인사 등록</a></li>
+            <li class="nav-item"><a class="nav-link" href="/humanresource/list">인사 조회</a></li>
+            <li id="sidebar-divider" class="nav-item"></li>
+            <li class="nav-item"><a class="nav-link" href="/transfer/registration">발령 등록</a></li>
+            <li class="nav-item"><a class="nav-link" href="/transfer/list">발령 조회</a></li>
+            <li id="sidebar-divider" class="nav-item"></li>
+            <li class="nav-item"><a class="nav-link" href="/attendance/list">근태 현황</a></li>
+            <li class="nav-item"><a class="nav-link" href="/annual/status">연차 현황</a></li>
+          </ul>
+        </div>
+      </li>
     </sec:authorize>
   </ul>
 </nav>

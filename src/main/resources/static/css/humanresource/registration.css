@@ -1,5 +1,83 @@
 @charset "UTF-8";
 
+button#updateRole{
+    width:6%; height:40px;
+    float:right;
+    border:none;
+    background-color:#FF4444;
+    font-weight:600;
+    color:white;
+    cursor:pointer;
+}
+
+#updateRoleWindow{
+	width:700px; height:450px;
+    position:absolute;
+    top:50%; left:50%;
+    margin-left:-350px; margin-top:-225px;
+    z-index:10000;
+	border:1px solid #FF4444;
+	background-color:white;
+}
+
+#updateRoleWindow > #titleBar{
+    background-color:#FF4444;
+    padding:5px;
+    font-weight:400;
+    color:white;
+    cursor:move;
+}
+
+#updateRoleWindow > #titleBar > p{
+	display: inline-block;
+    font-size:14px;
+}
+
+#updateRoleWindow > #titleBar > #close{
+	width:20px;
+	float:right;
+	cursor:pointer;
+}
+
+#updateRoleWindow > #list{
+	height:84%;
+    padding:10px;
+    overflow-y:auto;
+}
+
+#updateRoleWindow > #list > table{
+	width:100%;
+}
+
+#updateRoleWindow > #list > table th,
+#updateRoleWindow > #list > table td{
+	width:20%; height:25px;
+	text-align:center;
+	border-collapse:collapse;
+	border:1px solid #CDCDCD;
+	font-size:14px;
+}
+
+#updateRoleWindow > #footer{
+	width:100%; height:9%;
+	display:flex;
+	align-items:center;
+	position:absolute;
+	bottom:0px;
+	border-top:1px solid #CDCDCD;
+}
+
+#updateRoleWindow > #footer > button{
+	width:70px; height:30px;
+	margin-left:10px;
+	border:none;
+	background-color:#FF4444;
+	font-size:13px; font-weight:600;
+	color:white;
+}
+
+
+
 table{
 	width:100%;
 }
@@ -73,11 +151,16 @@ form#registrationForm > #buttons{
 
 
 
-#addressDetailModal #message-text{
-	text-align:unset;
-}
-
 #addressDetailModal img.close{
 	width:25px;
 	cursor:pointer;
+}
+
+#addressDetailModal #message-text{
+	height:35px;
+}
+
+#addressDetailModal #modal-submit{
+	background-color:#90CAF9;
+	border-color:unset;
 }

@@ -11,12 +11,14 @@
 <script>
 	$(function(){
 		$("input#yearsOfService").attr("type", "number");
+		$("input#yearsOfService").attr("min", "0");
+		$("input#yearsOfService").attr("max", "100");
 		
 		if("${isUpdate}") $("form#registrationForm").attr("action", "./update");
 		
 		if("${isDetail}"){
 			$("*").off("click");
-			$("*:not(#return)").removeAttr("onclick");
+			$("*:not(.nav-link, #return)").removeAttr("onclick");
 			
 			$("select").attr("disabled", true);
 			$("input[type='file']").attr("disabled", true);
@@ -24,8 +26,27 @@
 			$("input").css("cursor", "default");
 		}
 	});
+
+	$(function(){
+		if("${hasErrors}"){
+			if($("#joinDateErrors").css("display") != "none"){
+				$("#joinDateErrors").empty();
+				$("#joinDateErrors").html("<span>'입사일'을 선택해주세요.</span>");
+			}
+
+			if($("#birthErrors").css("display") != "none"){
+				$("#birthErrors").empty();
+				$("#birthErrors").html("<span>'생년월일'을 선택해주세요.</span>");
+			}
+
+			$("#errorsDetailModal").modal("show");
+		}
+	});
 </script>
 
+<c:if test="${isUpdate}">
+	<button id="updateRole" onclick="updateRole('${humanResourceVO.employeeID}')">권한 수정</button>
+</c:if>
 <form:form modelAttribute="humanResourceVO" action="./registration" method="POST" enctype="multipart/form-data" id="registrationForm">
 	<table id="basicInfo">
 		<tr>
@@ -55,7 +76,7 @@
 			<th>이메일</th>
 			<td><form:input path="email" /></td>
 			<th>내선번호</th>
-			<td><form:input path="extensionNumber" /></td>
+			<td><form:input path="extensionNumber" placeholder="'-' 제외" /></td>
 		</tr>
 		<tr>
 			<th>직급</th>
@@ -64,13 +85,13 @@
 				<form:input path="positionCdName" readonly="true" data-search-type="position" />
 			</td>
 			<th>휴대폰</th>
-			<td><form:input path="phone" /></td>
+			<td><form:input path="phone" placeholder="'-' 제외" /></td>
 		</tr>
 		<tr>
 			<th>근속연수</th>
 			<td><form:input path="yearsOfService" /></td>
 			<th>대표번호</th>
-			<td><form:input path="mainNumber" /></td>
+			<td><form:input path="mainNumber" placeholder="'-' 제외" /></td>
 		</tr>
 	</table>
 	<table id="additionalInfo">
@@ -80,7 +101,7 @@
 			<th>주소</th>
 			<td><form:input path="address" readonly="true" onclick="daumPostcode()" /></td>
 			<th>은행</th>
-			<td><form:input path="bank" /></td>
+			<td><form:input path="bank" placeholder="'-' 제외" /></td>
 		</tr>
 		<tr>
 			<th>입사구분</th>
@@ -126,7 +147,7 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel"></h5>
+	        <h5 class="modal-title" id="addressDetailModalLabel"></h5>
 	        <img src="/images/humanresource/close-icon.png" class="close" data-dismiss="modal" aria-label="Close">
 	      </div>
 	      <div class="modal-body">
@@ -143,5 +164,42 @@
 	      </div>
 	    </div>
 	  </div>
+	</div>
+	
+	
+	
+	<div class="modal fade" id="errorsDetailModal" tabindex="-1" role="dialog" aria-labelledby="errorsDetailModalTitle" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="errorsDetailModalTitle">
+						<c:if test="${isRegistration}">등록 실패</c:if>
+						<c:if test="${isUpdate}">수정 실패</c:if>
+					</h5>
+					<img src="/images/humanresource/close-icon.png" class="close" data-dismiss="modal" aria-label="Close">
+				</div>
+				<div class="modal-body">
+					<ul>
+						<li id="joinDateErrors"><form:errors path="joinDate" /></li>
+						<li><form:errors path="name" /></li>
+						<li id="birthErrors"><form:errors path="birth" /></li>
+						<li><form:errors path="departmentCd" /></li>
+						<li><form:errors path="positionCd" /></li>
+						<li><form:errors path="yearsOfService" /></li>
+						<li><form:errors path="extensionNumber" /></li>
+						<li><form:errors path="phone" /></li>
+						<li><form:errors path="mainNumber" /></li>
+						<li><form:errors path="email" /></li>
+						<li><form:errors path="address" /></li>
+						<li><form:errors path="bank" /></li>
+						<li><form:errors path="accountNumber" /></li>
+						<li><form:errors path="accountHolder" /></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </form:form>

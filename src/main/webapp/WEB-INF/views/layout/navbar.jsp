@@ -66,7 +66,7 @@ format_color_fill
 	                <h6 class="p-3 mb-0">알림</h6>
 	                <div class="dropdown-divider" id="alarmUL"></div>
 	               
-	                <h6 class="p-3 mb-0 text-center"><a>모든 알림 확인하기</a></h6>
+	                <!-- <h6 class="p-3 mb-0 text-center"><a>모든 알림 확인하기</a></h6> -->
 	              </div> 
 	            </li> 
 	            

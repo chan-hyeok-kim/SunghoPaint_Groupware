@@ -1,5 +1,7 @@
 package com.ham.len.humanresource;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,9 +45,19 @@ public class HumanResourceController {
 	}
 	
 	@PostMapping("/humanresource/registration")
-	public String setRegistration(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
+	public String setRegistration(@Valid HumanResourceVO humanResourceVO, BindingResult bindingResult, MultipartFile file, Model model) throws Exception {
+		boolean hasErrors = humanResourceService.getRegistrationError(humanResourceVO, bindingResult);
+		if(bindingResult.hasErrors() || hasErrors) {
+			model.addAttribute("hasErrors", true);
+			model.addAttribute("isRegistration", true);
+			return "humanresource/registration";
+		}
+		
 		humanResourceService.setRegistration(humanResourceVO, file);
-		return "redirect:/humanresource/list";
+		model.addAttribute("result", 1);
+		model.addAttribute("message", "등록이 완료되었습니다.");
+		model.addAttribute("url", "/humanresource/list");
+		return "commons/result";
 	}
 	
 	@GetMapping("/humanresource/list")
@@ -67,6 +80,18 @@ public class HumanResourceController {
 		return "humanresource/registration";
 	}
 	
+	@GetMapping("/humanresource/getAccountRole")
+	@ResponseBody
+	public List<String> getAccountRole(String employeeID) {
+		return humanResourceService.getAccountRole(employeeID);
+	}
+	
+	@PostMapping("/humanresource/setUpdateAccountRole")
+	@ResponseBody
+	public int setUpdateAccountRole(@RequestBody List<AccountRoleVO> accountRoles) {
+		return humanResourceService.setUpdateAccountRole(accountRoles);
+	}
+	
 	@GetMapping("/humanresource/update")
 	public String setUpdate(String employeeID, Model model) {
 		model.addAttribute("humanResourceVO", humanResourceService.getHumanResource(employeeID));
@@ -75,16 +100,27 @@ public class HumanResourceController {
 	}
 	
 	@PostMapping("/humanresource/update")
-	public String setUpdate(HumanResourceVO humanResourceVO, MultipartFile file) throws Exception {
+	public String setUpdate(@Valid HumanResourceVO humanResourceVO, BindingResult bindingResult, MultipartFile file, Model model) throws Exception {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("hasErrors", true);
+			model.addAttribute("isUpdate", true);
+			return "humanresource/registration";
+		}
+		
 		humanResourceService.setUpdate(humanResourceVO, file);
-		return "redirect:/humanresource/update?employeeID=" + humanResourceVO.getEmployeeID();
+		model.addAttribute("result", 1);
+		model.addAttribute("message", "수정이 완료되었습니다.");
+		model.addAttribute("url", "/humanresource/update?employeeID=" + humanResourceVO.getEmployeeID());
+		return "commons/result";
 	}
 	
-	@GetMapping("/humanresource/delete")
-	public String setDelete(String employeeID) {
-		humanResourceService.setDelete(employeeID);
-		return "redirect:/humanresource/list";
-	}
+	/*
+		@GetMapping("/humanresource/delete")
+		public String setDelete(String employeeID) {
+			humanResourceService.setDelete(employeeID);
+			return "redirect:/humanresource/list";
+		}
+	*/
 	
 	@GetMapping("/humanresource/updatePassword")
 	public String setUpdatePassword(@ModelAttribute UpdatePasswordVO updatePasswordVO) {
@@ -105,7 +141,7 @@ public class HumanResourceController {
 			if(result > 0) {
 				model.addAttribute("result", 1);
 				model.addAttribute("message", "변경이 완료되었습니다.");
-				model.addAttribute("url", "/logout"); // Security Session에 저장되어 있는 사용자의 정보는 기존 정보이기 때문에 재로그인하여 정보가 갱신될 수 있도록 유도하기 위해 강제 로그아웃 처리
+				model.addAttribute("url", "/logout");
 			}else {
 				model.addAttribute("result", 0);
 				model.addAttribute("message", "비밀번호 변경 실패(서버 내부적 오류)");

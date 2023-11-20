@@ -16,4 +16,6 @@ public interface AnnualDAO {
 	public List<AnnualExcelVO> getDepartmentalAnnualList(String department);
 	public int setUpdate(AnnualVO annualVO);
 	public int setAnnualLeaveOccurredHistory(AnnualLeaveOccurredHistoryVO annualLeaveOccurredHistoryVO);
+	public int setUpdateByUseAnnualLeave(AnnualLeaveUsedHistoryVO annualLeaveUsedHistoryVO);
+	public int setAnnualLeaveUsedHistory(AnnualLeaveUsedHistoryVO annualLeaveUsedHistoryVO);
 }

@@ -42,31 +42,31 @@
 
 						<div style="float:left">내 결재 관리</div> 
 						<div style="text-align: right;">
-							<form class="form-inline">
+							<form class="form-inline" action="./list">
 
 								<!-- 검색 설정 -->
-								<select class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected">제목</option>
-									<option>구분</option>
-									<option>결재자</option>
+								<select name="kind" class="btn btn-gradient-light" id="top-search-select">
+									<option selected="selected" value="approvalTitle">제목</option>
+									<option value="drafter">기안자</option>
+									<option value="lastApprover">결재자</option>
 								</select> 
 								
 								
 								<input style="display: inline-block;" id="top-search-bar"
 									class="form-control" type="search" placeholder="입력 후 [Enter]"
-									aria-label="Search">
+									aria-label="Search" name="search">
 								<button id="top-search-btn" class="btn btn-info" type="submit">검색</button>
 
 							</form>
 						</div>
 					</div>
 
-					<ul class="nav-tabs">
+					<ul class="nav-tabs my-list-tabs">
 						<li onclick="location.href='./list'" class="active"><a class="link-tab">전체</a></li>
 						<li data-cd="R031"><a class="link-tab">기안중</a></li>
 						<li data-cd="R032"><a class="link-tab">진행중</a></li>
 						<li data-cd="R034"><a class="link-tab">반려</a></li>
-						<li data-cd="R033"><a class="link-tab">결재</a></li>
+						<li data-cd="R033"><a class="link-tab">승인 완료</a></li>
 					</ul>	
 
 
@@ -83,7 +83,7 @@
 				  
 				  
 				
-				    <table class="table-bordered mt-2" id="approval-table">
+				    <table class="table table-hover mt-2" id="approval-table">
 				        <thead>
 				           <tr>
 				             <th>선택</th>
@@ -97,14 +97,23 @@
 				        </thead>
 				        <tbody>
 				        <c:forEach items="${list}" var="vo" varStatus="i">
+				        
 				           <tr>
 				             <td><input type="checkbox"></td>
 				             <td class="approval-start-date">${vo.approvalStartDate}</td>
 				             <td>${vo.approvalTitle}</td>
 				             <td>${vo.drafter}</td>
-				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApprover}</td>
-				             <td>${vo.codeName}</td>
-				             <td><a href="/approval/detail?approvalNo=${vo.approvalNo}">기안서 확인</a></td>
+				             <td id="check" data-check="${vo.approvalStatusCd}">${vo.lastApproverName}</td>
+				             <td>
+				             <c:choose>
+									<c:when test="${vo.apCodeName eq '진행중'}"><label class="badge badge-gradient-info">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '반려'}"><label class="badge badge-gradient-danger">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '승인 완료'}"><label class="badge badge-gradient-success">${vo.apCodeName}</label></c:when>
+									<c:when test="${vo.apCodeName eq '기안중'}"><label class="badge badge-gradient-primary">${vo.apCodeName}</label></c:when>
+																	
+									</c:choose>
+				             </td>
+				             <td><a href="/approval/${vo.approvalStatusCd eq 'R031'? 'update': 'detail' }?approvalNo=${vo.approvalNo}" class="detail-proceed-btn">기안서 확인</a></td>
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -112,24 +121,24 @@
 				    </table>
 				  </div>
 				  
+				
 				  
-				  
-				    <!-- pagination -->
-				  <div style="text-align: center; margin: 20px 20px">
+			  <!-- pagination -->
+				  <div style="text-align: center; margin: 20px 20px;">
 				  <nav aria-label="Page navigation example" style="display: inline-block;">
   <ul class="pagination">
     <li class="page-item ${pager.pre?'':'disabled'}">
-      <a class="page-link" href="/approval/list?page=${startNum-1}" aria-label="Previous">
+      <a class="page-link" href="/approval/list?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
         <i class="mdi mdi-arrow-left-drop-circle"></i>
       </a>
     </li>
     
     <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-    <li class="page-item"><a class="page-link" href="/approval/list?page=${i}">${i}</a></li>
+    <li class="page-item"><a class="page-link" href="/approval/list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
     </c:forEach>
     
     <li class="page-item ${pager.next?'':'disabled'}">
-      <a class="page-link" href="/approval/list?page=${lastNum+1}" aria-label="Next">
+      <a class="page-link" href="/approval/list?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}" aria-label="Next">
         <i class="mdi mdi-arrow-right-drop-circle"></i>
       </a>
     </li>
@@ -137,8 +146,11 @@
 </nav>
 
   <!-- Button List  -->
+ 
+  
+  
 				  <div style="float: right;">
-				  <button class="btn btn-info" onclick="location.href='/approval/add'">새 결재 진행</button>
+				  <button id="add-proceed-btn" class="btn btn-info">새 결재 진행</button>
 				 
 				</div>
 
@@ -148,17 +160,21 @@
 				  
 				
 
-
-<!-- Sign -->
+ <!-- Sign -->
 <div style="float:left">
-     <button type="button" class="btn" data-toggle="modal"  data-target="#stampModal">도장/서명 등록</button>
+<div style="margin-left:20px">
+     <button type="button" class="btn btn-gradient-light" data-toggle="modal"  data-target="#stampModal">도장 등록</button>
+  <span style="margin-left:20px;">
+    <button id="sign-modal" type="button" class="btn btn-gradient-light" data-toggle="modal" data-target="#signModal">서명 만들기/등록</button>
+</span> 
   </div> 
+  
  
 <!-- Stamp --> 
-<div>
-    <button type="button" class="btn" data-toggle="modal"  data-target="#signModal">서명 만들기</button>
-</div> 
-  
+
+</div>
+
+
 
   
   
@@ -173,7 +189,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="border-bottom: white; border-radius: 0rem;">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">도장/서명올리기</h5>
+        <h5 class="modal-title" id="exampleModalLabel">도장 올리기</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -181,7 +197,7 @@
       <div class="modal-body">
       
       
-      <div>* 사인이나 도장이 나오는 이미지를 등록해주세요</div>
+      <div>* 도장이 나오는 이미지를 등록해주세요</div>
       
       
      
@@ -199,7 +215,7 @@
          <div id="fileName"></div>
          
          
-      <div id="image-show" style="padding: 30px 0 0 100px;"></div>
+      <div id="image-show"></div>
      
       
       </div>
@@ -211,10 +227,10 @@
      
      <div style="border: 1px solid gray;">
      <div style="border-bottom: 1px solid gray;">
-      미리보기
+      현재 보유한 서명
      </div>
          
-        <div id="small-image-show" style="padding: 30px 0 0 195px; height: 100px;"></div>  
+        <div id="small-image-show" style="text-align:center; padding-top:25px; height: 100px;"></div>  
         </div>    
        
      
@@ -225,7 +241,7 @@
    
       <div class="modal-footer" style="background: white">
         <button type="button" class="btn btn-secondary" id="sign-close" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-info" id="sign-submit-btn">확인</button>
+        <button type="button" class="btn btn-info" id="sign-submit-btn">등록</button>
         
         </div>
       </div>
@@ -298,8 +314,8 @@
   
       </div>
       <div class="modal-footer" style="background: white">
-        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button> -->
-         <button type="button" class="btn btn-info" data-dismiss="modal">확인</button>
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> 
+         <button type="button" id="sign-add-btn" class="btn btn-info" data-dismiss="modal">등록</button>
         </div>
       </div>
     </div>
@@ -313,7 +329,11 @@
 </div>
 		
 
+	<script type="text/javascript">
+	var formSign='${member.signature}';
+	var username='${member.username}';
 	
+	</script>
 			
 
 
@@ -323,6 +343,7 @@
     
     <!-- 리스트 ul tabs 이동 -->
 	<script src="/js/approval/list-move.js"></script>
+	<script src="/js/approval/ajax-search.js"></script>
 	<!-- 기안일자 변환 -->
 	<script src="/js/approval/approval-date.js"></script>
 	

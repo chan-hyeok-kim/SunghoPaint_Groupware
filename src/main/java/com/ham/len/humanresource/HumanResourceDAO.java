@@ -16,8 +16,10 @@ public interface HumanResourceDAO {
 	public List<CodeVO> getDepartmentList();
 	public HumanResourceVO getHumanResource(String employeeID);
 	public List<HumanResourceExcelVO> getDepartmentalHumanResourceList(String department);
+	public List<String> getAccountRole(String employeeID);
+	public int setDeleteAccountRole(String employeeID);
 	public int setUpdate(HumanResourceVO humanResourceVO);
-	public int setDelete(String employeeID);
+	// public int setDelete(String employeeID);
 	public int setUpdatePassword(HumanResourceVO humanResourceVO);
 	public String getEmail(String employeeID);
 }

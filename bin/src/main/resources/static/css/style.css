@@ -4246,24 +4246,24 @@ textarea.form-control-lg {
 
 .btn-primary {
   color: #000;
-  background-color:#9797ff;
-  border-color:#9797ff; }
+  background-color: #b66dff;
+  border-color: #b66dff; }
   .btn-primary:hover {
     color: #000;
-    background-color:#9797ff;
-    border-color:#9797ff; }
+    background-color: #c183ff;
+    border-color: #bd7cff; }
   .btn-check:focus + .btn-primary, .btn-primary:focus {
     color: #000;
-    background-color:#9797ff;
-    border-color:#9797ff;
+    background-color: #c183ff;
+    border-color: #bd7cff;
     -webkit-box-shadow: 0 0 0 0.25rem rgba(155, 93, 217, 0.5);
     box-shadow: 0 0 0 0.25rem rgba(155, 93, 217, 0.5); }
   .btn-check:checked + .btn-primary,
   .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active,
   .show > .btn-primary.dropdown-toggle {
     color: #000;
-    background-color: #9797ff;
-    border-color:#9797ff; }
+    background-color: #c58aff;
+    border-color: #bd7cff; }
     .btn-check:checked + .btn-primary:focus,
     .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus,
     .show > .btn-primary.dropdown-toggle:focus {
@@ -4271,8 +4271,8 @@ textarea.form-control-lg {
       box-shadow: 0 0 0 0.25rem rgba(155, 93, 217, 0.5); }
   .btn-primary:disabled, .btn-primary.disabled {
     color: #000;
-    background-color:#254FFE;
-    border-color:#254FFE; }
+    background-color: #b66dff;
+    border-color: #b66dff; }
 
 .btn-secondary {
   color: #000;
@@ -12600,7 +12600,7 @@ code {
 
 .btn-gradient-info {
   background: -webkit-gradient(linear, left top, right top, from(#90caf9), color-stop(99%, #047edf));
-  background: linear-gradient(to right, #90caf9, #90caf9 99%);
+  background: linear-gradient(to right, #90caf9, #047edf 99%);
   border: 0;  
   -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease; }
@@ -13303,7 +13303,7 @@ select.form-control {
   padding: .4375rem .75rem;
   border: 0;
   outline: 1px solid #ebedf2;
-  color: #c9c8c8; }
+  color: black; }
   select.form-control:focus {
     outline: 1px solid #ebedf2; }
   select.form-control.border-primary {
@@ -14471,6 +14471,34 @@ dl {
 	margin: 20px 0 0 0;
 }
 
+.detail-proceed-btn{
+	color: #0D6EFD;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.code-delete-btn{
+	text-align:right;
+    border: 1px solid gainsboro;
+    float: right;
+    margin: 0 0px 10% 0;
+    background:#e6e6e6;
+    text-decoration: none !important;
+    cursor: pointer;
+    padding: 7px 18px 7px 18px;
+}
+
+#code-add-modal-btn{
+	font-weight:bold;
+    border: 1px solid gainsboro;
+    float: left;
+    margin: 0 0px 10% 0;
+    background:#e6e6e6;
+    text-decoration: none !important;
+    cursor: pointer;
+    padding: 7px 18px 7px 18px;
+}
+
 /* textarea */
 #approvalForm{
 	width: 100%;
@@ -14479,7 +14507,24 @@ dl {
 }
 
 
-
+.modal.modal-center {
+   text-align: center;
+ }
+ 
+@media screen and (min-width: 768px) { 
+   .modal.modal-center:before {
+     display: inline-block;
+     vertical-align: middle;
+     content: " ";
+     height: 100%;
+   }
+ }
+ 
+.modal-dialog.modal-center {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
 
 /* div */
 #approval-content{
@@ -14495,15 +14540,36 @@ dl {
 	float:left;
 }
 
+#image-show{
+	overflow: hidden;
+    height: 250px;
+    text-align: center;
+    padding: 5%;
+}
+
+.code-scroll{
+	height: 300px;
+}
+
+
 /* tree ul */
 #form_list{
-	width: 700px;
+  margin-top: 0px;
+	width: 920px;
 	height: 770px;
 }
 
+#tree_list span{
+  font-size: 15px;
+}
+
 #document-tree{
-	height: 200px;
+	height: 300px;
 	margin-top: 0px;
+}
+
+#tree span{
+  font-size: 15px;
 }
 
 #sign-file-div{
@@ -14522,11 +14588,14 @@ dl {
 
 /* modal */
 #form-modal-size{
-	max-width: 1000px;
+	max-width: 1200px;
 }
 #sign-modal-size{
 	max-width: 700px;
 	background: white;
+}
+.code-modal-size{
+	min-width: 800px;
 }
 
 /* table */
@@ -14568,10 +14637,11 @@ dl {
 	margin-left: 20px;
 }
 
+
 #tree-table {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	height: 360px;
-	width: 220px;
+	width: 364.34px;
 	padding: 10px;
 }
 
@@ -14618,17 +14688,18 @@ dl {
 
 .nav-tabs>li:after {
 	left: -4px;
-	transform: skew(-25deg, 0deg);
+	transform: skew(339deg, 0deg);
 	box-shadow: #d4d4d4 -1px 1px 0;
 }
 
 .nav-tabs>li {
 	border-radius: 7px 7px 0 0;
+	line-height: 2.0;
 }
 
 .nav-tabs>li:before {
 	right: -4px;;
-	transform: skew(25deg, 0deg);
+	transform: skew(200deg, 0deg);
 	box-shadow: #d4d4d4 1px 1px 0;
 }
 
@@ -14722,4 +14793,110 @@ ul.nav-tabs {
 	float: right;
 }
 
+/* table hover custom*/
+.table-hover > tbody > tr:hover > * {
+    background-color: #EEF1F6;
+    --bs-table-accent-bg: #EEF1F6;
+  
+}
+.table-hover > thead > tr th{
+	border-top: 1px solid #ebedf2;
+}
+
+/* canvas */
+#sign-canvas{
+    background: white;	
+}
+
 /*# sourceMappingURL=style.css.map */
+
+/* navbar profile */
+.nav-profile-text{
+  margin-left:10px !important;
+}
+
+.nav-profile-text > .mb-1{
+  margin-bottom:0px !important;
+}
+
+.mdi.mdi-account-circle.me-2,
+.mdi.mdi-cached.me-2{
+  color:#198AE3;
+}
+
+/* sidebar-divider */
+#sidebar-divider{
+	width:75%;
+	margin:10px auto;
+	border-top:1px solid #E7E7E7;
+}
+
+/* sidebar attendance */
+#main-attendance{
+  margin-bottom:10px;
+}
+
+#profile-wrap{
+  margin-bottom:10px;
+  text-align:center;
+}
+
+#profile-wrap > img#profile{
+  width:150px; height:135px;
+  margin-bottom:10px;
+  border-radius:100%;
+  cursor:default;
+}
+
+#profile-wrap > h2#profile-text{
+  font-size:16px; font-weight:600;
+  margin-bottom:0px;
+}
+
+#commute-wrap{
+  color:#626262;
+}
+
+#commute-wrap > #date-wrap{
+  margin-bottom:10px;
+  text-align:center;
+}
+
+#commute-wrap > #date-wrap > #cur-time{
+	font-size:16px; font-weight:bold;
+}
+
+#commute-wrap > #start-time > i,
+#commute-wrap > #end-time > i{
+  font-size:13px;
+}
+
+#commute-wrap > #start-time > span,
+#commute-wrap > #end-time > span{
+  float:right;
+}
+
+#commute-wrap > #attendance-btns{
+  margin-top:15px;
+}
+
+#attendance-btns > button{
+	width:calc(50% - 5px); height:42px;
+	border:1px solid #198AE3; border-radius:25px;
+	background-color:white;
+	color:#198AE3;
+}
+
+#attendance-btns > button.off{
+	border:1px solid #CDCDCD;
+	color:#CDCDCD;
+	cursor:unset;
+}
+
+#attendance-btns > button.on:hover{
+  background-color:#DAEFFF;
+}
+
+#attendance-btns > button#end-btn{
+  float:right;
+}

@@ -67,4 +67,8 @@ public interface SalesDAO {
 	public List<AnnualAddVO> getAnnualList(AnnualAddVO annualAddVO) throws Exception;
 	
 	public List<AnnualAddVO> getTeamAnnualList(AnnualAddVO annualAddVO) throws Exception;
+	
+	public int setUpdateAnnual(AnnualAddVO annualAddVO) throws Exception;
+	
+	public int setDeleteAnnual(AnnualAddVO annualAddVO) throws Exception;
 }

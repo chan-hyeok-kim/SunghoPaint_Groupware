@@ -157,6 +157,17 @@
 		SELECT MAX(EMPLOYEE_ID) FROM HUMAN_RESOURCE
 	</select>
 	
+	<select id="getAccountRole" resultType="String">
+		SELECT ROLE_NAME
+			FROM ACCOUNT_ROLE AR LEFT OUTER JOIN ROLE R
+				ON AR.ROLE_NUM = R.ROLE_NUM
+		WHERE EMPLOYEE_ID = #{value}
+	</select>
+	
+	<delete id="setDeleteAccountRole" parameterType="String">
+		DELETE FROM ACCOUNT_ROLE WHERE EMPLOYEE_ID = #{value}
+	</delete>
+	
 	<update id="setUpdate" parameterType="HumanResourceVO">
 		UPDATE HUMAN_RESOURCE SET
 			JOIN_DATE = #{joinDate}, JOIN_TYPE = #{joinType}, NAME = #{name}, BIRTH = #{birth},
@@ -167,9 +178,11 @@
 		WHERE EMPLOYEE_ID = #{employeeID}
 	</update>
 	
-	<delete id="setDelete">
-		DELETE FROM HUMAN_RESOURCE WHERE EMPLOYEE_ID = #{value}
-	</delete>
+	<!-- 
+		<delete id="setDelete">
+			DELETE FROM HUMAN_RESOURCE WHERE EMPLOYEE_ID = #{value}
+		</delete>
+	 -->
 	
 	<update id="setUpdatePassword" parameterType="HumanResourceVO">
 		UPDATE HUMAN_RESOURCE SET PASSWORD = #{password} WHERE EMPLOYEE_ID = #{employeeID}

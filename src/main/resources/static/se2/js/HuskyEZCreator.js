@@ -78,7 +78,7 @@ nhn.husky.EZCreator = new (function(){
 				nhn.husky.EZCreator.hideBlocker(true);
 				elIFrame.style.border = "5px solid red";
 				elIFrame.style.width = "500px";
-				elIFrame.style.height = "500px";
+				elIFrame.style.height = "900px";
 				alert("Failed to access "+sSkinURI);
 				return;
 			}
