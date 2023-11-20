@@ -57,7 +57,7 @@ public class IndexController {
 		
 //		결재 리스트 세팅
 		List<ApprovalVO> al=approvalService.getMyList(pager);
-	    log.warn("마이리스트23{}",al);
+	  
 		//내가 올린 결재리스트
 		List<ApprovalVO> myList=new ArrayList<>();
 	    for(ApprovalVO a: al) {
