@@ -84,24 +84,24 @@
 				<div id="approval-content">
 					<table class="table table-bordered">
 						<tr>
-							<td>기안일자</td>
-							<td colspan="2"><input id="currentDate" readonly="readonly"
+							<th>기안일자</th>
+							<td colspan="3"><input id="currentDate" readonly="readonly"
 								style="display: inline-block; margin-left: 4px"
 								class="form-control approval-line-search" type="date"
 								name="approvalStartDate"></td>
 						</tr>
 						<tr>
-							<td>제목</td>
-							<td colspan="2"><span class="input-date"><input
+							<th>제목</th>
+							<td colspan="3"><span class="input-date"><input
 									style="display: inline-block; margin-left: 4px"
 									class="form-control approval-line-search" type="search"
 									placeholder="" aria-label="Search" name="approvalTitle"></td>
 						</tr>
 
 						<tr>
-							<td rowspan="4">결재라인</td>
-							<td>라인</td>
-							<td><input style="display: inline-block;"
+							<th rowspan="4">결재라인</th>
+							<th>라인</th>
+							<td colspan="2"><input style="display: inline-block;"
 								disabled="disabled" class="form-control approval-line-search"
 								type="search" placeholder="" aria-label="Search">
 								<button class="btn btn-info approval-line-btn" type="button"
@@ -110,21 +110,21 @@
 								</button></td>
 						</tr>
 						<tr>
-							<td>검토자</td>
-							<td><input id="mid-approver" style="display: inline-block;"
+							<th>검토자</th>
+							<td colspan="2"><input id="mid-approver" style="display: inline-block;"
 								class="form-control approval-line-search" type="search"
 								 placeholder="" aria-label="Search"></td>
 						</tr>
 						<tr>
-							<td>추가검토자</td>
-							<td><input style="display: inline-block; margin-left: 4px"
+							<th>추가검토자</th>
+							<td colspan="2"><input style="display: inline-block; margin-left: 4px"
 								id="add-approver" class="form-control approval-line-search"
 								type="search" placeholder="" aria-label="Search"
 								></td>
 						</tr>
 						<tr>
-							<td>결재자</td>
-							<td><input id="last-approver"
+							<th>결재자</th>
+							<td colspan="2"><input id="last-approver"
 								style="display: inline-block; margin-left: 4px"
 								class="form-control approval-line-search" type="search"
 								placeholder="" aria-label="Search"></td>
@@ -133,14 +133,18 @@
 								<input type="hidden" name="midApprover" id="mid-data-id">
 								<input type="hidden" name="addApprover" id="add-data-id">
 						<tr>
-							<td>구분(결재양식)</td>
-							<td colspan="2"><input id="form-add-name" readonly
+							<th>구분(결재양식)</th>
+							<td colspan="3"><input id="form-add-name" readonly
 								style="display: inline-block; margin-left: 4px"
 								class="form-control approval-line-search" type="search"
 								placeholder="" aria-label="Search">
 								<button id="form-modal-btn" type="button"
 									class="btn btn-info material-icons" data-toggle="modal"
 									data-target="#formModal">search</button></td>
+						</tr>
+						<tr id="annualTr">
+						</tr>
+						<tr>
 						</tr>
 					</table>
 				</div>
@@ -152,7 +156,7 @@
 						<td>
 							<div style="display: flex; justify-content: center;">
 								<textarea name="approvalContents" id="approvalForm" rows="10"
-								 	cols="100" style="width: 100%"></textarea>
+								 	cols="100" style="width: 100%; height: 800px;"></textarea>
 							</div>
 						</td>
 					</tr>
