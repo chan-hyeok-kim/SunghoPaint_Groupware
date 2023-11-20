@@ -100,8 +100,7 @@ SELECT *,APT.APPROVAL_TYPE_NO AS
 		LIKE CONCAT('%',#{pager.search},'%')
         AND <include refid="myList"></include>
    		ORDER BY A.APPROVAL_NO DESC
-		LIMIT
-		#{pager.startRow},#{pager.lastRow} 
+		LIMIT #{pager.startRow},#{pager.lastRow} 
     </select>
     
     <select id="getMyTotal" resultType="Long" parameterType="Map">
