@@ -101,7 +101,7 @@
 			<th>주소</th>
 			<td><form:input path="address" readonly="true" onclick="daumPostcode()" /></td>
 			<th>은행</th>
-			<td><form:input path="bank" placeholder="'-' 제외" /></td>
+			<td><form:input path="bank" /></td>
 		</tr>
 		<tr>
 			<th>입사구분</th>
@@ -122,7 +122,7 @@
 			<th>퇴사사유</th>
 			<td><form:input path="quitReason" /></td>
 			<th>계좌번호</th>
-			<td><form:input path="accountNumber" /></td>
+			<td><form:input path="accountNumber" placeholder="'-' 제외" /></td>
 		</tr>
 	</table>
 

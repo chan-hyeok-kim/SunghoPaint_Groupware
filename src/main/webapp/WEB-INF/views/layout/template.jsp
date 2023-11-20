@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%> 
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 
 <!DOCTYPE html>
 <html>
@@ -83,13 +84,15 @@
     
     <!-- jQuery UI -->
    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-   
+     <sec:authorize access="hasRole('USER')"> 
    <tiles:insertAttribute name="todolist"/>
-    
+     </sec:authorize> 
     <!-- socket -->
+    <sec:authorize access="hasRole('USER')">
    <script src="/js/main/socket.js"></script>
+ 
    <script src="/js/main/socket2.js"></script>
-   
+    </sec:authorize>
 	  <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

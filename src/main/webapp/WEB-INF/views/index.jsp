@@ -334,7 +334,7 @@
 							<c:if test="${i.index lt 5}">
 								<tr>
 									<td class="notice-reg-date">${vo.regDate}</td>
-									<td><a href="/notice/detail?noticeNo=${vo.noticeNo}">${vo.noticeTitle}</a></td>
+									<td><a style="text-decoration: none;" href="/notice/detail?noticeNo=${vo.noticeNo}">${vo.noticeTitle}</a></td>
 									<td>${vo.humanResourceVO.name}</td>
 								</tr>
 							</c:if>
