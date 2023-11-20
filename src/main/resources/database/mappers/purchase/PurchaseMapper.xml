@@ -66,6 +66,13 @@
   			</association>
   		
   	</resultMap>
+  	
+  	<!-- <select id="getTotal" resultType="Long" parameterType="Pager">
+	  SELECT COUNT(*)
+	    FROM PURCHASE_MANAGEMENT
+	   WHERE <include refid="searchApp"></include>
+		LIKE CONCAT('%',#{search},'%')
+	</select> -->
    
    
     <insert id="setAdd" parameterType="PurchaseVO">

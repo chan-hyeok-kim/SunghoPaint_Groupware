@@ -55,45 +55,7 @@
 }
 </style>
 
-<script type="text/javascript">
-    function calculateTotal() {
-        var quantity = parseFloat(document.getElementById("purchaseQuantity").value);
-        var materialSelect = document.getElementById("materialProductNo");
-        var price = parseFloat(materialSelect.options[materialSelect.selectedIndex].getAttribute("data-price"));
 
-        // Validate that the quantity is not negative
-        if (quantity < 0) {
-            alert("Purchase quantity cannot be negative.");
-            document.getElementById("purchaseQuantity").value = 0; // Set quantity to 0
-            return;
-        }
-
-        // Validate that the quantity and price are valid numbers
-        if (!isNaN(quantity) && !isNaN(price)) {
-            var totalPrice = quantity * price;
-            document.getElementById("totalPrice").value = Math.round(totalPrice);
-        } else {
-            // Handle invalid inputs
-            document.getElementById("totalPrice").value = '0원';
-        }
-    }
-
-    function updateMaterialPrice() {
-        var materialSelect = document.getElementById("materialProductNo");
-        var priceField = document.getElementById("materialPrice");
-
-        var selectedOption = materialSelect.options[materialSelect.selectedIndex];
-        var price = parseFloat(selectedOption.getAttribute("data-price"));
-
-        // Validate that the price is a valid number
-        if (!isNaN(price)) {
-            priceField.value = Math.round(price) + '원';
-        } else {
-            // Handle invalid input
-            priceField.value = '0원';
-        }
-    }
-</script>
 
 </head>
 <body>
@@ -120,10 +82,10 @@
                         </td>
                         <td>원료명</td>
                         <td>
-                            <select class="form-control" type="text" name="materialProductNo">
+                            <select class="form-control" type="text" name="materialProductNo" id="materialProductNo" onchange="updateMaterialPrice(); calculateTotal()">
                                 <c:forEach items="${material}" var="f">
                                     <c:if test="${f.materialProductCategory eq '원료'}">
-                                        <option value="${f.materialProductNo}" ${f.materialProductNo == kvo.materialProductNo ? 'selected' : ''}>${f.codeName}</option>
+                                        <option value="${f.materialProductNo}" data-price="${f.materialProductPrice}">${f.codeName}</option>
                                     </c:if>
                                 </c:forEach>
                             </select>
@@ -172,6 +134,50 @@
             </form>
         </div>
     </div>
+
+
+<script type="text/javascript">
+    function calculateTotal() {
+        var quantity = parseFloat(document.getElementById("purchaseQuantity").value;
+        var materialSelect = document.getElementById("materialProductNo");
+        var price = parseFloat(materialSelect.options[materialSelect.selectedIndex].getAttribute("data-price"));
+
+        // Validate that the quantity is not negative
+        if (quantity < 0) {
+            alert("Purchase quantity cannot be negative.");
+            document.getElementById("purchaseQuantity").value = 0; // Set quantity to 0
+            return;
+        }
+
+        // Validate that the quantity and price are valid numbers
+        if (!isNaN(quantity) && !isNaN(price)) {
+            var totalPrice = quantity * price;
+            document.getElementById("totalPrice").value = Math.round(totalPrice);
+        } else {
+            // Handle invalid inputs
+            document.getElementById("totalPrice").value = '0원';
+        }
+    }
+
+    function updateMaterialPrice() {
+        var materialSelect = document.getElementById("materialProductNo");
+        var priceField = document.getElementById("materialPrice");
+
+        var selectedOption = materialSelect.options[materialSelect.selectedIndex];
+        var price = parseFloat(selectedOption.getAttribute("data-price"));
+
+        console.log(priceField)
+        // Validate that the price is a valid number
+        if (!isNaN(price)) {
+        	
+            priceField.value = Math.round(price) + '원';
+        	
+        } else {
+            // Handle invalid input
+            priceField.value = '0원';
+        }
+    }
+</script>	
 
     <script src="/js/purchase/update-check.js"></script>
 
