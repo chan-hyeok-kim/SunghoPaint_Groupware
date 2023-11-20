@@ -245,7 +245,7 @@ public class ApprovalController {
 
 	@PostMapping("check")
 	@Transactional
-	public String setCheck(ApprovalVO approvalVO, AnnualLeaveUsedHistoryVO annualLeaveUsedHistoryVO, Model model) throws Exception {
+	public String setCheck(ApprovalVO approvalVO, Model model) throws Exception {
 		HumanResourceVO humanResourceVO=(HumanResourceVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		log.warn("들어오는지확인");
@@ -265,14 +265,9 @@ public class ApprovalController {
         		log.warn("알람왜안드감{}",notificationVO);
         		result=mainService.setAlarmAdd(notificationVO);
         		check=result;
+            }
         		
-        		// ========== 휴가 신청 결재 완료 이후 처리 ==========
-        		if(approvalVO.getApCodeName().equals("R011")) {
-        			// require employeeID
-        			annualService.setUpdateByUseAnnualLeave(annualLeaveUsedHistoryVO);
-        			annualService.setAnnualLeaveUsedHistory(annualLeaveUsedHistoryVO);
-        		}
-        	}
+        	
             //결재 승인
 		} else if (approvalVO.getApprovalStatusCd().equals("R034")) {
             result = approvalService.setReject(approvalVO);
@@ -285,7 +280,7 @@ public class ApprovalController {
         		log.warn("알람왜안드감{}",notificationVO);
         		result=mainService.setAlarmAdd(notificationVO);
         		check=result;
-        		}
+            }
             
             //반려
 		} else {

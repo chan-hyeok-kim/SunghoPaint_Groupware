@@ -57,7 +57,7 @@ public class IndexController {
 		
 //		결재 리스트 세팅
 		List<ApprovalVO> al=approvalService.getMyList(pager);
-	
+	    log.warn("마이리스트23{}",al);
 		//내가 올린 결재리스트
 		List<ApprovalVO> myList=new ArrayList<>();
 	    for(ApprovalVO a: al) {
@@ -72,9 +72,9 @@ public class IndexController {
 	    //조건 추가해야됨
 	    List<ApprovalVO> approvalList=new ArrayList<>();
 	    for(ApprovalVO ap: al) {
-			if(ap.getApprovalStatusCd().equals("R032") &&
-			    !(ap.getEmployeeID().equals(humanResourceVO.getEmployeeID()))) {
-		        
+			if(ap.getApprovalStatusCd().equals("R032") && !(ap.getEmployeeID().equals(humanResourceVO.getEmployeeID())) ) {
+			
+				 
 		        approvalList.add(ap);
 			}
 		}
