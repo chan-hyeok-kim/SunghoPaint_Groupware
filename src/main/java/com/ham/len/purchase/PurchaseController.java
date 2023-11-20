@@ -85,12 +85,15 @@ public class PurchaseController {
 
 	@GetMapping("update")
 	public void update(PurchaseVO purchaseVO, Model model) throws Exception {
-		List<SalesClientVO> cm = salesService.getClientList();
-		model.addAttribute("client", cm);
 		List<FactoryStorageVO> fs = purchaseService.getList2();
 		model.addAttribute("factory", fs);
 		List<MaterialProductVO> mm = purchaseService.getList3();
 		model.addAttribute("material", mm);
+		List<SalesClientVO> cm = salesService.getClientList();
+		model.addAttribute("client", cm);
+		log.info("여기에요 봐주세요 {}", cm);
+		log.info("여기에요 봐주세요 {}", fs);
+		log.info("여기에요 봐주세요 {}", mm);
 		purchaseVO = purchaseService.getDetail(purchaseVO);
 		model.addAttribute("kvo", purchaseVO);
 	}

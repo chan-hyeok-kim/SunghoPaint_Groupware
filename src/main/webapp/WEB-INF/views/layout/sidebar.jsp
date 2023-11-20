@@ -173,14 +173,13 @@
     
         <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#purchase-general-pages" aria-expanded="false" aria-controls="general-pages">
-        <span class="menu-title">구매&발주 관련</span>
+        <span class="menu-title">구매관리</span>
         <i class="menu-arrow"></i>
         <i class="mdi mdi-cash-multiple menu-icon"></i>
       </a>
       <div class="collapse" id="purchase-general-pages">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="/purchase/list">구매 리스트</a></li>
-          <li class="nav-item"> <a class="nav-link" href="/order/list">발주서 리스트</a></li>
         </ul>
       </div>
     </li>

@@ -5,6 +5,7 @@ const frm = document.getElementById('frm');
 
 let checkResult = [true, true];
 
+
 price.addEventListener("blur", function() {
     const pVal = price.value;
 

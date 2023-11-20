@@ -147,10 +147,9 @@ ul.nav-tabs {
 
 								<!-- 검색 설정 -->
 								<select class="btn btn-gradient-light" id="top-search-select">
-									<option selected="selected">전체</option>
-									<option>거래처</option>
-									<option>품목명</option>
-									<option>담당자</option>
+									<option selected="selected" value="clientName">거래처</option>
+									<option value="codeName">품목명</option>
+									<option value="name">담당자</option>
 								</select> 
 								
 								
@@ -181,7 +180,6 @@ ul.nav-tabs {
 										<th>품목명</th>
 										<th>금액 합계</th>
 										<th>담당자</th>
-										<th>발주 현황</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -190,11 +188,9 @@ ul.nav-tabs {
 				             <td><input type="checkbox" name="CheckDelete" value="${vo.purchaseNo}"></td>
 				             <td>${vo.purchaseDate}</td>
 				             <td><a href="/purchase/update?purchaseNo=${vo.purchaseNo}">${vo.salesClientVO.clientName}</a></td>
-				             <%-- style="cursor: pointer;" onclick="location.href='/purchase/update?purchaseNo=${vo.purchaseNo}'">${vo.salesClientVO.clientName} --%>
 				             <td>${vo.codeName}</td>
 				             <td><fmt:formatNumber value="${vo.totalPrice}" pattern="###,###,###" />원</td>
 				             <td>${vo.humanResourceVO.name}</td>
-				             <td><a style="cursor: pointer;" onclick="location.href='/order/list'">발주서 확인</a></td>
 				           </tr>
 				         </c:forEach>
 				        </tbody>
@@ -207,33 +203,29 @@ ul.nav-tabs {
 					<!-- pagination -->
 					
 		<br><br><br><br><br>
-					
-		<nav class="room-pagination" aria-label="Page navigation example">
-			<ul class="pagination" id="product-ul-list2" >
 
-				<li class="page-item ${pager.pre?'':'disabled'}"><a
-					class="page-link"
-					href="./list?page=${pager.startNum-1}&kind=${param.kind}&search=${param.search}"
-					aria-label="Previous fa-long-arrow-left"> <span
-						aria-hidden="true">&laquo;</span>
-				</a></li>
-
-				<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-					<li class="page-item"><a class="page-link"
-						href="./list?page=${i}&kind=${param.kind}&search=${param.search}">${i}</a></li>
-				</c:forEach>
-				<c:if test="${pager.next}">
-					<li class="page-item"><a class="page-link"
-						href="./list?page=${pager.lastNum+1}&kind=${param.kind}&search=${param.search}"
-						aria-label="Next fa-long-arrow-right"> <span
-							aria-hidden="true">&raquo;</span>
-					</a></li>
-				</c:if>
-
-
-
-			</ul>
-		</nav>
+		
+		<!-- pagination -->
+<div style="text-align: center; margin: 20px 20px;">
+<nav aria-label="Page navigation example" style="display: inline-block;">
+  <ul class="pagination">
+    <li class="page-item ${pager.pre?'':'disabled'}">
+      <a class="page-link" href="/purchase/list?page=${pager.startNum-1}&kind=${pager.kind}&search=${pager.search}" aria-label="Previous">
+        <i class="mdi mdi-arrow-left-drop-circle"></i>
+      </a>
+    </li>
+    
+    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+    <li class="page-item"><a class="page-link" href="/purchase/list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+    </c:forEach>
+    
+    <li class="page-item ${pager.next?'':'disabled'}">
+      <a class="page-link" href="/purchase/list?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}" aria-label="Next">
+        <i class="mdi mdi-arrow-right-drop-circle"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
 					
 						<div style="float: right;">
 							<button type="button" class="btn btn-danger" id="delete-btn">삭제하기</button>
