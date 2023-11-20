@@ -31,15 +31,11 @@
 			})
 		}
 		
-	 	var ws = new SockJS("http://localhost:82/echo");
-		
-		
+	 	
 	 	
 		
 		
-		ws.onclose = function() {
-	 	    console.log('close');
-	 	}; 
+		
 	</script>
 </body>
 </html>
