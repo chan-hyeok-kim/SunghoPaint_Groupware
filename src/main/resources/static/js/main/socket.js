@@ -15,7 +15,7 @@ const alarmUL = document.querySelector("#alarmUL");
  
 //소켓
  function connectWs(){
-	 ws = new SockJS("http://192.168.9.13:82/echo");
+	 ws = new SockJS("http://localhost:82/echo");
 	sock = ws;
 
  	ws.onopen = function() {
