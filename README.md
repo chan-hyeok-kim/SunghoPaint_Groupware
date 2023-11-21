@@ -1,26 +1,10 @@
 ## 🏭 페인트제조회사_그룹웨어
 
 ## :open_file_folder: 목차
-* 팀원 소개
 * 프로젝트 개요
+* 내 담당 역할
+* 팀원 역할
 * 개발 환경 및 도구
-
-## :speech_balloon: 팀원 소개
-><p><strong>팀장</strong>: <strong>김찬혁(나)</p>
->예약 페이지(Fullcalendar API), 예약 승인 페이지, 결제 및 환불(API), 예약 상세, 결제 및 환불내역 상세, 문자 발송 API(예약 취소), 대여 공간 위치 표시(카카오맵 API), 관리자 페이지, 공공데이터 사업자 인증 API, 네이버 소셜 로그인 API, 메인 페이지
-</strong>
-
-><p><strong>팀원</strong>: 김민진</p>
->회원가입(이메일 전송 API), 로그인, 카카오 소셜 로그인 API, 회원가입, 회원등급 , 파트너 등록 페이지, 파트너 정보 및 공간 관리 페이지, 메인 페이지, 약관동의
-
-><p><strong>팀원</strong>: 김민준</p>
->마이페이지, 게시판(공지사항,자주찾는 QNA), 문의 후기 내역
-
-><p><strong>팀원</strong>: 장재혁</p>
->공간 등록, 공간 정보 상세, 전체 공간 리스트, 메인 페이지
-
-><p><strong>팀원</strong>: 황윤제</p>
->문의 및 후기 등록, 문의 리스트, 후기 리스트
 
 ## :date: 프로젝트 개요
 
@@ -29,12 +13,32 @@
 </p>
  
 ><p><strong>프로젝트</strong>: 공유 주방 대여 사이트</p>
-><p><strong>기획 및 제작</strong>: 김찬혁, 송윤호, 김민준, 장재혁, 황윤제</p>
+><p><strong>기획 및 제작</strong>: 김찬혁, 김민진, 김성호, 장재혁, 김호진</p>
 ><p><strong>분류</strong>: 팀 프로젝트</p>
-><p><strong>제작 기간</strong>: 2023.08.16 ~ 09.15</p>
-><p><strong>배포일</strong>: 2023</p>
-><p><strong>사용 기술</strong>: SPRING LEGACY</p>
+><p><strong>제작 기간</strong>: 2023.10.6 ~ 11.19</p>
+><p><strong>배포일</strong>: 2023.11.22</p>
+><p><strong>사용 기술</strong>: SPRING BOOT</p>
 ><p><strong>문의</strong>: daiolous@gmail.com</p>
+
+## :speech_balloon: 내 역할
+><p><strong>팀장</strong>: <strong>김찬혁(나)</p>
+>예약 페이지(Fullcalendar API), 예약 승인 페이지, 결제 및 환불(API), 예약 상세, 결제 및 환불내역 상세, 문자 발송 API(예약 취소), 대여 공간 위치 표시(카카오맵 API), 관리자 페이지, 공공데이터 사업자 인증 API, 네이버 소셜 로그인 API, 메인 페이지
+</strong>
+
+## 
+><p><strong>팀원</strong>: 장재혁</p>
+>회원가입(이메일 전송 API), 로그인, 카카오 소셜 로그인 API, 회원가입, 회원등급 , 파트너 등록 페이지, 파트너 정보 및 공간 관리 페이지, 메인 페이지, 약관동의
+
+><p><strong>팀원</strong>: 김민진</p>
+>마이페이지, 게시판(공지사항,자주찾는 QNA), 문의 후기 내역
+
+><p><strong>팀원</strong>: 김성호</p>
+>공간 등록, 공간 정보 상세, 전체 공간 리스트, 메인 페이지
+
+><p><strong>팀원</strong>: 김호진</p>
+>문의 및 후기 등록, 문의 리스트, 후기 리스트
+
+
 
 ## :computer: 개발 환경
 <img src="https://img.shields.io/badge/Framework-%23121011?style=for-the-badge"> <img alt="Spring" src ="https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white"/> <img src="https://img.shields.io/badge/mybatis-004088?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMCIgd2lkdGg9IjEwOC4wMDAwMDBwdCIgaGVpZ2h0PSI4OC4wMDAwMDBwdCIgdmlld0JveD0iMCAwIDEwOC4wMDAwMDAgODguMDAwMDAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KCjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDg4LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIgZmlsbD0id2hpdGUiIHN0cm9rZT0ibm9uZSI+CjxwYXRoIGQ9Ik0zNTQgNzk1IGMtOSAtMjMgMTUgLTQ1IDQ3IC00NSAxNSAwIDMxIC01IDM1IC0xMSA1IC05IC0xIC0xMCAtMjEgLTUgLTE3IDQgLTQ5IDAgLTgzIC0xMCBsLTU1IC0xOCAtMjMgMjkgYy0yOSAzNyAtNTIgMjQgLTMzIC0xOCAxNiAtMzQgMzIgLTM5IDczIC0yMiA0NCAxOSAxMTAgMTkgMTI1IDIgNiAtOCAxNCAtMjkgMTggLTQ3IGw2IC0zMyAtNDkgNiBjLTI3IDQgLTYxIDEwIC03NSAxMyAtMjUgNiAtMjYgNCAtMjUgLTMzIGwxIC0zOCAtNTcgLTMgYy0zMiAtMiAtNTggLTcgLTU4IC0xMyAwIC0yMiAyOSAtNzggNTkgLTExMSAxNyAtMjAgMzEgLTQzIDMxIC01MSAwIC0yMCAtNDggLTU2IC0xMzAgLTk3IGwtNjUgLTMzIDQ4IC00MyBjNjEgLTU1IDE1MyAtMTAwIDI0MiAtMTE5IDg3IC0xOCAxMzQgLTE4IDIwNiAtMSAxNDAgMzIgMjI1IDEyMiAyODUgMzAwIDEzIDM4IDMyIDc1IDQxIDgyIDE0IDEwIDE1IDEzIDQgMTQgLTExIDAgLTEwIDMgMyAxMyAxNiAxMiAxNyAxNSAzIDIwIC04IDMgLTMwIDM1IC00NyA3MiAtNDIgODggLTg4IDEyMCAtMTc0IDEyMCAtNDQgMCAtNzQgLTcgLTEwOCAtMjQgLTU3IC0yOSAtNzggLTIzIC03OCAyMiAwIDQzIC0xNSA1NyAtNjIgNTcgLTI3IDAgLTQwIDUgLTQ4IDIwIC0xMyAyNCAtMjggMjYgLTM2IDV6IG00NDYgLTIxNSBjMTIgLTggMTEgLTEwIC03IC0xMCAtNDIgMCAtMzIgLTU5IDEwIC02MSAxMiAwIDE2IC0zIDkgLTYgLTIzIC05IC02MyA3IC03MSAzMCAtMTYgNDMgMjAgNzIgNTkgNDd6IG0zMCAtMzAgYzAgLTUgLTQgLTEwIC05IC0xMCAtNiAwIC0xMyA1IC0xNiAxMCAtMyA2IDEgMTAgOSAxMCA5IDAgMTYgLTQgMTYgLTEweiIvPgo8L2c+Cjwvc3ZnPg=="/>
