@@ -9,7 +9,10 @@
 ## :date: 프로젝트 개요
 
 <p>
+
+ 
  ![logo-clear](https://github.com/chan-hyeok-kim/GDJ68_FinalProject/assets/132668682/a1857600-4f7d-49d3-9a61-ea070618dd08)
+
 </p>
  
 ><p><strong>프로젝트</strong>: 페인트제조회사_그룹웨어</p>
