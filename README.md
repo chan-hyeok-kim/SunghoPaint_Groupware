@@ -21,7 +21,7 @@
 ><p><strong>사용 기술</strong>: SPRING BOOT</p>
 ><p><strong>문의</strong>: daiolous@gmail.com</p>
 
-## 🏃: 내 역할
+## 🏃 내 담당 기능
 ><p><strong>팀장</strong>: <strong>김찬혁(나)</p>
 > 메인 페이지
 </strong>
