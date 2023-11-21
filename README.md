@@ -9,7 +9,6 @@
 ## :date: 프로젝트 개요
 
 <p>
- ![logo-clear](https://github.com/chan-hyeok-kim/GDJ68_FinalProject/assets/132668682/1b8b9686-4610-4e35-a4d2-59961fea68fd)
 
 <img src="https://github.com/chan-hyeok-kim/GDJ68_FinalProject/images/132668682/0add8122-35b4-48f3-9cfd-1b4751242619" width="280" height="50" style="max-width: 100%;"/>
 </p>
