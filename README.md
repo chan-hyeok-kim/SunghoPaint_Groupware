@@ -1,4 +1,4 @@
-## :SunghoPaint: 페인트제조회사_그룹웨어
+ :office: 페인트제조회사_그룹웨어
 
 ## :open_file_folder: 목차
 * 팀원 소개
