@@ -12,7 +12,7 @@
 <img src="https://github.com/Hamelen/GDJ68_Kitchen/assets/132668682/0add8122-35b4-48f3-9cfd-1b4751242619" width="280" height="50" style="max-width: 100%;"/>
 </p>
  
-><p><strong>프로젝트</strong>: 공유 주방 대여 사이트</p>
+><p><strong>프로젝트</strong>: 페인트제조회사_그룹웨어</p>
 ><p><strong>기획 및 제작</strong>: 김찬혁, 김민진, 김성호, 장재혁, 김호진</p>
 ><p><strong>분류</strong>: 팀 프로젝트</p>
 ><p><strong>제작 기간</strong>: 2023.10.6 ~ 11.19</p>
@@ -20,12 +20,12 @@
 ><p><strong>사용 기술</strong>: SPRING BOOT</p>
 ><p><strong>문의</strong>: daiolous@gmail.com</p>
 
-## :speech_balloon: 내 역할
+## 🏃: 내 역할
 ><p><strong>팀장</strong>: <strong>김찬혁(나)</p>
 >예약 페이지(Fullcalendar API), 예약 승인 페이지, 결제 및 환불(API), 예약 상세, 결제 및 환불내역 상세, 문자 발송 API(예약 취소), 대여 공간 위치 표시(카카오맵 API), 관리자 페이지, 공공데이터 사업자 인증 API, 네이버 소셜 로그인 API, 메인 페이지
 </strong>
 
-## 
+## :speech_balloon: 팀원 역할
 ><p><strong>팀원</strong>: 장재혁</p>
 >회원가입(이메일 전송 API), 로그인, 카카오 소셜 로그인 API, 회원가입, 회원등급 , 파트너 등록 페이지, 파트너 정보 및 공간 관리 페이지, 메인 페이지, 약관동의
 
