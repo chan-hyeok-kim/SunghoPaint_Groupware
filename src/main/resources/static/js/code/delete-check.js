@@ -27,7 +27,9 @@ $('#delete-btn').click(function() {
         data: {
             deleteCdArr: arr
         }, success: function(result) {
-            
+            if(result.trim()>0){
+                location.replace('/code/list')
+            }
             
         }, error: function() {
     

@@ -117,14 +117,10 @@ public class CodeController {
 	    	    }
 	    	}
 	    	
-	    	if(result>0) {
-	    		 model.addAttribute("message", "코드가 성공적으로 삭제되었습니다.");
-	    	 }else {
-	    		 model.addAttribute("message", "에러. 코드 삭제 실패");	
-	    	 }
+	    
 	    	 model.addAttribute("result", result);
-	    	 model.addAttribute("url", "/code/list");
-	    	 return "redirect:./list";
+	    
+	    	 return "commons/ajaxResult";
 	}
 	
 	@PostMapping("codeCheck")

@@ -35,18 +35,18 @@
 				<tr>
 					
 					<td colspan="4">
+					 <c:forEach items="${vo.attachmentVOs}" var="f">
+					    <img style="border-radius: 0;" alt="" src="../files/${f.fileName}">
+					   <%--  <a href="./fileDown?fileNo=${f.fileNo}">${f.originalName}</a> --%>
+					</c:forEach> 
 					${vo.noticeContents}</td>
 					
+					
+				
+					
+					
 				</tr>
-				<tr>
-				<th>파일첨부</th>
-				<td colspan="3">
-					 <c:forEach items="${vo.attachmentVOs}" var="f">
-					    <img alt="" src="../files/${f.fileName}">
-					    <a href="./fileDown?fileNo=${f.fileNo}">${f.originalName}</a>
-					</c:forEach> 
-					</td>
-				</tr>
+				
 			</tbody>
 			</table>   
 			<sec:authorize access="hasRole('ADMIN')"> 

@@ -39,7 +39,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
 				
 		//제외할 URL등록
 				.excludePathPatterns("/notice/list")
-				.excludePathPatterns("/notice/detail");
+				.excludePathPatterns("/notice/detail")
+				.excludePathPatterns("/code/approvalLineDept") 
+				.excludePathPatterns("/document/approvalLineDept") 
+				.excludePathPatterns("/document/ajaxFullList");
 			
 	
 	}

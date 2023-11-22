@@ -51,8 +51,9 @@ codeNameCheck.addEventListener('blur',function(){
    val=codeNameCheck.value;
 
    if(val.trim()==''){
-      alert('코드명을 입력해주세요')
+      // alert('코드명을 입력해주세요')
       checkResult[1]=false;
+      
       return;
     }else{
     checkResult[1]=true;
