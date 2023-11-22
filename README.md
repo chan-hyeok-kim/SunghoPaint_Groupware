@@ -72,18 +72,18 @@ Diagram | ```ERDCloud```
 
 ![login](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/fb3b37f0-9b0e-4083-a9e0-fbe87ef784dd)
 
-* 먼저, 회사에서 인사 등록을 해야 사번과 임시 비밀번호가 이메일로 발급(gmail SMTP).
-* 따라서 회원가입은 없으며 최초 로그인 시, 비밀번호를 변경해야 한다.
+* 먼저, 회사에서 인사 등록을 해야 사번과 임시 비밀번호가 이메일로 발급(gmail SMTP)
+* 따라서 회원가입은 없으며 최초 로그인 시, 비밀번호를 변경해야 한다
 
 #### 1-2.메인 페이지
 
 ![mainpage](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/f5a76639-4bf9-4030-829a-10abe6407849)
 
 
-* 사이드바에서 출근 및 퇴근이 가능.
-* 상단바에서는 실시간 알림 확인, Todolist를 적거나 수정 삭제.
-* Full-Calendar API 캘린더에서 일정 확인이 가능하며 일정을 등록 가능.
-* 상단바 밑의 버튼을 클릭하면 스크롤 바를 내리지 않고도 필요한 정보를 신속하게 확인할 수 있음.
+* 사이드바에서 출근 및 퇴근이 가능
+* 상단바에서는 실시간 알림 확인, Todolist를 적거나 수정 삭제
+* Full-Calendar API 캘린더에서 일정 확인이 가능하며 일정을 등록 가능
+* 상단바 밑의 버튼을 클릭하면 스크롤 바를 내리지 않고도 필요한 정보를 신속하게 확인할 수 있음
 * Chart API를 활용하여 주간 제품 생산량 표시
 
 ### 2.인사관리
@@ -91,8 +91,8 @@ Diagram | ```ERDCloud```
 #### 2-1.근태관리
 ![attendance](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/5c5ff8b0-a93e-4f73-867f-009e5d4b9e69)
 * 월마다 누적, 연장 근무 시간 확인 가능 
-* 주마다 누적 근무 시간, 초과 근무 시간, 잔여 근무 시간을 확인 가능. 
-* 날마다 업무 시작 시간, 종료 시간, 초과 근무, 누적 근무 시간 확인 가능.
+* 주마다 누적 근무 시간, 초과 근무 시간, 잔여 근무 시간을 확인 가능.
+* 날마다 업무 시작 시간, 종료 시간, 초과 근무, 누적 근무 시간 확인 가능
 
 #### 2-2.내 인사정보 & 연차 현황
 ![mypage](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/eed0b629-263f-4282-ae9f-c888ac487840)
@@ -104,33 +104,120 @@ Diagram | ```ERDCloud```
 #### 3-1.결재 리스트
 ![approvalList](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/410d166d-f119-40c5-a9ee-bfa963868f75)
 * 현재 로그인한 사원이 서명이 없을 경우, 기안서 확인 또는 결재 작성을 하는 버튼을 클릭하면 서명 모달이 자동으로 뜸
-* 캔버스에 서명을 그려 생성한 후 jpg나 png로 다운받을 수도 있으며(signature_pad), 등록 버튼을 누르면 내 정보에 자동 등록.(base64인코딩)
-* 전체, 진행중, 반려, 승인완료 탭으로 나눠 분류.
+* 캔버스에 서명을 그려 생성한 후 jpg나 png로 다운받을 수도 있으며(signature_pad), 등록 버튼을 누르면 내 정보에 자동 등록(base64인코딩)
+* 전체, 진행중, 반려, 승인완료 탭으로 나눠 분류
   
 #### 3-2.기안서 작성
 ![approvalAdd](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/c836cdf0-677c-411e-864f-8639c6a379ec)
 * 트리 구조로 된 결재선(zTree API)으로 결재라인 등록
-* 결재양식 미리볼 수 있음.
+* 결재양식 미리볼 수 있음
 
 #### 3-3.반려
 ![approvalReject](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/b34c34f5-98fb-4d41-b1ed-24ba1fd13c25)
-* 반려 시에만 첨언 작성이 가능.
-* 반려된 기안서는 다음 결재자들에게 보이지 않으며, 반려한 사람과 반려된 사람에게만 보임.
+* 반려 시에만 첨언 작성이 가능
+* 반려된 기안서는 다음 결재자들에게 보이지 않으며, 반려한 사람과 반려된 사람에게만 보임
+* 반려당하면 기안자는 실시간 알림으로 확인 가능(WebSocket)
 
 #### 3-4.승인
 ![approvalOK](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/c7e0267a-5295-43e2-bea5-809cd00ae5e6)
+* 최소 2인, 최대 3인까지 결재자로 설정 가능
+* 중간 결재자들이 반려했거나 아직 검토하지 않았으면 다음 검토자한테는 기안서가 보이지 않음
+* 승인 완료시 기안자는 실시간 알림으로 확인 가능(WebSocket)
+* 승인 완료된 결재 문서는 PDF로 다운로드할 수 있음(iText7)
 
-#### 3-5.
-
-
+#### 3-5.통합 관리
+![approvalUpdate](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/5c6ed5e4-71f1-4566-9b54-af78e0a56284)
+* 관리자는 결재 통합 관리 페이지에 들어갈 수 있음.
+* 결재 문서는 관리자만 수정 삭제가 가능
+  
 ### 4. 예약 
-#### 4-1.
+#### 4-1.차량 예약
+![CarBook](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/1f4b1afe-4a94-4ca0-aa4e-998f18a2caeb)
+* 차량 대여 여부 확인
+* 차량 예약 가능
 
+#### 4-2.차량 예약 캘린더
+![bookCalendar](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/f18f097c-3ecf-4792-8bb0-9dd375527321)
+* 캘린더로 차량 예약 현황 확인 가능(FullCalendarAPI)
+* 예약 내용 수정 및 취소도 이곳에서 가능하다.
 
+#### 4-3.대여 현황
+![bookDetail](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/1686133e-cb4e-433b-87ef-5bac0c563765)
+* 현재 대여 현황을 확인할 수 있음
+* 내가 예약했던 과거의 내역까지 볼 수 있음
+  
+#### 4-4.차량 관리
+![CarManage](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/0cbf01c2-3b61-4bc9-98c3-acf7f32af477)
+* 차량 정보를 등록, 수정 삭제 가능
 
+### 5. 영업 
+#### 5-1.거래처 관리
+![ClientManage](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/7d607927-caab-4134-9f9d-4f19fb35ca45)
+* Daum주소 API로 우편번호 찾기 및 주소 등록
+* 거래처 정보 관리
 
+#### 5-2.거래내역 
+![Deal](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/4115f939-24bb-4479-a7cc-ef94febf5d75)
+* Excel로 거래명세서 다운로드(POI)
 
+#### 6. 일정 관리
+![schedule](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/f98ad3af-6b60-4572-a114-b813a59e8b25)
+* 캘린더 API로 부서별 일정 확인
 
+### 7. 자산
+#### 7-1.기기 관리
+![machine](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/150bb353-f3c2-4b76-8766-f0f117d11f57)
+* 페인트 및 도료 생산에 사용하는 기기 관리
+* 고장 시 수리 요청서를 쓰기 위해 결재 페이지로 이동
+* 등록 시 이름 찍히지 않는 문제점 보완할 예정
 
+#### 7-2.품목 관리
+![material](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/0e131921-5ab4-4f05-9980-daaff7834d4c)
+* 페인트 제조와 관련된 원료와 제품 관리
+* 원료는 입고가, 제품은 출고가만 표시
+* 등록 시 이름 찍히지 않는 문제점 보완할 예정
 
+### 8. 구매관리
+![purchase](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/ea50e857-c99e-4611-8dc7-15326817fefc)
+* 기존에 등록된 거래처, 원료, 창고를 선택하여 구매서 작성
+
+### 9. 관리자 
+#### 9-1.공지사항
+![notice](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/1d5e10a8-3c24-476f-85b6-de26f65213b6)
+* 일반 사원들은 공지사항 내용과 목록만 볼 수 있고, 작성이나 수정 삭제 권한 없음
+* 파일 첨부 가능
+* 네이버 SmartEditor2 적용
+
+#### 9-2.코드 관리
+![upCode](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/25c4fb1a-d924-4eb9-945c-c5dda9d47140)
+* 상위코드와 코드로 분류하여 유지 보수 용이
+* 상위코드는 코드를 성격별로 분류, 관리하기 위한 카테고리
+* 상위코드는 "첫자 알파벳+최대 두자리 숫자"의 조합으로 이루어짐
+
+![code](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/b4689ce1-14be-4eea-afa4-11747ca5fe6f)
+* 코드는 상위코드의 하위에 속하며, "상위코드+숫자"로 구성됨
+
+#### 9-3.문서양식함
+![document](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/558f30ba-9461-4001-87fd-573b6cc9e49b)
+* 상위양식함과 문서양식으로 분류
+* 상위양식함은 인사, 총무, 생산, 구매, 영업 등의 부서와 일반으로 나눔
+
+#### 9-4.인사 조회
+![humanresource](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/441397c8-ac2b-4002-befa-2d68c7ee2771)
+* 전체 사원의 인사 정보를 확인할 수 있음
+* Excel로도 다운로드 가능
+
+#### 9-5.발령 등록
+![transfer](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/e7c9c368-7ecd-484d-a493-9de4f0e5cf7a)
+* 등록하면 발령 목록 페이지로 이동
+
+#### 9-6.근태 현황
+![attendanceAdmin](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/2a777347-5d24-48e5-9637-c4cd15d4c657)
+* 전체 사원의 근태 현황 파악 가능
+* 월별, 주별, 일별로 근태 상황을 살펴볼 수 있음
+ 
+#### 9-7.연차 현황
+![annual(Admin)](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/9277f593-930b-49cc-8f52-8717eeab5546)
+* 부서별로 확인할 수 있음
+* Excel로 다운로드 가능
 
