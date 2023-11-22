@@ -75,9 +75,9 @@ public class HumanResourceService implements UserDetailsService {
 		boolean hasErrors = false;
 		
 		String extensionNumber = humanResourceVO.getExtensionNumber();
-		String extensionNumberRegExp = "^0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4]|7[0-9]|8[1-4]|9[1-4])\\d{3,4}\\d{4}$";
+		String extensionNumberRegExp = "^(070|02|0[3-9]{1}[0-9]{1})[0-9]{3,4}[0-9]{4}$";
 		String mainNumber = humanResourceVO.getMainNumber();
-		String mainNumberRegExp = "^0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4]|7[0-9]|8[1-4]|9[1-4])\\d{2,3}\\d{4}$";
+		String mainNumberRegExp = "^((01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4}))|((070|02|0[3-9]{1}[0-9]{1})[0-9]{3,4}[0-9]{4}))$";
 		
 		if(!extensionNumber.isEmpty() && !Pattern.matches(extensionNumberRegExp, extensionNumber)) {
 			hasErrors = true;
