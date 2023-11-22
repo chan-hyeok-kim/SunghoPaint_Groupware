@@ -61,5 +61,5 @@
 #### :hammer: API 및 기타 도구들
 Category| Detail
 :--:|:--:
-API | ```JavaMail API```, ```Apache Commons FileUpload```, ```Fullcalendar```, ```KakaoMap```, ```KakaoLogin```, ```NaverLogin```, ```Iamport```, ```NaverCloud SMS```,```JDBC```
+API | ```JavaMail API```, ```Apache Commons FileUpload```, ```Fullcalendar```, ```iText7```, ```zTree```, ```Gmail SMTP```, ```WebSocket```, ```Daum 주소 검색 API```,```JDBC```
 Diagram | ```ERDCloud```
