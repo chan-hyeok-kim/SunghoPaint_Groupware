@@ -169,13 +169,13 @@ Diagram | ```ERDCloud```
 ![machine](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/150bb353-f3c2-4b76-8766-f0f117d11f57)
 * 페인트 및 도료 생산에 사용하는 기기 관리
 * 고장 시 수리 요청서를 쓰기 위해 결재 페이지로 이동
-* 등록 시 이름 찍히지 않는 문제점 보완할 예정
+* 등록 시 이름 입력 폼 없는 문제점 보완할 예정
 
 #### 7-2.품목 관리
 ![material](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/0e131921-5ab4-4f05-9980-daaff7834d4c)
 * 페인트 제조와 관련된 원료와 제품 관리
 * 원료는 입고가, 제품은 출고가만 표시
-* 등록 시 이름 찍히지 않는 문제점 보완할 예정
+* 등록 시 이름 입력 폼 없는는 문제점 보완할 예정
 
 ### 8. 구매관리
 ![purchase](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/ea50e857-c99e-4611-8dc7-15326817fefc)
