@@ -66,3 +66,24 @@ API | ```JavaMail API```, ```Apache Commons FileUpload```, ```Fullcalendar```, `
 Diagram | ```ERDCloud```
 
 ## <a id="function-implementation">기능 구현</a>
+### 1. 일반 사원
+#### 1-1.로그인
+
+
+
+
+* 로그인
+* 회사에서 인사 등록을 하면 발령 등록이 되고 사번과 비밀번호가 발급된다
+
+#### 1-2.메인 페이지
+
+
+
+
+
+
+![로그인](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/ab4d2492-f672-4543-bb80-b237cc4a5f28)
+
+
+
+
