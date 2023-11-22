@@ -1,13 +1,13 @@
 ## 🏭 페인트제조회사_그룹웨어
 
 ## :open_file_folder: 목차
-* 프로젝트 개요
-* 내 담당 역할
-* 팀원 역할
+* <a href="#project-outline">프로젝트 개요</a>
+* <a href="#my-role">내 담당 역할</a>
+* <a href="#team-role">팀원 역할</a>
 * <a href="#development-configuration">개발 환경 및 도구</a>
-* 기능 구현
+* <a href="#function-implementation">기능 구현</a>
 
-## :date: 프로젝트 개요
+## :date: <a id="project-outline">프로젝트 개요</a>
 <p>
 
  ![logo-clear](https://github.com/chan-hyeok-kim/GDJ68_FinalProject/assets/132668682/a1857600-4f7d-49d3-9a61-ea070618dd08)
@@ -22,11 +22,11 @@
 ><p><strong>사용 기술</strong>: SPRING BOOT</p>
 ><p><strong>문의</strong>: daiolous@gmail.com</p>
 
-## 🏃 내 담당 기능
+## 🏃 <a id="my-role">내 담당 기능</a>
 ><p><strong>팀장</strong>: 김찬혁(나)</p>
 > - 메인 페이지, 전자결재, 결재선 관리(zTree API), 서명 등록(signature_pad로 생성 & 다운로드-base64인코딩), 실시간 알림(WebSocket), PDF다운로드(iText7 API), 공지사항(파일 업로드), 코드 관리, 문서양식함 관리, 주간 제품 생산량 현황(ChartAPI)
 
-## :speech_balloon: 팀원 역할
+## :speech_balloon: <a id="team-role">팀원 역할</a>
 ><p><strong>팀원</strong>: 김민진</p>
 > - 로그인, 근태 관리, 인사 관리, 발령 관리, 관리자, 주소록 화면(엑셀 다운로드-POI), 내 인사정보 사진(base64인코딩), 인사 등록(DAUM주소 API), 비밀번호 찾기(Gmail SMTP)
 
@@ -65,4 +65,4 @@ Category| Detail
 API | ```JavaMail API```, ```Apache Commons FileUpload```, ```Fullcalendar```, ```iText7```, ```zTree```, ```Gmail SMTP```, ```WebSocket```, ```Daum 주소 검색 API```,```JDBC```,```Chart API```
 Diagram | ```ERDCloud```
 
-## 기능 구현
+## <a id="function-implementation">기능 구현</a>
