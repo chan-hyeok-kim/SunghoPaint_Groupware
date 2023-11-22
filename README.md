@@ -23,7 +23,7 @@
 
 ## 🏃 내 담당 기능
 ><p><strong>팀장</strong>: 김찬혁(나)</p>
-> 메인 페이지, 전자결재, 결재선 관리(zTree API), 서명 등록(생성 & 다운로드-base64인코딩, signature_pad), 실시간 알림(WebSocket), PDF다운로드(iText7 API), 공지사항(파일 업로드), 코드 관리, 문서양식함 관리 
+> 메인 페이지, 전자결재, 결재선 관리(zTree API), 서명 등록(signature_pad로 생성 & 다운로드-base64인코딩), 실시간 알림(WebSocket), PDF다운로드(iText7 API), 공지사항(파일 업로드), 코드 관리, 문서양식함 관리 
 
 ## :speech_balloon: 팀원 역할
 ><p><strong>팀원</strong>: 장재혁</p>
