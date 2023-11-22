@@ -104,7 +104,8 @@ Diagram | ```ERDCloud```
 #### 3-1.결재 리스트
 ![approvalList](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/410d166d-f119-40c5-a9ee-bfa963868f75)
 * 현재 로그인한 사원이 서명이 없을 경우, 기안서 확인 또는 결재 작성을 하는 버튼을 클릭하면 서명 모달이 자동으로 뜸
-* signature_pad라이브러리를 적용한 캔버스에 서명을 그리고 jpg나 png로 다운받을 수도 있으며, 등록 버튼을 누르면 내 정보에 자동 등록.(base64인코딩)
+* 캔버스에 서명을 그려 생성한 후 jpg나 png로 다운받을 수도 있으며(signature_pad), 등록 버튼을 누르면 내 정보에 자동 등록.(base64인코딩)
+* 전체, 진행중, 반려, 승인완료 탭으로 나눠 분류.
   
 #### 3-2.기안서 작성
 ![approvalAdd](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/c836cdf0-677c-411e-864f-8639c6a379ec)
