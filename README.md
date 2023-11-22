@@ -72,16 +72,19 @@ Diagram | ```ERDCloud```
 ![login](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/defcc0fa-881e-4a56-a3e5-c2046d37d93e)
 
 
-* 로그인
-* 회사에서 인사 등록을 하면 발령 등록이 되고 사번과 비밀번호가 발급된다
+* 회사에서 인사 등록을 하면 발령 등록이 되고 사번과 비밀번호가 발급.
+* 따라서 회원가입은 없음.
 
 #### 1-2.메인 페이지
 
 ![mainpage](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/f5a76639-4bf9-4030-829a-10abe6407849)
 
 
-* 메인페이지
-* 
+* 사이드 바에서 출근 및 퇴근이 가능.
+* 상단 바에서는 실시간 알림 확인, Todolist를 적거나 수정 삭제.
+* Full-Calendar API 캘린더에서 일정 확인이 가능하며 일정을 등록 가능.
+* 상단바 밑의 버튼을 클릭하면 스크롤 바를 내리지 않고도 필요한 정보를 신속하게 확인할 수 있음.
+* Chart API를 활용하여 주간 제품 생산량 표시
 
 
 
