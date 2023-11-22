@@ -66,7 +66,8 @@ API | ```JavaMail API```, ```Apache Commons FileUpload```, ```Fullcalendar```, `
 Diagram | ```ERDCloud```
 
 ## <a id="function-implementation">기능 구현</a>
-### 1. 시작
+### 1.접속
+
 #### 1-1.로그인(인사 등록부터 시작하기 때문에 영상이 좀 깁니다.)
 
 ![login](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/fb3b37f0-9b0e-4083-a9e0-fbe87ef784dd)
@@ -86,6 +87,7 @@ Diagram | ```ERDCloud```
 * Chart API를 활용하여 주간 제품 생산량 표시
 
 ### 2.인사관리
+
 #### 2-1.근태관리
 ![attendance](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/5c5ff8b0-a93e-4f73-867f-009e5d4b9e69)
 * 월마다 누적, 연장 근무 시간 확인 가능 
@@ -98,11 +100,36 @@ Diagram | ```ERDCloud```
 * 발생 연차, 총 연차, 사용 연차, 잔여 연차 확인 가능
 
 ### 3.전자결재
+
 #### 3-1.결재 리스트
 ![approvalList](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/410d166d-f119-40c5-a9ee-bfa963868f75)
 * 현재 로그인한 사원이 서명이 없을 경우, 기안서 확인 또는 결재 작성을 하는 버튼을 클릭하면 서명 모달이 자동으로 뜸
 * signature_pad라이브러리를 적용한 캔버스에 서명을 그리고 jpg나 png로 다운받을 수도 있으며, 등록 버튼을 누르면 내 정보에 자동 등록.(base64인코딩)
   
-#### 1-6.결재 
-  
+#### 3-2.기안서 작성
+![approvalAdd](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/c836cdf0-677c-411e-864f-8639c6a379ec)
+* 트리 구조로 된 결재선(zTree API)으로 결재라인 등록
+* 결재양식 미리볼 수 있음.
+
+#### 3-3.반려
+![approvalReject](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/b34c34f5-98fb-4d41-b1ed-24ba1fd13c25)
+* 반려 시에만 첨언 작성이 가능.
+* 반려된 기안서는 다음 결재자들에게 보이지 않으며, 반려한 사람과 반려된 사람에게만 보임.
+
+#### 3-4.승인
+![approvalOK](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/c7e0267a-5295-43e2-bea5-809cd00ae5e6)
+
+#### 3-5.
+
+
+### 4. 예약 
+#### 4-1.
+
+
+
+
+
+
+
+
 
