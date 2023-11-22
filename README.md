@@ -70,8 +70,6 @@ Diagram | ```ERDCloud```
 #### 1-1.로그인
 
 
-![로그인](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/ab4d2492-f672-4543-bb80-b237cc4a5f28)
-
 
 
 * 로그인
@@ -80,6 +78,11 @@ Diagram | ```ERDCloud```
 #### 1-2.메인 페이지
 
 
+
+
+
+
+![로그인](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/ab4d2492-f672-4543-bb80-b237cc4a5f28)
 
 
 
