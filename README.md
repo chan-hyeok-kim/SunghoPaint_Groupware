@@ -70,6 +70,7 @@ Diagram | ```ERDCloud```
 #### 1-1.로그인
 
 
+![로그인](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/015f9301-15f7-4271-a773-3880b1a19db0)
 
 
 * 로그인
