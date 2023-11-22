@@ -67,7 +67,7 @@ Diagram | ```ERDCloud```
 
 ## <a id="function-implementation">기능 구현</a>
 ### 1. 일반 사원
-#### 1-1.로그인
+#### 1-1.로그인(인사 등록부터 시작하기 때문에 영상이 좀 깁니다.)
 
 ![login](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/fb3b37f0-9b0e-4083-a9e0-fbe87ef784dd)
 
@@ -80,12 +80,12 @@ Diagram | ```ERDCloud```
 ![mainpage](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/f5a76639-4bf9-4030-829a-10abe6407849)
 
 
-* 사이드 바에서 출근 및 퇴근이 가능.
-* 상단 바에서는 실시간 알림 확인, Todolist를 적거나 수정 삭제.
+* 사이드바에서 출근 및 퇴근이 가능.
+* 상단바에서는 실시간 알림 확인, Todolist를 적거나 수정 삭제.
 * Full-Calendar API 캘린더에서 일정 확인이 가능하며 일정을 등록 가능.
 * 상단바 밑의 버튼을 클릭하면 스크롤 바를 내리지 않고도 필요한 정보를 신속하게 확인할 수 있음.
 * Chart API를 활용하여 주간 제품 생산량 표시
 
-
+#### 1-3.
 
 
