@@ -30,7 +30,7 @@
 > - 로그인, 근태 관리, 인사 관리, 발령 관리, 관리자, 주소록 화면(엑셀 다운로드-POI), 내 인사정보 페이지(base64인코딩), 인사 등록(DAUM주소 API), 비밀번호 찾기(Gmail SMTP)
 
 ><p><strong>팀원</strong>: 김성호</p>
-> - 예약 관리(FullCalendar API), 부서별 일정 관리(FullCalendar API), 차량 관리, 거래처 관리, 거래처 등록(DAUM주소 API)
+> - 예약 관리(FullCalendar API), 부서별 일정 관리(FullCalendar API), 차량 관리, 거래처 관리, 거래처 등록(DAUM주소 API), 거래내역 출력(엑셀 다운로드-POI)
 
 ><p><strong>팀원</strong>: 김호진</p>
 > - 기기 관리,품목 관리, 공장/창고 관리
