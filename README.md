@@ -23,20 +23,20 @@
 
 ## 🏃 내 담당 기능
 ><p><strong>팀장</strong>: 김찬혁(나)</p>
-->  메인 페이지, 전자결재, 결재선 관리(zTree API), 서명 등록(signature_pad로 생성 & 다운로드-base64인코딩), 실시간 알림(WebSocket), PDF다운로드(iText7 API), 공지사항(파일 업로드), 코드 관리, 문서양식함 관리 
+> - 메인 페이지, 전자결재, 결재선 관리(zTree API), 서명 등록(signature_pad로 생성 & 다운로드-base64인코딩), 실시간 알림(WebSocket), PDF다운로드(iText7 API), 공지사항(파일 업로드), 코드 관리, 문서양식함 관리 
 
 ## :speech_balloon: 팀원 역할
 ><p><strong>팀원</strong>: 김민진</p>
->로그인, 근태 관리, 인사 관리, 발령 관리, 관리자, 주소록 화면(엑셀 다운로드-POI), 내 인사정보 페이지(base64인코딩), 인사 등록(DAUM주소 API, Gmail SMTP)
+> - 로그인, 근태 관리, 인사 관리, 발령 관리, 관리자, 주소록 화면(엑셀 다운로드-POI), 내 인사정보 페이지(base64인코딩), 인사 등록(DAUM주소 API), 비밀번호 찾기(Gmail SMTP)
 
 ><p><strong>팀원</strong>: 김성호</p>
->예약 관리(FullCalendar API), 부서별 일정 관리(FullCalendar API), 차량 관리, 거래처 관리, 거래처 등록(DAUM주소 API)
+> - 예약 관리(FullCalendar API), 부서별 일정 관리(FullCalendar API), 차량 관리, 거래처 관리, 거래처 등록(DAUM주소 API)
 
 ><p><strong>팀원</strong>: 김호진</p>
->기기 관리,품목 관리, 공장/창고 관리
+> - 기기 관리,품목 관리, 공장/창고 관리
 
 ><p><strong>팀원</strong>: 장재혁</p>
->구매 관리
+> - 구매 관리
 
 
 ## :computer: 개발 환경
