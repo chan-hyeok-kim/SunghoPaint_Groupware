@@ -69,8 +69,7 @@ Diagram | ```ERDCloud```
 ### 1. 일반 사원
 #### 1-1.로그인
 
-
-![로그인](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/015f9301-15f7-4271-a773-3880b1a19db0)
+![login](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/defcc0fa-881e-4a56-a3e5-c2046d37d93e)
 
 
 * 로그인
@@ -78,12 +77,11 @@ Diagram | ```ERDCloud```
 
 #### 1-2.메인 페이지
 
+![mainpage](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/f5a76639-4bf9-4030-829a-10abe6407849)
 
 
-
-
-
-![로그인](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/ab4d2492-f672-4543-bb80-b237cc4a5f28)
+* 메인페이지
+* 
 
 
 
