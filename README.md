@@ -22,7 +22,7 @@
 ><p><strong>문의</strong>: daiolous@gmail.com</p>
 
 ## 🏃 내 담당 기능
-><p><strong>팀장</strong>: <strong>김찬혁(나)</p>
+><p><strong>팀장</strong>: 김찬혁(나)</p>
 > 메인 페이지, 결재, 서명 등록(생성 & 다운로드), 실시간 알림, PDF다운로드, 공지사항, 코드 관리, 문서양식함 관리 
 
 ## :speech_balloon: 팀원 역할
