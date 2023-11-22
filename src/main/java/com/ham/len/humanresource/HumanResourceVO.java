@@ -41,7 +41,7 @@ public class HumanResourceVO extends CodeVO implements UserDetails {
 	@NotNull(message = "'근속연수'를 선택해주세요.")
 	private Integer yearsOfService;
 	private String extensionNumber;
-	@Pattern(regexp = "^(?:(010\\d{4}))(\\d{4})$", message = "올바르지 않은 '휴대폰 번호'입니다.")
+	@Pattern(regexp = "^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$", message = "올바르지 않은 '휴대폰 번호'입니다.")
 	private String phone;
 	private String mainNumber;
 	@Pattern(regexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", message = "올바르지 않은 '이메일'입니다.")
