@@ -69,11 +69,11 @@ Diagram | ```ERDCloud```
 ### 1. 일반 사원
 #### 1-1.로그인
 
-![login](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/defcc0fa-881e-4a56-a3e5-c2046d37d93e)
+![login](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/fb3b37f0-9b0e-4083-a9e0-fbe87ef784dd)
 
 
-* 회사에서 인사 등록을 하면 발령 등록이 되고 사번과 비밀번호가 발급.
-* 따라서 회원가입은 없음.
+* 먼저, 회사에서 인사 등록을 해야 사번과 임시 비밀번호가 이메일로 발급(gmail SMTP).
+* 따라서 회원가입은 없으며 최초 로그인 시, 비밀번호를 변경해야 한다.
 
 #### 1-2.메인 페이지
 
