@@ -66,11 +66,10 @@ API | ```JavaMail API```, ```Apache Commons FileUpload```, ```Fullcalendar```, `
 Diagram | ```ERDCloud```
 
 ## <a id="function-implementation">기능 구현</a>
-### 1. 일반 사원
+### 1. 시작
 #### 1-1.로그인(인사 등록부터 시작하기 때문에 영상이 좀 깁니다.)
 
 ![login](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/fb3b37f0-9b0e-4083-a9e0-fbe87ef784dd)
-
 
 * 먼저, 회사에서 인사 등록을 해야 사번과 임시 비밀번호가 이메일로 발급(gmail SMTP).
 * 따라서 회원가입은 없으며 최초 로그인 시, 비밀번호를 변경해야 한다.
@@ -86,6 +85,24 @@ Diagram | ```ERDCloud```
 * 상단바 밑의 버튼을 클릭하면 스크롤 바를 내리지 않고도 필요한 정보를 신속하게 확인할 수 있음.
 * Chart API를 활용하여 주간 제품 생산량 표시
 
-#### 1-3.
+### 2.인사관리
+#### 2-1.근태관리
+![attendance](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/5c5ff8b0-a93e-4f73-867f-009e5d4b9e69)
+* 월마다 누적, 연장 근무 시간 확인 가능 
+* 주마다 누적 근무 시간, 초과 근무 시간, 잔여 근무 시간을 확인 가능. 
+* 날마다 업무 시작 시간, 종료 시간, 초과 근무, 누적 근무 시간 확인 가능.
 
+#### 2-2.내 인사정보 & 연차 현황
+![mypage](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/eed0b629-263f-4282-ae9f-c888ac487840)
+* 자신의 인사등록된 정보를 확인할 수 있고,
+* 발생 연차, 총 연차, 사용 연차, 잔여 연차 확인 가능
+
+### 3.전자결재
+#### 3-1.결재 리스트
+![approvalList](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/410d166d-f119-40c5-a9ee-bfa963868f75)
+* 현재 로그인한 사원이 서명이 없을 경우, 기안서 확인 또는 결재 작성을 하는 버튼을 클릭하면 서명 모달이 자동으로 뜸
+* signature_pad라이브러리를 적용한 캔버스에 서명을 그리고 jpg나 png로 다운받을 수도 있으며, 등록 버튼을 누르면 내 정보에 자동 등록.(base64인코딩)
+  
+#### 1-6.결재 
+  
 
