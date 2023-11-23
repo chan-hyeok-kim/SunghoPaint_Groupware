@@ -1,14 +1,52 @@
 ## 🏭 페인트제조회사_그룹웨어
 
 ## :open_file_folder: 목차
-* <a href="#project-outline">프로젝트 개요</a>
-* <a href="#my-role">내 담당 기능</a>
-* <a href="#team-role">팀원 역할</a>
-* <a href="#development-configuration">개발 환경 및 도구</a>
-* <a href="#function-implementation">기능 구현</a>
-       
-  
-       
+<ul>
+<li> <a href="#project-outline">프로젝트 개요</a></li>
+<li> <a href="#my-role">내 담당 기능</a></li>
+<li> <a href="#team-role">팀원 역할</a></li>
+<li> <a href="#development-configuration">개발 환경 및 도구</a></li>
+<li> <a href="#function-implementation">기능 구현</a></li>
+       <details>
+<summary>접기/펼치기</summary>
+    
+     1. 접속
+           1-1.로그인
+           1-2.메인 페이지
+     2. 인사관리
+           2-1.근태관리
+           2-2.내 인사정보 & 연차 현황
+     3. 전자결재
+           3-1.결재 리스트
+           3-2.기안서 작성
+           3-3.반려
+           3-4.승인
+           3-5.통합 관리
+     4. 예약
+           4-1.차량 예약
+           4-2.차량 예약 캘린더
+           4-3.대여 현황
+           4-4.차량 관리
+     5. 영업
+           5-1.거래처 관리
+           5-2.거래내역
+     6. 일정 관리
+     7. 자산
+           7-1.기기 관리
+           7-2.품목 관리
+     8. 구매관리
+     9. 관리자
+           9-1.공지사항
+           9-2.코드 관리
+           9-3.문서양식함
+           9-4.인사 조회
+           9-5.발령 등록
+           9-6.근태 현황
+           9-7.연차 현황
+   </details>       
+</ul>
+
+
 ## :date: <a id="project-outline">프로젝트 개요</a>
 <p>
 
