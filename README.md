@@ -120,7 +120,7 @@ Diagram | ```ERDCloud```
 ![mainpage](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/f5a76639-4bf9-4030-829a-10abe6407849)
 
 
-* 사이드바에서 출근 및 퇴근이 가능
+* 왼쪽 사이드바에서 출근 및 퇴근이 가능
 * 상단바에서는 실시간 알림 확인, Todolist를 적거나 수정 삭제
 * Full-Calendar API 캘린더에서 일정 확인이 가능하며 일정을 등록 가능
 * 상단바 밑, 4개의 ✓ 버튼들을 클릭하면 스크롤 바를 내리지 않고도 필요한 정보를 신속하게 확인할 수 있음
