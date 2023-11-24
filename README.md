@@ -150,7 +150,7 @@ Diagram | ```ERDCloud```
 #### 3-2.기안서 작성
 ![approvalAdd](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/c836cdf0-677c-411e-864f-8639c6a379ec)
 * 트리 구조로 된 결재선(zTree API)으로 결재라인 등록
-* 결재양식 미리볼 수 있음
+* 모달 창에서 결재양식 미리볼 수 있음
 
 #### 3-3.반려
 ![approvalReject](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/b34c34f5-98fb-4d41-b1ed-24ba1fd13c25)
