@@ -105,7 +105,7 @@ Category| Detail
 API | ```JavaMail API```, ```Apache Commons FileUpload```, ```Fullcalendar```, ```iText7```, ```zTree```, ```Gmail SMTP```, ```WebSocket```, ```Daum 주소 검색 API```,```JDBC```,```Chart API```
 Diagram | ```ERDCloud```
 
-## <a id="function-implementation">기능 구현</a>
+## :rocket: <a id="function-implementation">기능 구현</a>
 ### 1.접속
 
 #### 1-1.로그인(인사 등록부터 시작하기 때문에 영상이 좀 깁니다.)
