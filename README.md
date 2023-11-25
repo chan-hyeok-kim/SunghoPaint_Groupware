@@ -4,7 +4,7 @@
 <ul>
 <li> <a href="#project-outline">프로젝트 개요</a></li>
 <li> <a href="#my-role">내 담당 기능</a></li>
-<li> <a href="#team-role">팀원 역할</a></li>
+<li> <a href="#team-role">팀원 소개</a></li>
 <li> <a href="#development-configuration">개발 환경 및 도구</a></li>
 <li> <a href="#function-implementation">기능 구현</a></li>
        <details>
@@ -66,7 +66,7 @@
 ><p><strong>팀장</strong>: 김찬혁(나)</p>
 > - 메인 페이지, 전자결재, 결재선 관리(zTree API), 서명 등록(signature_pad로 생성 & 다운로드-base64인코딩), 실시간 알림(WebSocket), PDF다운로드(iText7 API), 공지사항(파일 업로드), 코드 관리, 문서양식함 관리, 주간 제품 생산량 현황(ChartAPI)
 
-## :speech_balloon: <a id="team-role">팀원 역할</a>
+## :speech_balloon: <a id="team-role">팀원 소개</a>
 ><p><strong>팀원</strong>: 김민진</p>
 > - 로그인, 근태 관리, 인사 관리, 발령 관리, 관리자, 주소록 화면(엑셀 다운로드-POI), 내 인사정보 사진(base64인코딩), 인사 등록(DAUM주소 API), 비밀번호 찾기(Gmail SMTP)
 
