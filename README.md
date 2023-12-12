@@ -66,6 +66,9 @@
 ><p><strong>팀장</strong>: 김찬혁</p>
 > - 메인 페이지, 전자결재, 결재선 관리(zTree API), 서명 등록(signature_pad로 생성 & 다운로드-base64인코딩), 실시간 알림(WebSocket), PDF다운로드(iText7 API), 공지사항(파일 업로드), 코드 관리, 문서양식함 관리, 주간 제품 생산량 현황(ChartAPI)
 
+![Sequence](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/406b64db-9320-4a60-a58c-a8c327f5b46e)
+
+
 ## :speech_balloon: <a id="team-role">팀원 소개</a>
 ><p><strong>팀원</strong>: 김민진</p>
 > - 로그인, 근태 관리, 인사 관리, 발령 관리, 관리자, 주소록 화면(엑셀 다운로드-POI), 내 인사정보 사진(base64인코딩), 인사 등록(DAUM주소 API), 비밀번호 찾기(Gmail SMTP)
