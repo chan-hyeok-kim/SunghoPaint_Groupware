@@ -46,6 +46,7 @@
    </details>       
 </ul>
 
+![ERP1 drawio](https://github.com/chan-hyeok-kim/SunghoPaint_Groupware/assets/132668682/633d27be-f586-4625-ab6d-ea7c5be532d7)
 
 ## :date: <a id="project-outline">프로젝트 개요</a>
 <p>
@@ -61,6 +62,8 @@
 ><p><strong>배포일</strong>: 2023.11.22</p>
 ><p><strong>사용 기술</strong>: SPRING BOOT</p>
 ><p><strong>문의</strong>: daiolous@gmail.com</p>
+
+
 
 ## 🏃 <a id="my-role">내 담당 기능</a>
 ><p><strong>팀장</strong>: 김찬혁</p>
